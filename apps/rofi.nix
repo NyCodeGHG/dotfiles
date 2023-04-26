@@ -5,7 +5,7 @@
 }: let
   rofiConfig = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/catppuccin/rofi/5350da41a11814f950c3354f090b90d4674a95ce/basic/.local/share/rofi/themes/catppuccin-mocha.rasi";
-    sha256 = "sha256:c6d86cfe99c2e962a9dd3c1cd62a8dca3c737a9f82459338edc0a300fa434f10";
+    sha256 = "042g8gx018y0xlw96ic2kxx76g6ailmdc71wvnln5sf2k7z6rn66";
   };
 in {
   xdg.dataFile."rofi/themes/catppuccin-mocha.rasi".source = rofiConfig;
