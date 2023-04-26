@@ -63,4 +63,7 @@
       # [last_run]
     '';
   };
+  systemd.services.rust-motd = {
+    path = with pkgs; [ figlet hostname ];
+  };
 }
