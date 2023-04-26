@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  self,
   ...
 }: let
   filterNixFiles = k: v: v == "regular" && k != "default.nix" && lib.hasSuffix ".nix" k;

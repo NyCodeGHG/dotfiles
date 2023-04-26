@@ -3,11 +3,15 @@
   pkgs,
   inputs,
   ...
-}: {
+}: 
+let
+  fonts = import ./fonts.nix { inherit pkgs; };
+in {
   users.users.marie = {
     isNormalUser = true;
     extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [];
+    shell = pkgs.zsh;
   };
 
   home-manager.users.marie = {
@@ -27,21 +31,13 @@
   };
 
   fonts = {
-    fonts = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      (nerdfonts.override {fonts = ["JetBrainsMono" "Iosevka"];})
-    ];
+    fonts = fonts.packages;     
     fontconfig = {
       defaultFonts = {
-        monospace = [
-          "Iosevka Nerd Font"
-          "Noto Color Emoji"
-        ];
-        sansSerif = ["Noto Sans" "Noto Color Emoji"];
-        serif = ["Noto Serif" "Noto Color Emoji"];
-        emoji = ["Noto Color Emoji"];
+        monospace = fonts.monospace ++ fonts.emoji; 
+        sansSerif = fonts.sansSerif ++ fonts.emoji; 
+        serif = fonts.serif ++ fonts.emoji;
+        emoji = fonts.emoji;
       };
     };
   };
