@@ -3,9 +3,8 @@
   pkgs,
   inputs,
   ...
-}: 
-let
-  fonts = import ./fonts.nix { inherit pkgs; };
+}: let
+  fonts = import ./fonts.nix {inherit pkgs;};
 in {
   users.users.marie = {
     isNormalUser = true;
@@ -31,11 +30,11 @@ in {
   };
 
   fonts = {
-    fonts = fonts.packages;     
+    fonts = fonts.packages;
     fontconfig = {
       defaultFonts = {
-        monospace = fonts.monospace ++ fonts.emoji; 
-        sansSerif = fonts.sansSerif ++ fonts.emoji; 
+        monospace = fonts.monospace ++ fonts.emoji;
+        sansSerif = fonts.sansSerif ++ fonts.emoji;
         serif = fonts.serif ++ fonts.emoji;
         emoji = fonts.emoji;
       };

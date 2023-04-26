@@ -7,6 +7,7 @@
     # Include the results of the hardware scan.
     ./catcafe-hardware.nix
     ./marie.nix
+    ./misc/motd.nix
   ];
 
   # Bootloader.

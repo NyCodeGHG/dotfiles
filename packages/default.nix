@@ -10,5 +10,13 @@
     neofetch
     hyfetch
     just
+
+    # Programming Languages
+    rustup
+
+    # General Tools
+    whois
+    file
+    dogdns
   ];
 }

@@ -1,6 +1,9 @@
-{ pkgs, config, lib, ... }:
-
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -10,12 +13,17 @@
     shellAliases = {
       lg = "lazygit";
       cat = "bat $@";
+      dig = "dog $@";
     };
-    
+    # Enjoy the Terminal Silence
+    initExtra = ''
+      unsetopt BEEP
+    '';
+
     plugins = [
       {
-	name = "zsh-completions";
-	src = pkgs.zsh-completions;
+        name = "zsh-completions";
+        src = pkgs.zsh-completions;
       }
       {
         name = "catppuccin-zsh-syntax-hightlighting";
