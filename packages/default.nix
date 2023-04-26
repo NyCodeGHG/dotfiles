@@ -9,5 +9,6 @@
     libsForQt5.ark
     neofetch
     hyfetch
+    just
   ];
 }
