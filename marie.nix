@@ -1,12 +1,15 @@
-{ config, pkgs, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   users.users.marie = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [];
   };
-  
+
   home-manager.users.marie = {
     home = {
       inherit (config.system) stateVersion;
@@ -14,8 +17,8 @@
       homeDirectory = "/home/marie";
     };
 
-    _module.args = { inherit inputs; };
-    
+    _module.args = {inherit inputs;};
+
     imports = [
       inputs.hyprland.homeManagerModules.default
       ./apps
@@ -28,7 +31,7 @@
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
-      (nerdfonts.override { fonts = ["JetBrainsMono" "Iosevka"]; })
+      (nerdfonts.override {fonts = ["JetBrainsMono" "Iosevka"];})
     ];
     fontconfig = {
       defaultFonts = {

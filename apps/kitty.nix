@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.kitty = {
     enable = true;
     theme = "Catppuccin-Mocha";
