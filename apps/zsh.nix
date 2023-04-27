@@ -14,6 +14,7 @@
       lg = "lazygit";
       cat = "bat $@";
       dig = "dog $@";
+      neofetch = "neowofetch";
     };
     # Enjoy the Terminal Silence
     initExtra = ''

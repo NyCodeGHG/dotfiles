@@ -7,8 +7,6 @@
   home.packages = with pkgs; [
     bitwarden
     libsForQt5.ark
-    neofetch
-    hyfetch
     just
 
     # Programming Languages
@@ -18,5 +16,8 @@
     whois
     file
     dogdns
+    xdg-utils
+    brightnessctl
+    wl-clipboard
   ];
 }

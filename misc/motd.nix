@@ -4,7 +4,6 @@
   lib,
   ...
 }: {
-  environment.systemPackages = with pkgs; [figlet];
   programs.rust-motd = {
     enable = true;
     refreshInterval = "*:0/5"; # Every 5 minutes starting from minute 0.
@@ -22,7 +21,6 @@
 
       [weather]
       url = "https://wttr.in/"
-      user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
 
       # [service_status]
       # Accounts = "accounts-daemon"
@@ -64,6 +62,9 @@
     '';
   };
   systemd.services.rust-motd = {
-    path = with pkgs; [ figlet hostname ];
+    path = with pkgs; [figlet hostname openssl];
+    serviceConfig = {
+      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
+    };
   };
 }
