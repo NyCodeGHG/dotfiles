@@ -32,5 +32,6 @@
     ripgrep
     just
     update-nix-fetchgit
+    asciinema
   ];
 }
