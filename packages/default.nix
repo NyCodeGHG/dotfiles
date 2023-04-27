@@ -11,6 +11,17 @@
 
     # Programming Languages
     rustup
+    gcc
+
+    # Formatters
+    stylua
+
+    # Language Servers
+    lua-language-server
+    nil
+    rust-analyzer
+    nodePackages.typescript-language-server
+    nodePackages.vscode-json-languageserver
 
     # General Tools
     whois
@@ -19,5 +30,6 @@
     xdg-utils
     brightnessctl
     wl-clipboard
+    ripgrep
   ];
 }

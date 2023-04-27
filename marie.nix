@@ -9,7 +9,7 @@ in {
   users.users.marie = {
     isNormalUser = true;
     extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [];
+    packages = [];
     shell = pkgs.zsh;
   };
 
