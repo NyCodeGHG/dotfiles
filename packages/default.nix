@@ -7,7 +7,6 @@
   home.packages = with pkgs; [
     bitwarden
     libsForQt5.ark
-    just
 
     # Programming Languages
     rustup
@@ -31,5 +30,7 @@
     brightnessctl
     wl-clipboard
     ripgrep
+    just
+    update-nix-fetchgit
   ];
 }

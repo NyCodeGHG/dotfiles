@@ -31,8 +31,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "catppuccin";
           repo = "zsh-syntax-highlighting";
-          rev = "dbb1ec93b30dbe8cd728cffe0974aa7fa1ac3298";
-          sha256 = "0B7g0J6+ZCoe1eErsSEmqO0aNOBi+FB+///vXnuiels=";
+          rev = "06d519c20798f0ebe275fc3a8101841faaeee8ea";
+          sha256 = "1yj916klvzpvwghii7m6qx2ya3p2kx25nydymilvjzbx8z0sdcj3";
         };
         file = "themes/catppuccin_mocha-zsh-syntax-highlighting.zsh";
       }
@@ -45,6 +45,10 @@
         name = "zsh-nix-shell";
         file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
         src = pkgs.zsh-nix-shell;
+      }
+      {
+        name = "zsh-vi-mode";
+        src = pkgs.zsh-vi-mode;
       }
     ];
   };
