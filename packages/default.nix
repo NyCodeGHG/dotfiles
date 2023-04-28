@@ -33,8 +33,6 @@
     just
     update-nix-fetchgit
     asciinema
-
-    # Gaming
-    steam
+    xdg-user-dirs
   ];
 }

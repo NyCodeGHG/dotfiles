@@ -40,4 +40,6 @@ in {
       };
     };
   };
+
+  programs.steam.enable = true;
 }
