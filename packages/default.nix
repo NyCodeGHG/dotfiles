@@ -33,5 +33,8 @@
     just
     update-nix-fetchgit
     asciinema
+
+    # Gaming
+    steam
   ];
 }
