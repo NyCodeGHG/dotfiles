@@ -11,6 +11,8 @@
     # Programming Languages
     rustup
     gcc
+    cmake
+    gnumake
 
     # Formatters
     stylua
@@ -21,6 +23,7 @@
     rust-analyzer
     nodePackages.typescript-language-server
     nodePackages.vscode-json-languageserver
+    taplo
 
     # General Tools
     whois
@@ -34,5 +37,8 @@
     update-nix-fetchgit
     asciinema
     xdg-user-dirs
+    magic-wormhole
+    steamcmd
+    steam-run
   ];
 }
