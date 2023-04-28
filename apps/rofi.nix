@@ -32,4 +32,13 @@ in {
       sidebar-mode = true;
     };
   };
+
+  # rofi-rbw
+  home.packages = with pkgs; [rofi-rbw wtype]; # wtype needed for typing in wayland
+  programs.rbw = {
+    enable = true;
+    settings = {
+      email = "tabmeier12@gmail.com";
+    };
+  };
 }
