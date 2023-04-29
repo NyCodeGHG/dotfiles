@@ -1,5 +1,6 @@
 { config
 , pkgs
+, inputs
 , ...
 }: {
   imports = [
@@ -100,6 +101,9 @@
     trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     experimental-features = [ "nix-command" "flakes" ];
   };
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  nix.nixPath = [ "nixpkgs=/etc/channels/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ];
+  environment.etc."channels/nixpkgs".source = inputs.nixpkgs.outPath;
 
   security.rtkit.enable = true;
   services.pipewire = {
