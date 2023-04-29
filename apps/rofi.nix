@@ -1,21 +1,22 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
+{ pkgs
+, config
+, ...
+}:
+let
   rofiConfig = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/catppuccin/rofi/5350da41a11814f950c3354f090b90d4674a95ce/basic/.local/share/rofi/themes/catppuccin-mocha.rasi";
     sha256 = "042g8gx018y0xlw96ic2kxx76g6ailmdc71wvnln5sf2k7z6rn66";
   };
-in {
+in
+{
   xdg.dataFile."rofi/themes/catppuccin-mocha.rasi".source = rofiConfig;
   programs.rofi = {
     enable = true;
     theme = "catppuccin-mocha";
-    plugins = with pkgs; [rofi-calc];
+    plugins = with pkgs; [ rofi-calc ];
     package =
       pkgs.rofi-wayland.overrideAttrs
-      (oldAttrs: {mesonFlags = ["-Dxcb=disabled"];});
+        (oldAttrs: { mesonFlags = [ "-Dxcb=disabled" ]; });
     extraConfig = {
       modi = "drun";
       icon-theme = "Oranchelo";
@@ -34,7 +35,7 @@ in {
   };
 
   # rofi-rbw
-  home.packages = with pkgs; [rofi-rbw wtype]; # wtype needed for typing in wayland
+  home.packages = with pkgs; [ rofi-rbw wtype ]; # wtype needed for typing in wayland
   programs.rbw = {
     enable = true;
     settings = {

@@ -1,15 +1,16 @@
+{ config
+, pkgs
+, inputs
+, ...
+}:
+let
+  fonts = import ./fonts.nix { inherit pkgs; };
+in
 {
-  config,
-  pkgs,
-  inputs,
-  ...
-}: let
-  fonts = import ./fonts.nix {inherit pkgs;};
-in {
   users.users.marie = {
     isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel"];
-    packages = [];
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = [ ];
     shell = pkgs.zsh;
   };
 
@@ -20,7 +21,7 @@ in {
       homeDirectory = "/home/marie";
     };
 
-    _module.args = {inherit inputs;};
+    _module.args = { inherit inputs; };
 
     imports = [
       inputs.hyprland.homeManagerModules.default

@@ -1,8 +1,7 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
+{ pkgs
+, config
+, lib
+, ...
 }: {
   programs.rust-motd = {
     enable = true;
@@ -34,9 +33,9 @@
     };
   };
   systemd.services.rust-motd = {
-    path = with pkgs; [figlet hostname openssl];
+    path = with pkgs; [ figlet hostname openssl ];
     serviceConfig = {
-      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6"];
+      RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
     };
   };
 }

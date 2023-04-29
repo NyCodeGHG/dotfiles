@@ -1,11 +1,12 @@
+{ config
+, pkgs
+, options
+, ...
+}:
+let
+  fonts = import ../fonts.nix { inherit pkgs; };
+in
 {
-  config,
-  pkgs,
-  options,
-  ...
-}: let
-  fonts = import ../fonts.nix {inherit pkgs;};
-in {
   programs.kitty = {
     enable = true;
     theme = "Catppuccin-Mocha";
