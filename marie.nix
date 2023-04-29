@@ -28,6 +28,7 @@ in
       ./apps
       ./packages
     ];
+    xdg.userDirs.enable = true;
   };
 
   fonts = {
