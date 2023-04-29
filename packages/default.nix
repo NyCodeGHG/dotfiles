@@ -7,6 +7,7 @@
   home.packages = with pkgs; [
     bitwarden
     libsForQt5.ark
+    spotify
 
     # Programming Languages
     rustup
@@ -40,5 +41,8 @@
     magic-wormhole
     steamcmd
     steam-run
+    pulseaudio
+    pipewire
+    wireplumber
   ];
 }
