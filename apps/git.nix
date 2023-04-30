@@ -16,9 +16,9 @@
     extraConfig = {
       gpg = { format = "ssh"; };
 
-      url = {
-        "ssh://git@github.com/" = { insteadOf = "https://github.com/"; };
-      };
+      # url = {
+      #   "ssh://git@github.com/" = { insteadOf = "https://github.com/"; };
+      # };
 
       init = { defaultBranch = "main"; };
       commit = { gpgsign = true; };
