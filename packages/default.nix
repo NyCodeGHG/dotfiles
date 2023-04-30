@@ -45,5 +45,7 @@
     pulseaudio
     pipewire
     wireplumber
+
+    tmux
   ];
 }
