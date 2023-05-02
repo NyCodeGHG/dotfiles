@@ -19,7 +19,7 @@
         command = "hostname | figlet -f slant";
       };
       weather = {
-        url = "https://wttr.in/?format=4";
+        url = "https://wttr.in/?0";
       };
       uptime = {
         prefix = "Uptime";
