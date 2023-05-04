@@ -7,6 +7,7 @@
     bitwarden
     libsForQt5.ark
     spotify
+    element-desktop
 
     # Programming Languages
     rustup
