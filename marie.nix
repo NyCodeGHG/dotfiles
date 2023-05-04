@@ -1,10 +1,13 @@
 { config
 , pkgs
 , inputs
+, lib
+, host
 , ...
 }:
 let
   fonts = import ./fonts.nix { inherit pkgs; };
+  hyprlandEnabled = true;
 in
 {
   users.users.marie = {
@@ -21,13 +24,12 @@ in
       homeDirectory = "/home/marie";
     };
 
-    _module.args = { inherit inputs; };
+    _module.args = { inherit inputs host; };
 
     imports = [
-      inputs.hyprland.homeManagerModules.default
       ./apps
       ./packages
-    ];
+    ] ++ lib.optional hyprlandEnabled inputs.hyprland.homeManagerModules.default;
     xdg.userDirs.enable = true;
   };
 
@@ -44,4 +46,5 @@ in
   };
 
   programs.steam.enable = true;
+  programs.zsh.enable = true;
 }

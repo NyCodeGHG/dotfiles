@@ -1,5 +1,6 @@
 { config
 , pkgs
+, host
 , ...
 }: {
   programs.git = {
@@ -9,7 +10,7 @@
     userName = "Marie Ramlow";
 
     signing = {
-      key = "/home/marie/.ssh/github_laptop.ed25519";
+      key = "/home/marie/.ssh/${host.sshKey}";
       signByDefault = true;
     };
 

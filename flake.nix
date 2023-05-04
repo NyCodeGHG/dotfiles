@@ -14,20 +14,47 @@
     , home-manager
     , hyprland
     , ...
-    } @ inputs: {
-      nixosConfigurations.catcafe = nixpkgs.lib.nixosSystem {
+    } @ inputs:
+    let
+      lib = nixpkgs.lib;
+      createSystem = { name, modules ? [ ], useHomeManager ? false, host }: lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./catcafe.nix
+          ./hosts/${name}
+        ] ++ (lib.optionals useHomeManager [
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
           }
-          hyprland.nixosModules.default
-          { programs.hyprland.enable = true; }
-        ];
-        specialArgs = { inherit inputs; };
+        ]) ++ modules;
+        specialArgs = { inherit inputs host; };
+      };
+    in
+    {
+      nixosConfigurations = {
+        catcafe = createSystem {
+          name = "catcafe";
+          modules = [
+            hyprland.nixosModules.default
+            { programs.hyprland.enable = true; }
+            ./marie.nix
+          ];
+          useHomeManager = true;
+          host = {
+            sshKey = "github_laptop.ed25519";
+          };
+        };
+        moonshine = createSystem {
+          name = "moonshine";
+          useHomeManager = true;
+          modules = [
+            ./marie.nix
+          ];
+          host = {
+            sshKey = "github.ed25519";
+          };
+        };
       };
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     };
