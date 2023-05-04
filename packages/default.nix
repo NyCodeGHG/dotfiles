@@ -25,6 +25,7 @@
     rust-analyzer
     nodePackages.typescript-language-server
     nodePackages.vscode-json-languageserver
+    nodePackages.yaml-language-server
     taplo
 
     # General Tools
