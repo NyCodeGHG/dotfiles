@@ -6,7 +6,7 @@
 {
   imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "ohci_pci" "ehci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -16,7 +16,6 @@
       device = "/dev/disk/by-uuid/9181f864-e993-46f9-b6a3-22eff12a6dbe";
       fsType = "ext4";
     };
-
   fileSystems."/boot/efi" =
     {
       device = "/dev/disk/by-uuid/B195-4744";
