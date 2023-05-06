@@ -6,13 +6,14 @@
   imports = [
     ./hardware.nix
     ../../misc/motd.nix
-    ../../jellyfin.nix
+    ../../jellyfin
   ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "catcafe"; # Define your hostname.
   networking.networkmanager.enable = true;
