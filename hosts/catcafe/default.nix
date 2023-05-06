@@ -6,6 +6,7 @@
   imports = [
     ./hardware.nix
     ../../misc/motd.nix
+    ../../jellyfin.nix
   ];
 
   # Bootloader.
@@ -102,9 +103,5 @@
       libvdpau-va-gl
     ];
     driSupport32Bit = true;
-  };
-  services.jellyfin = {
-    enable = true;
-    openFirewall = true;
   };
 }
