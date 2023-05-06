@@ -48,6 +48,7 @@
     pulseaudio
     pipewire
     wireplumber
+    kondo
 
     tmux
   ];
