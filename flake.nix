@@ -22,7 +22,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/${name}
-        ] ++ (pkgs.lib.optionals useHomeManager [
+        ] ++ (lib.optionals useHomeManager [
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -40,6 +40,7 @@
             hyprland.nixosModules.default
             { programs.hyprland.enable = true; }
             ./marie.nix
+            ./hosts/common.nix
           ];
           useHomeManager = true;
           host = {
@@ -51,6 +52,7 @@
           useHomeManager = true;
           modules = [
             ./marie.nix
+            ./hosts/common.nix
           ];
           host = {
             sshKey = "github.ed25519";

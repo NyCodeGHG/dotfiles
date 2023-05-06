@@ -8,6 +8,7 @@
     libsForQt5.ark
     spotify
     element-desktop
+    qbittorrent
 
     # Programming Languages
     rustup
@@ -33,7 +34,7 @@
     whois
     file
     dogdns
-    xdg-utils
+    handlr
     brightnessctl
     wl-clipboard
     ripgrep

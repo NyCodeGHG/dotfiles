@@ -14,19 +14,8 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   networking.hostName = "catcafe"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
   time.timeZone = "Europe/Berlin";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "de_DE.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -41,33 +30,16 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  # Configure keymap in X11
   services.xserver = {
     layout = "de";
     xkbVariant = "";
   };
 
-  # Configure console keymap
   console.keyMap = "de";
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
+    vim
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
@@ -83,6 +55,9 @@
     '';
   };
   programs.zsh.enable = true;
+  #   services.xserver.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -127,5 +102,9 @@
       libvdpau-va-gl
     ];
     driSupport32Bit = true;
+  };
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
   };
 }
