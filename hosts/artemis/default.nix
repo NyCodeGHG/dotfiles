@@ -39,6 +39,7 @@
     extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiS+tzh0R/nN5nqSwvLerCV4nBwI51zOKahFfiiINGp Marie Default"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESHraJJ0INX/OAXOQUR4UuLEre/2N70Uh3H5YkFC5zz Marie Laptop"
     ];
     initialPassword = "";
   };
@@ -65,10 +66,7 @@
         guest.port = 443;
       }
     ];
-    boot.kernelParams = [
-      "console=tty1"
-      "console=ttyS0,115200"
-    ];
     virtualisation.qemu.options = [ "-nographic" ];
+    boot.plymouth.enable = true;
   };
 }
