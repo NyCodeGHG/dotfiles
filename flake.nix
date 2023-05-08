@@ -23,7 +23,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/${name}
-        ] ++ (lib.optionals useHomeManager [
+        ] ++ (pkgs.lib.optionals useHomeManager [
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -70,6 +70,7 @@
         };
       };
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-      packages.x86_64-linux = pkgs.callPackage ./jellyfin { };
+      packages.x86_64-linux = pkgs.callPackage ./jellyfin { } //
+        nixpkgs.lib.attrsets.mapAttrs' (name: value: (nixpkgs.lib.attrsets.nameValuePair ("${name}-vm") value.config.system.build.vm)) self.nixosConfigurations;
     };
 }
