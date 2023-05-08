@@ -8,6 +8,7 @@
     libsForQt5.ark
     spotify
     element-desktop
+    cinny-desktop
     qbittorrent
 
     # Programming Languages

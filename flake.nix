@@ -11,7 +11,8 @@
   };
 
   outputs =
-    { nixpkgs
+    { self
+    , nixpkgs
     , nixpkgs-stable
     , home-manager
     , hyprland
@@ -29,7 +30,11 @@
             home-manager.useUserPackages = true;
           }
         ]) ++ modules;
-        specialArgs = { inherit inputs host; };
+        specialArgs = {
+          inherit inputs host;
+          jellyfin = self.packages.x86_64-linux.jellyfin;
+          jellyfin-intro-skipper = self.packages.x86_64-linux.jellyfin-intro-skipper;
+        };
       };
       pkgs = import nixpkgs { system = "x86_64-linux"; };
     in

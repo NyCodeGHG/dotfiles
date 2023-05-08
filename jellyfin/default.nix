@@ -1,7 +1,7 @@
-{ pkgs, config, lib, buildDotnetModule, fetchFromGitHub, dotnetCorePackages, ... }:
+{ pkgs, config, lib, buildDotnetModule, fetchFromGitHub, dotnetCorePackages, stdenvNoCC, ... }:
 let
-  intro-skipper = buildDotnetModule rec {
-    pname = "intro-skipper";
+  jellyfin-intro-skipper-lib = buildDotnetModule rec {
+    pname = "jellyfin-intro-skipper";
     version = "0.1.7";
     src = fetchFromGitHub {
       owner = "ConfusedPolarBear";
@@ -13,6 +13,16 @@ let
     dotnet-sdk = dotnetCorePackages.sdk_6_0;
     dotnet-runtime = dotnetCorePackages.runtime_6_0;
     nugetDeps = ./deps.nix;
+    executables = [ ];
+  };
+  jellyfin-intro-skipper = stdenvNoCC.mkDerivation {
+    pname = jellyfin-intro-skipper-lib.pname;
+    version = jellyfin-intro-skipper-lib.version;
+    src = jellyfin-intro-skipper-lib;
+    installPhase = ''
+      mkdir $out
+      cp ${jellyfin-intro-skipper-lib}/lib/${jellyfin-intro-skipper-lib.pname}/ConfusedPolarBear.Plugin.IntroSkipper.{dll,pdb,xml} $out
+    '';
   };
   jellyfin-web = pkgs.jellyfin-web.overrideAttrs
     (final: previous: {
@@ -24,13 +34,10 @@ let
         sha256 = "sha256-8oVT687/VzSxKx+b9i/PNDFxqIDJn7NeAGQreygVz7E=";
       };
     });
-  jellyfin = pkgs.jellyfin.override { inherit jellyfin-web; };
+  jellyfin = pkgs.jellyfin.override {
+    inherit jellyfin-web;
+  };
 in
 {
-  #    services.jellyfin = {
-  #    enable = true;
-  #    package = jellyfin;
-  #    openFirewall = true;
-  #  };
-  inherit intro-skipper jellyfin jellyfin-web;
+  inherit jellyfin-intro-skipper jellyfin jellyfin-web;
 }

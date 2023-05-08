@@ -1,19 +1,20 @@
 { config
 , pkgs
 , inputs
+, jellyfin
+, jellyfin-intro-skipper
 , ...
 }: {
   imports = [
     ./hardware.nix
     ../../misc/motd.nix
-    ../../jellyfin
   ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_5_15;
 
   networking.hostName = "catcafe"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -104,5 +105,23 @@
       libvdpau-va-gl
     ];
     driSupport32Bit = true;
+  };
+
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
+    package = jellyfin;
+  };
+
+  systemd.services.jellyfin-intro-skipper = {
+    wantedBy = [ "jellyfin.service" "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.bash}/bin/sh -c '${pkgs.coreutils}/bin/mkdir -p /var/lib/jellyfin/plugins/IntroSkipper && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.dll -t /var/lib/jellyfin/plugins/IntroSkipper/ && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.pdb -t /var/lib/jellyfin/plugins/IntroSkipper/ && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.xml -t /var/lib/jellyfin/plugins/IntroSkipper'";
+      ExecStop = "${pkgs.coreutils}/bin/rm -rf /var/lib/jellyfin/plugins/IntroSkipper";
+      RemainAfterExit = "yes";
+      User = "jellyfin";
+      Group = "jellyfin";
+    };
   };
 }
