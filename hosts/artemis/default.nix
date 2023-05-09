@@ -2,6 +2,10 @@
 , pkgs
 , ...
 }: {
+  imports = [
+    ../../modules/motd.nix
+  ];
+
   boot.loader.grub.enable = true;
 
   networking = {
@@ -69,4 +73,6 @@
     virtualisation.qemu.options = [ "-nographic" ];
     boot.plymouth.enable = true;
   };
+
+  services.motd.enable = true;
 }
