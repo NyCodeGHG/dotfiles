@@ -5,7 +5,7 @@
     noto-fonts-emoji
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "IBMPlexMono" ]; })
   ];
-  monospace = [ "Blex Mono Nerd Font" ];
+  monospace = [ "JetBrainsMono Nerd Font" ];
   sansSerif = [ "Noto Sans" ];
   serif = [ "Noto Serif" ];
   emoji = [ "Noto Color Emoji" ];
