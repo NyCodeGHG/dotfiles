@@ -4,6 +4,7 @@
 }: {
   imports = [
     ../../modules/motd.nix
+    ./acme.nix
   ];
 
   boot.loader.grub.enable = true;

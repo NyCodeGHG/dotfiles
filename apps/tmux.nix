@@ -14,6 +14,7 @@
     terminal = "screen-256color";
     extraConfig = ''
       set -ga terminal-overrides ",xterm-256color*:RGB"
+      set -sg escape-time 0
     '';
   };
 }

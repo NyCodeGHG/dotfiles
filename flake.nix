@@ -6,6 +6,8 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-22.11";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix";
 
     hyprland.url = "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
   };
@@ -16,13 +18,16 @@
     , nixpkgs-stable
     , home-manager
     , hyprland
+    , agenix
     , ...
     } @ inputs:
     let
-      createSystem = { name, modules ? [ ], useHomeManager ? false, host ? { }, pkgs ? nixpkgs }: pkgs.lib.nixosSystem {
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      createSystem = { name, modules ? [ ], useHomeManager ? false, host ? { }, }: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./hosts/${name}
+          agenix.nixosModules.default
         ] ++ (pkgs.lib.optionals useHomeManager [
           home-manager.nixosModules.home-manager
           {
@@ -34,9 +39,9 @@
           inherit inputs host;
           jellyfin = self.packages.x86_64-linux.jellyfin;
           jellyfin-intro-skipper = self.packages.x86_64-linux.jellyfin-intro-skipper;
+          agenix = agenix.packages.x86_64-linux.default;
         };
       };
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
     in
     {
       nixosConfigurations = {
@@ -66,7 +71,6 @@
         };
         artemis = createSystem {
           name = "artemis";
-          pkgs = nixpkgs-stable;
         };
       };
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
