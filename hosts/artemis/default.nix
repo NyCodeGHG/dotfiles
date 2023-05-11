@@ -6,6 +6,7 @@
     ../../modules/motd.nix
     ./acme.nix
     ./postgres.nix
+    ./authentik.nix
   ];
 
   boot.loader.grub.enable = true;
@@ -72,8 +73,7 @@
         guest.port = 443;
       }
     ];
-    virtualisation.qemu.options = [ "-nographic" ];
-    boot.plymouth.enable = true;
+    virtualisation.graphics = false;
   };
 
   services.motd.enable = true;
