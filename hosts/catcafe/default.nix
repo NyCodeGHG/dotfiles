@@ -3,7 +3,6 @@
 , inputs
 , jellyfin
 , jellyfin-intro-skipper
-, figlet-preview
 , ...
 }: {
   imports = [
@@ -41,10 +40,7 @@
 
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    vim
-    figlet-preview
-  ];
+  environment.systemPackages = [ pkgs.vim ];
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;

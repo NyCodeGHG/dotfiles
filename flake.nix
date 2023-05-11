@@ -42,7 +42,6 @@
           jellyfin = self.packages.x86_64-linux.jellyfin;
           jellyfin-intro-skipper = self.packages.x86_64-linux.jellyfin-intro-skipper;
           agenix = agenix.packages.x86_64-linux.default;
-          figlet-preview = self.packages.x86_64-linux.figlet-preview;
         };
       };
     in
