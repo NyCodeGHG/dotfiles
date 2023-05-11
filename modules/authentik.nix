@@ -22,6 +22,13 @@ in
           Environment files for the containers.
         '';
       };
+      id = mkOption {
+        type = types.int;
+        default = 181350;
+        description = ''
+          ID used for the unix user and group.
+        '';
+      };
       redis = {
         enable = mkOption {
           type = types.bool;
@@ -62,7 +69,7 @@ in
         };
         host = mkOption {
           type = types.str;
-          default = "127.0.0.1";
+          default = "/run/postgresql";
           description = ''
             The postgres host to use.
           '';
@@ -72,6 +79,13 @@ in
           default = 5432;
           description = ''
             The postgres port to use.
+          '';
+        };
+        database = mkOption {
+          type = types.str;
+          default = "authentik";
+          description = ''
+            The database to use.
           '';
         };
       };
@@ -109,13 +123,17 @@ in
             AUTHENTIK_REDIS__DB = builtins.toString cfg.redis.database;
             AUTHENTIK_POSTGRESQL__HOST = cfg.postgres.host;
             AUTHENTIK_POSTGRESQL__PORT = builtins.toString cfg.postgres.port;
+            AUTHENTIK_POSTGRESQL__NAME = cfg.postgres.database;
           } // cfg.extraEnv;
           extraOptions = [
             "--network=host"
             "--pull=always"
           ];
+          volumes = [
+            "/run/postgresql:/run/postgresql:ro"
+          ];
           environmentFiles = cfg.environmentFiles;
-          user = "authentik:authentik";
+          user = "${builtins.toString cfg.id}:${builtins.toString cfg.id}";
         };
     in
     mkIf cfg.enable
@@ -155,8 +173,11 @@ in
           users.authentik = {
             isSystemUser = true;
             group = "authentik";
+            uid = cfg.id;
           };
-          groups.authentik = { };
+          groups.authentik = {
+            gid = cfg.id;
+          };
         };
       };
 }
