@@ -5,6 +5,7 @@
   imports = [
     ../../modules/motd.nix
     ./acme.nix
+    ./postgres.nix
   ];
 
   boot.loader.grub.enable = true;
