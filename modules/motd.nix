@@ -64,7 +64,7 @@ in
               command = "hostname | figlet -f slant";
             };
             weather = {
-              url = "https://wttr.in/?0";
+              url = "https://wttr.in/Moon?0";
             };
             uptime = {
               prefix = "Uptime";
@@ -73,7 +73,7 @@ in
               root = "/";
             };
             memory = {
-              swap_pos = "beside";
+              swap_pos = "none";
             };
           }
           (mkIf cfg.certificates.enable {
