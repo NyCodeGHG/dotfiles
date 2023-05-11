@@ -3,7 +3,7 @@ let
     marie-catcafe = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESHraJJ0INX/OAXOQUR4UuLEre/2N70Uh3H5YkFC5zz marie@catcafe";
   };
   systems = {
-    artemis = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEOTrdHkjvxDWvcEmkvKiXJdQB6Oq65N9hofEWnuQmIl root@artemis";
+    artemis = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8 root@artemis";
   };
   allUsers = builtins.attrValues users;
   allSystems = builtins.attrValues systems;
