@@ -8,6 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
+    flake-utils.url = "github:numtide/flake-utils";
 
     hyprland.url = "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
   };
@@ -19,6 +20,7 @@
     , home-manager
     , hyprland
     , agenix
+    , flake-utils
     , ...
     } @ inputs:
     let
@@ -40,6 +42,7 @@
           jellyfin = self.packages.x86_64-linux.jellyfin;
           jellyfin-intro-skipper = self.packages.x86_64-linux.jellyfin-intro-skipper;
           agenix = agenix.packages.x86_64-linux.default;
+          figlet-preview = self.packages.x86_64-linux.figlet-preview;
         };
       };
     in
@@ -74,7 +77,21 @@
         };
       };
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-      packages.x86_64-linux = pkgs.callPackage ./jellyfin { } //
-        nixpkgs.lib.attrsets.mapAttrs' (name: value: (nixpkgs.lib.attrsets.nameValuePair ("${name}-vm") value.config.system.build.vm)) self.nixosConfigurations;
-    };
+    } // flake-utils.lib.eachDefaultSystem (system:
+    let
+      pkgs = import nixpkgs { inherit system; };
+      jellyfinPkgs = pkgs.callPackage ./jellyfin { };
+      vms = nixpkgs.lib.attrsets.mapAttrs'
+        (name: value: (nixpkgs.lib.attrsets.nameValuePair ("${name}-vm") value.config.system.build.vm))
+        self.nixosConfigurations;
+    in
+    {
+      packages = vms // {
+        figlet-preview = (pkgs.callPackage ./scripts/figlet-preview.nix { });
+        jellyfin = jellyfinPkgs.jellyfin;
+        jellyfin-web = jellyfinPkgs.jellyfin-web;
+        jellyfin-intro-skipper = jellyfinPkgs.jellyfin-intro-skipper;
+      };
+    }
+    );
 }

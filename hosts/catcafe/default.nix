@@ -3,6 +3,7 @@
 , inputs
 , jellyfin
 , jellyfin-intro-skipper
+, figlet-preview
 , ...
 }: {
   imports = [
@@ -42,6 +43,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     vim
+    figlet-preview
   ];
   virtualisation.podman = {
     enable = true;
