@@ -4,6 +4,7 @@
 }: {
   imports = [
     ../../modules/motd.nix
+    ./hardware.nix
     ./acme.nix
     ./postgres.nix
     ./authentik.nix
@@ -75,7 +76,7 @@
     ];
     virtualisation = {
       graphics = false;
-      memorySize = 8192;
+      memorySize = 1024;
       cores = 4;
       diskSize = 1024 * 8;
     };
