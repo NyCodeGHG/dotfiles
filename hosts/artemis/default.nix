@@ -10,7 +10,10 @@
     ./authentik.nix
   ];
 
-  boot.loader.grub.enable = true;
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   networking = {
     hostName = "artemis";
@@ -31,6 +34,7 @@
     curl
     nftables
     iptables
+    git
   ];
 
   services.openssh = {
