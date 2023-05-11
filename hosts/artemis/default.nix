@@ -73,7 +73,12 @@
         guest.port = 443;
       }
     ];
-    virtualisation.graphics = false;
+    virtualisation = {
+      graphics = false;
+      memorySize = 8192;
+      cores = 4;
+      diskSize = 1024 * 8;
+    };
   };
 
   services.motd.enable = true;
