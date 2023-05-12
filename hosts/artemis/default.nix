@@ -35,6 +35,8 @@
     nftables
     iptables
     git
+    btop
+    neofetch
   ];
 
   services.openssh = {
