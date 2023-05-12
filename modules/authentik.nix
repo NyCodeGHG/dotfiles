@@ -34,7 +34,7 @@ in
           type = types.bool;
           default = true;
           description = ''
-            Weither to enable and use the default redis service.
+            Weither to enable and use the local redis service.
           '';
         };
         host = mkOption {
@@ -98,11 +98,11 @@ in
       };
       nginx = {
         enable = mkOption {
-	  type = types.bool;
+          type = types.bool;
           default = false;
           description = ''
-	    Enable virtual host in nginx.
-	  '';
+            Enable virtual host in nginx.
+          '';
         };
         domain = mkOption {
           type = types.str;
@@ -114,15 +114,15 @@ in
           type = types.attrs;
           default = { };
           description = ''
-	    Extra options for the nginx virtual host.
-	  '';
+            Extra options for the nginx virtual host.
+          '';
         };
         extraLocationConfig = mkOption {
           type = types.attrs;
           default = { };
           description = ''
-	    Extra options for the nginx virtual host location.
-	  '';
+            Extra options for the nginx virtual host location.
+          '';
         };
       };
     };
@@ -130,22 +130,30 @@ in
 
   config =
     let
-      imageName = "ghcr.io/goauthentik/server";
-      imageTag = "2023.4.1";
-      authentikImage = pkgs.dockerTools.pullImage {
-        imageName = imageName;
-        imageDigest = "sha256:96c9f29247a270524056aff59f1bcb7118ef51d14b334b67ab2b75e8df30e829";
+      mkImage = { name, tag, sha256, digest }: {
+        name = "${name}:${tag}";
+        image = pkgs.dockerTools.pullImage {
+          imageName = name;
+          imageDigest = digest;
+          inherit sha256;
+          finalImageName = name;
+          finalImageTag = tag;
+        };
+      };
+      authentik = mkImage {
+        name = "ghcr.io/goauthentik/server";
+        tag = "2023.4.1";
+        digest = "sha256:96c9f29247a270524056aff59f1bcb7118ef51d14b334b67ab2b75e8df30e829";
         sha256 = "1n412yncv7a890nq0lzvcs6w0nihs2bmqdzg5hs95dyq42gbric4";
-        finalImageName = imageName;
-        finalImageTag = imageTag;
       };
       mkAuthentikContainer =
         { cmd
+        , dependsOn ? [ ]
         ,
         }: {
-          inherit cmd;
-          imageFile = authentikImage;
-          image = "${imageName}:${imageTag}";
+          inherit cmd dependsOn;
+          imageFile = authentik.image;
+          image = authentik.name;
           environment = {
             AUTHENTIK_REDIS__HOST = cfg.redis.host;
             AUTHENTIK_REDIS__PORT = builtins.toString cfg.redis.port;
@@ -156,7 +164,7 @@ in
           } // cfg.extraEnv;
           extraOptions = [
             "--network=host"
-            "--pull=always"
+            "--pull=never"
           ];
           volumes = [
             "/run/postgresql:/run/postgresql:ro"
@@ -175,8 +183,13 @@ in
         ];
 
         virtualisation.oci-containers.containers = {
-          authentik-server = mkAuthentikContainer { cmd = [ "server" ]; };
-          authentik-worker = mkAuthentikContainer { cmd = [ "worker" ]; };
+          authentik-server = mkAuthentikContainer {
+            cmd = [ "server" ];
+          };
+          authentik-worker = mkAuthentikContainer {
+            cmd = [ "worker" ];
+            dependsOn = [ "authentik-server" ];
+          };
         };
 
         services.postgresql = mkIf cfg.postgres.enable {
@@ -208,11 +221,11 @@ in
             gid = cfg.id;
           };
         };
-        
+
         services.nginx = mkIf cfg.nginx.enable {
           enable = true;
           upstreams.authentik = {
-            servers = { "127.0.0.1:9000" = {}; };
+            servers = { "127.0.0.1:9000" = { }; };
             extraConfig = ''
               keepalive 10;
             '';
