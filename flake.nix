@@ -9,6 +9,10 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
     flake-utils.url = "github:numtide/flake-utils";
+    nixinate = {
+      url = "github:matthewcroughan/nixinate";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hyprland.url = "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
   };
@@ -21,6 +25,7 @@
     , hyprland
     , agenix
     , flake-utils
+    , nixinate
     , ...
     } @ inputs:
     let
@@ -44,8 +49,13 @@
           agenix = agenix.packages.x86_64-linux.default;
         };
       };
+      vms = nixpkgs.lib.attrsets.mapAttrs'
+        (name: value: (nixpkgs.lib.attrsets.nameValuePair ("${name}-vm") value.config.system.build.vm))
+        self.nixosConfigurations;
+      jellyfinPkgs = pkgs.callPackage ./jellyfin { };
     in
     {
+      apps = nixinate.nixinate.x86_64-linux self;
       nixosConfigurations = {
         catcafe = createSystem {
           name = "catcafe";
@@ -73,24 +83,25 @@
         };
         artemis = createSystem {
           name = "artemis";
+          modules = [
+            {
+              _module.args.nixinate = {
+                host = "uwu.nycode.dev";
+                sshUser = "marie";
+                buildOn = "remote";
+                subsituteOnTarget = true;
+                hermetic = false;
+              };
+            }
+          ];
         };
       };
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-    } // flake-utils.lib.eachDefaultSystem (system:
-    let
-      pkgs = import nixpkgs { inherit system; };
-      jellyfinPkgs = pkgs.callPackage ./jellyfin { };
-      vms = nixpkgs.lib.attrsets.mapAttrs'
-        (name: value: (nixpkgs.lib.attrsets.nameValuePair ("${name}-vm") value.config.system.build.vm))
-        self.nixosConfigurations;
-    in
-    {
-      packages = vms // {
-        figlet-preview = (pkgs.callPackage ./scripts/figlet-preview.nix { });
+      packages.x86_64-linux = {
+        # figlet-preview = (pkgs.callPackage ./scripts/figlet-preview.nix { });
         jellyfin = jellyfinPkgs.jellyfin;
         jellyfin-web = jellyfinPkgs.jellyfin-web;
         jellyfin-intro-skipper = jellyfinPkgs.jellyfin-intro-skipper;
-      };
-    }
-    );
+      } // vms;
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+    };
 }
