@@ -8,6 +8,7 @@
     ./acme.nix
     ./postgres.nix
     ./authentik.nix
+    ./miniflux.nix
   ];
 
   # Bootloader.

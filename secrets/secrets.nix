@@ -11,4 +11,5 @@ in
 {
   "cloudflare-api-key.age".publicKeys = allUsers ++ allSystems;
   "authentik-secrets.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "miniflux-credentials.age".publicKeys = [ users.marie-catcafe systems.artemis ];
 }

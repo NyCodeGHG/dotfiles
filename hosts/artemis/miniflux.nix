@@ -1,0 +1,31 @@
+{ pkgs, lib, config, ... }:
+
+let
+  port = "8001";
+in
+{
+  services.miniflux = {
+    enable = true;
+    config = {
+      OAUTH2_PROVIDER = "oidc";
+      OAUTH2_REDIRECT_URL = "https://miniflux.nycode.dev/oauth2/oidc/callback";
+      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://sso.nycode.dev/application/o/miniflux/";
+      OAUTH2_USER_CREATION = "1";
+      PORT = port;
+      BASE_URL = "https://miniflux.nycode.dev";
+      CREATE_ADMIN = lib.mkForce "0";
+    };
+    adminCredentialsFile = config.age.secrets.miniflux-credentials.path;
+  };
+  age.secrets.miniflux-credentials.file = ../../secrets/miniflux-credentials.age;
+
+  services.nginx.virtualHosts."miniflux.nycode.dev" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${port}";
+      proxyWebsockets = true;
+    };
+    forceSSL = true;
+    useACMEHost = "marie.cologne";
+    http2 = true;
+  };
+}
