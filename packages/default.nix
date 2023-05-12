@@ -30,6 +30,7 @@
     nodePackages.vscode-json-languageserver
     nodePackages.yaml-language-server
     taplo
+    terraform-ls
 
     # General Tools
     whois
@@ -50,6 +51,7 @@
     pipewire
     wireplumber
     kondo
+    terraform
 
     tmux
   ];
