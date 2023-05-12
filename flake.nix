@@ -103,5 +103,12 @@
         jellyfin-intro-skipper = jellyfinPkgs.jellyfin-intro-skipper;
       } // vms;
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      devShells.x86_64-linux.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          nixpkgs-fmt
+          terraform
+          terraform-providers.cloudflare
+        ];
+      };
     };
 }
