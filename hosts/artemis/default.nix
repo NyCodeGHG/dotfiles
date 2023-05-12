@@ -65,10 +65,15 @@
     recommendedGzipSettings = true;
     recommendedProxySettings = true;
     virtualHosts."uwu.nycode.dev" = {
-      enableACME = true;
       forceSSL = true;
-      acmeRoot = null;
+      useACMEHost = "marie.cologne";
       http2 = true;
+    };
+    virtualHosts."_" = {
+      forceSSL = true;
+      http2 = true;
+      useACMEHost = "marie.cologne";
+      default = true;
     };
   };
 

@@ -15,9 +15,8 @@
       domain = "sso.nycode.dev";
       extraConfig = {
         forceSSL = true;
-        enableACME = true;
-        acmeRoot = null;
         http2 = true;
+        useACMEHost = "marie.cologne";
       };
     };
   };

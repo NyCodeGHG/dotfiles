@@ -11,7 +11,14 @@
 
   security.acme.certs."marie.cologne" = {
     domain = "*.marie.cologne";
+    extraDomainNames = [
+      "marie.cologne"
+      "nycode.dev"
+      "*.nycode.dev"
+    ];
   };
+
+  users.users.nginx.extraGroups = [ "acme" ];
 
   age.secrets.cloudflare-api-key.file = ../../secrets/cloudflare-api-key.age;
 }
