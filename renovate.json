@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "timezone": "Europe/Berlin",
+  "nix": {
+    "fileMatch": [
+      "(^|/)flake\\.nix$"
+    ],
+    "commitMessageTopic": "nixpkgs",
+    "commitMessageExtra": "to {{newValue}}",
+    "enabled": true,
+    "schedule": [
+      "before 5am on monday"
+    ]
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "before 5am on monday"
+    ]
+  },
+  "automergeType": "branch",
+  "automerge": true,
+  "automergeSchedule": [
+    "at any time"
+  ]
+}
