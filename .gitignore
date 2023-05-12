@@ -1,3 +1,5 @@
 *.qcow2
 .envrc
 .direnv
+.terraform
+*.tfstate

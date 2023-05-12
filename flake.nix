@@ -106,8 +106,10 @@
       devShells.x86_64-linux.default = pkgs.mkShell {
         buildInputs = with pkgs; [
           nixpkgs-fmt
-          terraform
-          terraform-providers.cloudflare
+          (terraform.withPlugins
+            (plugins: with plugins; [
+              cloudflare
+            ]))
         ];
       };
     };
