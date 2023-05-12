@@ -10,6 +10,16 @@
     environmentFiles = [
       config.age.secrets.authentik-secrets.path
     ];
+    nginx = {
+      enable = true;
+      domain = "sso.nycode.dev";
+      extraConfig = {
+        forceSSL = true;
+        enableACME = true;
+        acmeRoot = null;
+        http2 = true;
+      };
+    };
   };
   age.secrets.authentik-secrets.file = ../../secrets/authentik-secrets.age;
 }

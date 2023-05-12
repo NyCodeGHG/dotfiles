@@ -58,6 +58,16 @@
 
   services.nginx = {
     enable = true;
+    recommendedTlsSettings = true;
+    recommendedOptimisation = true;
+    recommendedGzipSettings = true;
+    recommendedProxySettings = true;
+    virtualHosts."uwu.nycode.dev" = {
+      enableACME = true;
+      forceSSL = true;
+      acmeRoot = null;
+      http2 = true;
+    };
   };
 
   virtualisation.vmVariant = {

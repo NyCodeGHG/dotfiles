@@ -96,6 +96,35 @@ in
           Extra environment variables for the authentik server.
         '';
       };
+      nginx = {
+        enable = mkOption {
+	  type = types.bool;
+          default = false;
+          description = ''
+	    Enable virtual host in nginx.
+	  '';
+        };
+        domain = mkOption {
+          type = types.str;
+          description = ''
+            Domain for the service.
+          '';
+        };
+        extraConfig = mkOption {
+          type = types.attrs;
+          default = { };
+          description = ''
+	    Extra options for the nginx virtual host.
+	  '';
+        };
+        extraLocationConfig = mkOption {
+          type = types.attrs;
+          default = { };
+          description = ''
+	    Extra options for the nginx virtual host location.
+	  '';
+        };
+      };
     };
   };
 
@@ -178,6 +207,22 @@ in
           groups.authentik = {
             gid = cfg.id;
           };
+        };
+        
+        services.nginx = mkIf cfg.nginx.enable {
+          enable = true;
+          upstreams.authentik = {
+            servers = { "127.0.0.1:9000" = {}; };
+            extraConfig = ''
+              keepalive 10;
+            '';
+          };
+          virtualHosts.${cfg.nginx.domain} = {
+            locations."/" = {
+              proxyPass = "http://authentik";
+              proxyWebsockets = true;
+            } // cfg.nginx.extraLocationConfig;
+          } // cfg.nginx.extraConfig;
         };
       };
 }
