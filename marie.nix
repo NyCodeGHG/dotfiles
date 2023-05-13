@@ -28,7 +28,6 @@ in
 
     imports = [
       ./apps
-      ./packages
     ] ++ lib.optional hyprlandEnabled inputs.hyprland.homeManagerModules.default;
     xdg.userDirs.enable = true;
   };
