@@ -13,6 +13,7 @@
       url = "github:matthewcroughan/nixinate";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     hyprland.url = "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
   };
@@ -26,6 +27,7 @@
     , agenix
     , flake-utils
     , nixinate
+    , vscode-server
     , ...
     } @ inputs:
     let
@@ -64,6 +66,8 @@
             { programs.hyprland.enable = true; }
             ./marie.nix
             ./hosts/common.nix
+            vscode-server.nixosModule
+            { services.vscode-server.enable = true; }
           ];
           useHomeManager = true;
           host = {

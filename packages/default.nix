@@ -31,6 +31,7 @@
     nodePackages.yaml-language-server
     taplo
     terraform-ls
+    nodePackages."@tailwindcss/language-server"
 
     # General Tools
     whois
@@ -52,6 +53,7 @@
     wireplumber
     kondo
     terraform
+    vscode
 
     tmux
   ];
