@@ -2,4 +2,4 @@
 .envrc
 .direnv
 .terraform
-*.tfstate
+*.tfstate*

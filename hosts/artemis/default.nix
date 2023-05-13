@@ -9,6 +9,7 @@
     ./postgres.nix
     ./authentik.nix
     ./miniflux.nix
+    # ./coder.nix
   ];
 
   # Bootloader.
