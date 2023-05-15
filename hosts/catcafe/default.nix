@@ -1,8 +1,10 @@
 { config
+, lib
 , pkgs
 , inputs
 , jellyfin
 , jellyfin-intro-skipper
+, coder
 , ...
 }: {
   imports = [
@@ -14,10 +16,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.kernelPackages = pkgs.linuxPackages_5_15;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "catcafe"; # Define your hostname.
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    firewallBackend = "nftables";
+  };
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "de_DE.UTF-8";
 
@@ -41,10 +46,11 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [ pkgs.vim ];
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-  };
+  # virtualisation.podman = {
+  #   enable = true;
+  #   dockerCompat = true;
+  # };
+  virtualisation.docker.enable = true;
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
@@ -82,6 +88,21 @@
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
   nix.nixPath = [ "nixpkgs=/etc/channels/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ];
   environment.etc."channels/nixpkgs".source = inputs.nixpkgs.outPath;
+  nix.buildMachines = [
+    {
+      hostName = "artemis";
+      system = "x86_64-linux";
+      protocol = "ssh-ng";
+      maxJobs = 1;
+      speedFactor = 2;
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" ];
+      mandatoryFeatures = [ ];
+    }
+  ];
+  nix.distributedBuilds = true;
+  nix.extraOptions = ''
+    builders-use-substitutes = true
+  '';
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -125,4 +146,11 @@
   };
 
   services.motd.enable = true;
+
+  # virtualisation.podman.dockerSocket.enable = true;
+  users.users.coder.extraGroups = [ "podman" "docker" ];
+  services.coder = {
+    enable = true;
+    package = coder;
+  };
 }

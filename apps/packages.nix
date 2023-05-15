@@ -56,5 +56,6 @@
     vscode
 
     tmux
+    qemu
   ];
 }

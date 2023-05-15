@@ -12,7 +12,7 @@ in
 {
   users.users.marie = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "podman" "docker" ];
     packages = [ ];
     shell = pkgs.zsh;
   };

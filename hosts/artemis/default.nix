@@ -44,9 +44,11 @@
   services.openssh = {
     enable = true;
     openFirewall = true;
-    passwordAuthentication = false;
-    permitRootLogin = "no";
-    kbdInteractiveAuthentication = false;
+    settings = {
+      passwordAuthentication = false;
+      permitRootLogin = "yes";
+      kbdInteractiveAuthentication = false;
+    };
   };
   system.stateVersion = "22.11";
 
