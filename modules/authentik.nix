@@ -130,7 +130,7 @@ in
 
   config =
     let
-      image = "ghcr.io/goauthentik/server:2023.4.1";
+      image = "ghcr.io/goauthentik/server:2023.5.1";
       mkAuthentikContainer =
         { cmd
         , dependsOn ? [ ]
