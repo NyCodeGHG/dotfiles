@@ -140,20 +140,13 @@ in
           finalImageTag = tag;
         };
       };
-      authentik = mkImage {
-        name = "ghcr.io/goauthentik/server";
-        tag = "2023.4.1";
-        digest = "sha256:96c9f29247a270524056aff59f1bcb7118ef51d14b334b67ab2b75e8df30e829";
-        sha256 = "1n412yncv7a890nq0lzvcs6w0nihs2bmqdzg5hs95dyq42gbric4";
-      };
+      image = "ghcr.io/goauthentik/server:2023.4.1";
       mkAuthentikContainer =
         { cmd
         , dependsOn ? [ ]
         ,
         }: {
-          inherit cmd dependsOn;
-          imageFile = authentik.image;
-          image = authentik.name;
+          inherit cmd dependsOn image;
           environment = {
             AUTHENTIK_REDIS__HOST = cfg.redis.host;
             AUTHENTIK_REDIS__PORT = builtins.toString cfg.redis.port;
@@ -164,7 +157,6 @@ in
           } // cfg.extraEnv;
           extraOptions = [
             "--network=host"
-            "--pull=never"
           ];
           volumes = [
             "/run/postgresql:/run/postgresql:ro"
