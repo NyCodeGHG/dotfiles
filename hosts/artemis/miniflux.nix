@@ -12,14 +12,14 @@ in
       OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://sso.nycode.dev/application/o/miniflux/";
       OAUTH2_USER_CREATION = "1";
       PORT = port;
-      BASE_URL = "https://miniflux.nycode.dev";
+      BASE_URL = "https://miniflux.marie.cologne";
       CREATE_ADMIN = lib.mkForce "0";
     };
     adminCredentialsFile = config.age.secrets.miniflux-credentials.path;
   };
   age.secrets.miniflux-credentials.file = ../../secrets/miniflux-credentials.age;
 
-  services.nginx.virtualHosts."miniflux.nycode.dev" = {
+  services.nginx.virtualHosts."miniflux.marie.cologne" = {
     locations."/" = {
       proxyPass = "http://127.0.0.1:${port}";
       proxyWebsockets = true;
@@ -27,5 +27,12 @@ in
     forceSSL = true;
     useACMEHost = "marie.cologne";
     http2 = true;
+  };
+
+  services.nginx.virtualHosts."miniflux.nycode.dev" = {
+    forceSSL = true;
+    useACMEHost = "marie.cologne";
+    http2 = true;
+    globalRedirect = "miniflux.marie.cologne";
   };
 }
