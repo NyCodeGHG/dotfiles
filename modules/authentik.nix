@@ -130,16 +130,6 @@ in
 
   config =
     let
-      mkImage = { name, tag, sha256, digest }: {
-        name = "${name}:${tag}";
-        image = pkgs.dockerTools.pullImage {
-          imageName = name;
-          imageDigest = digest;
-          inherit sha256;
-          finalImageName = name;
-          finalImageTag = tag;
-        };
-      };
       image = "ghcr.io/goauthentik/server:2023.4.1";
       mkAuthentikContainer =
         { cmd

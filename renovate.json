@@ -22,5 +22,17 @@
   "automerge": true,
   "automergeSchedule": [
     "at any time"
+  ],
+  "regexManagers": [
+    {
+      "description": "Update docker images in nix files.",
+      "fileMatch": [
+        "\\.nix$"
+      ],
+      "matchStrings": [
+        "\"(?<depName>(?:ghcr\\.io|docker\\.io|quay\\.io)[^:]*):(?<currentValue>.*)\""
+      ],
+      "datasourceTemplate": "docker"
+    }
   ]
 }
