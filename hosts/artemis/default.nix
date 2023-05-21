@@ -10,6 +10,7 @@
     ./authentik.nix
     ./miniflux.nix
     # ./coder.nix
+    ./grafana.nix
   ];
 
   # Bootloader.
