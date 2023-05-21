@@ -16,8 +16,6 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     hyprland.url = "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
-    coder.url = "/home/marie/coder-nix";
-    coder-flake.url = "github:denbeigh2000/coder-flake";
   };
 
   outputs =
@@ -30,8 +28,6 @@
     , flake-utils
     , nixinate
     , vscode-server
-    , coder
-    , coder-flake
     , ...
     } @ inputs:
     let
@@ -53,8 +49,7 @@
           jellyfin = self.packages.x86_64-linux.jellyfin;
           jellyfin-intro-skipper = self.packages.x86_64-linux.jellyfin-intro-skipper;
           agenix = agenix.packages.x86_64-linux.default;
-          coder = coder.packages.x86_64-linux.oss;
-          # coder = coder-flake.packages.x86_64-linux.coder-linux-amd64-agpl;
+          coder = self.packages.x86_64-linux.coder;
         };
       };
       vms = nixpkgs.lib.attrsets.mapAttrs'
@@ -111,6 +106,7 @@
         jellyfin = jellyfinPkgs.jellyfin;
         jellyfin-web = jellyfinPkgs.jellyfin-web;
         jellyfin-intro-skipper = jellyfinPkgs.jellyfin-intro-skipper;
+        coder = (pkgs.callPackage ./packages/coder.nix { });
       } // vms;
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       devShells.x86_64-linux.default = pkgs.mkShell {

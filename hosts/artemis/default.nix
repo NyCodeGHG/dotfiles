@@ -45,9 +45,9 @@
     enable = true;
     openFirewall = true;
     settings = {
-      passwordAuthentication = false;
-      permitRootLogin = "yes";
-      kbdInteractiveAuthentication = false;
+      PasswordAuthentication = false;
+      PermitRootLogin = "prohibit-password";
+      KbdInteractiveAuthentication = false;
     };
   };
   system.stateVersion = "22.11";

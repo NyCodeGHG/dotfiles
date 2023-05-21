@@ -6,3 +6,6 @@ switch:
 
 build:
 	sudo nixos-rebuild build --flake .#{{hostname}}
+
+deploy-artemis:
+  nix run .#apps.nixinate.artemis

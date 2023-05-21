@@ -1,10 +1,11 @@
 { config
 , lib
+, coder
 , pkgs
 , inputs
 , jellyfin
 , jellyfin-intro-skipper
-, coder
+  # , coder
 , ...
 }: {
   imports = [
@@ -89,15 +90,15 @@
   nix.nixPath = [ "nixpkgs=/etc/channels/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ];
   environment.etc."channels/nixpkgs".source = inputs.nixpkgs.outPath;
   nix.buildMachines = [
-    {
-      hostName = "artemis";
-      system = "x86_64-linux";
-      protocol = "ssh-ng";
-      maxJobs = 1;
-      speedFactor = 2;
-      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" ];
-      mandatoryFeatures = [ ];
-    }
+    #     {
+    #       hostName = "artemis";
+    #       system = "x86_64-linux";
+    #       protocol = "ssh-ng";
+    #       maxJobs = 1;
+    #       speedFactor = 2;
+    #       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" ];
+    #       mandatoryFeatures = [ ];
+    #     }
   ];
   nix.distributedBuilds = true;
   nix.extraOptions = ''
