@@ -25,7 +25,6 @@
     lua-language-server
     nil
     rnix-lsp
-    rust-analyzer
     nodePackages.typescript-language-server
     nodePackages.vscode-json-languageserver
     nodePackages.yaml-language-server
