@@ -129,29 +129,26 @@
   };
 
   services.jellyfin = {
-    enable = true;
+    enable = false;
     openFirewall = true;
     package = jellyfin;
   };
 
-  systemd.services.jellyfin-intro-skipper = {
-    wantedBy = [ "jellyfin.service" "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/sh -c '${pkgs.coreutils}/bin/mkdir -p /var/lib/jellyfin/plugins/IntroSkipper && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.dll -t /var/lib/jellyfin/plugins/IntroSkipper/ && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.pdb -t /var/lib/jellyfin/plugins/IntroSkipper/ && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.xml -t /var/lib/jellyfin/plugins/IntroSkipper'";
-      ExecStop = "${pkgs.coreutils}/bin/rm -rf /var/lib/jellyfin/plugins/IntroSkipper";
-      RemainAfterExit = "yes";
-      User = "jellyfin";
-      Group = "jellyfin";
-    };
-  };
+  # systemd.services.jellyfin-intro-skipper = {
+  #   wantedBy = [ "jellyfin.service" "multi-user.target" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = "${pkgs.bash}/bin/sh -c '${pkgs.coreutils}/bin/mkdir -p /var/lib/jellyfin/plugins/IntroSkipper && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.dll -t /var/lib/jellyfin/plugins/IntroSkipper/ && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.pdb -t /var/lib/jellyfin/plugins/IntroSkipper/ && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.xml -t /var/lib/jellyfin/plugins/IntroSkipper'";
+  #     ExecStop = "${pkgs.coreutils}/bin/rm -rf /var/lib/jellyfin/plugins/IntroSkipper";
+  #     RemainAfterExit = "yes";
+  #     User = "jellyfin";
+  #     Group = "jellyfin";
+  #   };
+  # };
 
   services.motd.enable = true;
 
-  # virtualisation.podman.dockerSocket.enable = true;
-  users.users.coder.extraGroups = [ "podman" "docker" ];
-  services.coder = {
-    enable = true;
-    package = coder;
-  };
+  nixpkgs.config.permittedInsecurePackages = [
+    "nodejs-16.20.0"
+  ];
 }
