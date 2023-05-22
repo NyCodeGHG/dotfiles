@@ -11,6 +11,7 @@
     ./miniflux.nix
     # ./coder.nix
     ./grafana.nix
+    ./loki
   ];
 
   # Bootloader.
@@ -109,4 +110,11 @@
   };
 
   services.motd.enable = true;
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+  };
 }
