@@ -48,6 +48,12 @@ in
           access = "proxy";
           url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
         }
+        {
+          name = "Marie Raspberry Pi Prometheus";
+          type = "prometheus";
+          access = "proxy";
+          url = "http://10.69.0.3:9090";
+        }
       ];
     };
   };

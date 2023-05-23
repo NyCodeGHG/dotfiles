@@ -56,5 +56,7 @@
 
     tmux
     qemu
+    networkmanagerapplet
+    wireguard-tools
   ];
 }

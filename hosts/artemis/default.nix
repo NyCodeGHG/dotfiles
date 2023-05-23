@@ -12,6 +12,7 @@
     # ./coder.nix
     ./grafana.nix
     ./loki
+    ./wireguard.nix
   ];
 
   # Bootloader.
