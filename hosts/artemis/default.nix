@@ -4,12 +4,13 @@
 }: {
   imports = [
     ../../modules/motd.nix
+    ../../modules/coder.nix
     ./hardware.nix
     ./acme.nix
     ./postgres.nix
     ./authentik.nix
     ./miniflux.nix
-    # ./coder.nix
+    ./coder.nix
     ./grafana.nix
     ./loki
     ./wireguard.nix

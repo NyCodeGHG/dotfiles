@@ -11,7 +11,13 @@
   imports = [
     ./hardware.nix
     ../../modules/motd.nix
+    ./wireguard.nix
+    # ../../modules/coder.nix
   ];
+
+  # uwumarie.services.coder.enable = true;
+  # uwumarie.services.coder.accessUrl = "https://coder.marie.cologne";
+  # uwumarie.services.coder.wildcardUrl = "*.coder.marie.cologne";
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -47,11 +53,11 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = [ pkgs.vim ];
-  # virtualisation.podman = {
-  #   enable = true;
-  #   dockerCompat = true;
-  # };
-  virtualisation.docker.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
+  # virtualisation.docker.enable = true;
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.

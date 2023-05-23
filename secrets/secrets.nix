@@ -13,4 +13,5 @@ in
   "authentik-secrets.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "miniflux-credentials.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "grafana-oauth-client-secret.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "coder-oauth.age".publicKeys = [ users.marie-catcafe systems.artemis ];
 }
