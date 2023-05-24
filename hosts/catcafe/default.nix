@@ -25,11 +25,6 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.kernelModules = [ "88x2bu" ];
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.rtl88x2bu
-  ];
-
   networking.hostName = "catcafe"; # Define your hostname.
   networking.networkmanager = {
     enable = true;
