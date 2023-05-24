@@ -18,6 +18,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
   networking = {
     hostName = "catcafe"; # Define your hostname.
     networkmanager = {
@@ -34,6 +35,15 @@
       "2606:4700:4700::1001"
     ];
   };
+
+  boot.kernelModules = [ "88x2bu" ];
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.rtl88x2bu
+  ];
+  boot.blacklistedKernelModules = [
+    "ath9k"
+  ];
+
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "de_DE.UTF-8";
 
