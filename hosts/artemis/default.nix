@@ -14,6 +14,7 @@
     ./grafana.nix
     ./loki
     ./wireguard.nix
+    ./gitlab.nix
   ];
 
   # Bootloader.
@@ -119,4 +120,8 @@
       options = "--delete-older-than 14d";
     };
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1t"
+  ];
 }

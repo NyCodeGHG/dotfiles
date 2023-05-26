@@ -14,4 +14,10 @@ in
   "miniflux-credentials.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "grafana-oauth-client-secret.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "coder-oauth.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "gitlab-root-password.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "gitlab-secret.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "gitlab-otp-secret.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "gitlab-jws-key.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "gitlab-db-secret.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "gitlab-github-client-secret.age".publicKeys = [ users.marie-catcafe systems.artemis ];
 }
