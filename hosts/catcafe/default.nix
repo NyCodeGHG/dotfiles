@@ -24,11 +24,22 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  networking.hostName = "catcafe"; # Define your hostname.
-  networking.networkmanager = {
-    enable = true;
-    firewallBackend = "nftables";
+  networking = {
+    hostName = "catcafe"; # Define your hostname.
+    networkmanager = {
+      enable = true;
+      firewallBackend = "nftables";
+    };
+    firewall = {
+      enable = true;
+      allowedUDPPorts = [ 22 25565 ];
+    };
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+      "2606:4700:4700::1111"
+      "2606:4700:4700::1001"
+    ];
   };
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "de_DE.UTF-8";
@@ -52,7 +63,7 @@
 
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = [ pkgs.vim ];
+  environment.systemPackages = [ pkgs.vim pkgs.openssl ];
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
@@ -69,16 +80,6 @@
     '';
   };
   programs.zsh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-  networking.firewall = {
-    enable = true;
-    allowedUDPPorts = [ 22 25565 ];
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
