@@ -15,6 +15,7 @@
     ./loki
     ./wireguard.nix
     ./gitlab.nix
+    ./jellyfin.nix
   ];
 
   # Bootloader.
