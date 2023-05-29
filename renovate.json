@@ -40,9 +40,8 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": ["ghcr\\.io\\/goauthentik"],
-      "groupName": "authentik",
-      "matchDatasources": [ "docker" ]
+      "matchPackagePrefixes": ["ghcr.io/goauthentik/"],
+      "groupName": "authentik"
     }
   ]
 }
