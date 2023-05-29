@@ -29,6 +29,22 @@ in
           ID used for the unix user and group.
         '';
       };
+      ldap = {
+        enable = mkOption {
+          type = types.bool;
+          default = false;
+          description = ''
+            Enables the deployment of an LDAP outpost.
+          '';
+        };
+        environmentFiles = mkOption {
+          type = with types; listOf path;
+          default = [ ];
+          description = ''
+            Environment files for the ldap outpost container.
+          '';
+        };
+      };
       redis = {
         enable = mkOption {
           type = types.bool;
@@ -131,27 +147,31 @@ in
   config =
     let
       image = "ghcr.io/goauthentik/server:2023.5.1";
+      ldapImage = "ghcr.io/goauthentik/ldap:2023.5.1";
       mkAuthentikContainer =
-        { cmd
+        { cmd ? [ ]
         , dependsOn ? [ ]
-        ,
-        }: {
-          inherit cmd dependsOn image;
-          environment = {
+        , mountPostgres ? true
+        , image
+        , environmentFiles ? cfg.environmentFiles
+        , env ? {
             AUTHENTIK_REDIS__HOST = cfg.redis.host;
             AUTHENTIK_REDIS__PORT = builtins.toString cfg.redis.port;
             AUTHENTIK_REDIS__DB = builtins.toString cfg.redis.database;
             AUTHENTIK_POSTGRESQL__HOST = cfg.postgres.host;
             AUTHENTIK_POSTGRESQL__PORT = builtins.toString cfg.postgres.port;
             AUTHENTIK_POSTGRESQL__NAME = cfg.postgres.database;
-          } // cfg.extraEnv;
+          }
+        ,
+        }: {
+          inherit cmd dependsOn image environmentFiles;
+          environment = env // cfg.extraEnv;
           extraOptions = [
             "--network=host"
           ];
-          volumes = [
+          volumes = mkIf mountPostgres [
             "/run/postgresql:/run/postgresql:ro"
           ];
-          environmentFiles = cfg.environmentFiles;
           user = "${builtins.toString cfg.id}:${builtins.toString cfg.id}";
         };
     in
@@ -167,11 +187,23 @@ in
         virtualisation.oci-containers.containers = {
           authentik-server = mkAuthentikContainer {
             cmd = [ "server" ];
+            inherit image;
           };
           authentik-worker = mkAuthentikContainer {
             cmd = [ "worker" ];
             dependsOn = [ "authentik-server" ];
+            inherit image;
           };
+          authentik-ldap = mkIf cfg.ldap.enable (mkAuthentikContainer {
+            mountPostgres = false;
+            dependsOn = [ "authentik-server" ];
+            image = ldapImage;
+            environmentFiles = cfg.ldap.environmentFiles;
+            env = {
+              AUTHENTIK_HOST = "http://127.0.0.1:9000";
+              AUTHENTIK_INSECURE = "false";
+            };
+          });
         };
 
         services.postgresql = mkIf cfg.postgres.enable {
