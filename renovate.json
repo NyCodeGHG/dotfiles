@@ -1,5 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
   "timezone": "Europe/Berlin",
   "nix": {
     "fileMatch": [
@@ -33,6 +36,13 @@
         "\"(?<depName>(?:ghcr\\.io|docker\\.io|quay\\.io)[^:]*):(?<currentValue>.*)\""
       ],
       "datasourceTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["ghcr.io/goauthentik"],
+      "groupName": "authentik",
+      "matchDatasources": [ "docker" ]
     }
   ]
 }
