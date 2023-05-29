@@ -14,5 +14,6 @@
     ./paperless.nix
     ./iperf3.nix
     ./hedgedoc
+    ./jellyfin.nix
   ];
 }
