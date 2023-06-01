@@ -42,6 +42,12 @@ in
               allowedIPs = [ "10.69.0.4/32" ];
               persistentKeepalive = 25;
             }
+            {
+              name = "marie-desktop";
+              publicKey = "Xr0evEh5CYykgaiXQJDt4P62rjPJXoV40Kz+yGykfEQ=";
+              allowedIPs = [ "10.69.0.5/32" ];
+              persistentKeepalive = 25;
+            }
           ];
         };
       };
