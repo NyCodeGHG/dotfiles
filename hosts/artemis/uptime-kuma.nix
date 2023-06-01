@@ -18,4 +18,13 @@
     useACMEHost = "marie.cologne";
     http2 = true;
   };
+  services.nginx.virtualHosts."status.marie.cologne" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:3001";
+      proxyWebsockets = true;
+    };
+    forceSSL = true;
+    useACMEHost = "marie.cologne";
+    http2 = true;
+  };
 }

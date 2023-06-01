@@ -5,3 +5,11 @@ resource "cloudflare_record" "uptime-kuma-marie_cologne" {
   type    = "A"
   proxied = false
 }
+
+resource "cloudflare_record" "status-marie_cologne" {
+  zone_id = local.cloudflare.zones.marie_cologne
+  name    = "status"
+  value   = local.servers.artemis
+  type    = "A"
+  proxied = false
+}
