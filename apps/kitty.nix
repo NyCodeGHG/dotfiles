@@ -14,5 +14,8 @@ in
       name = builtins.head fonts.monospace;
       size = 12;
     };
+    settings = {
+      enable_audio_bell = false;
+    };
   };
 }

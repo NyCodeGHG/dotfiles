@@ -17,6 +17,8 @@ in
     shell = pkgs.zsh;
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
   home-manager.users.marie = {
     home = {
       inherit (config.system) stateVersion;
@@ -31,6 +33,8 @@ in
     ] ++ lib.optional hyprlandEnabled inputs.hyprland.homeManagerModules.default;
     xdg.userDirs.enable = true;
   };
+
+  services.gnome.gnome-keyring.enable = true;
 
   fonts = {
     fonts = fonts.packages;

@@ -11,7 +11,6 @@
   imports = [
     ./hardware.nix
     ../../modules/motd.nix
-    ./wireguard.nix
     # ../../modules/coder.nix
   ];
 
