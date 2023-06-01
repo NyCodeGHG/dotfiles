@@ -36,6 +36,12 @@ in
               allowedIPs = [ "10.69.0.3/32" ];
               persistentKeepalive = 25;
             }
+            {
+              name = "pixel";
+              publicKey = "bbeNjsvKgB/5TCeQ8zZw2cOUuVIp0UYyeNYmfyxKLDM=";
+              allowedIPs = [ "10.69.0.4/32" ];
+              persistentKeepalive = 25;
+            }
           ];
         };
       };
