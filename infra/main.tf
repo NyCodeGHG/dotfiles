@@ -1,0 +1,3 @@
+module "dns" {
+  source = "./dns"
+}

@@ -113,6 +113,7 @@
         buildInputs = with pkgs; [
           nixpkgs-fmt
           terraform
+          google-cloud-sdk
         ];
       };
     };
