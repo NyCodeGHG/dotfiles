@@ -152,7 +152,7 @@
   #   };
   # };
 
-  services.motd.enable = true;
+  uwumarie.services.motd.enable = true;
 
   nixpkgs.config.permittedInsecurePackages = [
     "nodejs-16.20.0"

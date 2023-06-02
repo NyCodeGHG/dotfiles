@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, inputs, ... }:
 
 let
   port = "8001";
@@ -17,7 +17,7 @@ in
     };
     adminCredentialsFile = config.age.secrets.miniflux-credentials.path;
   };
-  age.secrets.miniflux-credentials.file = ../../secrets/miniflux-credentials.age;
+  age.secrets.miniflux-credentials.file = "${inputs.self}/secrets/miniflux-credentials.age";
 
   services.nginx.virtualHosts."miniflux.marie.cologne" = {
     locations."/" = {

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, inputs, ... }:
 let
   secret = path: {
     file = path;
@@ -46,12 +46,12 @@ in
       };
     };
   };
-  age.secrets.gitlab-root-password = secret ../../secrets/gitlab-root-password.age;
-  age.secrets.gitlab-secret = secret ../../secrets/gitlab-secret.age;
-  age.secrets.gitlab-otp-secret = secret ../../secrets/gitlab-otp-secret.age;
-  age.secrets.gitlab-jws-key = secret ../../secrets/gitlab-jws-key.age;
-  age.secrets.gitlab-db-secret = secret ../../secrets/gitlab-db-secret.age;
-  age.secrets.gitlab-github-client-secret = secret ../../secrets/gitlab-github-client-secret.age;
+  age.secrets.gitlab-root-password = secret "${inputs.self}/secrets/gitlab-root-password.age";
+  age.secrets.gitlab-secret = secret "${inputs.self}/secrets/gitlab-secret.age";
+  age.secrets.gitlab-otp-secret = secret "${inputs.self}/secrets/gitlab-otp-secret.age";
+  age.secrets.gitlab-jws-key = secret "${inputs.self}/secrets/gitlab-jws-key.age";
+  age.secrets.gitlab-db-secret = secret "${inputs.self}/secrets/gitlab-db-secret.age";
+  age.secrets.gitlab-github-client-secret = secret "${inputs.self}/secrets/gitlab-github-client-secret.age";
 
   services.nginx.virtualHosts."git.marie.cologne" = {
     locations."/" = {

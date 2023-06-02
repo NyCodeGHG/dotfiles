@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 {
   imports = [
-    ../../modules/authentik.nix
+    "${inputs.self}/modules/authentik.nix"
   ];
 
   virtualisation.podman.enable = true;
@@ -23,5 +23,5 @@
       };
     };
   };
-  age.secrets.authentik-secrets.file = ../../secrets/authentik-secrets.age;
+  age.secrets.authentik-secrets.file = "${inputs.self}/secrets/authentik-secrets.age";
 }

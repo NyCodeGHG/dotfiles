@@ -20,4 +20,6 @@ in
   "gitlab-jws-key.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "gitlab-db-secret.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "gitlab-github-client-secret.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "restic-repo.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "rclone-config.age".publicKeys = [ users.marie-catcafe systems.artemis ];
 }

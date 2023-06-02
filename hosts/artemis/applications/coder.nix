@@ -1,5 +1,8 @@
-{ config, ... }:
+{ config, inputs, ... }:
 {
+  imports = [
+    "${inputs.self}/modules/coder.nix"
+  ];
   uwumarie.services.coder = {
     enable = true;
     accessUrl = "https://coder.marie.cologne";
@@ -24,7 +27,7 @@
       config.age.secrets.coder-oauth.path
     ];
   };
-  age.secrets.coder-oauth.file = ../../secrets/coder-oauth.age;
+  age.secrets.coder-oauth.file = "${inputs.self}/secrets/coder-oauth.age";
   security.acme.certs."coder.marie.cologne" = {
     domain = "coder.marie.cologne";
     extraDomainNames = [

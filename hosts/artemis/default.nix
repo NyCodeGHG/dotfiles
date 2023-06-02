@@ -4,19 +4,13 @@
 }: {
   imports = [
     ../../modules/motd.nix
-    ../../modules/coder.nix
+    ./monitoring
+    ./applications
     ./hardware.nix
     ./acme.nix
     ./postgres.nix
-    ./authentik.nix
-    ./miniflux.nix
-    ./coder.nix
-    ./grafana.nix
-    ./loki
     ./wireguard.nix
-    ./gitlab.nix
-    ./jellyfin.nix
-    ./uptime-kuma.nix
+    ./restic.nix
   ];
 
   # Bootloader.
@@ -116,7 +110,7 @@
     };
   };
 
-  services.motd.enable = true;
+  uwumarie.services.motd.enable = true;
   nix = {
     gc = {
       automatic = true;

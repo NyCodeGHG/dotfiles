@@ -1,16 +1,15 @@
-{ config, pkgs, lib, fetchFromGitHub, ... }:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
-  cfg = config.services.motd;
+  cfg = config.uwumarie.services.motd;
   certs = lib.attrsets.mapAttrs
     (name: value: value.directory + "/cert.pem")
     config.security.acme.certs;
-  acmeHome = config.users.users.acme.home;
 in
 {
-  options.services.motd = {
+  options.uwumarie.services.motd = {
     enable = mkOption {
       type = types.bool;
       default = false;

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, inputs, ... }:
 let
   port = 3000;
 in
@@ -59,7 +59,7 @@ in
   };
 
   age.secrets.grafana-oauth-client-secret = {
-    file = ../../secrets/grafana-oauth-client-secret.age;
+    file = "${inputs.self}/secrets/grafana-oauth-client-secret.age";
     owner = "grafana";
     group = "grafana";
   };
