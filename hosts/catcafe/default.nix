@@ -1,22 +1,13 @@
 { config
 , lib
-, coder
 , pkgs
 , inputs
-, jellyfin
-, jellyfin-intro-skipper
-  # , coder
 , ...
 }: {
   imports = [
     ./hardware.nix
     ../../modules/motd.nix
-    # ../../modules/coder.nix
   ];
-
-  # uwumarie.services.coder.enable = true;
-  # uwumarie.services.coder.accessUrl = "https://coder.marie.cologne";
-  # uwumarie.services.coder.wildcardUrl = "*.coder.marie.cologne";
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -133,24 +124,6 @@
     ];
     driSupport32Bit = true;
   };
-
-  services.jellyfin = {
-    enable = false;
-    openFirewall = true;
-    package = jellyfin;
-  };
-
-  # systemd.services.jellyfin-intro-skipper = {
-  #   wantedBy = [ "jellyfin.service" "multi-user.target" ];
-  #   serviceConfig = {
-  #     Type = "oneshot";
-  #     ExecStart = "${pkgs.bash}/bin/sh -c '${pkgs.coreutils}/bin/mkdir -p /var/lib/jellyfin/plugins/IntroSkipper && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.dll -t /var/lib/jellyfin/plugins/IntroSkipper/ && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.pdb -t /var/lib/jellyfin/plugins/IntroSkipper/ && ${pkgs.coreutils}/bin/ln -sf ${jellyfin-intro-skipper}/ConfusedPolarBear.Plugin.IntroSkipper.xml -t /var/lib/jellyfin/plugins/IntroSkipper'";
-  #     ExecStop = "${pkgs.coreutils}/bin/rm -rf /var/lib/jellyfin/plugins/IntroSkipper";
-  #     RemainAfterExit = "yes";
-  #     User = "jellyfin";
-  #     Group = "jellyfin";
-  #   };
-  # };
 
   uwumarie.services.motd.enable = true;
   programs.hyprland = {
