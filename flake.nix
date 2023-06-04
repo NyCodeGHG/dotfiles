@@ -15,7 +15,8 @@
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
-    hyprland.url = "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -46,8 +47,6 @@
         ]) ++ modules;
         specialArgs = {
           inherit inputs host;
-          jellyfin = self.packages.x86_64-linux.jellyfin;
-          jellyfin-intro-skipper = self.packages.x86_64-linux.jellyfin-intro-skipper;
           agenix = agenix.packages.x86_64-linux.default;
           coder = self.packages.x86_64-linux.coder;
         };
@@ -55,7 +54,6 @@
       vms = nixpkgs.lib.attrsets.mapAttrs'
         (name: value: (nixpkgs.lib.attrsets.nameValuePair ("${name}-vm") value.config.system.build.vm))
         self.nixosConfigurations;
-      jellyfinPkgs = pkgs.callPackage ./jellyfin { };
     in
     {
       apps = nixinate.nixinate.x86_64-linux self;
@@ -75,17 +73,6 @@
             sshKey = "github_laptop.ed25519";
           };
         };
-        moonshine = createSystem {
-          name = "moonshine";
-          useHomeManager = true;
-          modules = [
-            ./marie.nix
-            ./hosts/common.nix
-          ];
-          host = {
-            sshKey = "github.ed25519";
-          };
-        };
         artemis = createSystem {
           name = "artemis";
           modules = [
@@ -95,17 +82,13 @@
                 sshUser = "marie";
                 buildOn = "remote";
                 subsituteOnTarget = true;
-                hermetic = false;
+                hermetic = true;
               };
             }
           ];
         };
       };
       packages.x86_64-linux = {
-        # figlet-preview = (pkgs.callPackage ./scripts/figlet-preview.nix { });
-        jellyfin = jellyfinPkgs.jellyfin;
-        jellyfin-web = jellyfinPkgs.jellyfin-web;
-        jellyfin-intro-skipper = jellyfinPkgs.jellyfin-intro-skipper;
         coder = (pkgs.callPackage ./packages/coder.nix { });
       } // vms;
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;

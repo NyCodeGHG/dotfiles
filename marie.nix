@@ -7,7 +7,6 @@
 }:
 let
   fonts = import ./fonts.nix { inherit pkgs; };
-  hyprlandEnabled = true;
 in
 {
   users.users.marie = {
@@ -30,7 +29,8 @@ in
 
     imports = [
       ./apps
-    ] ++ lib.optional hyprlandEnabled inputs.hyprland.homeManagerModules.default;
+      inputs.hyprland.homeManagerModules.default
+    ];
     xdg.userDirs.enable = true;
   };
 

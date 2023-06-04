@@ -16,6 +16,7 @@
     gcc
     cmake
     gnumake
+    python3
 
     # Formatters
     stylua
@@ -53,6 +54,9 @@
     kondo
     terraform
     vscode
+    slurp
+    grim
+    restic
 
     tmux
     qemu

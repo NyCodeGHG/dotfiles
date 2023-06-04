@@ -153,6 +153,10 @@
   # };
 
   uwumarie.services.motd.enable = true;
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
   nixpkgs.config.permittedInsecurePackages = [
     "nodejs-16.20.0"
