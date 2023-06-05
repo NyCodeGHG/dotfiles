@@ -12,7 +12,7 @@
         } + /palettes/${flavour}.toml;
     in
     {
-      enable = true;
+      enable = false;
       settings = {
         format = "$username@$hostname $directory$character";
         right_format = "$git_status$git_branch$nix_shell$cmd_duration";

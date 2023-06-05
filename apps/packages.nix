@@ -57,6 +57,7 @@
     slurp
     grim
     restic
+    xdg-utils
 
     tmux
     qemu
