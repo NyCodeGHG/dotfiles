@@ -3,19 +3,24 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
-    agenix.url = "github:ryantm/agenix";
-    flake-utils.url = "github:numtide/flake-utils";
-    nixinate = {
-      url = "github:matthewcroughan/nixinate";
+    home-manager = {
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-utils.url = "github:numtide/flake-utils";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
-
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -25,65 +30,53 @@
     , hyprland
     , agenix
     , flake-utils
-    , nixinate
     , vscode-server
+    , deploy-rs
     , ...
     } @ inputs:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
-      createSystem = { name, modules ? [ ], useHomeManager ? false, host ? { }, }: nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/${name}
-          agenix.nixosModules.default
-        ] ++ (pkgs.lib.optionals useHomeManager [
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-          }
-        ]) ++ modules;
-        specialArgs = {
-          inherit inputs host;
-          agenix = agenix.packages.x86_64-linux.default;
-        };
-      };
     in
     {
-      apps = nixinate.nixinate.x86_64-linux self;
       nixosConfigurations = {
-        catcafe = createSystem {
-          name = "catcafe";
+        catcafe = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           modules = [
+            agenix.nixosModules.default
             hyprland.nixosModules.default
-            { programs.hyprland.enable = true; }
+            vscode-server.nixosModule
+            home-manager.nixosModules.home-manager
             ./marie.nix
             ./hosts/common.nix
-            vscode-server.nixosModule
-            { services.vscode-server.enable = true; }
-          ];
-          useHomeManager = true;
-          host = {
-            sshKey = "github_laptop.ed25519";
-          };
-        };
-        artemis = createSystem {
-          name = "artemis";
-          modules = [
+            ./hosts/catcafe
             {
-              _module.args.nixinate = {
-                host = "uwu.nycode.dev";
-                sshUser = "marie";
-                buildOn = "remote";
-                subsituteOnTarget = true;
-                hermetic = true;
-              };
+              programs.hyprland.enable = true;
+              services.vscode-server.enable = true;
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
             }
           ];
+          specialArgs = {
+            inherit inputs;
+            host = {
+              sshKey = "github_laptop.ed25519";
+            };
+            agenix = agenix.packages.x86_64-linux.default;
+          };
         };
-      };
-      packages.x86_64-linux = {
-        coder = (pkgs.callPackage ./packages/coder.nix { });
+        artemis = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            agenix.nixosModules.default
+            vscode-server.nixosModules.default
+            ./hosts/common.nix
+            ./hosts/artemis
+          ];
+          specialArgs = {
+            inherit inputs;
+            agenix = agenix.packages.x86_64-linux.default;
+          };
+        };
       };
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       devShells.x86_64-linux.default = pkgs.mkShell {
@@ -91,7 +84,20 @@
           nixpkgs-fmt
           terraform
           google-cloud-sdk
+          pkgs.deploy-rs
         ];
       };
+      deploy = {
+        nodes.artemis = {
+          hostname = "uwu.nycode.dev";
+          profiles.system = {
+            user = "root";
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
+          };
+        };
+        remoteBuild = true;
+      };
+
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
 }
