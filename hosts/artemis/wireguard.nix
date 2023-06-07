@@ -48,6 +48,12 @@ in
               allowedIPs = [ "10.69.0.5/32" ];
               persistentKeepalive = 25;
             }
+            {
+              name = "firetv";
+              publicKey = "ix5kGyVlSASM0EruH3kzZtMwd0QJ0Ar8v6IIs24Jzzo=";
+              allowedIPs = [ "10.69.0.6/32" ];
+              persistentKeepalive = 25;
+            }
           ];
         };
       };
