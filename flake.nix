@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-22.11";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +21,6 @@
   outputs =
     { self
     , nixpkgs
-    , nixpkgs-stable
     , home-manager
     , hyprland
     , agenix
@@ -48,12 +46,8 @@
         specialArgs = {
           inherit inputs host;
           agenix = agenix.packages.x86_64-linux.default;
-          coder = self.packages.x86_64-linux.coder;
         };
       };
-      vms = nixpkgs.lib.attrsets.mapAttrs'
-        (name: value: (nixpkgs.lib.attrsets.nameValuePair ("${name}-vm") value.config.system.build.vm))
-        self.nixosConfigurations;
     in
     {
       apps = nixinate.nixinate.x86_64-linux self;
@@ -90,7 +84,7 @@
       };
       packages.x86_64-linux = {
         coder = (pkgs.callPackage ./packages/coder.nix { });
-      } // vms;
+      };
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       devShells.x86_64-linux.default = pkgs.mkShell {
         buildInputs = with pkgs; [
