@@ -110,7 +110,21 @@ in
             }
           ];
         }
+        {
+          job_name = "nginx";
+          static_configs = [
+            {
+              targets = [ "localhost" ];
+              labels = {
+                __path__ = "/var/log/nginx/json_access.log";
+                host = config.networking.hostName;
+                job = "nginx";
+              };
+            }
+          ];
+        }
       ];
     };
   };
+  users.users.promtail.extraGroups = [ "nginx" ];
 }
