@@ -2,6 +2,7 @@
 {
   imports = [
     "${inputs.self}/modules/coder.nix"
+    "${inputs.self}/modules/reverse-proxy.nix"
   ];
   uwumarie.services.coder = {
     enable = true;
@@ -9,9 +10,7 @@
     wildcardUrl = "*.coder.marie.cologne";
     nginx = {
       enable = true;
-      extraConfig = {
-        forceSSL = true;
-        http2 = true;
+      extraConfig = config.uwumarie.reverse-proxy.commonOptions // {
         useACMEHost = "coder.marie.cologne";
       };
     };

@@ -3,6 +3,9 @@ let
   port = 3000;
 in
 {
+  imports = [
+    "${inputs.self}/modules/reverse-proxy.nix"
+  ];
   services.grafana = {
     enable = true;
     settings = {
@@ -64,22 +67,15 @@ in
     group = "grafana";
   };
 
-  services.nginx.virtualHosts = {
+  uwumarie.reverse-proxy.services = {
     "grafana.marie.cologne" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${builtins.toString port}";
         proxyWebsockets = true;
       };
-      forceSSL = true;
-      useACMEHost = "marie.cologne";
-      http2 = true;
     };
     "grafana.nycode.dev" = {
-      forceSSL = true;
-      useACMEHost = "marie.cologne";
-      http2 = true;
       globalRedirect = "grafana.marie.cologne";
     };
   };
 }
-

@@ -7,6 +7,10 @@ let
   };
 in
 {
+  imports = [
+    "${inputs.self}/modules/reverse-proxy.nix"
+  ];
+
   services.gitlab = {
     enable = true;
     https = true;
@@ -53,13 +57,10 @@ in
   age.secrets.gitlab-db-secret = secret "${inputs.self}/secrets/gitlab-db-secret.age";
   age.secrets.gitlab-github-client-secret = secret "${inputs.self}/secrets/gitlab-github-client-secret.age";
 
-  services.nginx.virtualHosts."git.marie.cologne" = {
+  uwumarie.reverse-proxy.services."git.marie.cologne" = {
     locations."/" = {
       proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
       proxyWebsockets = true;
     };
-    forceSSL = true;
-    useACMEHost = "marie.cologne";
-    http2 = true;
   };
 }

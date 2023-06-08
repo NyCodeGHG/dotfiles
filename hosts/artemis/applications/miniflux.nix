@@ -4,6 +4,10 @@ let
   port = "8001";
 in
 {
+  imports = [
+    "${inputs.self}/modules/reverse-proxy.nix"
+  ];
+
   services.miniflux = {
     enable = true;
     config = {
@@ -19,20 +23,15 @@ in
   };
   age.secrets.miniflux-credentials.file = "${inputs.self}/secrets/miniflux-credentials.age";
 
-  services.nginx.virtualHosts."miniflux.marie.cologne" = {
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${port}";
-      proxyWebsockets = true;
+  uwumarie.reverse-proxy.services = {
+    "miniflux.marie.cologne" = {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${port}";
+        proxyWebsockets = true;
+      };
     };
-    forceSSL = true;
-    useACMEHost = "marie.cologne";
-    http2 = true;
-  };
-
-  services.nginx.virtualHosts."miniflux.nycode.dev" = {
-    forceSSL = true;
-    useACMEHost = "marie.cologne";
-    http2 = true;
-    globalRedirect = "miniflux.marie.cologne";
+    "miniflux.nycode.dev" = {
+      globalRedirect = "miniflux.marie.cologne";
+    };
   };
 }

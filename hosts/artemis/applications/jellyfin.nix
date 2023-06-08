@@ -1,7 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 {
+  imports = [
+    "${inputs.self}/modules/reverse-proxy.nix"
+  ];
+
   services.jellyfin.enable = true;
-  services.nginx.virtualHosts."jellyfin.marie.cologne" = {
+  uwumarie.reverse-proxy.services."jellyfin.marie.cologne" = {
     locations."/" = {
       proxyPass = "http://127.0.0.1:8096";
       proxyWebsockets = true;
@@ -11,8 +15,5 @@
         deny all;
       '';
     };
-    forceSSL = true;
-    useACMEHost = "marie.cologne";
-    http2 = true;
   };
 }
