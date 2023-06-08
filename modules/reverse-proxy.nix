@@ -1,7 +1,7 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 with lib;
 let
-  virtualHost = import "${inputs.nixpkgs}/nixos/modules/services/web-servers/nginx/vhost-options.nix" {
+  virtualHost = import "${pkgs.path}/nixos/modules/services/web-servers/nginx/vhost-options.nix" {
     inherit config lib;
   };
   cfg = config.uwumarie.reverse-proxy;

@@ -98,6 +98,17 @@
         remoteBuild = true;
       };
 
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+      checks = (builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib) // {
+        x86_64-linux =
+          let
+            checkArgs = {
+              inherit self;
+              pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            };
+          in
+          {
+            reverse-proxy = import ./tests/reverse-proxy.nix checkArgs;
+          };
+      };
     };
 }
