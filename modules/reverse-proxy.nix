@@ -1,10 +1,13 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 with lib;
 let
   virtualHost = import "${inputs.nixpkgs}/nixos/modules/services/web-servers/nginx/vhost-options.nix" {
     inherit config lib;
   };
   cfg = config.uwumarie.reverse-proxy;
+  mkMergeTopLevel = names: attrs: getAttrs names (
+    mapAttrs (k: v: mkMerge v) (foldAttrs (n: a: [ n ] ++ a) [ ] attrs)
+  );
 in
 {
   options.uwumarie.reverse-proxy = {
@@ -14,15 +17,10 @@ in
       default = { };
     };
     services = mkOption {
-      type = types.attrsOf (types.submodule virtualHost);
+      type = types.attrsOf types.attrs;
       default = { };
     };
   };
 
-  config = mkIf cfg.enable {
-    services.nginx = {
-      enable = true;
-      virtualHosts = builtins.mapAttrs (name: value: cfg.commonOptions // value) cfg.services;
-    };
-  };
+  config.services.nginx.virtualHosts = mapAttrs (name: vhostConfig: cfg.commonOptions // vhostConfig) cfg.services;
 }

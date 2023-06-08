@@ -108,13 +108,13 @@ in
       };
       virtualHosts.${
       lib.strings.removePrefix "http://" (lib.strings.removePrefix "https://" cfg.accessUrl)
-      } = {
+      } = cfg.nginx.extraConfig // {
         serverAliases = [ cfg.wildcardUrl ];
         locations."/" = {
           proxyPass = "http://coder";
           proxyWebsockets = true;
         };
-      } // cfg.nginx.extraConfig;
+      };
     };
   };
 }

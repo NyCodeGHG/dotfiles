@@ -133,13 +133,6 @@ in
             Extra options for the nginx virtual host.
           '';
         };
-        extraLocationConfig = mkOption {
-          type = types.attrs;
-          default = { };
-          description = ''
-            Extra options for the nginx virtual host location.
-          '';
-        };
       };
     };
   };
@@ -244,12 +237,12 @@ in
               keepalive 10;
             '';
           };
-          virtualHosts.${cfg.nginx.domain} = {
+          virtualHosts.${cfg.nginx.domain} = cfg.nginx.extraConfig // {
             locations."/" = {
               proxyPass = "http://authentik";
               proxyWebsockets = true;
-            } // cfg.nginx.extraLocationConfig;
-          } // cfg.nginx.extraConfig;
+            };
+          };
         };
       };
 }

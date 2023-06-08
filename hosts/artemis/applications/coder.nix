@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ config, inputs, lib, ... }:
 {
   imports = [
     "${inputs.self}/modules/coder.nix"
