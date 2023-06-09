@@ -46,14 +46,17 @@
             hyprland.nixosModules.default
             vscode-server.nixosModule
             home-manager.nixosModules.home-manager
-            ./marie.nix
             ./hosts/common.nix
             ./hosts/catcafe
             {
               programs.hyprland.enable = true;
               services.vscode-server.enable = true;
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.marie = import ./home;
+                extraSpecialArgs = { inherit inputs; graphical = true; };
+              };
             }
           ];
           specialArgs = {
@@ -69,13 +72,33 @@
           modules = [
             agenix.nixosModules.default
             vscode-server.nixosModules.default
+            home-manager.nixosModules.home-manager
             ./hosts/common.nix
             ./hosts/artemis
+            {
+              services.vscode-merver.enable = true;
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.marie = import ./home;
+                extraSpecialArgs = { inherit inputs; graphical = false; };
+              };
+            }
           ];
           specialArgs = {
             inherit inputs;
             agenix = agenix.packages.x86_64-linux.default;
           };
+        };
+      };
+      homeConfigurations.marie = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./home
+        ];
+        extraSpecialArgs = {
+          inherit inputs;
+          graphical = false;
         };
       };
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;

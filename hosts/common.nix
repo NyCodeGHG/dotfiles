@@ -1,5 +1,7 @@
 { pkgs, config, lib, agenix, ... }:
 {
-  services.mullvad-vpn.enable = true;
+  imports = [
+    ../users/marie
+  ];
   environment.systemPackages = [ agenix pkgs.lshw pkgs.pciutils pkgs.speedtest-cli pkgs.iw ];
 }

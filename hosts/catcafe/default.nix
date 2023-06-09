@@ -8,6 +8,8 @@
     ./hardware.nix
     ../../modules/motd.nix
   ];
+  services.mullvad-vpn.enable = true;
+  programs.steam.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

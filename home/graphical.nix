@@ -1,9 +1,4 @@
-{ config
-, pkgs
-, lib
-, self
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   filterNixFiles = k: v: v == "regular" && k != "default.nix" && lib.hasSuffix ".nix" k;
   importNixFiles = path: filter:
@@ -13,5 +8,6 @@ let
       import;
 in
 {
-  imports = importNixFiles ../apps filterNixFiles;
+  imports = (importNixFiles ./graphical filterNixFiles) ++ [ ./default.nix ];
+  # _module.args = { inherit inputs; };
 }
