@@ -1,18 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
 {
-  # services.restic.backups.gdrive = {
-  #   initialize = true;
-  #   passwordFile = config.age.secrets.restic-repo.path;
-  #   paths = [ ];
-  #   pruneOpts = [
-  #     "--keep-last 5"
-  #     "--keep-weekly 5"
-  #     "--keep-monthly 12"
-  #     "--keep-yearly 75"
-  #   ];
-  # };
   age.secrets.restic-repo.file = "${inputs.self}/secrets/restic-repo.age";
-  age.secrets.rclone-config.file = "${inputs.self}/secrets/rclone-config.age";
+  age.secrets.b2-restic.file = "${inputs.self}/secrets/b2-restic.age";
 
   systemd.timers."restic-backup-postgres" = {
     wantedBy = [ "timers.target" ];
@@ -26,11 +15,11 @@
     serviceConfig = {
       User = "root";
       Type = "oneshot";
+      EnvironmentFile = config.age.secrets.b2-restic.path;
     };
     environment = {
-      RESTIC_REPOSITORY = "rclone:gdrive:Backups/${config.networking.hostName}";
+      RESTIC_REPOSITORY = "s3:s3.eu-central-003.backblazeb2.com/marie-backups";
       RESTIC_PASSWORD_FILE = config.age.secrets.restic-repo.path;
-      RCLONE_CONFIG = config.age.secrets.rclone-config.path;
     };
     script = ''
       set -eo pipefail
