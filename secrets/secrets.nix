@@ -22,4 +22,5 @@ in
   "gitlab-github-client-secret.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "restic-repo.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "rclone-config.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "discord-webhook.age".publicKeys = [ users.marie-catcafe systems.artemis ];
 }

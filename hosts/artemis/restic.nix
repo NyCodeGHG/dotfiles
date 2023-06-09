@@ -48,5 +48,38 @@
         --keep-monthly 12 \
         --keep-yearly 75
     '';
+    onFailure = [ "restic-backup-postgres-notification@%n.service" ];
   };
+  systemd.services."restic-backup-postgres-notification@" =
+    let
+      script = pkgs.writeScript "notification" ''
+        UNIT=$1
+        HOST=$2
+
+        UNITSTATUS=$(systemctl status $UNIT)
+
+        ${pkgs.discord-sh}/bin/discord.sh \
+          --username "Restic Backup" \
+          --avatar "https://restic.readthedocs.io/en/stable/_static/logo.png" \
+          --text "<@449893028266770432>" \
+          --title ":x: Backup Failed!" \
+          --color "0x00FFFF" \
+          --timestamp \
+          --field "Unit;$UNIT" \
+          --description "$(echo $UNITSTATUS | ${pkgs.jq}/bin/jq -Rs . | cut -c 2- | ${pkgs.util-linux}/bin/rev | cut -c 2- | ${pkgs.util-linux}/bin/rev)"
+      '';
+    in
+    {
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.bash}/bin/bash ${script} %I %H";
+        EnvironmentFile = config.age.secrets.discord-webhook.path;
+      };
+      unitConfig = {
+        Description = "Restic Backup Postgres Notification";
+        After = "network.target";
+      };
+    };
+
+  age.secrets.discord-webhook.file = ../../secrets/discord-webhook.age;
 }
