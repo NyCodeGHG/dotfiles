@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   serverName = "marie.cologne";
   matrixDomain = "matrix.marie.cologne";
@@ -84,6 +84,15 @@ in
           ];
         }
       ];
+      password_config = {
+        enabled = false;
+      };
+      sso = {
+        client_whitelist = [
+          "https://chat.marie.cologne"
+        ];
+        update_profile_information = true;
+      };
     };
     extraConfigFiles = [
       (pkgs.writeText
@@ -96,6 +105,15 @@ in
               database: matrix-synapse
               user: matrix-synapse
         '')
+      config.age.secrets.synapse-sso-config.path
     ];
+  };
+  systemd.services.matrix-synapse = {
+    after = [ "network-online.target" "postgresql.service" "podman-authentik-server.service" ];
+    wants = [ "network-online.target" "postgresql.service" "podman-authentik-server.service" ];
+  };
+  age.secrets.synapse-sso-config = {
+    file = "${inputs.self}/secrets/synapse-sso-config.age";
+    owner = "matrix-synapse";
   };
 }

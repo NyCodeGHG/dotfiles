@@ -23,4 +23,5 @@ in
   "restic-repo.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "b2-restic.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "discord-webhook.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "synapse-sso-config.age".publicKeys = [ users.marie-catcafe systems.artemis ];
 }
