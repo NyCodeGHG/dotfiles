@@ -58,6 +58,7 @@
     grim
     restic
     xdg-utils
+    jq
 
     tmux
     qemu
