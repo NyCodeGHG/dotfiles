@@ -76,7 +76,7 @@
             ./hosts/common.nix
             ./hosts/artemis
             {
-              services.vscode-merver.enable = true;
+              services.vscode-server.enable = true;
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;

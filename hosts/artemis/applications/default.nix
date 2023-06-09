@@ -6,5 +6,6 @@
     ./gitlab.nix
     ./jellyfin.nix
     ./miniflux.nix
+    ./matrix
   ];
 }
