@@ -7,6 +7,7 @@
   imports = [
     ./hardware.nix
     ../../modules/motd.nix
+    ../../modules/fonts.nix
   ];
   services.mullvad-vpn.enable = true;
   programs.steam.enable = true;
@@ -24,7 +25,7 @@
     };
     firewall = {
       enable = true;
-      allowedUDPPorts = [ 22 25565 ];
+      allowedUDPPorts = [ 22 ];
     };
     nameservers = [
       "1.1.1.1"
