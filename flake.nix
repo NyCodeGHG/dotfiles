@@ -108,6 +108,7 @@
           terraform
           google-cloud-sdk
           pkgs.deploy-rs
+          nurl
         ];
       };
       deploy = {
@@ -133,5 +134,6 @@
             reverse-proxy = import ./tests/reverse-proxy.nix checkArgs;
           };
       };
+      packages.x86_64-linux.authentik-web = pkgs.callPackage ./packages/authentik/web.nix { };
     };
 }
