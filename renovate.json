@@ -4,23 +4,6 @@
     "config:base"
   ],
   "timezone": "Europe/Berlin",
-  "nix": {
-    "fileMatch": [
-      "(^|/)flake\\.nix$"
-    ],
-    "commitMessageTopic": "nixpkgs",
-    "commitMessageExtra": "to {{newValue}}",
-    "enabled": true,
-    "schedule": [
-      "before 5am on monday"
-    ]
-  },
-  "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": [
-      "before 5am on monday"
-    ]
-  },
   "automergeType": "pr",
   "automerge": true,
   "automergeSchedule": [
@@ -40,7 +23,9 @@
   ],
   "packageRules": [
     {
-      "matchPackagePrefixes": ["ghcr.io/goauthentik/"],
+      "matchPackagePrefixes": [
+        "ghcr.io/goauthentik/"
+      ],
       "groupName": "authentik"
     }
   ]
