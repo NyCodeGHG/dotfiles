@@ -134,6 +134,5 @@
             reverse-proxy = import ./tests/reverse-proxy.nix checkArgs;
           };
       };
-      packages.x86_64-linux.authentik-web = pkgs.callPackage ./packages/authentik/web.nix { };
     };
 }
