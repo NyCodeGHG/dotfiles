@@ -58,6 +58,7 @@
     restic
     xdg-utils
     jq
+    virt-manager
 
     tmux
     qemu

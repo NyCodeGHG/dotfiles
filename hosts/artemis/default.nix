@@ -4,6 +4,7 @@
 }: {
   imports = [
     ../../modules/motd.nix
+    ../../modules/nix-config.nix
     ./reverse-proxy.nix
     ./monitoring
     ./applications
@@ -50,21 +51,11 @@
     openFirewall = true;
     settings = {
       PasswordAuthentication = false;
-      PermitRootLogin = "prohibit-password";
+      PermitRootLogin = "no";
       KbdInteractiveAuthentication = false;
     };
   };
   system.stateVersion = "22.11";
-
-  users.users.marie = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiS+tzh0R/nN5nqSwvLerCV4nBwI51zOKahFfiiINGp Marie Default"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESHraJJ0INX/OAXOQUR4UuLEre/2N70Uh3H5YkFC5zz Marie Laptop"
-    ];
-    initialPassword = "";
-  };
 
   virtualisation.vmVariant = {
     virtualisation.forwardPorts = [
@@ -91,15 +82,7 @@
       diskSize = 1024 * 8;
     };
   };
-
   uwumarie.services.motd.enable = true;
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 14d";
-    };
-  };
 
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1u"

@@ -6,11 +6,13 @@
 }: {
   imports = [
     ./hardware.nix
+    ../../modules/nix-config.nix
     ../../modules/motd.nix
     ../../modules/fonts.nix
   ];
   services.mullvad-vpn.enable = true;
   programs.steam.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -89,21 +91,6 @@
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
   nix.nixPath = [ "nixpkgs=/etc/channels/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" "/nix/var/nix/profiles/per-user/root/channels" ];
   environment.etc."channels/nixpkgs".source = inputs.nixpkgs.outPath;
-  nix.buildMachines = [
-    #     {
-    #       hostName = "artemis";
-    #       system = "x86_64-linux";
-    #       protocol = "ssh-ng";
-    #       maxJobs = 1;
-    #       speedFactor = 2;
-    #       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" ];
-    #       mandatoryFeatures = [ ];
-    #     }
-  ];
-  nix.distributedBuilds = true;
-  nix.extraOptions = ''
-    builders-use-substitutes = true
-  '';
 
   security.rtkit.enable = true;
   services.pipewire = {

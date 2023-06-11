@@ -10,6 +10,7 @@ in
       [ (config.security.sudo.enable || config.security.doas.enable) "wheel" ]
       [ config.virtualisation.podman.enable "podman" ]
       [ config.virtualisation.docker.enable "docker" ]
+      [ config.virtualisation.libvirtd.enable "libvirtd" ]
     ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
