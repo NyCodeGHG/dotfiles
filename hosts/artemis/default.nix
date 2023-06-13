@@ -13,6 +13,7 @@
     ./postgres.nix
     ./wireguard.nix
     ./restic.nix
+    ./oci
   ];
 
   # Bootloader.

@@ -24,4 +24,6 @@ in
   "b2-restic.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "discord-webhook.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "synapse-sso-config.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "oci-terraform.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "oci-private-key.age".publicKeys = [ users.marie-catcafe systems.artemis ];
 }
