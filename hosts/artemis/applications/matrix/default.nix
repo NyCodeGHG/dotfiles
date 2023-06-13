@@ -26,48 +26,63 @@ in
       locations."/" = {
         return = "301 https://${frontendDomain}";
       };
-      locations."/_matrix".proxyPass = "http://[::1]:8008";
-      locations."/_synapse/client".proxyPass = "http://[::1]:8008";
-    };
-    "${frontendDomain}" = {
-      locations."/" = {
-        root = pkgs.element-web.override {
-          conf = {
-            default_server_config = clientConfig;
-            default_country_code = "DE";
-            room_directory.servers = [ "matrix.org" "mozilla.org" "skji.org" ];
-            default_theme = "dark";
-            default_device_display_name = "Element Web";
-            permalink_prefix = "https://chat.marie.cologne";
-            disable_guests = true;
-            branding = {
-              welcome_background_url = map (name: "/_backgrounds/${name}") (builtins.attrNames (builtins.readDir backgrounds));
-            };
-            logout_redirect_url = "https://sso.nycode.dev/application/o/synapse/end-session/";
-            integrations_ui_url = "https://scalar.vector.im/";
-            integrations_rest_url = "https://scalar.vector.im/api";
-            integrations_widgets_urls = [
-              "https://scalar.vector.im/_matrix/integrations/v1"
-              "https://scalar.vector.im/api"
-              "https://scalar-staging.vector.im/_matrix/integrations/v1"
-              "https://scalar-staging.vector.im/api"
-              "https://scalar-staging.riot.im/scalar/api"
-            ];
-            enable_presence_by_hs_url = {
-              "https://matrix.org" = false;
-              "https://matrix-client.matrix.org" = false;
-            };
-          };
-        };
-      };
-      locations."/_backgrounds" = {
-        root = "${backgrounds}";
-        tryFiles = "$uri =404";
+      locations."~ ^(/_matrix|/_synapse/client)" = {
+        proxyPass = "http://[::1]:8008";
         extraConfig = ''
-          rewrite ^/_backgrounds/(.*) /$1 break;
+          client_max_body_size 50M;
+          proxy_http_version 1.1;
         '';
       };
     };
+    "${frontendDomain}" =
+      let headers = ''
+        add_header X-Frame-Options SAMEORIGIN;
+        add_header X-Content-Type-Options nosniff;
+        add_header X-XSS-Protection "1; mode=block";
+        add_header Content-Security-Policy "frame-ancestors 'self'";
+      '';
+      in
+      {
+        locations."/" = {
+          root = pkgs.element-web.override {
+            conf = {
+              default_server_config = clientConfig;
+              default_country_code = "DE";
+              room_directory.servers = [ "matrix.org" "mozilla.org" "skji.org" ];
+              default_theme = "dark";
+              default_device_display_name = "Element Web";
+              permalink_prefix = "https://chat.marie.cologne";
+              disable_guests = true;
+              branding = {
+                welcome_background_url = map (name: "/_backgrounds/${name}") (builtins.attrNames (builtins.readDir backgrounds));
+              };
+              logout_redirect_url = "https://sso.nycode.dev/application/o/synapse/end-session/";
+              integrations_ui_url = "https://scalar.vector.im/";
+              integrations_rest_url = "https://scalar.vector.im/api";
+              integrations_widgets_urls = [
+                "https://scalar.vector.im/_matrix/integrations/v1"
+                "https://scalar.vector.im/api"
+                "https://scalar-staging.vector.im/_matrix/integrations/v1"
+                "https://scalar-staging.vector.im/api"
+                "https://scalar-staging.riot.im/scalar/api"
+              ];
+              enable_presence_by_hs_url = {
+                "https://matrix.org" = false;
+                "https://matrix-client.matrix.org" = false;
+              };
+            };
+          };
+          extraConfig = headers;
+        };
+        locations."/_backgrounds" = {
+          root = "${backgrounds}";
+          tryFiles = "$uri =404";
+          extraConfig = ''
+            rewrite ^/_backgrounds/(.*) /$1 break;
+            ${headers}
+          '';
+        };
+      };
   };
 
   services.postgresql = {
