@@ -117,4 +117,6 @@
     "nodejs-16.20.0"
     "openssl-1.1.1u"
   ];
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

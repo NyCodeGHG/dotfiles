@@ -95,16 +95,20 @@
             agenix = agenix.packages.x86_64-linux.default;
           };
         };
-        # delphi = nixpkgs.lib.nixosSystem {
-        #   system = "aarch64-linux";
-        #   modules = [
-        #     agenix.nixosModules.default
-        #     home-manager.nixosModules.home-manager
-        #     disko.nixosModules.disko
-        #     ./hosts/delphi
-        #     ./hosts/common.nix
-        #   ];
-        # };
+        delphi = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [
+            agenix.nixosModules.default
+            home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
+            ./hosts/delphi
+            ./hosts/common.nix
+          ];
+          specialArgs = {
+            inherit inputs;
+            agenix = agenix.packages.aarch64-linux.default;
+          };
+        };
       };
       homeConfigurations.marie = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
