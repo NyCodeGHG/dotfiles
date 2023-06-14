@@ -57,7 +57,24 @@ in
           access = "proxy";
           url = "http://10.69.0.3:9090";
         }
+        {
+          name = "Prometheus artemis";
+          type = "prometheus";
+          access = "proxy";
+          url = "http://127.0.0.1:${toString config.services.prometheus.port}";
+        }
       ];
+      dashboards.settings.providers =
+        let
+          dashboards = inputs.self.packages.x86_64-linux.node-mixin.override { job = "node-exporter"; };
+        in
+        [
+          {
+            name = "Node Exporter";
+            type = "file";
+            options.path = "${dashboards}/dashboards/nodes.json";
+          }
+        ];
     };
   };
 
