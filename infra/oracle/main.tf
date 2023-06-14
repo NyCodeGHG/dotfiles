@@ -11,6 +11,14 @@ provider "oci" {
   region = "eu-frankfurt-1"
 }
 
+variable "compartment_id" {
+  default = "ocid1.tenancy.oc1..aaaaaaaazilgo52o57gc4nonjd6ixk2xsffoosru3g4gcti75x5nugor4uaa"
+}
+
+variable "subnet_id" {
+  default = "ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaayi3lwfv6xnettqwqwa2bvmn6gj63ljakmgwqjfcirgv4xwcdctba"
+}
+
 resource "oci_core_instance" "delphi" {
   agent_config {
     is_management_disabled = "false"
@@ -33,11 +41,11 @@ resource "oci_core_instance" "delphi" {
     recovery_action             = "RESTORE_INSTANCE"
   }
   availability_domain = "tQrM:EU-FRANKFURT-1-AD-1"
-  compartment_id      = "ocid1.tenancy.oc1..aaaaaaaazilgo52o57gc4nonjd6ixk2xsffoosru3g4gcti75x5nugor4uaa"
+  compartment_id      = var.compartment_id
   create_vnic_details {
     assign_private_dns_record = "true"
     assign_public_ip          = "true"
-    subnet_id                 = "ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaayi3lwfv6xnettqwqwa2bvmn6gj63ljakmgwqjfcirgv4xwcdctba"
+    subnet_id                 = var.subnet_id
   }
   display_name = "delphi"
   instance_options {
@@ -56,5 +64,30 @@ resource "oci_core_instance" "delphi" {
     boot_volume_vpus_per_gb = "20"
     source_id               = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaavv2mpdlhnbt6zehvubcorl4oqkrzthc5ustlfs7npfhkk7r6xyq"
     source_type             = "image"
+  }
+}
+
+resource "oci_core_vcn" "vcn" {
+  compartment_id = var.compartment_id
+  cidr_block     = "10.0.0.0/16"
+}
+
+resource "oci_core_security_list" "sl" {
+  compartment_id = var.compartment_id
+  vcn_id         = oci_core_vcn.vcn.id
+  egress_security_rules {
+    destination      = "0.0.0.0/0"
+    destination_type = "CIDR_BLOCK"
+    protocol         = "all"
+    stateless        = false
+  }
+  # Allow ssh traffic
+  ingress_security_rules {
+    source   = "0.0.0.0/0"
+    protocol = "6"
+    tcp_options {
+      max = 22
+      min = 22
+    }
   }
 }
