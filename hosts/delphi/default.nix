@@ -5,6 +5,9 @@
     "${modulesPath}/profiles/headless.nix"
     ../../modules/motd.nix
     ../../modules/nix-config.nix
+    ../../profiles/acme.nix
+    ../../profiles/reverse-proxy.nix
+    ./wireguard.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -17,6 +20,10 @@
     hostName = "delphi";
     # Use OCI firewall
     firewall.enable = false;
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
   };
 
   time.timeZone = "Europe/Berlin";

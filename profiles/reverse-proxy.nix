@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
-    ../../modules/reverse-proxy.nix
+    ../modules/reverse-proxy.nix
   ];
   uwumarie.reverse-proxy = {
     enable = true;

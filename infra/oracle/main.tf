@@ -28,7 +28,7 @@ resource "oci_core_instance" "delphi" {
       name          = "Vulnerability Scanning"
     }
     plugins_config {
-      desired_state = "ENABLED"
+      desired_state = "DISABLED"
       name          = "Compute Instance Monitoring"
     }
     plugins_config {
@@ -88,6 +88,24 @@ resource "oci_core_security_list" "sl" {
     tcp_options {
       max = 22
       min = 22
+    }
+  }
+  # Allow http traffic
+  ingress_security_rules {
+    source   = "0.0.0.0/0"
+    protocol = "6"
+    tcp_options {
+      max = 80
+      min = 80
+    }
+  }
+  # Allow https traffic
+  ingress_security_rules {
+    source   = "0.0.0.0/0"
+    protocol = "6"
+    tcp_options {
+      max = 443
+      min = 443
     }
   }
 }

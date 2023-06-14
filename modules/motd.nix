@@ -35,7 +35,7 @@ in
   config = mkIf cfg.enable {
     nixpkgs.overlays = [
       (self: super: {
-        rust-motd = super.rust-motd.overrideAttrs (old: rec {
+        rust-motd = super.rust-motd.overrideAttrs (old: {
           src = self.fetchFromGitHub {
             owner = "rust-motd";
             repo = "rust-motd";
@@ -62,15 +62,10 @@ in
               color = "magenta";
               command = "hostname | figlet -f slant";
             };
-            weather = {
-              url = "https://wttr.in/Moon?0";
-            };
             uptime = {
               prefix = "Uptime";
             };
-            filesystems = {
-              root = "/";
-            };
+            filesystems = builtins.mapAttrs (name: value: value.mountPoint) config.fileSystems;
             memory = {
               swap_pos = "none";
             };

@@ -20,5 +20,5 @@
 
   users.users.nginx.extraGroups = [ "acme" ];
 
-  age.secrets.cloudflare-api-key.file = ../../secrets/cloudflare-api-key.age;
+  age.secrets.cloudflare-api-key.file = ../secrets/cloudflare-api-key.age;
 }

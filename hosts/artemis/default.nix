@@ -5,15 +5,14 @@
   imports = [
     ../../modules/motd.nix
     ../../modules/nix-config.nix
-    ./reverse-proxy.nix
+    ../../profiles/reverse-proxy.nix
+    ../../profiles/acme.nix
     ./monitoring
     ./applications
     ./hardware.nix
-    ./acme.nix
     ./postgres.nix
     ./wireguard.nix
     ./restic.nix
-    ./oci
   ];
 
   # Bootloader.

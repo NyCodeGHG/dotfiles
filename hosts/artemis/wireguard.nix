@@ -7,11 +7,6 @@ in
     pkgs.wireguard-tools
   ];
   networking = {
-    nat = {
-      enable = true;
-      externalInterface = "ens3";
-      internalInterfaces = [ "wg0" ];
-    };
     firewall = {
       allowedUDPPorts = [ port ];
       trustedInterfaces = [ "wg0" ];
@@ -53,6 +48,12 @@ in
               publicKey = "ix5kGyVlSASM0EruH3kzZtMwd0QJ0Ar8v6IIs24Jzzo=";
               allowedIPs = [ "10.69.0.6/32" ];
               persistentKeepalive = 25;
+            }
+            {
+              name = "delphi";
+              publicKey = "qj6y6xfFtYga5hpT8FygOAOKN0xIDO5+sdtT8K2ozUc=";
+              allowedIPs = [ "10.69.0.7/32" ];
+              # persistentKeepalive is not needed here, because we're not behind nat
             }
           ];
         };

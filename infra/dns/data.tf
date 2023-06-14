@@ -8,6 +8,7 @@ locals {
   servers = {
     artemis    = "89.58.10.36"
     artemis-wg = "10.69.0.1"
+    delphi     = "141.144.240.28"
   }
 }
 

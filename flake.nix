@@ -131,11 +131,20 @@
         ];
       };
       deploy = {
-        nodes.artemis = {
-          hostname = "uwu.nycode.dev";
-          profiles.system = {
-            user = "root";
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
+        nodes = {
+          artemis = {
+            hostname = "uwu.nycode.dev";
+            profiles.system = {
+              user = "root";
+              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
+            };
+          };
+          delphi = {
+            hostname = "delphi";
+            profiles.system = {
+              user = "root";
+              path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.delphi;
+            };
           };
         };
         remoteBuild = true;

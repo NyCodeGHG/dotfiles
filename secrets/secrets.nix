@@ -4,6 +4,7 @@ let
   };
   systems = {
     artemis = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8 root@artemis";
+    delphi = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3 root@delphi";
   };
   allUsers = builtins.attrValues users;
   allSystems = builtins.attrValues systems;
@@ -24,6 +25,5 @@ in
   "b2-restic.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "discord-webhook.age".publicKeys = [ users.marie-catcafe systems.artemis ];
   "synapse-sso-config.age".publicKeys = [ users.marie-catcafe systems.artemis ];
-  "oci-terraform.age".publicKeys = [ users.marie-catcafe systems.artemis ];
-  "oci-private-key.age".publicKeys = [ users.marie-catcafe systems.artemis ];
+  "delphi-wg-privatekey.age".publicKeys = [ users.marie-catcafe systems.delphi ];
 }
