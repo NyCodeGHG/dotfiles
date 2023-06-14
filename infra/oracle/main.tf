@@ -1,8 +1,17 @@
+terraform {
+  required_providers {
+    oci = {
+      source = "oracle/oci"
+    }
+  }
+}
+
 provider "oci" {
+  # Rest of the authentication parameters are configure via environment variables.
   region = "eu-frankfurt-1"
 }
 
-resource "oci_core_instance" "generated_oci_core_instance" {
+resource "oci_core_instance" "delphi" {
   agent_config {
     is_management_disabled = "false"
     is_monitoring_disabled = "false"
