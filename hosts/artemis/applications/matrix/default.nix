@@ -112,6 +112,7 @@ in
           user = "matrix-synapse";
         };
       };
+      enable_metrics = config.services.prometheus.enable;
       listeners = [
         {
           port = 8008;
@@ -126,6 +127,14 @@ in
             }
           ];
         }
+        (lib.mkIf config.services.prometheus.enable {
+          port = 8009;
+          bind_addresses = [ "127.0.0.1" ];
+          type = "metrics";
+          tls = false;
+          x_forwarded = false;
+          resources = [ ];
+        })
       ];
       password_config = {
         enabled = false;
@@ -159,4 +168,14 @@ in
     file = "${inputs.self}/secrets/synapse-sso-config.age";
     owner = "matrix-synapse";
   };
+  services.prometheus.scrapeConfigs = [
+    {
+      job_name = "synapse";
+      static_configs = [
+        {
+          targets = [ "127.0.0.1:8009" ];
+        }
+      ];
+    }
+  ];
 }
