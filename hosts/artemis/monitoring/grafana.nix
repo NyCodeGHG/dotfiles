@@ -63,6 +63,12 @@ in
           access = "proxy";
           url = "http://127.0.0.1:${toString config.services.prometheus.port}";
         }
+        {
+          name = "Prometheus Tobi";
+          type = "prometheus";
+          access = "proxy";
+          url = "http://10.69.0.8:9090";
+        }
       ];
       dashboards.settings.providers =
         let

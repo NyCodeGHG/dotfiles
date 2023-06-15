@@ -55,6 +55,12 @@ in
               allowedIPs = [ "10.69.0.7/32" ];
               # persistentKeepalive is not needed here, because we're not behind nat
             }
+            {
+              name = "tobi-nas";
+              publicKey = "aFMhUNLlj6oF3iDqUdlcJR1sxVjjRSDJ1S8bcH+fwhA=";
+              allowedIPs = [ "10.69.0.8/32" ];
+              persistentKeepalive = 25;
+            }
           ];
         };
       };
