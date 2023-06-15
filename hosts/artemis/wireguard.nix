@@ -7,6 +7,11 @@ in
     pkgs.wireguard-tools
   ];
   networking = {
+    nat = {
+      enable = true;
+      externalInterface = "ens3";
+      internalInterfaces = [ "wg0" ];
+    };
     firewall = {
       allowedUDPPorts = [ port ];
       trustedInterfaces = [ "wg0" ];
