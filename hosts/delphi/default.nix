@@ -8,6 +8,7 @@
     ../../profiles/acme.nix
     ../../profiles/reverse-proxy.nix
     ./wireguard.nix
+    ./minecraft.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
