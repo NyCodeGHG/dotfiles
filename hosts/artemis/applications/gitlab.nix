@@ -27,7 +27,12 @@ in
     extraConfig = {
       omniauth = {
         enabled = true;
-        allow_single_sign_on = [ ];
+        allow_single_sign_on = [ "saml" ];
+        sync_email_from_provider = "saml";
+        sync_profile_from_provider = [ "saml" ];
+        sync_profile_attributes = [ "email" ];
+        block_auto_created_users = false;
+        auto_link_saml_user = true;
         providers = [
           {
             name = "github";
@@ -37,6 +42,22 @@ in
             };
             args = {
               scope = "user:email";
+            };
+          }
+          {
+            name = "saml";
+            label = "Authentik";
+            args = {
+              assertion_consumer_service_url = "https://git.marie.cologne/users/auth/saml/callback";
+              idp_cert_fingerprint = "5b:47:53:84:13:41:33:62:17:d1:08:bd:d2:5e:c1:2a:7c:bd:e5:6d";
+              idp_sso_target_url = "https://sso.nycode.dev/application/saml/gitlab/sso/binding/redirect/";
+              issuer = "https://git.marie.cologne";
+              name_identifier_format = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
+              attribute_statements = {
+                email = [ "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress" ];
+                first_name = [ "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" ];
+                nickname = [ "http://schemas.goauthentik.io/2021/02/saml/username" ];
+              };
             };
           }
         ];
