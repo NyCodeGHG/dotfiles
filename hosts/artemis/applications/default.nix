@@ -3,7 +3,7 @@
   imports = [
     ./authentik.nix
     ./coder.nix
-    ./gitlab.nix
+    ./gitlab
     ./jellyfin.nix
     ./miniflux.nix
     ./matrix

@@ -57,7 +57,7 @@ in
         UNITSTATUS=$(systemctl status $UNIT)
 
         ${pkgs.discord-sh}/bin/discord.sh \
-          --username "Restic Backup" \
+          --username "Postgres Restic Backup" \
           --avatar "https://restic.readthedocs.io/en/stable/_static/logo.png" \
           --text "<@449893028266770432>" \
           --title ":x: Backup Failed!" \
@@ -110,7 +110,7 @@ in
 
           export LC_NUMERIC="en_US.UTF-8"
           ${pkgs.discord-sh}/bin/discord.sh \
-            --username "Restic Backup" \
+            --username "Postgres Restic Backup" \
             --avatar "https://restic.readthedocs.io/en/stable/_static/logo.png" \
             --title ":white_check_mark: Backup created!" \
             --color "0x00FF00" \
@@ -124,5 +124,5 @@ in
             --description "$(${pkgs.restic}/bin/restic version)"
         '';
     };
-  age.secrets.discord-webhook.file = ../../secrets/discord-webhook.age;
+  age.secrets.discord-webhook.file = "${inputs.self}/secrets/discord-webhook.age";
 }

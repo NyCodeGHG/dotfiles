@@ -9,6 +9,7 @@ in
 {
   imports = [
     "${inputs.self}/modules/reverse-proxy.nix"
+    ./backup.nix
   ];
 
   services.gitlab = {
