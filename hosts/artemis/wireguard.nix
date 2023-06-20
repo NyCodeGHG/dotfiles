@@ -7,11 +7,7 @@ in
     pkgs.wireguard-tools
   ];
   networking = {
-    nat = {
-      enable = true;
-      externalInterface = "ens3";
-      internalInterfaces = [ "wg0" ];
-    };
+    nat.enable = true;
     firewall = {
       allowedUDPPorts = [ port ];
       trustedInterfaces = [ "wg0" ];
@@ -63,12 +59,15 @@ in
             {
               name = "tobi-nas";
               publicKey = "aFMhUNLlj6oF3iDqUdlcJR1sxVjjRSDJ1S8bcH+fwhA=";
-              allowedIPs = [ "10.69.0.8/32" ];
+              allowedIPs = [ "10.69.0.8/32" "192.168.178.0/24" ];
               persistentKeepalive = 25;
             }
           ];
         };
       };
+    };
+    nftables = {
+      enable = true;
     };
   };
 }
