@@ -126,9 +126,17 @@ in
 {
   systemd.timers."restic-backup-gitlab" = {
     wantedBy = [ "timers.target" ];
-    partOf = [ "restic-backup-gitlab.service" "restic-backup-gitlab-repositories.service" ];
+    partOf = [ "restic-backup-gitlab.service" ];
     timerConfig = {
       OnCalendar = "01:00";
+    };
+  };
+
+  systemd.timers."restic-backup-gitlab-repositories" = {
+    wantedBy = [ "timers.target" ];
+    partOf = [ "restic-backup-gitlab-repositories.service" ];
+    timerConfig = {
+      OnCalendar = "01:30";
     };
   };
 
