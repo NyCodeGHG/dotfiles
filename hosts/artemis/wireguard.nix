@@ -54,6 +54,7 @@ in
               name = "delphi";
               publicKey = "qj6y6xfFtYga5hpT8FygOAOKN0xIDO5+sdtT8K2ozUc=";
               allowedIPs = [ "10.69.0.7/32" ];
+              endpoint = "141.144.240.28:${builtins.toString port}";
               # persistentKeepalive is not needed here, because we're not behind nat
             }
             {
