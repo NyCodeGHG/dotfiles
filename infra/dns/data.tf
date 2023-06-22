@@ -6,9 +6,16 @@ locals {
     }
   }
   servers = {
-    artemis    = "89.58.10.36"
+    artemis    = var.artemis-ip
     artemis-wg = "10.69.0.1"
-    delphi     = "141.144.240.28"
+    delphi     = var.delphi-ip
   }
 }
 
+variable "delphi-ip" {
+  type = string
+}
+
+variable "artemis-ip" {
+  type = string
+}

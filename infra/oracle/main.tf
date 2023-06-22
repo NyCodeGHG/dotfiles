@@ -124,4 +124,12 @@ resource "oci_core_security_list" "sl" {
       min = 25565
     }
   }
+  ingress_security_rules {
+    source   = "${var.artemis-ip}/32"
+    protocol = "17"
+    udp_options {
+      max = 51820
+      min = 51820
+    }
+  }
 }
