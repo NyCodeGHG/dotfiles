@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ pkgs, config, inputs, ... }:
 let
   secret = path: {
     file = path;
