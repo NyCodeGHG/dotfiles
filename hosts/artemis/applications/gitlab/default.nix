@@ -17,7 +17,7 @@ in
     https = true;
     host = "git.marie.cologne";
     port = 443;
-    # packages.gitlab = pkgs.gitlab-ee;
+    packages.gitlab = pkgs.gitlab-ee;
     initialRootEmail = "tabmeier12@gmail.com";
     initialRootPasswordFile = config.age.secrets.gitlab-root-password.path;
     secrets = {
