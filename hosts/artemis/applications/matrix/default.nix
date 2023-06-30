@@ -4,6 +4,7 @@ let
   matrixDomain = "matrix.marie.cologne";
   frontendDomain = "chat.marie.cologne";
   clientConfig."m.homeserver".base_url = "https://${matrixDomain}";
+  clientConfig."m.homeserver".server_name = "marie.cologne";
   clientConfig."m.identity_server".base_url = "https://vector.im";
   serverConfig."m.server" = "${matrixDomain}:443";
   mkWellKnown = data: ''
