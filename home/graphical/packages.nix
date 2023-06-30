@@ -9,6 +9,7 @@
     element-desktop
     cinny-desktop
     qbittorrent
+    mullvad-vpn
 
     # Programming Languages
     rustup
@@ -31,6 +32,7 @@
     taplo
     terraform-ls
     nodePackages."@tailwindcss/language-server"
+    gopls
 
     # General Tools
     whois
