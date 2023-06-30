@@ -1,6 +1,5 @@
 {
   description = "System configuration";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
@@ -40,7 +39,7 @@
     , ...
     } @ inputs:
     let
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      pkgs = nixpkgs.legacyPackages."x86_64-linux";
     in
     {
       nixosConfigurations = {
