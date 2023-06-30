@@ -13,3 +13,11 @@ resource "cloudflare_record" "status-marie_cologne" {
   type    = "A"
   proxied = false
 }
+
+resource "cloudflare_record" "status-marie_cologne_v6" {
+  zone_id = local.cloudflare.zones.marie_cologne
+  name    = "status"
+  value   = local.servers.artemis6
+  type    = "AAAA"
+  proxied = false
+}
