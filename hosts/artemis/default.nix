@@ -27,9 +27,6 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [ 80 443 ];
-      extraInputRules = ''
-        ip saddr 127.0.0.1 ip daddr { 172.64.146.11/32, 104.18.41.245/32 } tcp dport 443 drop
-      '';
     };
     nftables.enable = true;
     interfaces = {
