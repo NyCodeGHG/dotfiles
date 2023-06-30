@@ -33,4 +33,5 @@
       "*.coder.marie.cologne"
     ];
   };
+  systemd.services.podman-coder.after = [ "podman-authentik-server.service" "podman-authentik-worker.service"];
 }
