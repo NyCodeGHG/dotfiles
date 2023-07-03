@@ -40,6 +40,7 @@ in
         role_attribute_path = "contains(groups[*], 'grafana-server-admin') && 'GrafanaAdmin' || contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-edit') && 'Editor' || 'Viewer'";
         login_attribute_path = "preferred_username";
         name_attribute_path = "nickname";
+        id_token_attribute_name = "sub";
       };
     };
     provision = {
