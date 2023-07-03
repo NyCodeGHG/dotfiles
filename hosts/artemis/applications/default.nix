@@ -7,5 +7,6 @@
     ./jellyfin.nix
     ./miniflux.nix
     ./matrix
+    ./ip-playground.nix
   ];
 }

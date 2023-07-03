@@ -102,6 +102,23 @@
         "type": "github"
       }
     },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1688254665,
+        "narHash": "sha256-8FHEgBrr7gYNiS/NzCxIO3m4hvtLRW9YY1nYo1ivm3o=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "267149c58a14d15f7f81b4d737308421de9d7152",
+        "type": "github"
+      },
+      "original": {
+        "id": "flake-parts",
+        "type": "indirect"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -223,6 +240,27 @@
         "type": "github"
       }
     },
+    "ip-playground": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1688413661,
+        "narHash": "sha256-cxL1rl9hrcJTzAaQccbABGk0hToVsAAsDSoruKBdz3Y=",
+        "ref": "refs/heads/main",
+        "rev": "f0cf1dedd23745e9d485e890ea503e8a1e043381",
+        "revCount": 9,
+        "type": "git",
+        "url": "ssh://gitlab@git.marie.cologne/marie/ip-playground.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://gitlab@git.marie.cologne/marie/ip-playground.git"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1688049487,
@@ -234,6 +272,24 @@
       },
       "original": {
         "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib": {
+      "locked": {
+        "dir": "lib",
+        "lastModified": 1688049487,
+        "narHash": "sha256-100g4iaKC9MalDjUW9iN6Jl/OocTDtXdeAj7pEGIRh4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4bc72cae107788bf3f24f30db2e2f685c9298dc9",
+        "type": "github"
+      },
+      "original": {
+        "dir": "lib",
+        "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
@@ -261,6 +317,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",
+        "ip-playground": "ip-playground",
         "nixpkgs": "nixpkgs",
         "vscode-server": "vscode-server"
       }

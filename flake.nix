@@ -24,6 +24,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ip-playground = {
+      url = "git+ssh://gitlab@git.marie.cologne/marie/ip-playground.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -36,6 +40,7 @@
     , vscode-server
     , deploy-rs
     , disko
+    , ip-playground
     , ...
     } @ inputs:
     let
