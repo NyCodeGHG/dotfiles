@@ -3,5 +3,5 @@
   imports = [
     ../users/marie
   ];
-  environment.systemPackages = [ agenix pkgs.lshw pkgs.pciutils pkgs.speedtest-cli pkgs.iw ];
+  environment.systemPackages = [ agenix pkgs.lshw pkgs.pciutils pkgs.speedtest-cli pkgs.iw pkgs.inetutils ];
 }
