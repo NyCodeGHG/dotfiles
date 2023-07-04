@@ -33,6 +33,9 @@ in
     environment = {
       ALLOWED_ORIGINS = "https://ip.marie.cologne,https://v4.ip.marie.cologne,https://v6.ip.marie.cologne";
       PORT = "3032";
+      LOG_FORMAT = "json";
+      ENABLE_OTLP = "true";
+      OTEL_SERVICE_NAME = "ip-playground";
     };
     serviceConfig = {
       ExecStart = ''

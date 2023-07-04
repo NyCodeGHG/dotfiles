@@ -70,6 +70,12 @@ in
           access = "proxy";
           url = "http://10.69.0.8:9090";
         }
+        {
+          name = "Tempo";
+          type = "tempo";
+          access = "proxy";
+          url = "http://127.0.0.1:${toString config.services.tempo.settings.server.http_listen_port}";
+        }
       ];
       dashboards.settings.providers =
         let
