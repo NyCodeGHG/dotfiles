@@ -24,6 +24,30 @@
           }
         ];
       }
+      {
+        job_name = "loki";
+        static_configs = [
+          {
+            targets = [ "localhost:${toString config.services.loki.configuration.server.http_listen_port}"];
+          }
+        ];
+      }
+      {
+        job_name = "tempo";
+        static_configs = [
+          {
+            targets = [ "localhost:${toString config.services.tempo.settings.server.http_listen_port}"];
+          }
+        ];
+      }
+      {
+        job_name = "grafana";
+        static_configs = [
+          {
+            targets = [ "localhost:${toString config.services.grafana.settings.server.http_port}"];
+          }
+        ];
+      }
     ];
   };
   uwumarie.reverse-proxy.services = {
