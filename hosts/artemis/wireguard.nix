@@ -67,8 +67,5 @@ in
         };
       };
     };
-    nftables = {
-      enable = true;
-    };
   };
 }

@@ -14,6 +14,7 @@
     ./wireguard.nix
     ./restic.nix
     ./networking.nix
+    ./fail2ban.nix
   ];
 
   # Bootloader.
