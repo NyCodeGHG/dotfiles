@@ -55,6 +55,16 @@ in
       limits_config = {
         reject_old_samples = true;
         reject_old_samples_max_age = "168h";
+        split_queries_by_interval = "24h";
+        max_query_parallelism = 100;
+      };
+
+      query_scheduler = {
+        max_outstanding_requests_per_tenant = 4096;
+      };
+
+      frontend = {
+        max_outstanding_per_tenant = 4096;
       };
 
       chunk_store_config = {
