@@ -15,11 +15,12 @@
     bantime = "1h";
     maxretry = 3;
     jails = {
-      sshd = ''
-        enabled = true
-        mode = aggressive
-        port = ${lib.concatMapStringsSep "," (p: toString p) config.services.openssh.ports }
-      '';
+      sshd = {
+        enabled = true;
+        settings = {
+          mode = "aggressive";
+        };
+      };
     };
   };
 }
