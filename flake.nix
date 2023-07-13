@@ -132,7 +132,7 @@
           google-cloud-sdk
           pkgs.deploy-rs
           nurl
-        ];
+        ] ++ [ agenix.packages.x86_64-linux.default ];
       };
       deploy = {
         nodes = {
