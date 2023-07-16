@@ -28,6 +28,10 @@
       url = "git+ssh://gitlab@git.marie.cologne/marie/ip-playground.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    awesome-prometheus-rules = {
+      url = "github:NyCodeGHG/awesome-prometheus-rules.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -41,6 +45,7 @@
     , deploy-rs
     , disko
     , ip-playground
+    , awesome-prometheus-rules
     , ...
     } @ inputs:
     let
@@ -79,6 +84,7 @@
         artemis = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            awesome-prometheus-rules.nixosModules.default
             agenix.nixosModules.default
             vscode-server.nixosModules.default
             home-manager.nixosModules.home-manager
@@ -135,6 +141,7 @@
         ] ++ [ agenix.packages.x86_64-linux.default ];
       };
       deploy = {
+        sshOpts = ["-t"];
         nodes = {
           artemis = {
             hostname = "uwu.nycode.dev";

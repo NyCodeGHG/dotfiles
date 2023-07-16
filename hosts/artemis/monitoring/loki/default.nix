@@ -85,6 +85,18 @@ in
           };
         };
       };
+
+      ruler = {
+        enable_api = true;
+        enable_alertmanager_v2 = true;
+        ring.kvstore.store = "inmemory";
+        rule_path = "/var/lib/loki/rules-temp";
+        alertmanager_url = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
+        storage = {
+          type = "local";
+          local.directory = "/var/lib/loki/rules";
+        };
+      };
     };
   };
 

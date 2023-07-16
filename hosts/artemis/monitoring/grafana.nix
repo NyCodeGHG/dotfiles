@@ -76,6 +76,15 @@ in
           access = "proxy";
           url = "http://127.0.0.1:${toString config.services.tempo.settings.server.http_listen_port}";
         }
+        {
+          name = "Alertmanager";
+          type = "alertmanager";
+          url = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
+          jsonData = {
+            implementation = "prometheus";
+            handleGrafanaManagedAlerts = config.services.prometheus.enable;
+          };
+        }
       ];
       dashboards.settings.providers =
         let

@@ -3,7 +3,7 @@
   imports = [
     ./loki
     ./grafana.nix
-    ./prometheus.nix
+    ./prometheus
     ./uptime-kuma.nix
     ./tempo.nix
   ];

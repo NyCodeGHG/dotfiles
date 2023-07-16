@@ -71,5 +71,4 @@ in
   };
   age.secrets.restic-repo.file = "${inputs.self}/secrets/restic-repo.age";
   age.secrets.b2-restic.file = "${inputs.self}/secrets/b2-restic.age";
-  age.secrets.discord-webhook.file = "${inputs.self}/secrets/discord-webhook.age";
 }

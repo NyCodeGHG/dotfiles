@@ -22,6 +22,43 @@
         "type": "github"
       }
     },
+    "awesome-prometheus-alerts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689437125,
+        "narHash": "sha256-DaX690hv09axyzahuhmgp3cIX7YPh72SFnVHp2wZpfQ=",
+        "owner": "samber",
+        "repo": "awesome-prometheus-alerts",
+        "rev": "0eb66a5d2cbdff0ab7c7199e197bd7d291e1db19",
+        "type": "github"
+      },
+      "original": {
+        "owner": "samber",
+        "repo": "awesome-prometheus-alerts",
+        "type": "github"
+      }
+    },
+    "awesome-prometheus-rules": {
+      "inputs": {
+        "awesome-prometheus-alerts": "awesome-prometheus-alerts",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1689541317,
+        "narHash": "sha256-xPpWASx+1eLX44IjP0RiI6knDZFSmxFq41pqainRbjY=",
+        "owner": "NyCodeGHG",
+        "repo": "awesome-prometheus-rules.nix",
+        "rev": "aaa53dceb1edde3d85317bc6207215b75ba6370a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NyCodeGHG",
+        "repo": "awesome-prometheus-rules.nix",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -312,6 +349,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "awesome-prometheus-rules": "awesome-prometheus-rules",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
         "flake-utils": "flake-utils",
