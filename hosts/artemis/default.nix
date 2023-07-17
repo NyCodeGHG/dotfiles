@@ -77,8 +77,4 @@
     };
   };
   uwumarie.services.motd.enable = true;
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1u"
-  ];
 }
