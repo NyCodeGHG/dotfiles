@@ -21,6 +21,9 @@
     ];
     awesome-prometheus-alerts = {
       prometheus-self-monitoring.embedded-exporter.enable = true;
+      host-and-hardware.node-exporter.enable = true;
+      loki.embedded-exporter.enable = true;
+      promtail.embedded-exporter.enable = true;
     };
     globalConfig.scrape_interval = "30s";
     scrapeConfigs = 
@@ -56,6 +59,10 @@
       (mkTarget {
         job = "grafana";
         target = "localhost:${toString config.services.grafana.settings.server.http_port}";
+      })
+      (mkTarget {
+        job = "promtail";
+        target = "localhost:${toString config.services.promtail.configuration.server.http_listen_port}";
       })
     ];
   };
