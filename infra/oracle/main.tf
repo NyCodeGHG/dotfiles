@@ -2,12 +2,13 @@ terraform {
   required_providers {
     oci = {
       source = "oracle/oci"
+      version = ">=5.4.0"
     }
   }
 }
 
 provider "oci" {
-  # Rest of the authentication parameters are configure via environment variables.
+  # Rest of the authentication parameters are configured via environment variables.
   region = "eu-frankfurt-1"
 }
 
@@ -17,6 +18,14 @@ variable "compartment_id" {
 
 variable "subnet_id" {
   default = "ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaayi3lwfv6xnettqwqwa2bvmn6gj63ljakmgwqjfcirgv4xwcdctba"
+}
+
+variable "vnic_id" {
+  default = "ocid1.vnic.oc1.eu-frankfurt-1.abtheljtcltojp4xbmobgln32pt4fe3tz4aojpgywp2c35lmrbktxykx2niq"
+}
+
+variable "ipv6_prefix" {
+  default = "2603:c020:8012:1069::/64"
 }
 
 resource "oci_core_instance" "delphi" {
@@ -70,6 +79,7 @@ resource "oci_core_instance" "delphi" {
 resource "oci_core_vcn" "vcn" {
   compartment_id = var.compartment_id
   cidr_block     = "10.0.0.0/16"
+  is_ipv6enabled = true
 }
 
 resource "oci_core_security_list" "sl" {
@@ -81,47 +91,68 @@ resource "oci_core_security_list" "sl" {
     protocol         = "all"
     stateless        = false
   }
+  egress_security_rules {
+    destination = "::/0"
+    destination_type = "CIDR_BLOCK"
+    protocol = "all"
+    stateless = false
+  }
   # Allow ssh traffic
-  ingress_security_rules {
-    source   = "0.0.0.0/0"
-    protocol = "6"
-    tcp_options {
-      max = 22
-      min = 22
+  dynamic "ingress_security_rules" {
+    for_each = ["0.0.0.0/0", "::/0"] 
+    content {
+      source = ingress_security_rules.value
+      protocol = "6"
+      tcp_options {
+        max = 22
+        min = 22
+      }
     }
   }
   # Allow http traffic
-  ingress_security_rules {
-    source   = "0.0.0.0/0"
-    protocol = "6"
-    tcp_options {
-      max = 80
-      min = 80
+  dynamic "ingress_security_rules" {
+    for_each = ["0.0.0.0/0", "::/0"] 
+    content {
+      source = ingress_security_rules.value
+      protocol = "6"
+      tcp_options {
+        max = 80
+        min = 80
+      }
     }
   }
   # Allow https traffic
-  ingress_security_rules {
-    source   = "0.0.0.0/0"
-    protocol = "6"
-    tcp_options {
-      max = 443
-      min = 443
+  dynamic "ingress_security_rules" {
+    for_each = ["0.0.0.0/0", "::/0"] 
+    content {
+      source = ingress_security_rules.value
+      protocol = "6"
+      tcp_options {
+        max = 443
+        min = 443
+      }
     }
   }
-  ingress_security_rules {
-    source   = "0.0.0.0/0"
-    protocol = "6"
-    tcp_options {
-      max = 25565
-      min = 25565
+  dynamic "ingress_security_rules" {
+    for_each = ["0.0.0.0/0", "::/0"] 
+    content {
+      source = ingress_security_rules.value
+      protocol = "6"
+      tcp_options {
+        max = 25565
+        min = 25565
+      }
     }
   }
-  ingress_security_rules {
-    source   = "0.0.0.0/0"
-    protocol = "17"
-    udp_options {
-      max = 25565
-      min = 25565
+  dynamic "ingress_security_rules" {
+    for_each = ["0.0.0.0/0", "::/0"] 
+    content {
+      source = ingress_security_rules.value
+      protocol = "17"
+      udp_options {
+        max = 25565
+        min = 25565
+      }
     }
   }
   ingress_security_rules {
@@ -131,5 +162,57 @@ resource "oci_core_security_list" "sl" {
       max = 51820
       min = 51820
     }
+  } 
+  dynamic "ingress_security_rules" {
+    for_each = [ { code = 0, type = 8 }, { code = 4, type = 3 }, { code = 0, type = 11 }]
+    content {
+      source = "0.0.0.0/0"
+      protocol = "1"
+      icmp_options {
+        code = ingress_security_rules.value.code
+        type = ingress_security_rules.value.type
+      }
+    }
   }
+  dynamic "ingress_security_rules" {
+    for_each = [ { code = 0, type = 128 }, { code = 0, type = 2 }, { code = 0, type = 3 }]
+    content {
+      source = "::/0"
+      protocol = "58"
+      icmp_options {
+        code = ingress_security_rules.value.code
+        type = ingress_security_rules.value.type
+      }
+    }
+  }
+}
+
+resource "oci_core_subnet" "sn" {
+  availability_domain = null
+  cidr_block          = "10.0.0.0/24"
+  compartment_id      = var.compartment_id
+  ipv6cidr_block      = var.ipv6_prefix
+  vcn_id              = oci_core_vcn.vcn.id
+}
+
+resource "oci_core_route_table" "rt" {
+  compartment_id = var.compartment_id
+  vcn_id = oci_core_vcn.vcn.id
+  route_rules {
+    destination       = "0.0.0.0/0"
+    network_entity_id = oci_core_internet_gateway.ig.id
+  }
+  route_rules {
+    destination       = "::/0"
+    network_entity_id = oci_core_internet_gateway.ig.id
+  }
+}
+
+resource "oci_core_internet_gateway" "ig" {
+  compartment_id = var.compartment_id
+  vcn_id = oci_core_vcn.vcn.id
+}
+
+data "oci_core_vnic" "delphi" {
+  vnic_id = var.vnic_id
 }

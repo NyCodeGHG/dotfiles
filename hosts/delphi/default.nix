@@ -8,6 +8,7 @@
     ../../profiles/acme.nix
     ../../profiles/reverse-proxy.nix
     ./wireguard.nix
+    ./networking.nix
     # ./minecraft.nix
   ];
 
@@ -16,17 +17,6 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   security.sudo.wheelNeedsPassword = false;
-
-  networking = {
-    hostName = "delphi";
-    # Use OCI firewall
-    firewall.enable = false;
-    nameservers = [
-      "1.1.1.1"
-      "1.0.0.1"
-    ];
-  };
-
   time.timeZone = "Europe/Berlin";
 
   services.openssh = {
