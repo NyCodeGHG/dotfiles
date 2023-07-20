@@ -20,5 +20,14 @@ in
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESHraJJ0INX/OAXOQUR4UuLEre/2N70Uh3H5YkFC5zz"
     ];
   };
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    shellAliases = {
+      tf = "terraform";
+    };
+    shellInit = ''
+      bindkey "^[[1;5C" forward-word
+      bindkey "^[[1;5D" backward-word
+    '';
+  };
 }

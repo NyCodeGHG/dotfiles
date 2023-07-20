@@ -18,7 +18,6 @@
     };
     deploy-rs = {
       url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
       url = "github:nix-community/disko";
@@ -32,6 +31,17 @@
       url = "github:NyCodeGHG/awesome-prometheus-rules.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://hyprland.cachix.org"
+      "https://uwumarie.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "uwumarie.cachix.org-1:H6nX8e82pu2GQ8CGU3j1qHTG7QMYzZ15oSBh26XhtVo="
+    ];
   };
 
   outputs =
@@ -136,9 +146,8 @@
           nixpkgs-fmt
           terraform
           google-cloud-sdk
-          pkgs.deploy-rs
           nurl
-        ] ++ [ agenix.packages.x86_64-linux.default ];
+        ] ++ [ agenix.packages.x86_64-linux.default deploy-rs.packages.x86_64-linux.default ];
       };
       deploy = {
         sshOpts = ["-t"];
