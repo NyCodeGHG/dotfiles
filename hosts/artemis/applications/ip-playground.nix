@@ -9,6 +9,11 @@ in
       locations."/" = {
         root = "${frontendPackage}";
         index = "index.html";
+        extraConfig = ''
+        if ($http_user_agent ~* "^curl\/.+") {
+          rewrite ^ /api/info last;
+        }
+        '';
       };
       locations."/api" = {
         proxyPass = "http://127.0.0.1:3032";
