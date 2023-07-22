@@ -140,6 +140,15 @@
           graphical = false;
         };
       };
+      homeConfigurations.wsl = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./home/wsl.nix
+        ];
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+      };
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       devShells.x86_64-linux.default = pkgs.mkShell {
         buildInputs = with pkgs; [
