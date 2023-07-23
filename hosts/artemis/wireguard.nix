@@ -40,7 +40,7 @@ in
             }
             {
               name = "marie-desktop";
-              publicKey = "Xr0evEh5CYykgaiXQJDt4P62rjPJXoV40Kz+yGykfEQ=";
+              publicKey = "AxWlpfetKOpXU8LdlNvAdE/CO4259fmXJYC7YTbtgzw=";
               allowedIPs = [ "10.69.0.5/32" ];
               persistentKeepalive = 25;
             }
