@@ -4,7 +4,8 @@
 }:
 {
   home.packages = with pkgs; [
-    lua-language-server
-    nil
+    go-tools
+    gopls
+    delve
   ];
 }
