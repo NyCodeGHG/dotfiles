@@ -30,6 +30,8 @@ locals {
         "status",
         "nue01",
         "ip",
+        "tunnel",
+        "*.tunnel",
       ]
       values = [
         {

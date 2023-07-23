@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 {
   imports = [
     ./profiles/git.nix
@@ -16,5 +16,6 @@
     stateVersion = "23.11";
     username = "marie";
     homeDirectory = "/home/marie";
+    packages = [ inputs.nixpkgs-pgrok.legacyPackages.x86_64-linux.pgrok ];
   };
 }

@@ -28,4 +28,5 @@ in
   "discord-webhook.age".publicKeys = withSystems systems.artemis;
   "synapse-sso-config.age".publicKeys = withSystems systems.artemis;
   "delphi-wg-privatekey.age".publicKeys = withSystems systems.delphi;
+  "pgrok-client-secret.age".publicKeys = withSystems systems.artemis;
 }

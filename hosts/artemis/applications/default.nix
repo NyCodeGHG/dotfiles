@@ -8,5 +8,6 @@
     ./miniflux.nix
     ./matrix
     ./ip-playground.nix
+    ./pgrok.nix
   ];
 }

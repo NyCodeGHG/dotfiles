@@ -330,6 +330,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-pgrok": {
+      "locked": {
+        "lastModified": 1690024945,
+        "narHash": "sha256-GZULnrb+1X9fznyD+g29PJeOCFueCdoQsXNmUamEjr0=",
+        "owner": "nycodeghg",
+        "repo": "nixpkgs",
+        "rev": "eeb81fd3b909fcdafc9bca22b18a52b6c18cce88",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nycodeghg",
+        "ref": "pkg/pgrok",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1689940971,
@@ -371,6 +387,7 @@
         "hyprland": "hyprland",
         "ip-playground": "ip-playground",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-pgrok": "nixpkgs-pgrok",
         "vscode-server": "vscode-server"
       }
     },
