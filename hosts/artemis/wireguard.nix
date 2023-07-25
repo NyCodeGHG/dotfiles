@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 let
   port = 51820;
 in
@@ -7,10 +7,8 @@ in
     pkgs.wireguard-tools
   ];
   networking = {
-    nat.enable = true;
     firewall = {
       allowedUDPPorts = [ port ];
-      trustedInterfaces = [ "wg0" ];
     };
     wireguard = {
       enable = true;
@@ -67,5 +65,11 @@ in
         };
       };
     };
+  };
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.forwarding"     = true;
+    "net.ipv4.conf.default.forwarding" = true;
+    "net.ipv6.conf.all.forwarding"     = true;
+    "net.ipv6.conf.default.forwarding" = true;
   };
 }

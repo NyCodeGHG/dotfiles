@@ -5,19 +5,34 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [ 80 443 ];
+      logRefusedConnections = false;
+      pingLimit = "2/minute burst 5 packets";
     };
     nftables.enable = true;
     interfaces = {
-      ens3.ipv6.addresses = [
-        {
-          address = "2a03:4000:5f:f5b::";
-          prefixLength = 64;
-        }
-        {
-          address = "2a03:4000:005f:0f5b:b00b:1337:cafe:4269";
-          prefixLength = 128;
-        }
-      ];
+      ens3 = {
+        useDHCP = false;
+        ipv6.addresses = [
+          {
+            address = "2a03:4000:5f:f5b::";
+            prefixLength = 64;
+          }
+          {
+            address = "2a03:4000:005f:0f5b:b00b:1337:cafe:4269";
+            prefixLength = 128;
+          }
+        ];
+        ipv4.addresses = [
+          {
+            address = "89.58.10.36";
+            prefixLength = 22;
+          }
+        ];
+      };
+    };
+    defaultGateway = {
+      address = "89.58.8.1";
+      interface = "ens3";
     };
     defaultGateway6 = {
       address = "fe80::1";
@@ -42,11 +57,11 @@
     ];
   };
   boot.kernel.sysctl = {
-    "net.ipv6.conf.default.accept_ra" = 0;
-    "net.ipv6.conf.default.autoconf"  = 0;
-    "net.ipv6.conf.all.accept_ra"     = 0;
-    "net.ipv6.conf.all.autoconf"      = 0;
-    "net.ipv6.conf.ens3.accept_ra"    = 0;
-    "net.ipv6.conf.ens3.autoconf"     = 0;
+    "net.ipv6.conf.default.accept_ra"  = 0;
+    "net.ipv6.conf.default.autoconf"   = 0;
+    "net.ipv6.conf.all.accept_ra"      = 0;
+    "net.ipv6.conf.all.autoconf"       = 0;
+    "net.ipv6.conf.ens3.accept_ra"     = 0;
+    "net.ipv6.conf.ens3.autoconf"      = 0;
   };
 }
