@@ -7,7 +7,14 @@
     retentionTime = "15d";
     webExternalUrl = "https://prometheus.marie.cologne";
     exporters = {
-      node.enable = true;
+      node = {
+        enable = true;
+        # Enable additional collectors
+        enabledCollectors = [
+          "network_route"
+          "systemd"
+        ];
+      };
     };
     ruleFiles = [
       (pkgs.writeText "prometheus-rules.yml" (builtins.toJSON {
