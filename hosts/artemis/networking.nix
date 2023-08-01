@@ -7,6 +7,10 @@
       allowedTCPPorts = [ 80 443 ];
       logRefusedConnections = false;
       pingLimit = "2/minute burst 5 packets";
+      # Allow Loki access from Wireguard
+      interfaces.wg0.allowedTCPPorts = [
+        3030
+      ];
     };
     nftables.enable = true;
     interfaces = {

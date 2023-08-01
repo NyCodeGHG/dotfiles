@@ -9,4 +9,5 @@
       "1.0.0.1"
     ];
   };
+  networking.firewall.interfaces.wg0.allowedTCPPorts = [ 9100 3031 ];
 }

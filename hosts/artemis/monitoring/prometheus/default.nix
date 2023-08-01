@@ -51,10 +51,23 @@
         job = "prometheus";
         target = "localhost:${toString config.services.prometheus.port}";
       })
-      (mkTarget {
-        job = "node-exporter";
-        target = "localhost:${toString config.services.prometheus.exporters.node.port}";
-      })
+      {
+        job_name = "node-exporter";
+        static_configs = [
+          {
+            targets = ["localhost:${toString config.services.prometheus.exporters.node.port}"];
+            labels = {
+              instance = config.networking.hostName;
+            };
+          }
+          {
+            targets = ["10.69.0.7:9100"];
+            labels = {
+              instance = "delphi";
+            };
+          }
+        ];
+      }
       (mkTarget {
         job = "loki";
         target = "localhost:${toString config.services.loki.configuration.server.http_listen_port}";
@@ -67,10 +80,23 @@
         job = "grafana";
         target = "localhost:${toString config.services.grafana.settings.server.http_port}";
       })
-      (mkTarget {
-        job = "promtail";
-        target = "localhost:${toString config.services.promtail.configuration.server.http_listen_port}";
-      })
+      {
+        job_name = "promtail";
+        static_configs = [
+          {
+            targets = ["localhost:${toString config.services.promtail.configuration.server.http_listen_port}"];
+            labels = {
+              instance = config.networking.hostName;
+            };
+          }
+          {
+            targets = ["10.69.0.7:3031"];
+            labels = {
+              instance = "delphi";
+            };
+          }
+        ];
+      }
     ];
   };
   uwumarie.reverse-proxy.services = {
