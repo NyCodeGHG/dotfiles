@@ -6,6 +6,7 @@
     ./profiles/language-servers.nix
     ./profiles/ssh.nix
     ./profiles/direnv.nix
+    ./profiles/tools
   ];
   uwumarie.profiles.git = {
     enable = true;

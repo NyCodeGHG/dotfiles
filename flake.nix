@@ -26,7 +26,6 @@
     };
     ip-playground = {
       url = "git+ssh://gitlab@git.marie.cologne/marie/ip-playground.git";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     awesome-prometheus-rules = {
       url = "github:NyCodeGHG/awesome-prometheus-rules.nix";
