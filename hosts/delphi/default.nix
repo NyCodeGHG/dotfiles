@@ -9,8 +9,8 @@
     ../../profiles/reverse-proxy.nix
     ./wireguard.nix
     ./networking.nix
-    ./monitoring/promtail.nix
-    ./monitoring/prometheus.nix
+    ./monitoring
+    ./applications
     # ./minecraft.nix
   ];
 

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ ... }:
 {
   imports = [
     ./authentik.nix
@@ -9,5 +9,6 @@
     ./matrix
     ./ip-playground.nix
     ./pgrok.nix
+    ./tika.nix
   ];
 }

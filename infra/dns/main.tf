@@ -35,11 +35,11 @@ locals {
       ]
       values = [
         {
-          ip = local.servers.artemis
+          ip   = local.servers.artemis
           type = "v4"
         },
         {
-          ip = local.servers.artemis6
+          ip   = local.servers.artemis6
           type = "v6"
         }
       ]
@@ -54,7 +54,7 @@ locals {
       ]
       values = [
         {
-          ip = local.servers.artemis-wg
+          ip   = local.servers.artemis-wg
           type = "v4"
         }
       ]
@@ -69,11 +69,11 @@ locals {
       ]
       values = [
         {
-          ip = local.servers.artemis
+          ip   = local.servers.artemis
           type = "v4"
         },
         {
-          ip = local.servers.artemis6
+          ip   = local.servers.artemis6
           type = "v6"
         }
       ]
@@ -83,29 +83,30 @@ locals {
       names = [
         "oci-fra01",
         "mc",
+        "paperless"
       ]
       values = [
         {
-          ip = local.servers.delphi
+          ip   = local.servers.delphi
           type = "v4"
         },
         {
-          ip = local.servers.delphi6
+          ip   = local.servers.delphi6
           type = "v6"
         }
       ]
     }
   ]
   records_flat = flatten([
-    for record in local.records: [
-      for name in record.names: [
-        for value in record.values:
+    for record in local.records : [
+      for name in record.names : [
+        for value in record.values :
         {
-          key = format("%s-%s-%s-%s", record.zone.name, name, value.ip, value.type)
+          key     = format("%s-%s-%s-%s", record.zone.name, name, value.ip, value.type)
           zone_id = record.zone.id
-          name = name
-          value = value.ip
-          type = value.type == "v4" ? "A" : value.type == "v6" ? "AAAA" : "ERROR"
+          name    = name
+          value   = value.ip
+          type    = value.type == "v4" ? "A" : value.type == "v6" ? "AAAA" : "ERROR"
         }
       ]
     ]
@@ -113,9 +114,9 @@ locals {
 }
 
 resource "cloudflare_record" "record" {
-  for_each = { for record in local.records_flat: record.key => record}
-  zone_id = each.value.zone_id
-  name = each.value.name
-  value = each.value.value
-  type = each.value.type
+  for_each = { for record in local.records_flat : record.key => record }
+  zone_id  = each.value.zone_id
+  name     = each.value.name
+  value    = each.value.value
+  type     = each.value.type
 }
