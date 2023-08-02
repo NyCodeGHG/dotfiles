@@ -44,6 +44,7 @@ in
           me@nycode.dev ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESHraJJ0INX/OAXOQUR4UuLEre/2N70Uh3H5YkFC5zz
         ''}";
       };
+      lfs.enable = true;
     };
     programs.gh.enable = cfg.enableGitHubCLI;
   };
