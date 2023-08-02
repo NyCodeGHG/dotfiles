@@ -84,6 +84,9 @@ in
     locations."/" = {
       proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
       proxyWebsockets = true;
+      extraConfig = ''
+        client_max_body_size 100M;
+      '';
     };
   };
 }
