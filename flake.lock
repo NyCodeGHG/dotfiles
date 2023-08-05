@@ -360,11 +360,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1691261072,
-        "narHash": "sha256-S9XNvF3U8P2gR96ZT8HN4VqNP7V2JiLjkFYt7pD0KS8=",
+        "lastModified": 1691271125,
+        "narHash": "sha256-Z3cP67+tsL6B0NiBlb1JWrS5XL9KtEaW1F2FZlaVqgg=",
         "ref": "refs/heads/main",
-        "rev": "5f7b6d8ae8b0396670aff93951a3522c0e3b280a",
-        "revCount": 35,
+        "rev": "a96aacc7070cbf80f0a3925b7414e0d29fb4e436",
+        "revCount": 36,
         "type": "git",
         "url": "ssh://gitlab@git.marie.cologne/marie/ip-playground.git"
       },
