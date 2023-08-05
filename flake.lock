@@ -360,11 +360,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1690833379,
-        "narHash": "sha256-ap039LBfMakNNFYPqWOAZ9u12PZZViA+uldzr+EYVxI=",
+        "lastModified": 1691261072,
+        "narHash": "sha256-S9XNvF3U8P2gR96ZT8HN4VqNP7V2JiLjkFYt7pD0KS8=",
         "ref": "refs/heads/main",
-        "rev": "05e228803ef634d776beee03ff4811701c73d744",
-        "revCount": 27,
+        "rev": "5f7b6d8ae8b0396670aff93951a3522c0e3b280a",
+        "revCount": 35,
         "type": "git",
         "url": "ssh://gitlab@git.marie.cologne/marie/ip-playground.git"
       },
@@ -514,11 +514,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1690640159,
-        "narHash": "sha256-5DZUYnkeMOsVb/eqPYb9zns5YsnQXRJRC8Xx/nPMcno=",
+        "lastModified": 1688231357,
+        "narHash": "sha256-ZOn16X5jZ6X5ror58gOJAxPfFLAQhZJ6nOUeS4tfFwo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e6ab46982debeab9831236869539a507f670a129",
+        "rev": "645ff62e09d294a30de823cb568e9c6d68e92606",
         "type": "github"
       },
       "original": {
