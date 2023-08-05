@@ -77,7 +77,6 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@resources" "~@privileged" "@basic-io" ];
         User = "ip-playground";
         Group = "ip-playground";
       };
