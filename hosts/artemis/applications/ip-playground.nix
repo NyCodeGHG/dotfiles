@@ -40,7 +40,7 @@ in
     wantedBy = ["timers.target"];
     partOf = [ "download-iptoasn-db.service" ];
     timerConfig = {
-      OnCalendar = "*-*-* */6:00:00";
+      OnCalendar = "00/3:00:00";
       RandomizedDelaySec = "30m";
       Persistent = true;
     };
