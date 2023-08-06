@@ -101,6 +101,10 @@
           }
         ];
       }
+      (mkTarget {
+        job = "ip-playground";
+        target = "127.0.0.1:3032";
+      })
     ];
   };
   uwumarie.reverse-proxy.services = {

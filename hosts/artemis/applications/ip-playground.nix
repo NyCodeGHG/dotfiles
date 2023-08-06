@@ -124,7 +124,6 @@ in
         PrivateDevices = true;
         PrivateTmp = true;
         PrivateUsers = true;
-        ProcSubset = "pid";
         ProtectClock = true;
         ProtectControlGroups = true;
         ProtectHome = true;
