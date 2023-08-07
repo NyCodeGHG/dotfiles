@@ -93,7 +93,7 @@ in
           gzip -df /var/lib/ip-playground/ip2asn-combined.tsv.gz
         fi
 
-        if [ systemctl is-active --quiet ip-playground.service ]; then
+        if systemctl is-active --quiet ip-playground.service; then
           ${pkgs.curl}/bin/curl -X POST --fail "http://127.0.0.1:3032/reload"
         fi
       '';
