@@ -30,4 +30,5 @@ in
   "delphi-wg-privatekey.age".publicKeys = withSystems systems.delphi;
   "pgrok-client-secret.age".publicKeys = withSystems systems.artemis;
   "paperless-env.age".publicKeys = withSystems systems.delphi;
+  "curseforge-api-key.age".publicKeys = withSystems systems.delphi;
 }

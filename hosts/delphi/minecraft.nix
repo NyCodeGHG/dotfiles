@@ -1,28 +1,31 @@
-{ pkgs, config, lib, ... }:
+{ config, inputs, ... }:
 {
   virtualisation.oci-containers.containers.minecraft = {
     image = "docker.io/itzg/minecraft-server:java17";
     environment = {
       EULA = "true";
-      VERSION = "1.20.1";
-      INIT_MEMORY = "2G";
-      MAX_MEMORY = "8G";
-      USE_AIKAR_FLAGS = "true";
-      TYPE = "PAPER";
+      INIT_MEMORY = "4G";
+      MAX_MEMORY = "10G";
       ENABLE_ROLLING_LOGS = "true";
       TZ = "Europe/Berlin";
       ENABLE_WHITELIST = "true";
       OPS = "ec6a3dab-6b35-4596-9d7f-f9bdd773874f";
       USE_NATIVE_TRANSPORT = "true";
-      SIMULATION_DISTANCE = "12";
-      VIEW_DISTANCE = "24";
+      SIMULATION_DISTANCE = "16";
+      VIEW_DISTANCE = "16";
       USE_SIMD_FLAGS = "true";
+      TYPE = "AUTO_CURSEFORGE";
+      CF_BASE_DIR = "/data";
+      CF_PAGE_URL = "https://www.curseforge.com/minecraft/modpacks/mechanical-mastery/files/4684133";
+      # CF_SERVER_MOD = "/modpacks/MechanicalMastery-Server-r1.5.0.zip";
     };
+    environmentFiles = [ config.age.secrets.curseforge-api-key.path ];
     ports = [
       "25565:25565"
     ];
     volumes = [
-      "/var/lib/minecraft:/data"
+      "/var/lib/minecraft/mechanical-mastery:/data"
+      "/var/lib/minecraft/modpacks:/modpacks"
     ];
     extraOptions = [
       # "--health-cmd=mc-health"
@@ -30,7 +33,10 @@
       # "--health-retries=20"
     ];
   };
-  systemd.services.podman-minecraft.preStart = ''
-    mkdir -p /var/lib/minecraft
-  '';
+  systemd.services.podman-minecraft = {
+    preStart = ''
+      mkdir -p /var/lib/minecraft/mechanical-mastery /var/lib/minecraft/modpacks
+    '';
+  };
+  age.secrets.curseforge-api-key.file = "${inputs.self}/secrets/curseforge-api-key.age";
 }

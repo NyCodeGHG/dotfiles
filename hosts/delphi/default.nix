@@ -11,7 +11,7 @@
     ./networking.nix
     ./monitoring
     ./applications
-    # ./minecraft.nix
+    ./minecraft.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
