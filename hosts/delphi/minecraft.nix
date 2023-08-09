@@ -22,6 +22,7 @@
     environmentFiles = [ config.age.secrets.curseforge-api-key.path ];
     ports = [
       "25565:25565"
+      "9101:9100"
     ];
     volumes = [
       "/var/lib/minecraft/mechanical-mastery:/data"
