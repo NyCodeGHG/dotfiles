@@ -29,9 +29,7 @@
       "/var/lib/minecraft/modpacks:/modpacks"
     ];
     extraOptions = [
-      # "--health-cmd=mc-health"
-      # "--health-interval=5s"
-      # "--health-retries=20"
+      "--no-healthcheck"
     ];
   };
   systemd.services.podman-minecraft = {
