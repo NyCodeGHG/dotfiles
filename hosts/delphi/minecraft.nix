@@ -18,6 +18,9 @@
       CF_BASE_DIR = "/data";
       CF_PAGE_URL = "https://www.curseforge.com/minecraft/modpacks/mechanical-mastery/files/4684133";
       # CF_SERVER_MOD = "/modpacks/MechanicalMastery-Server-r1.5.0.zip";
+      # SERVER_IP = "::";
+      # JVM_OPTS = "-Djava.net.preferIPv6Addresses=true";
+      USE_AIKAR_FLAGS = "true";
     };
     environmentFiles = [ config.age.secrets.curseforge-api-key.path ];
     ports = [
@@ -38,4 +41,5 @@
     '';
   };
   age.secrets.curseforge-api-key.file = "${inputs.self}/secrets/curseforge-api-key.age";
+  virtualisation.podman.defaultNetwork.settings.ipv6_enabled = true;
 }
