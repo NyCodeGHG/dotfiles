@@ -10,5 +10,6 @@
     ./ip-playground.nix
     ./pgrok.nix
     ./tika.nix
+    ./nginx-meta.nix
   ];
 }
