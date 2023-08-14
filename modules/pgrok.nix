@@ -1,11 +1,5 @@
-{ config, pkgs, inputs, lib, utils, ... }:
+{ config, pkgs, lib, utils, ... }:
 let
-  pgrok = inputs.nixpkgs-pgrok.legacyPackages.${pkgs.system}.pgrok.server.overrideAttrs (final: prev: {
-    patches = [ (pkgs.fetchurl {
-      url = "https://github.com/pgrok/pgrok/commit/551447ef2ada1f89ce5fdb629166e60bbbdf43be.patch";
-      sha256 = "sha256-QSCLE1pDmO/9OV2dP3JFeSsg576rMQp3xx5leLr4Z8E=";
-    })];
-  });
   cfg = config.services.pgrok;
   yaml = pkgs.formats.yaml {};
 in
@@ -94,7 +88,7 @@ in
           TimeoutSec = "infinity";
           Restart = "always";
           WorkingDirectory = cfg.statePath;
-          ExecStart = "${pgrok}/bin/pgrokd --config ${configPath}";
+          ExecStart = "${pkgs.pgrok.server}/bin/pgrokd --config ${configPath}";
         };
       };
     };

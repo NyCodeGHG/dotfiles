@@ -2,7 +2,6 @@
   description = "System configuration";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-pgrok.url = "github:nycodeghg/nixpkgs/pkg/pgrok";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,7 +14,6 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     hyprland = {
       url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs = {
       url = "github:serokell/deploy-rs";
