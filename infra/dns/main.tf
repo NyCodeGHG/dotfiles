@@ -23,6 +23,7 @@ locals {
         "coder",
         "*.coder",
         "git",
+        "git2",
         "grafana",
         "chat",
         "matrix",
