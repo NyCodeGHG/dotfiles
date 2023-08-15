@@ -202,11 +202,13 @@ in
         systemd.services.podman-authentik-server = {
           after = [ "network-online.target" "postgresql.service" ];
           wants = [ "network-online.target" "postgresql.service" ];
+          requires = [ "postgresql.service" ];
         };
 
         systemd.services.podman-authentik-worker = {
           after = [ "network-online.target" "postgresql.service" ];
           wants = [ "network-online.target" "postgresql.service" ];
+          requires = [ "postgresql.service" ];
         };
 
         services.postgresql = mkIf cfg.postgres.enable {

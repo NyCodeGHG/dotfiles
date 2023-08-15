@@ -16,12 +16,19 @@
     settings ={
       server = {
         PROTOCOL = "fcgi+unix";
-        DOMAIN = "git2.marie.cologne";
-        ROOT_URL = "https://git2.marie.cologne";
+        DOMAIN = "git.marie.cologne";
+        ROOT_URL = "https://git.marie.cologne";
         STATIC_URL_PREFIX = "/_/static";
       };
       service.DISABLE_REGISTRATION = true;
-      session.COOKIE_SECURE = true;
+      session = {
+        COOKIE_SECURE = true;
+        PROVIDER = "db";
+      };
+      cron.ENABLED = true;
+      metrics.ENABLED = true;
+      federation.ENABLED = true;
+      actions.ENABLED = true;
     };
   };
   users.users = 
@@ -42,12 +49,22 @@
     forgejo = {};
   };
 
-  uwumarie.reverse-proxy.services."git2.marie.cologne" = {
+  uwumarie.reverse-proxy.services."git.marie.cologne" = {
     locations."/_/static/assets/" = {
       alias = "${pkgs.forgejo.data}/public/";
     };
     locations."/" = {
       extraConfig = ''
+        client_max_body_size 512M;
+        include ${pkgs.nginx}/conf/fastcgi.conf;
+        fastcgi_pass unix:/run/gitea/gitea.sock;
+      '';
+    };
+    locations."/metrics" = {
+      extraConfig = ''
+        allow 127.0.0.0/24;
+        allow 10.69.0.0/24;
+        deny all;
         client_max_body_size 512M;
         include ${pkgs.nginx}/conf/fastcgi.conf;
         fastcgi_pass unix:/run/gitea/gitea.sock;
