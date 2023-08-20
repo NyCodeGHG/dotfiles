@@ -119,4 +119,9 @@
   ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  hardware.sane.enable = true;
+  services.avahi = {
+    enable = true;
+  };
 }
