@@ -1,8 +1,7 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, inputs, ... }:
 {
   imports = [
     "${inputs.self}/modules/authentik.nix"
-    "${inputs.self}/modules/reverse-proxy.nix"
   ];
 
   virtualisation.podman.enable = true;
@@ -17,7 +16,6 @@
     nginx = {
       enable = true;
       domain = "sso.nycode.dev";
-      extraConfig = config.uwumarie.reverse-proxy.commonOptions;
     };
   };
   age.secrets.authentik-secrets.file = "${inputs.self}/secrets/authentik-secrets.age";

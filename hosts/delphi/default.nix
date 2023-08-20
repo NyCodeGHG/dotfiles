@@ -3,10 +3,12 @@
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/profiles/headless.nix"
-    ../../modules/motd.nix
-    ../../modules/nix-config.nix
+    ../../profiles/nix-config.nix
     ../../profiles/acme.nix
-    ../../profiles/reverse-proxy.nix
+    ../../profiles/nginx.nix
+    ../../profiles/fail2ban.nix
+    ../../profiles/locale.nix
+    ../../profiles/openssh.nix
     ./wireguard.nix
     ./networking.nix
     ./monitoring
@@ -21,16 +23,7 @@
   security.sudo.wheelNeedsPassword = false;
   time.timeZone = "Europe/Berlin";
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-      KbdInteractiveAuthentication = false;
-    };
-  };
   system.stateVersion = "23.11";
-  uwumarie.services.motd.enable = true;
 
   disko.devices = import ./disk-config.nix {
     inherit lib;

@@ -23,10 +23,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ip-playground = {
-      url = "git+ssh://gitlab@git.marie.cologne/marie/ip-playground.git";
+      url = "git+ssh://forgejo@git.marie.cologne/marie/ip-playground.git";
     };
     awesome-prometheus-rules = {
       url = "github:NyCodeGHG/awesome-prometheus-rules.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    steam-fetcher = {
+      url = "github:nix-community/steam-fetcher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -54,10 +58,14 @@
     , disko
     , ip-playground
     , awesome-prometheus-rules
+    , steam-fetcher
     , ...
     } @ inputs:
     let
-      pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        overlays = [ steam-fetcher.overlays.default ];
+      };
     in
     {
       nixosConfigurations = {
@@ -157,7 +165,7 @@
         ] ++ [ agenix.packages.x86_64-linux.default deploy-rs.packages.x86_64-linux.default ];
       };
       deploy = {
-        sshOpts = ["-t"];
+        sshOpts = [ "-t" ];
         nodes = {
           artemis = {
             hostname = "uwu.nycode.dev";
@@ -177,18 +185,10 @@
         remoteBuild = true;
       };
 
-      checks = (builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib) // {
-        x86_64-linux =
-          let
-            checkArgs = {
-              inherit self;
-              pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            };
-          in
-          {
-            reverse-proxy = import ./tests/reverse-proxy.nix checkArgs;
-          };
+      packages.x86_64-linux.node-mixin = pkgs.callPackage ./pkgs/node-mixin { };
+      packages.x86_64-linux.tf2-server-unwrapped = pkgs.callPackage ./pkgs/tf2-server { };
+      packages.x86_64-linux.tf2-server = pkgs.callPackage ./pkgs/tf2-server/fhsenv.nix {
+        inherit (self.packages.x86_64-linux) tf2-server-unwrapped;
       };
-      packages.x86_64-linux.node-mixin = pkgs.callPackage ./packages/node-mixin.nix { };
     };
 }

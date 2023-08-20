@@ -1,8 +1,7 @@
-{ config, inputs, lib, ... }:
+{ config, inputs, ... }:
 {
   imports = [
     "${inputs.self}/modules/coder.nix"
-    "${inputs.self}/modules/reverse-proxy.nix"
   ];
   uwumarie.services.coder = {
     enable = true;
@@ -10,7 +9,7 @@
     wildcardUrl = "*.coder.marie.cologne";
     nginx = {
       enable = true;
-      extraConfig = config.uwumarie.reverse-proxy.commonOptions // {
+      extraConfig = {
         useACMEHost = "coder.marie.cologne";
       };
     };
@@ -34,7 +33,7 @@
     ];
   };
   systemd.services.podman-coder = {
-    after = [ "podman-authentik-server.service" "podman-authentik-worker.service"];
+    after = [ "podman-authentik-server.service" "podman-authentik-worker.service" ];
     serviceConfig = {
       RestartSec = "5";
     };

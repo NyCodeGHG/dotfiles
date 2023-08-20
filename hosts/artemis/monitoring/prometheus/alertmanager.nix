@@ -1,4 +1,4 @@
-{ config, inputs, ... }: 
+{ config, inputs, ... }:
 {
   services.prometheus = {
     scrapeConfigs = [
@@ -6,7 +6,7 @@
         job_name = "alertmanager";
         static_configs = [
           {
-            targets = [ "127.0.0.1:${toString config.services.prometheus.alertmanager.port}"];
+            targets = [ "127.0.0.1:${toString config.services.prometheus.alertmanager.port}" ];
             labels = {
               instance = config.networking.hostName;
             };
@@ -39,19 +39,19 @@
                 [{{ .Status | toUpper }}:{{ if eq .Status "firing" }}{{ .Alerts.Firing | len }}{{ else }}{{ .Alerts.Resolved | len }}{{ end }}]
               '';
               message = ''
-              {{- range .Alerts }}
-                **{{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | title }}){{ end }} **
-                {{- if ne .Annotations.description "" }}
-                  **Description:** {{ .Annotations.description }}
-                {{- else if ne .Annotations.summary "" }}
-                  **Summary:** {{ .Annotations.summary }}
-                {{- else if ne .Annotations.message "" }}
-                  **Message:** {{ .Annotations.message }}
-                {{- else }}
-                  **Description:** N/A
+                {{- range .Alerts }}
+                  **{{ .Labels.alertname }} {{ if ne .Labels.severity "" }}({{ .Labels.severity | title }}){{ end }} **
+                  {{- if ne .Annotations.description "" }}
+                    **Description:** {{ .Annotations.description }}
+                  {{- else if ne .Annotations.summary "" }}
+                    **Summary:** {{ .Annotations.summary }}
+                  {{- else if ne .Annotations.message "" }}
+                    **Message:** {{ .Annotations.message }}
+                  {{- else }}
+                    **Description:** N/A
+                  {{- end }}
                 {{- end }}
-              {{- end }}
-            '';
+              '';
             }
           ];
         }];
@@ -62,7 +62,7 @@
     };
   };
   age.secrets.discord-webhook.file = "${inputs.self}/secrets/discord-webhook.age";
-  uwumarie.reverse-proxy.services = {
+  services.nginx.virtualHosts = {
     "am.marie.cologne" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";

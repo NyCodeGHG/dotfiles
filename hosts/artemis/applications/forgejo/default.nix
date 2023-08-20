@@ -13,7 +13,7 @@
     };
     lfs.enable = true;
     appName = "marie's catgit: git with more meow";
-    settings ={
+    settings = {
       server = {
         PROTOCOL = "fcgi+unix";
         DOMAIN = "git.marie.cologne";
@@ -31,25 +31,25 @@
       actions.ENABLED = true;
     };
   };
-  users.users = 
-  let
-    cfg = config.services.gitea;
-  in
-  {
-    forgejo = {
-      description = "Forgejo Service";
-      home = cfg.stateDir;
-      useDefaultShell = true;
-      group = cfg.group;
-      isSystemUser = true;
+  users.users =
+    let
+      cfg = config.services.gitea;
+    in
+    {
+      forgejo = {
+        description = "Forgejo Service";
+        home = cfg.stateDir;
+        useDefaultShell = true;
+        group = cfg.group;
+        isSystemUser = true;
+      };
     };
-  };
 
   users.groups = {
-    forgejo = {};
+    forgejo = { };
   };
 
-  uwumarie.reverse-proxy.services."git.marie.cologne" = {
+  services.nginx.virtualHosts."git.marie.cologne" = {
     locations."/_/static/assets/" = {
       alias = "${pkgs.forgejo.data}/public/";
     };

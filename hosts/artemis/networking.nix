@@ -1,6 +1,6 @@
 { ... }:
 {
- networking = {
+  networking = {
     hostName = "artemis";
     firewall = {
       enable = true;
@@ -61,11 +61,11 @@
     ];
   };
   boot.kernel.sysctl = {
-    "net.ipv6.conf.default.accept_ra"  = 0;
-    "net.ipv6.conf.default.autoconf"   = 0;
-    "net.ipv6.conf.all.accept_ra"      = 0;
-    "net.ipv6.conf.all.autoconf"       = 0;
-    "net.ipv6.conf.ens3.accept_ra"     = 0;
-    "net.ipv6.conf.ens3.autoconf"      = 0;
+    "net.ipv6.conf.default.accept_ra" = 0;
+    "net.ipv6.conf.default.autoconf" = 0;
+    "net.ipv6.conf.all.accept_ra" = 0;
+    "net.ipv6.conf.all.autoconf" = 0;
+    "net.ipv6.conf.ens3.accept_ra" = 0;
+    "net.ipv6.conf.ens3.autoconf" = 0;
   };
 }

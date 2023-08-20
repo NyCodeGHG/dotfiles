@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 {
+  imports = [
+    ./nginx.nix
+  ];
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "tabmeier12+acme@gmail.com";
   security.acme.defaults = {

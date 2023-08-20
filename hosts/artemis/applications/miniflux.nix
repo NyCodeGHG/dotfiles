@@ -1,13 +1,9 @@
-{ pkgs, lib, config, inputs, ... }:
+{ lib, config, inputs, ... }:
 
 let
   port = "8001";
 in
 {
-  imports = [
-    "${inputs.self}/modules/reverse-proxy.nix"
-  ];
-
   services.miniflux = {
     enable = true;
     config = {
@@ -23,7 +19,7 @@ in
   };
   age.secrets.miniflux-credentials.file = "${inputs.self}/secrets/miniflux-credentials.age";
 
-  uwumarie.reverse-proxy.services = {
+  services.nginx.virtualHosts = {
     "miniflux.marie.cologne" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${port}";

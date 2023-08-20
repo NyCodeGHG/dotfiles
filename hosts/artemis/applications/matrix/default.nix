@@ -15,11 +15,9 @@ let
   backgrounds = pkgs.callPackage ./backgrounds.nix { };
 in
 {
-  uwumarie.reverse-proxy.services = {
+  services.nginx.virtualHosts = {
     "${serverName}" = {
-      locations."/" = {
-        return = "418";
-      };
+
       locations."= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
       locations."= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
     };
@@ -100,6 +98,7 @@ in
 
   services.matrix-synapse = {
     enable = true;
+    extras = [ "oidc" ];
     settings = {
       server_name = serverName;
       enable_registration = false;

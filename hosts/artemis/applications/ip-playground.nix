@@ -5,7 +5,7 @@ let
   asnDbPath = "/var/lib/ip-playground/ip2asn-combined.tsv";
 in
 {
-  uwumarie.reverse-proxy.services = {
+  services.nginx.virtualHosts = {
     "ip.marie.cologne" = {
       locations."/" = {
         root = "${frontendPackage}";

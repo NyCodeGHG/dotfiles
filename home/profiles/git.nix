@@ -19,7 +19,7 @@ in
     };
     signingKey = mkOption {
       default = null;
-      type = with types; nullOr str; 
+      type = with types; nullOr str;
     };
     enableGitHubCLI = mkOption {
       default = true;

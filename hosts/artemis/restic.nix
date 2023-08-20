@@ -1,4 +1,4 @@
-{ config, pkgs,  inputs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   mkResticService = service: {
     serviceConfig = {
@@ -45,6 +45,4 @@ in
         --keep-yearly 75
     '';
   };
-
-  age.secrets.discord-webhook.file = "${inputs.self}/secrets/discord-webhook.age";
 }

@@ -57,7 +57,7 @@
       }
     ];
   };
-  uwumarie.reverse-proxy.services = {
+  services.nginx.virtualHosts = {
     "tunnel.marie.cologne" = {
       useACMEHost = "tunnel.marie.cologne";
       locations."/" = {

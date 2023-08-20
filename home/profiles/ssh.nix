@@ -33,7 +33,7 @@
         identityFile = "~/.ssh/default.ed25519";
         identitiesOnly = true;
       };
-      "*" ={
+      "*" = {
         extraOptions = {
           AddKeysToAgent = "yes";
         };

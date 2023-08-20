@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ ... }:
 {
   services.fail2ban = {
     enable = true;
@@ -13,7 +13,7 @@
       rndtime = "1h";
     };
     bantime = "1h";
-    maxretry = 3;
+    maxretry = 5;
     jails = {
       sshd = {
         enabled = true;

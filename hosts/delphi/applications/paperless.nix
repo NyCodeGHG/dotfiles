@@ -18,27 +18,28 @@ in
       PAPERLESS_USE_X_FORWARD_PORT = true;
     };
   };
-  systemd.services = 
-  let
-    path = config.age.secrets.paperless-env.path;
-  in {
-    paperless-scheduler.serviceConfig.EnvironmentFile = path;
-    paperless-task-queue.serviceConfig.EnvironmentFile = path;
-    paperless-consumer.serviceConfig.EnvironmentFile = path;
-    paperless-web.serviceConfig.EnvironmentFile = path;
-  };
+  systemd.services =
+    let
+      path = config.age.secrets.paperless-env.path;
+    in
+    {
+      paperless-scheduler.serviceConfig.EnvironmentFile = path;
+      paperless-task-queue.serviceConfig.EnvironmentFile = path;
+      paperless-consumer.serviceConfig.EnvironmentFile = path;
+      paperless-web.serviceConfig.EnvironmentFile = path;
+    };
   age.secrets.paperless-env.file = "${inputs.self}/secrets/paperless-env.age";
 
   virtualisation.oci-containers.containers.gotenberg = {
     user = "gotenberg:gotenberg";
     image = "docker.io/gotenberg/gotenberg:7.9.1";
-    cmd = ["gotenberg" "--chromium-disable-javascript=true" "--chromium-allow-list=file:///tmp/.*"];
+    cmd = [ "gotenberg" "--chromium-disable-javascript=true" "--chromium-allow-list=file:///tmp/.*" ];
     ports = [
       "127.0.0.1:${gotenbergPort}:3000"
     ];
   };
 
-  uwumarie.reverse-proxy.services."paperless.marie.cologne" = {
+  services.nginx.virtualHosts."paperless.marie.cologne" = {
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString config.services.paperless.port}";
       proxyWebsockets = true;

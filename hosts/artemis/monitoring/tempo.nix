@@ -22,8 +22,8 @@
         receivers = {
           otlp = {
             protocols = {
-              grpc = {};
-              http = {};
+              grpc = { };
+              http = { };
             };
           };
         };

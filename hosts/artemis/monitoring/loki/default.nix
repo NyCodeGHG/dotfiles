@@ -1,4 +1,4 @@
-{ config, libs, pkgs, ... }:
+{ config, ... }:
 let
   lokiPort = 3030;
   promtailPort = 3031;

@@ -3,9 +3,6 @@ let
   port = 3000;
 in
 {
-  imports = [
-    "${inputs.self}/modules/reverse-proxy.nix"
-  ];
   services.grafana = {
     enable = true;
     settings = {
@@ -115,7 +112,7 @@ in
     group = "grafana";
   };
 
-  uwumarie.reverse-proxy.services = {
+  services.nginx.virtualHosts = {
     "grafana.marie.cologne" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${builtins.toString port}";

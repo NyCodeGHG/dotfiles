@@ -1,13 +1,10 @@
 { config, pkgs, lib, inputs, ... }:
 {
-  imports = [
-    "${inputs.self}/modules/reverse-proxy.nix"
-  ];
   services.uptime-kuma = {
     enable = true;
     appriseSupport = true;
   };
-  uwumarie.reverse-proxy.services = {
+  services.nginx.virtualHosts = {
     "uptime-kuma.marie.cologne" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:3001";
