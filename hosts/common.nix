@@ -1,7 +1,21 @@
-{ pkgs, config, lib, agenix, ... }:
+{ pkgs, agenix, ... }:
 {
   imports = [
     ../users/marie
   ];
-  environment.systemPackages = [ agenix pkgs.lshw pkgs.pciutils pkgs.speedtest-cli pkgs.iw pkgs.inetutils pkgs.htop ];
+  environment.systemPackages = with pkgs; [ 
+    agenix 
+    lshw 
+    pciutils 
+    speedtest-cli 
+    iw 
+    inetutils 
+    htop
+    neofetch
+    nftables
+    iptables
+    wget
+    curl
+    vim
+  ];
 }

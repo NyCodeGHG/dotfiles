@@ -26,15 +26,5 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    curl
-    nftables
-    iptables
-    git
-    neofetch
-  ];
-
   system.stateVersion = "22.11";
 }
