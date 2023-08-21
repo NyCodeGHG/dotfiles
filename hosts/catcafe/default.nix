@@ -7,10 +7,9 @@
   imports = [
     ./hardware.nix
     ../../modules/nix-config.nix
-    ../../modules/motd.nix
     ../../modules/fonts.nix
   ];
-  services.mullvad-vpn.enable = true;
+  # services.mullvad-vpn.enable = true;
   programs.steam.enable = true;
   virtualisation.libvirtd.enable = true;
 
@@ -27,7 +26,6 @@
     };
     firewall = {
       enable = true;
-      allowedUDPPorts = [ 22 ];
     };
     nameservers = [
       "1.1.1.1"
@@ -107,16 +105,10 @@
     driSupport32Bit = true;
   };
 
-  uwumarie.services.motd.enable = true;
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "nodejs-16.20.0"
-    "openssl-1.1.1u"
-  ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
@@ -124,4 +116,7 @@
   services.avahi = {
     enable = true;
   };
+
+  hardware.cpu.intel.updateMicrocode = true;
+  powerManagement.cpuFreqGovernor = "powersave";
 }

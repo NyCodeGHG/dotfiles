@@ -6,13 +6,13 @@
     bitwarden
     libsForQt5.ark
     spotify
-    element-desktop
-    cinny-desktop
+    # element-desktop
+    # cinny-desktop
     qbittorrent
-    mullvad-vpn
+    # mullvad-vpn
 
     # Programming Languages
-    rustup
+    # rustup
     gcc
     cmake
     gnumake

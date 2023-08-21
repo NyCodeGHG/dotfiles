@@ -18,7 +18,7 @@ let
 in
 {
   programs.lazygit = {
-    enable = true;
+    enable = false;
     settings =
       {
         gui = {
