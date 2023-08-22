@@ -1,4 +1,4 @@
-{ config, pkgs, lib, utils, ... }:
+{ config, pkgs, lib, utils, inputs, ... }:
 let
   cfg = config.services.pgrok;
   yaml = pkgs.formats.yaml { };
@@ -89,7 +89,7 @@ in
             TimeoutSec = "infinity";
             Restart = "always";
             WorkingDirectory = cfg.statePath;
-            ExecStart = "${pkgs.pgrok.server}/bin/pgrokd --config ${configPath}";
+            ExecStart = "${inputs.nixpkgs-pgrok.legacyPackages.${pkgs.system}.pgrok.server}/bin/pgrokd --config ${configPath}";
           };
         };
       };

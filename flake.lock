@@ -469,6 +469,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-pgrok": {
+      "locked": {
+        "lastModified": 1692727338,
+        "narHash": "sha256-Uf0XwZ/VcujrJ5kRi4cvC4n9zNHpgbh5gJEVJzHI0Es=",
+        "owner": "NyCodeGHG",
+        "repo": "nixpkgs",
+        "rev": "2f57513f3af413a38b22d1e1a29ca81a56b6fc02",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NyCodeGHG",
+        "ref": "update-pgrok",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -620,6 +636,7 @@
         "hyprland": "hyprland",
         "ip-playground": "ip-playground",
         "nixpkgs": "nixpkgs_5",
+        "nixpkgs-pgrok": "nixpkgs-pgrok",
         "steam-fetcher": "steam-fetcher",
         "vscode-server": "vscode-server"
       }

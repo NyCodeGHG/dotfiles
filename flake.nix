@@ -2,6 +2,7 @@
   description = "System configuration";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-pgrok.url = "github:NyCodeGHG/nixpkgs/update-pgrok";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
