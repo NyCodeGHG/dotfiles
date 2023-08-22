@@ -136,6 +136,16 @@
             agenix = agenix.packages.aarch64-linux.default;
           };
         };
+        insane = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/insane
+            ./hosts/common.nix
+          ];
+          specialArgs = {
+            inherit inputs;
+          };
+        };
       };
       homeConfigurations.marie = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
