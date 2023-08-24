@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ config, self, ... }:
 let
   tikaPort = "33001";
   gotenbergPort = "33002";
@@ -28,7 +28,7 @@ in
       paperless-consumer.serviceConfig.EnvironmentFile = path;
       paperless-web.serviceConfig.EnvironmentFile = path;
     };
-  age.secrets.paperless-env.file = "${inputs.self}/secrets/paperless-env.age";
+  age.secrets.paperless-env.file = "${self}/secrets/paperless-env.age";
 
   virtualisation.oci-containers.containers.gotenberg = {
     user = "gotenberg:gotenberg";

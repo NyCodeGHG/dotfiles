@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ self, ... }:
+let
+  inherit (self) inputs;
+in
 {
   imports = [
     ../../profiles/nix-config.nix
@@ -14,7 +17,19 @@
     ./wireguard.nix
     ./restic.nix
     ./networking.nix
-  ];
+  ] ++ (with inputs; [
+    agenix.nixosModules.default
+    vscode-server.nixosModules.default
+    home-manager.nixosModules.home-manager
+  ]);
+
+  services.vscode-server.enable = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.marie = import "${self}/home";
+    extraSpecialArgs = { inherit inputs; graphical = false; };
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

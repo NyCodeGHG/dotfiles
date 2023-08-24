@@ -1,10 +1,9 @@
-{ config
-, pkgs
-, inputs
+{ pkgs
+, self
 , ...
 }: {
   programs.waybar = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.waybar-hyprland;
+    package = self.inputs.hyprland.packages.${pkgs.system}.waybar-hyprland;
   };
 }

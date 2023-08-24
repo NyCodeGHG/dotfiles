@@ -34,6 +34,7 @@
       url = "github:nix-community/steam-fetcher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   nixConfig = {
@@ -47,159 +48,79 @@
     ];
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , hyprland
-    , agenix
-    , flake-utils
-    , vscode-server
-    , deploy-rs
-    , disko
-    , ip-playground
-    , awesome-prometheus-rules
-    , steam-fetcher
-    , ...
-    } @ inputs:
-    let
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        overlays = [ steam-fetcher.overlays.default ];
+  outputs = inputs@{ flake-parts, home-manager, nixpkgs, self, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        ./pkgs/flake-module.nix
+        ./hosts/flake-module.nix
+      ];
+      systems = [ "x86_64-linux" "aarch64-linux" ];
+      perSystem = { config, self', inputs', pkgs, system, ... }: {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [
+            inputs.steam-fetcher.overlays.default
+          ];
+        };
+        formatter = pkgs.nixpkgs-fmt;
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            nixpkgs-fmt
+            terraform
+            google-cloud-sdk
+            nurl
+          ] ++ [ inputs.agenix.packages.${pkgs.system}.default inputs.deploy-rs.packages.${pkgs.system}.default ];
+        };
       };
-    in
-    {
-      nixosConfigurations = {
-        catcafe = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            agenix.nixosModules.default
-            hyprland.nixosModules.default
-            vscode-server.nixosModule
-            home-manager.nixosModules.home-manager
-            ./hosts/common.nix
-            ./hosts/catcafe
-            {
-              programs.hyprland.enable = true;
-              services.vscode-server.enable = true;
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.marie = import ./home;
-                extraSpecialArgs = { inherit inputs; graphical = true; };
+      flake = 
+      let
+        pkgs = import nixpkgs {
+          system = builtins.currentSystem;
+        };
+      in
+      {
+        homeConfigurations = {
+          marie = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            modules = [
+              ./home
+            ];
+            extraSpecialArgs = {
+              inherit inputs;
+              graphical = false;
+            };
+          };
+          wsl = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            modules = [
+              ./home/wsl.nix
+            ];
+            extraSpecialArgs = {
+              inherit inputs;
+            };
+          };
+        };
+        # deploy-rs configuration
+        deploy = {
+          sshOpts = [ "-t" ];
+          nodes = {
+            artemis = {
+              hostname = "uwu.nycode.dev";
+              profiles.system = {
+                user = "root";
+                path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
               };
-            }
-          ];
-          specialArgs = {
-            inherit inputs;
-            host = {
-              sshKey = "github_laptop.ed25519";
             };
-            agenix = agenix.packages.x86_64-linux.default;
-          };
-        };
-        artemis = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            awesome-prometheus-rules.nixosModules.default
-            agenix.nixosModules.default
-            vscode-server.nixosModules.default
-            home-manager.nixosModules.home-manager
-            ./hosts/common.nix
-            ./hosts/artemis
-            {
-              services.vscode-server.enable = true;
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.marie = import ./home;
-                extraSpecialArgs = { inherit inputs; graphical = false; };
+            delphi = {
+              hostname = "delphi";
+              profiles.system = {
+                user = "root";
+                path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.delphi;
               };
-            }
-          ];
-          specialArgs = {
-            inherit inputs;
-            agenix = agenix.packages.x86_64-linux.default;
-          };
-        };
-        delphi = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          modules = [
-            agenix.nixosModules.default
-            home-manager.nixosModules.home-manager
-            disko.nixosModules.disko
-            ./hosts/delphi
-            ./hosts/common.nix
-          ];
-          specialArgs = {
-            inherit inputs;
-            agenix = agenix.packages.aarch64-linux.default;
-          };
-        };
-        insane = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/insane
-            ./hosts/common.nix
-          ];
-          specialArgs = {
-            inherit inputs;
-          };
-        };
-      };
-      homeConfigurations.marie = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./home
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
-          graphical = false;
-        };
-      };
-      homeConfigurations.wsl = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./home/wsl.nix
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-      devShells.x86_64-linux.default = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          nixpkgs-fmt
-          terraform
-          google-cloud-sdk
-          nurl
-        ] ++ [ agenix.packages.x86_64-linux.default deploy-rs.packages.x86_64-linux.default ];
-      };
-      deploy = {
-        sshOpts = [ "-t" ];
-        nodes = {
-          artemis = {
-            hostname = "uwu.nycode.dev";
-            profiles.system = {
-              user = "root";
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
             };
           };
-          delphi = {
-            hostname = "delphi";
-            profiles.system = {
-              user = "root";
-              path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.delphi;
-            };
-          };
+          remoteBuild = true;
         };
-        remoteBuild = true;
-      };
-
-      packages.x86_64-linux.node-mixin = pkgs.callPackage ./pkgs/node-mixin { };
-      packages.x86_64-linux.tf2-server-unwrapped = pkgs.callPackage ./pkgs/tf2-server { };
-      packages.x86_64-linux.tf2-server = pkgs.callPackage ./pkgs/tf2-server/fhsenv.nix {
-        inherit (self.packages.x86_64-linux) tf2-server-unwrapped;
       };
     };
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ ... }:
 {
   services.uptime-kuma = {
     enable = true;

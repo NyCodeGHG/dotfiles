@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ self, ... }:
 {
   nix = {
     gc = {
@@ -12,11 +12,11 @@
       experimental-features = [ "nix-command" "flakes" ];
       trusted-users = [ "@wheel" ];
     };
-    registry.nixpkgs.flake = inputs.nixpkgs;
+    registry.nixpkgs.flake = self.inputs.nixpkgs;
     nixPath = [
-      "nixpkgs=${inputs.nixpkgs}"
+      "nixpkgs=${self.inputs.nixpkgs}"
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
   };
-  environment.etc."channels/nixpkgs".source = inputs.nixpkgs.outPath;
+  environment.etc."channels/nixpkgs".source = self.inputs.nixpkgs.outPath;
 }

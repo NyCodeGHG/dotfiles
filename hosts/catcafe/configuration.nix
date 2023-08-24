@@ -1,13 +1,29 @@
 { config
 , pkgs
+, self
 , ...
-}: {
+}: 
+let 
+  inherit (self) inputs;
+in {
   imports = [
     ./hardware.nix
     ../../profiles/nix-config.nix
     ../../profiles/fonts.nix
     ../../profiles/locale.nix
+    inputs.agenix.nixosModules.default
+    inputs.hyprland.nixosModules.default
+    inputs.vscode-server.nixosModule
+    inputs.home-manager.nixosModules.home-manager
   ];
+  services.vscode-server.enable = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.marie = import "${inputs.self}/home";
+    extraSpecialArgs = { inherit inputs; graphical = true; };
+  };
+
   # services.mullvad-vpn.enable = true;
   programs.steam.enable = true;
   virtualisation.libvirtd.enable = true;

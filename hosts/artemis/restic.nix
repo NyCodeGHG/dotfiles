@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, self, ... }:
 let
   mkResticService = service: {
     serviceConfig = {
@@ -13,8 +13,8 @@ let
   } // service;
 in
 {
-  age.secrets.restic-repo.file = "${inputs.self}/secrets/restic-repo.age";
-  age.secrets.b2-restic.file = "${inputs.self}/secrets/b2-restic.age";
+  age.secrets.restic-repo.file = "${self}/secrets/restic-repo.age";
+  age.secrets.b2-restic.file = "${self}/secrets/b2-restic.age";
 
   systemd.timers."restic-backup-postgres" = {
     wantedBy = [ "timers.target" ];

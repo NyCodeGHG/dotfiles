@@ -1,10 +1,9 @@
-{ pkgs, agenix, ... }:
+{ pkgs, self, ... }:
 {
   imports = [
     ../users/marie
   ];
   environment.systemPackages = with pkgs; [ 
-    agenix 
     lshw 
     pciutils 
     speedtest-cli 
@@ -17,5 +16,7 @@
     wget
     curl
     vim
+  ] ++ [
+    self.inputs.agenix.packages.${pkgs.system}.default
   ];
 }

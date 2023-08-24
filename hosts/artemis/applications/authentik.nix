@@ -1,7 +1,7 @@
-{ config, inputs, ... }:
+{ config, self, ... }:
 {
   imports = [
-    "${inputs.self}/modules/authentik.nix"
+    "${self}/modules/authentik.nix"
   ];
 
   virtualisation.podman.enable = true;
@@ -18,5 +18,5 @@
       domain = "sso.nycode.dev";
     };
   };
-  age.secrets.authentik-secrets.file = "${inputs.self}/secrets/authentik-secrets.age";
+  age.secrets.authentik-secrets.file = "${self}/secrets/authentik-secrets.age";
 }

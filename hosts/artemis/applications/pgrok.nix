@@ -1,7 +1,7 @@
-{ config, inputs, ... }:
+{ config, self, ... }:
 {
   imports = [
-    "${inputs.self}/modules/pgrok.nix"
+    "${self}/modules/pgrok.nix"
   ];
   services.pgrok = {
     enable = true;
@@ -39,7 +39,7 @@
     };
   };
   age.secrets.pgrok-client-secret = {
-    file = "${inputs.self}/secrets/pgrok-client-secret.age";
+    file = "${self}/secrets/pgrok-client-secret.age";
     owner = config.services.pgrok.user;
     group = config.services.pgrok.group;
   };

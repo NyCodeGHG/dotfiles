@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, self, ... }:
 let
   serverName = "marie.cologne";
   matrixDomain = "matrix.marie.cologne";
@@ -165,7 +165,7 @@ in
     wants = [ "network-online.target" "postgresql.service" "podman-authentik-server.service" ];
   };
   age.secrets.synapse-sso-config = {
-    file = "${inputs.self}/secrets/synapse-sso-config.age";
+    file = "${self}/secrets/synapse-sso-config.age";
     owner = "matrix-synapse";
   };
   services.prometheus.scrapeConfigs = [

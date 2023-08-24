@@ -1,7 +1,7 @@
-{ config, inputs, ... }:
+{ config, self, ... }:
 {
   imports = [
-    "${inputs.self}/modules/coder.nix"
+    "${self}/modules/coder.nix"
   ];
   uwumarie.services.coder = {
     enable = true;
@@ -25,7 +25,7 @@
       config.age.secrets.coder-oauth.path
     ];
   };
-  age.secrets.coder-oauth.file = "${inputs.self}/secrets/coder-oauth.age";
+  age.secrets.coder-oauth.file = "${self}/secrets/coder-oauth.age";
   security.acme.certs."coder.marie.cologne" = {
     domain = "coder.marie.cologne";
     extraDomainNames = [
