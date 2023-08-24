@@ -29,6 +29,10 @@
       metrics.ENABLED = true;
       federation.ENABLED = true;
       actions.ENABLED = true;
+      oauth2_client = {
+        ENABLE_AUTO_REGISTRATION = true;
+        REGISTER_EMAIL_CONFIRM = false;
+      };
     };
   };
   users.users =
@@ -60,6 +64,11 @@
         fastcgi_pass unix:/run/gitea/gitea.sock;
       '';
     };
+    locations."/robots.txt" = {
+      return = ''200 'User-Agent: *
+Disallow: /'
+'';
+    };
     locations."/metrics" = {
       extraConfig = ''
         allow 127.0.0.0/24;
@@ -71,4 +80,7 @@
       '';
     };
   };
+  services.openssh.extraConfig = ''
+    AcceptEnv GIT_PROTOCOL
+  '';
 }
