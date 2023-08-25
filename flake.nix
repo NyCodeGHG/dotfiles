@@ -75,7 +75,7 @@
       flake = 
       let
         pkgs = import nixpkgs {
-          system = builtins.currentSystem;
+          system = "x86_64-linux";
         };
       in
       {
@@ -86,7 +86,7 @@
               ./home
             ];
             extraSpecialArgs = {
-              inherit inputs;
+              inherit inputs self;
               graphical = false;
             };
           };
@@ -96,7 +96,7 @@
               ./home/wsl.nix
             ];
             extraSpecialArgs = {
-              inherit inputs;
+              inherit inputs self;
             };
           };
         };
@@ -116,6 +116,13 @@
               profiles.system = {
                 user = "root";
                 path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.delphi;
+              };
+            };
+            insane = {
+              hostname = "insane";
+              profiles.system = {
+                user = "root";
+                path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.insane;
               };
             };
           };

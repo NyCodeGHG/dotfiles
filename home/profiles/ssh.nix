@@ -33,6 +33,11 @@
         identityFile = "~/.ssh/default.ed25519";
         identitiesOnly = true;
       };
+      insane = {
+        hostname = "192.168.178.123";
+        identityFile = "~/.ssh/default.ed25519";
+        identitiesOnly = true;
+      };
       "*" = {
         extraOptions = {
           AddKeysToAgent = "yes";
