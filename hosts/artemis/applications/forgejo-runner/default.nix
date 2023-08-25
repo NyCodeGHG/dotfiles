@@ -18,4 +18,9 @@
     };
   };
   age.secrets.forgejo-runner-token.file = "${self}/secrets/forgejo-runner-token.age";
+  virtualisation.podman.defaultNetwork.settings.dns_enable = true;
+  networking.firewall.interfaces."podman+" = {
+    allowedUDPPorts = [ 53 ];
+    allowedTCPPorts = [ 53 ];
+  };
 }
