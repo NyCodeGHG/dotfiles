@@ -11,6 +11,7 @@
         "ubuntu-latest:docker://node:18-bullseye"
         # provide native execution on the host
         "native:host"
+        "nix:docker://git.marie.cologne/marie/ci-images/base"
       ];
       enable = true;
       tokenFile = config.age.secrets.forgejo-runner-token.path;
@@ -19,7 +20,7 @@
   };
   age.secrets.forgejo-runner-token.file = "${self}/secrets/forgejo-runner-token.age";
   virtualisation.podman.defaultNetwork.settings.dns_enable = true;
-  networking.firewall.interfaces."podman+" = {
+  networking.firewall.interfaces."podman*" = {
     allowedUDPPorts = [ 53 ];
     allowedTCPPorts = [ 53 ];
   };
