@@ -4,6 +4,7 @@
     ./authentik.nix
     ./coder.nix
     ./forgejo
+    ./forgejo-runner
     ./jellyfin.nix
     ./miniflux.nix
     ./matrix
@@ -11,5 +12,6 @@
     ./pgrok.nix
     ./tika.nix
     ./nginx-meta.nix
+    ./renovate
   ];
 }

@@ -17,12 +17,6 @@ in
   "miniflux-credentials.age".publicKeys = withSystems systems.artemis;
   "grafana-oauth-client-secret.age".publicKeys = withSystems systems.artemis;
   "coder-oauth.age".publicKeys = withSystems systems.artemis;
-  "gitlab-root-password.age".publicKeys = withSystems systems.artemis;
-  "gitlab-secret.age".publicKeys = withSystems systems.artemis;
-  "gitlab-otp-secret.age".publicKeys = withSystems systems.artemis;
-  "gitlab-jws-key.age".publicKeys = withSystems systems.artemis;
-  "gitlab-db-secret.age".publicKeys = withSystems systems.artemis;
-  "gitlab-github-client-secret.age".publicKeys = withSystems systems.artemis;
   "restic-repo.age".publicKeys = withSystems systems.artemis;
   "b2-restic.age".publicKeys = withSystems systems.artemis;
   "discord-webhook.age".publicKeys = withSystems systems.artemis;
@@ -31,4 +25,6 @@ in
   "pgrok-client-secret.age".publicKeys = withSystems systems.artemis;
   "paperless-env.age".publicKeys = withSystems systems.delphi;
   "curseforge-api-key.age".publicKeys = withSystems systems.delphi;
+  "renovate-env.age".publicKeys = withSystems systems.artemis;
+  "forgejo-runner-token.age".publicKeys = withSystems systems.artemis;
 }
