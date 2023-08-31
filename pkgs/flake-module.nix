@@ -7,6 +7,7 @@
       tf2-server-wrapped = pkgs.callPackage ./tf2-server/fhsenv.nix {
         tf2-server-unwrapped = self'.packages.tf2-server;
       };
+      traewelling = pkgs.callPackage ./traewelling { };
     };
   };
 }
