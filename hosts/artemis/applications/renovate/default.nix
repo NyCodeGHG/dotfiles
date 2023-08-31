@@ -9,7 +9,7 @@ in
       RENOVATE_CONFIG_FILE = renovateConfig;
       LOG_LEVEL = "debug";
     };
-    startAt = "weekly";
+    startAt = "hourly";
     path = [
       pkgs.git
       pkgs.openssh
