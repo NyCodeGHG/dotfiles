@@ -37,6 +37,11 @@ package.override rec {
     hash = "sha256-92/6tN2rHsMlKzQcY0/wePrmmYZv/BS3eE11Uq8UUgA=";
   };
 
+  prePatch = ''
+    cp ${./composer.json} composer.json
+    cp ${./composer.lock} composer.lock
+  '';
+
   passthru.updateScript = ./update.sh;
 
   meta = {
