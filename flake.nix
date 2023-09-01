@@ -53,6 +53,7 @@
       imports = [
         ./pkgs/flake-module.nix
         ./hosts/flake-module.nix
+        ./modules/flake-module.nix
       ];
       systems = [ "x86_64-linux" "aarch64-linux" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: {
