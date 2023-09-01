@@ -262,6 +262,7 @@ in
       phpPackage = php;
 
       phpOptions = ''
+        log_errors = on
         post_max_size = ${toString cfg.maxUploadSize}
         upload_max_filesize = ${toString cfg.maxUploadSize}
         max_execution_time = 600;
