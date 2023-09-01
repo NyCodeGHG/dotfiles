@@ -1,4 +1,4 @@
-{ pkgs, config, lib, modulesPath, ... }:
+{ pkgs, config, lib, modulesPath, self, ... }:
 {
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
@@ -14,7 +14,10 @@
     ./monitoring
     ./applications
     ./minecraft.nix
-  ];
+  ] ++ (with self.inputs; [
+    agenix.nixosModules.default
+    disko.nixosModules.default
+  ]);
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

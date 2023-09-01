@@ -27,4 +27,5 @@ in
   "curseforge-api-key.age".publicKeys = withSystems systems.delphi;
   "renovate-env.age".publicKeys = withSystems systems.artemis;
   "forgejo-runner-token.age".publicKeys = withSystems systems.artemis;
+  "traewelling-env.age".publicKeys = withSystems systems.delphi;
 }

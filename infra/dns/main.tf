@@ -84,7 +84,8 @@ locals {
       names = [
         "oci-fra01",
         "mc",
-        "paperless"
+        "paperless",
+        "trwl-staging",
       ]
       values = [
         {

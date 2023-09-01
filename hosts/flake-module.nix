@@ -2,6 +2,11 @@
 let
   entries = builtins.attrNames (builtins.readDir ./.);
   configs = builtins.filter (dir: builtins.pathExists (./. + "/${dir}/configuration.nix")) entries;
+  systemArch = {
+    "artemis" = "x86_64-linux";
+    "delphi" = "aarch64-linux";
+    "insane" = "x86_64-linux";
+  };
 in
 {
   flake.nixosConfigurations = lib.listToAttrs
@@ -10,7 +15,7 @@ in
         lib.nameValuePair
           (builtins.replaceStrings [ "." ] [ "-" ] name)
           (self.inputs.nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
+            system = systemArch.${name};
             specialArgs = {
               inherit self;
             };
