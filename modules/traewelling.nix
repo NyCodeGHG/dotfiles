@@ -1,6 +1,9 @@
 { lib, pkgs, config, modulesPath, ... }:
 let
-  php = pkgs.php;
+  php = pkgs.php.buildEnv {
+    extensions = { enabled, all }:
+      enabled ++ (with all; [ redis ]);
+  };
   cfg = config.services.traewelling;
   inherit (cfg) user group;
   traewelling = cfg.package.override { inherit (cfg) dataDir runtimeDir; };
