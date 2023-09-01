@@ -1,0 +1,23 @@
+name: laravel-queue-monitor
+recipe: lemp
+config:
+  php: "8.2"
+  composer_version: 2
+  webroot: public
+services:
+  database:
+    type: mariadb
+    creds:
+      user: web
+      password: web
+      database: web
+tooling:
+  phpunit:
+    service: appserver
+    cmd: /app/vendor/bin/phpunit
+  phpcs:
+    service: appserver
+    cmd: /app/vendor/bin/php-cs-fixer
+  phpstan:
+    service: appserver
+    cmd: /app/vendor/bin/phpstan
