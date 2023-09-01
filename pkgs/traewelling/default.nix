@@ -13,7 +13,9 @@ let
     inherit (stdenv.hostPlatform) system;
     noDev = true;
   }).overrideAttrs (attrs: {
-    installPhase = attrs.installPhase + ''
+    installPhase =  ''
+      ${attrs.installPhase}
+
       rm -R $out/bootstrap/cache
       # Move static contents for the NixOS module to pick it up, if needed.
       mv $out/bootstrap $out/bootstrap-static
@@ -28,19 +30,14 @@ let
 in
 package.override rec {
   pname = "traewelling";
-  version = "8ec1e34322893b5a01f67c8ba952d7873a9e7599";
+  version = "970c8ab14406d029bdcca38fe7a3dbbc5c4608ab";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "8ec1e34322893b5a01f67c8ba952d7873a9e7599";
-    hash = "sha256-92/6tN2rHsMlKzQcY0/wePrmmYZv/BS3eE11Uq8UUgA=";
+    rev = "970c8ab14406d029bdcca38fe7a3dbbc5c4608ab";
+    hash = "sha256-ZbG5tRXym0MlrKlG8d3gx3EN4//WpTjnV0hj78YWGho=";
   };
-
-  prePatch = ''
-    cp ${./composer.json} composer.json
-    cp ${./composer.lock} composer.lock
-  '';
 
   passthru.updateScript = ./update.sh;
 
