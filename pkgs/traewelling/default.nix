@@ -5,9 +5,19 @@
 , dataDir ? "/var/lib/traewelling"
 , runtimeDir ? "/run/traewelling"
 , pkgs
+, lndir
 ,
 }:
 let
+  pname = "traewelling";
+  rev = "cf1a044d94c64e73b03ce4f37a669eb570848f0c";
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = pname;
+    inherit rev;
+    hash = "sha256-d2eXsPDRcSMWmUoXqDCk4hmzehRzJq0zNI9WJVihfH4=";
+  };
+  web = pkgs.callPackage ./web.nix { inherit src; version = rev; };
   package = (import ./composition.nix {
     inherit pkgs;
     inherit (stdenv.hostPlatform) system;
@@ -24,20 +34,14 @@ let
       ln -s ${dataDir}/storage $out/
       ln -s ${dataDir}/storage/app/public $out/public/storage
       ln -s ${runtimeDir} $out/bootstrap
+      ${lndir}/bin/lndir -silent ${web} $out/public
       chmod +x $out/artisan
     '';
   });
 in
 package.override rec {
-  pname = "traewelling";
-  version = "cf1a044d94c64e73b03ce4f37a669eb570848f0c";
-
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "cf1a044d94c64e73b03ce4f37a669eb570848f0c";
-    hash = "sha256-d2eXsPDRcSMWmUoXqDCk4hmzehRzJq0zNI9WJVihfH4=";
-  };
+  version = rev;
+  inherit pname src;  
 
   passthru.updateScript = ./update.sh;
 
