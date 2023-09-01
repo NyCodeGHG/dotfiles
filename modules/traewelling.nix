@@ -1,6 +1,9 @@
 { lib, pkgs, config, modulesPath, ... }:
 let
-  php = pkgs.php;
+  php = pkgs.php.buildEnv {
+    extensions = { enabled, all }:
+      enabled ++ (with all; [ redis ]);
+  };
   cfg = config.services.traewelling;
   inherit (cfg) user group;
   traewelling = cfg.package.override { inherit (cfg) dataDir runtimeDir; };
@@ -247,7 +250,6 @@ in
       "pm" = "dynamic";
       "php_admin_value[error_log]" = "stderr";
       "php_admin_flag[log_errors]" = true;
-      "catch_workers_output" = true;
       "pm.max_children" = "32";
       "pm.start_servers" = "2";
       "pm.min_spare_servers" = "2";
@@ -260,6 +262,7 @@ in
       phpPackage = php;
 
       phpOptions = ''
+        log_errors = on
         post_max_size = ${toString cfg.maxUploadSize}
         upload_max_filesize = ${toString cfg.maxUploadSize}
         max_execution_time = 600;
