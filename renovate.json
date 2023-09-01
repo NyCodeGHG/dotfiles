@@ -28,5 +28,10 @@
       ],
       "groupName": "authentik"
     }
+  ],
+  "enabledManagers": [
+    "regex",
+    "terraform",
+    "github-actions"
   ]
 }
