@@ -250,7 +250,6 @@ in
       "pm" = "dynamic";
       "php_admin_value[error_log]" = "stderr";
       "php_admin_flag[log_errors]" = true;
-      "catch_workers_output" = true;
       "pm.max_children" = "32";
       "pm.start_servers" = "2";
       "pm.min_spare_servers" = "2";
