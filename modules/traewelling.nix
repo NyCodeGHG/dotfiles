@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, modulesPath, ... }:
 let
   php = pkgs.php;
   cfg = config.services.traewelling;
@@ -84,7 +84,7 @@ in
 
     nginx = lib.mkOption {
       type = lib.types.nullOr (lib.types.submodule
-        (import ../web-servers/nginx/vhost-options.nix {
+        (import "${modulesPath}/services/web-servers/nginx/vhost-options.nix" {
           inherit config lib;
         }));
       default = null;
