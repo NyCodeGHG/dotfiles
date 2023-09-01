@@ -30,13 +30,13 @@ let
 in
 package.override rec {
   pname = "traewelling";
-  version = "4015a02263200ce3a1a360bbb565c879a66e5c8e";
+  version = "887a3603f9db8b3b20ac6a7d6da50eb18e91853f";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "4015a02263200ce3a1a360bbb565c879a66e5c8e";
-    hash = "sha256-+TQopFY7jqnAJ1i2zwood0fVnfcjhfUX12ThGsYWXtA=";
+    rev = "887a3603f9db8b3b20ac6a7d6da50eb18e91853f";
+    hash = "sha256-imZlyfR8VON7DD+f4qQFLoYeFAozZ6kcUz27pX+5IKA=";
   };
 
   passthru.updateScript = ./update.sh;
