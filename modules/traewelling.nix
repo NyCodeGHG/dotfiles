@@ -319,7 +319,7 @@ in
       };
     };
 
-    systemd.services.traewelling-data.setup = {
+    systemd.services.traewelling-data-setup = {
       description =
         "Traewelling setup: migrations, environment file update, cache reload, data changes";
       wantedBy = ["multi-user.target"];
