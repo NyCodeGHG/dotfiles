@@ -3,12 +3,12 @@
   imports = [
     ../users/marie
   ];
-  environment.systemPackages = with pkgs; [ 
-    lshw 
-    pciutils 
-    speedtest-cli 
-    iw 
-    inetutils 
+  environment.systemPackages = with pkgs; [
+    lshw
+    pciutils
+    speedtest-cli
+    iw
+    inetutils
     htop
     neofetch
     nftables

@@ -5,4 +5,4 @@ let
     nodejs = nodejs-18_x;
   };
 in
-  nodePackages
+nodePackages

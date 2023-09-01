@@ -72,62 +72,62 @@
           ] ++ [ inputs.agenix.packages.${pkgs.system}.default inputs.deploy-rs.packages.${pkgs.system}.default ];
         };
       };
-      flake = 
-      let
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-        };
-      in
-      {
-        homeConfigurations = {
-          marie = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            modules = [
-              ./home
-            ];
-            extraSpecialArgs = {
-              inherit inputs self;
-              graphical = false;
-            };
+      flake =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
           };
-          wsl = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            modules = [
-              ./home/wsl.nix
-            ];
-            extraSpecialArgs = {
-              inherit inputs self;
-            };
-          };
-        };
-        # deploy-rs configuration
-        deploy = {
-          sshOpts = [ "-t" ];
-          nodes = {
-            artemis = {
-              hostname = "uwu.nycode.dev";
-              profiles.system = {
-                user = "root";
-                path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
+        in
+        {
+          homeConfigurations = {
+            marie = home-manager.lib.homeManagerConfiguration {
+              inherit pkgs;
+              modules = [
+                ./home
+              ];
+              extraSpecialArgs = {
+                inherit inputs self;
+                graphical = false;
               };
             };
-            delphi = {
-              hostname = "delphi";
-              profiles.system = {
-                user = "root";
-                path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.delphi;
-              };
-            };
-            insane = {
-              hostname = "insane";
-              profiles.system = {
-                user = "root";
-                path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.insane;
+            wsl = home-manager.lib.homeManagerConfiguration {
+              inherit pkgs;
+              modules = [
+                ./home/wsl.nix
+              ];
+              extraSpecialArgs = {
+                inherit inputs self;
               };
             };
           };
-          remoteBuild = true;
+          # deploy-rs configuration
+          deploy = {
+            sshOpts = [ "-t" ];
+            nodes = {
+              artemis = {
+                hostname = "uwu.nycode.dev";
+                profiles.system = {
+                  user = "root";
+                  path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
+                };
+              };
+              delphi = {
+                hostname = "delphi";
+                profiles.system = {
+                  user = "root";
+                  path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.delphi;
+                };
+              };
+              insane = {
+                hostname = "insane";
+                profiles.system = {
+                  user = "root";
+                  path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.insane;
+                };
+              };
+            };
+            remoteBuild = true;
+          };
         };
-      };
     };
 }

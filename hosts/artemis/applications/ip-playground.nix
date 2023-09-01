@@ -1,7 +1,7 @@
-{ config, self, pkgs, ...}:
+{ config, self, pkgs, ... }:
 let
   frontendPackage = self.inputs.ip-playground.packages.${pkgs.system}.ip-playground-frontend;
-  backendPackage= self.inputs.ip-playground.packages.${pkgs.system}.ip-playground-backend;
+  backendPackage = self.inputs.ip-playground.packages.${pkgs.system}.ip-playground-backend;
   asnDbPath = "/var/lib/ip-playground/ip2asn-combined.tsv";
 in
 {
@@ -11,9 +11,9 @@ in
         root = "${frontendPackage}";
         index = "index.html";
         extraConfig = ''
-        if ($http_user_agent ~* "^curl\/.+") {
-          rewrite ^ /api/info last;
-        }
+          if ($http_user_agent ~* "^curl\/.+") {
+            rewrite ^ /api/info last;
+          }
         '';
       };
       locations."/api" = {
@@ -37,7 +37,7 @@ in
     user = "ip-playground";
   };
   systemd.timers.download-iptoasn-db = {
-    wantedBy = ["timers.target"];
+    wantedBy = [ "timers.target" ];
     partOf = [ "download-iptoasn-db.service" ];
     timerConfig = {
       OnCalendar = "00/3:00:00";
@@ -48,7 +48,7 @@ in
   systemd.services = {
     download-iptoasn-db = {
       description = "IP to ASN Database download";
-      after = ["network.target"];
+      after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         WorkingDirectory = "/var/lib/ip-playground";
@@ -100,7 +100,7 @@ in
     };
     ip-playground = {
       description = "IP Playground";
-      after = ["network.target" "download-iptoasn-db.service"];
+      after = [ "network.target" "download-iptoasn-db.service" ];
       wantedBy = [ "multi-user.target" ];
       environment = {
         ALLOWED_ORIGINS = "https://ip.marie.cologne,https://v4.ip.marie.cologne,https://v6.ip.marie.cologne";
@@ -151,5 +151,5 @@ in
     isSystemUser = true;
     group = "ip-playground";
   };
-  users.groups.ip-playground = {};
+  users.groups.ip-playground = { };
 }

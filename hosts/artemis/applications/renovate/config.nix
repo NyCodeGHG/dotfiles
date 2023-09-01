@@ -1,6 +1,6 @@
 {
   autodiscover = true;
-  autodiscoverTopics = ["managed-by-renovate"];
+  autodiscoverTopics = [ "managed-by-renovate" ];
   nix.enabled = true;
   lockFileMaintenance.enabled = true;
   baseDir = "/var/lib/renovate/";

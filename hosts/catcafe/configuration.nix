@@ -2,10 +2,11 @@
 , pkgs
 , self
 , ...
-}: 
-let 
+}:
+let
   inherit (self) inputs;
-in {
+in
+{
   imports = [
     ./hardware.nix
     ../../profiles/nix-config.nix

@@ -1,11 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  php,
-  dataDir ? "/var/lib/traewelling",
-  runtimeDir ? "/run/traewelling",
-  pkgs,
+{ lib
+, stdenv
+, fetchFromGitHub
+, php
+, dataDir ? "/var/lib/traewelling"
+, runtimeDir ? "/run/traewelling"
+, pkgs
+,
 }:
 let
   package = (import ./composition.nix {
@@ -26,24 +26,24 @@ let
     '';
   });
 in
-  package.override rec {
-    pname = "traewelling";
-    version = "8ec1e34322893b5a01f67c8ba952d7873a9e7599";
+package.override rec {
+  pname = "traewelling";
+  version = "8ec1e34322893b5a01f67c8ba952d7873a9e7599";
 
-    src = fetchFromGitHub {
-      owner = pname;
-      repo = pname;
-      rev = "8ec1e34322893b5a01f67c8ba952d7873a9e7599";
-      hash = "sha256-92/6tN2rHsMlKzQcY0/wePrmmYZv/BS3eE11Uq8UUgA=";
-    };
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = pname;
+    rev = "8ec1e34322893b5a01f67c8ba952d7873a9e7599";
+    hash = "sha256-92/6tN2rHsMlKzQcY0/wePrmmYZv/BS3eE11Uq8UUgA=";
+  };
 
-    passthru.updateScript = ./update.sh;
+  passthru.updateScript = ./update.sh;
 
-    meta = {
-      description = "Free check-in service to log your public transit journeys";
-      license = lib.licenses.agpl3Only;
-      homepage = "https://trawelling.de";
-      maintainers = with lib.maintainers; [ marie ];
-      inherit (php.meta) platforms;
-    };
-  }
+  meta = {
+    description = "Free check-in service to log your public transit journeys";
+    license = lib.licenses.agpl3Only;
+    homepage = "https://trawelling.de";
+    maintainers = with lib.maintainers; [ marie ];
+    inherit (php.meta) platforms;
+  };
+}

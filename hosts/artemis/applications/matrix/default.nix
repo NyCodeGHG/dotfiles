@@ -34,12 +34,13 @@ in
       };
     };
     "${frontendDomain}" =
-      let headers = ''
-        add_header X-Frame-Options SAMEORIGIN;
-        add_header X-Content-Type-Options nosniff;
-        add_header X-XSS-Protection "1; mode=block";
-        add_header Content-Security-Policy "frame-ancestors 'self'";
-      '';
+      let
+        headers = ''
+          add_header X-Frame-Options SAMEORIGIN;
+          add_header X-Content-Type-Options nosniff;
+          add_header X-XSS-Protection "1; mode=block";
+          add_header Content-Security-Policy "frame-ancestors 'self'";
+        '';
       in
       {
         locations."/" = {

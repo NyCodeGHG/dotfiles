@@ -3,6 +3,7 @@
   imports = [
     ./profiles/git.nix
     ./profiles/language-servers/go.nix
+    ./profiles/language-servers/nix.nix
     ./profiles/language-servers.nix
     ./profiles/ssh.nix
     ./profiles/direnv.nix
