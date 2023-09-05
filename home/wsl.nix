@@ -8,7 +8,8 @@
     ./profiles/ssh.nix
     ./profiles/direnv.nix
     ./profiles/tools
-    ./profiles/zsh.nix
+    ./profiles/shells/zsh.nix
+    ./profiles/shells/starship.nix
   ];
   uwumarie.profiles.git = {
     enable = true;
