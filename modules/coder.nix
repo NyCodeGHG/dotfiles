@@ -83,7 +83,7 @@ in
     virtualisation.oci-containers = {
       backend = "podman";
       containers.coder = {
-        image = "ghcr.io/coder/coder:v2.1.4";
+        image = "ghcr.io/coder/coder:v2.1.5";
         extraOptions = [
           "--network=host"
         ];
