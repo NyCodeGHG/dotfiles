@@ -34,7 +34,7 @@
         identitiesOnly = true;
       };
       insane = {
-        hostname = "192.168.178.123";
+        hostname = "192.168.178.125";
         identityFile = "~/.ssh/default.ed25519";
         identitiesOnly = true;
       };

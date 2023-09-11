@@ -23,7 +23,7 @@ let
     inherit (stdenv.hostPlatform) system;
     noDev = true;
   }).overrideAttrs (attrs: {
-    installPhase =  ''
+    installPhase = ''
       ${attrs.installPhase}
 
       rm -R $out/bootstrap/cache
@@ -41,7 +41,7 @@ let
 in
 package.override rec {
   version = rev;
-  inherit pname src;  
+  inherit pname src;
 
   passthru.updateScript = ./update.sh;
 

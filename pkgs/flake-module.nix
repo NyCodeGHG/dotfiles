@@ -8,6 +8,7 @@
         tf2-server-unwrapped = self'.packages.tf2-server;
       };
       traewelling = pkgs.callPackage ./traewelling { };
+      # preview-colors = pkgs.callPackage ./preview-colors { };
     };
   };
 }

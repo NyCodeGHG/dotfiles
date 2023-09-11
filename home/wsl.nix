@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, pkgs, ... }:
 {
   imports = [
     ./profiles/git.nix
@@ -10,6 +10,7 @@
     ./profiles/tools
     ./profiles/shells/zsh.nix
     ./profiles/shells/starship.nix
+    ./graphical/nvim.nix
   ];
   uwumarie.profiles.git = {
     enable = true;
@@ -20,6 +21,9 @@
     stateVersion = "23.11";
     username = "marie";
     homeDirectory = "/home/marie";
-    packages = [ self.inputs.nixpkgs-pgrok.legacyPackages.x86_64-linux.pgrok ];
+    packages = [ 
+      self.inputs.nixpkgs-pgrok.legacyPackages.${pkgs.system}.pgrok
+      self.inputs.unlock-ssh-keys.packages.${pkgs.system}.default
+    ];
   };
 }

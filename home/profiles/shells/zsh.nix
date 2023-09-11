@@ -10,11 +10,6 @@
     '';
     plugins = [
       {
-        name = "zsh-autocomplete";
-        file = "zsh-autocomplete.plugin.zsh";
-        src = "${pkgs.zsh-autocomplete}/share/zsh-autocomplete";
-      }
-      {
         name = "zsh-nix-shell";
         file = "nix-shell.plugin.zsh";
         src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";

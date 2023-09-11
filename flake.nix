@@ -35,6 +35,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
+    unlock-ssh-keys = {
+      url = "git+https://codeberg.org/marie/unlock-ssh-keys";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   nixConfig = {
@@ -51,9 +56,8 @@
   outputs = inputs@{ flake-parts, home-manager, nixpkgs, self, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./pkgs/flake-module.nix
         ./hosts/flake-module.nix
-        ./modules/flake-module.nix
+        ./pkgs/flake-module.nix
       ];
       systems = [ "x86_64-linux" "aarch64-linux" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: {
