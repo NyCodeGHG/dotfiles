@@ -675,6 +675,7 @@
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-pgrok": "nixpkgs-pgrok",
         "steam-fetcher": "steam-fetcher",
+        "unlock-ssh-keys": "unlock-ssh-keys",
         "vscode-server": "vscode-server"
       }
     },
@@ -772,6 +773,29 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "unlock-ssh-keys": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1694439461,
+        "narHash": "sha256-Q3wGJLMIlpMo8vOJf3NqUNG29H4m07EgAz2459v5I5Y=",
+        "ref": "refs/heads/main",
+        "rev": "4bdb5a01852db5c9ad9e16e450b01162acd6784b",
+        "revCount": 5,
+        "type": "git",
+        "url": "https://codeberg.org/marie/unlock-ssh-keys"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/marie/unlock-ssh-keys"
       }
     },
     "utils": {
