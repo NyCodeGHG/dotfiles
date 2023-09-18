@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
 {
-  services.gitea = {
+  services.forgejo = {
     enable = true;
     user = "forgejo";
     group = "forgejo";
-    package = pkgs.forgejo;
     database = {
       type = "postgres";
       createDatabase = true;
@@ -35,33 +34,16 @@
       };
     };
   };
-  users.users =
-    let
-      cfg = config.services.gitea;
-    in
-    {
-      forgejo = {
-        description = "Forgejo Service";
-        home = cfg.stateDir;
-        useDefaultShell = true;
-        group = cfg.group;
-        isSystemUser = true;
-      };
-    };
-
-  users.groups = {
-    forgejo = { };
-  };
 
   services.nginx.virtualHosts."git.marie.cologne" = {
     locations."/_/static/assets/" = {
-      alias = "${pkgs.forgejo.data}/public/";
+      alias = "${config.services.forgejo.package}/public/";
     };
     locations."/" = {
       extraConfig = ''
         client_max_body_size 512M;
         include ${pkgs.nginx}/conf/fastcgi.conf;
-        fastcgi_pass unix:/run/gitea/gitea.sock;
+        fastcgi_pass unix:/run/forgejo/forgejo.sock;
       '';
     };
     locations."/robots.txt" = {
@@ -76,7 +58,7 @@ Disallow: /'
         deny all;
         client_max_body_size 512M;
         include ${pkgs.nginx}/conf/fastcgi.conf;
-        fastcgi_pass unix:/run/gitea/gitea.sock;
+        fastcgi_pass unix:/run/forgejo/forgejo.sock;
       '';
     };
   };
