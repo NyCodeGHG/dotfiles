@@ -47,6 +47,8 @@
         extensions.fzf-native.enable = true;
       };
       which-key.enable = true;
+      illuminate.enable = true;
+      lualine.enable = true;
 
       # Treesitter
       treesitter = {
@@ -59,6 +61,25 @@
 
       # Languages
       nix.enable = true;
+
+      # LSP
+      lsp = {
+        enable = true;
+        keymaps = {
+          lspBuf = {
+            "K" = "hover";
+            "gD" = "references";
+            "gd" = "definition";
+            "gi" = "implementation";
+            "gt" = "type_definition";
+          };
+        };
+        servers = {
+          hls.enable = true;
+          rust-analyzer.enable = true;
+        };
+      };
+      fidget.enable = true;
     };
 
     maps = {
@@ -67,6 +88,22 @@
         action = "<cmd>Neotree toggle<CR>";
         desc = "Toggle Neotree";
       };
-    };
+      normal."j" = {
+        silent = true;
+        action = "gj";
+      };
+      visualOnly."j" = {
+        silent = true;
+        action = "gj";
+      };
+      normal."k" = {
+        silent = true;
+        action = "gk";
+      };
+      visualOnly."k" = {
+        silent = true;
+        action = "gk";
+      };
+    } ;
   };
 }
