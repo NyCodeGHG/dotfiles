@@ -1,0 +1,13 @@
+{
+    "options": {
+        "enable": true,
+        "target": {
+            "args": [],
+            "installable": "../#nixosConfigurations.insane.options"
+        }
+    },
+    "eval": {
+        "workers": 12,
+        "depth": 20
+    }
+}

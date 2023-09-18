@@ -86,6 +86,8 @@ locals {
         "mc",
         "paperless",
         "trwl-staging",
+        "cdn",
+        "minio",
       ]
       values = [
         {

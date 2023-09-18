@@ -18,7 +18,7 @@
         style = "bold";
         truncate_to_repo = false;
       };
-      format = "$username[@](white)$hostname$os$directory\n$character";
+      format = "$username[@](white)$hostname$os$directory$nix_shell\n$character";
       hostname = {
         format = "[$hostname]($style) ";
         ssh_only = false;
@@ -52,7 +52,7 @@
           white = "#f4f4f5";
         };
       };
-      right_format = "$nix_shell";
+      right_format = "";
       username = {
         format = "[$user]($style)";
         show_always = true;

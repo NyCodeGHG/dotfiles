@@ -23,6 +23,9 @@ in
             modules = [
               (./. + "/${name}/configuration.nix")
               (./common.nix)
+              ({
+                nixpkgs.overlays = [ self.overlays.default ];
+              })
             ];
           }))
       configs);

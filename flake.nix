@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-pgrok.url = "github:NyCodeGHG/nixpkgs/update-pgrok";
+    nixpkgs-scanservjs.url = "github:NyCodeGHG/nixpkgs/pkg/scanservjs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,13 +12,13 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs = {
       url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
       url = "github:nix-community/disko";
@@ -40,21 +41,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
     extra-substituters = [
-      "https://hyprland.cachix.org"
       "https://uwumarie.cachix.org"
+      "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "uwumarie.cachix.org-1:H6nX8e82pu2GQ8CGU3j1qHTG7QMYzZ15oSBh26XhtVo="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
 
   outputs = inputs@{ flake-parts, home-manager, nixpkgs, self, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    flake-parts.lib.mkFlake ({ inherit inputs; }) ({ withSystem, ... }: {
       imports = [
         ./hosts/flake-module.nix
         ./pkgs/flake-module.nix
@@ -105,6 +110,12 @@
               };
             };
           };
+          overlays.default = (final: prev: withSystem prev.stdenv.hostPlatform.system (
+            { config, ... }: {
+              inherit (inputs.nixpkgs-pgrok.legacyPackages.${prev.stdenv.hostPlatform.system}) pgrok;
+              inherit (inputs.nixpkgs-scanservjs.legacyPackages.${prev.stdenv.hostPlatform.system}) scanservjs;
+            }
+          ));
           # deploy-rs configuration
           deploy = {
             sshOpts = [ "-t" ];
@@ -131,8 +142,8 @@
                 };
               };
             };
-            remoteBuild = true;
+            # remoteBuild = true;
           };
         };
-    };
+    });
 }

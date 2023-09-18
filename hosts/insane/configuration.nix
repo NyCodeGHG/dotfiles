@@ -9,6 +9,8 @@
     ../../profiles/locale.nix
     ./networking.nix
     ./hardware.nix
+    # ./waydroid.nix
+    ./scanservjs.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
