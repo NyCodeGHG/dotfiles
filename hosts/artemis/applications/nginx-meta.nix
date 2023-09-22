@@ -7,6 +7,7 @@
       extraConfig = ''
         add_header 'Content-Security-Policy' 'upgrade-insecure-requests';
       '';
+      index = "index.html";
     };
   };
 }

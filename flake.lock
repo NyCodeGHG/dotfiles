@@ -555,11 +555,11 @@
     },
     "nixpkgs-scanservjs": {
       "locked": {
-        "lastModified": 1694979602,
-        "narHash": "sha256-s40jbFE20NUEfTOq4CbdFcE/RgTixAYu9VxKOcIuOiI=",
+        "lastModified": 1695132182,
+        "narHash": "sha256-IffVNMZmjU4jseAmDLM24KfJqbfeOhA4l2v62GhL3/E=",
         "owner": "NyCodeGHG",
         "repo": "nixpkgs",
-        "rev": "62fb7aaf633404524e8d8d74ca6dc91d1ea9a9c4",
+        "rev": "924a8de890afea545b808118984f228713b2c1eb",
         "type": "github"
       },
       "original": {

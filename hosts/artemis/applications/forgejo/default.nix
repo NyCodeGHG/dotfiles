@@ -37,7 +37,7 @@
 
   services.nginx.virtualHosts."git.marie.cologne" = {
     locations."/_/static/assets/" = {
-      alias = "${config.services.forgejo.package}/public/";
+      alias = "${config.services.forgejo.package.data}/public/";
     };
     locations."/" = {
       extraConfig = ''

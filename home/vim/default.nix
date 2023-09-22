@@ -23,7 +23,12 @@
 
       hlsearch = false;
       incsearch = true;
+
+      signcolumn = "yes";
+      foldenable = false;
     };
+
+    extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim ];
 
     plugins = {
       # UI
@@ -47,14 +52,26 @@
         extensions.fzf-native.enable = true;
       };
       which-key.enable = true;
-      illuminate.enable = true;
+      illuminate = {
+        enable = true;
+
+      };
       lualine.enable = true;
 
       # Treesitter
       treesitter = {
         enable = true;
-        # folding = true;
+        folding = true;
         indent = true;
+
+        incrementalSelection = {
+          enable = true;
+          keymaps = {
+            initSelection = "<C-Space>";
+            nodeIncremental = "<C-Space>";
+            nodeDecremental = "<C-B>";
+          };
+        };
 
         nixvimInjections = true;
       };
@@ -72,14 +89,58 @@
             "gd" = "definition";
             "gi" = "implementation";
             "gt" = "type_definition";
+            "<leader>ca" = "code_action";
+            "<leader>cr" = "rename";
+            "<leader>cf" = "format";
           };
         };
         servers = {
           hls.enable = true;
           rust-analyzer.enable = true;
+          tsserver.enable = true;
         };
       };
       fidget.enable = true;
+
+      # Completion
+      nvim-cmp = {
+        enable = true;
+        snippet.expand = "luasnip";
+        mappingPresets = ["insert"];
+        mapping = {
+          "<CR>" = "cmp.mapping.confirm({ select = true })";
+          "<Tab>" = {
+            action = ''
+              function(fallback)
+                if cmp.visible() then
+                  cmp.select_next_item()
+                elseif require("luasnip").expand_or_jumpable() then
+                  require("luasnip").expand_or_jump()
+                else
+                  fallback()
+                end
+              end
+            '';
+            modes = [
+              "i"
+              "s"
+            ];
+          };
+          "<C-Space>" = "cmp.mapping.complete()";
+          "<C-e>" = "cmp.mapping.abort()";
+        };
+        preselect = "None";
+        sources = [
+          { name = "nvim_lsp"; }
+          { name = "luasnip"; }
+          { name = "path"; }
+          { name = "buffer"; }
+        ];
+      };
+      luasnip.enable = true;
+      lspsaga.enable = true;
+
+      neogit.enable = true;
     };
 
     maps = {
@@ -104,6 +165,6 @@
         silent = true;
         action = "gk";
       };
-    } ;
+    };
   };
 }
