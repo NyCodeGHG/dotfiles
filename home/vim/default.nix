@@ -28,7 +28,10 @@
       foldenable = false;
     };
 
-    extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim ];
+    extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim telescope_hoogle trim-nvim ];
+    extraConfigLua = ''
+      require('trim').setup({})
+    '';
 
     plugins = {
       # UI
@@ -50,6 +53,7 @@
           };
         };
         extensions.fzf-native.enable = true;
+        enabledExtensions = ["hoogle"];
       };
       which-key.enable = true;
       illuminate = {
@@ -141,6 +145,30 @@
       lspsaga.enable = true;
 
       neogit.enable = true;
+      neorg = {
+        enable = true;
+        modules = {
+          "core.defaults" = {
+            __empty = null;
+          };
+          "core.concealer" = {
+            __empty = null;
+          };
+          "core.dirman" = {
+            config = {
+              workspaces = {
+                home = "~/notes/home";
+                work = "~/notes/work";
+              };
+            };
+          };
+          "core.completion" = {
+            config = {
+              engine = "nvim-cmp";
+            };
+          };
+        };
+      };
     };
 
     maps = {
@@ -164,6 +192,14 @@
       visualOnly."k" = {
         silent = true;
         action = "gk";
+      };
+      normal."<leader>cd" = {
+        silent = true;
+        action = "<cmd>lua vim.diagnostic.open_float()<cr>";
+      };
+      terminal."<ESC>" = {
+        silent = true;
+        action = "<C-\\><C-n>";
       };
     };
   };

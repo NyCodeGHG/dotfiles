@@ -26,9 +26,6 @@
     packages = [
       self.inputs.nixpkgs-pgrok.legacyPackages.${pkgs.system}.pgrok
       self.inputs.unlock-ssh-keys.packages.${pkgs.system}.default
-      pkgs.wslu
-      pkgs.locale
-      pkgs.glibcLocales
-    ];
+    ] ++ (with pkgs; [wslu locale glibcLocales haskellPackages.hoogle tea]);
   };
 }
