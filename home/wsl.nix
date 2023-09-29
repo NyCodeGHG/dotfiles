@@ -24,8 +24,7 @@
     username = "marie";
     homeDirectory = "/home/marie";
     packages = [
-      self.inputs.nixpkgs-pgrok.legacyPackages.${pkgs.system}.pgrok
       self.inputs.unlock-ssh-keys.packages.${pkgs.system}.default
-    ] ++ (with pkgs; [wslu locale glibcLocales haskellPackages.hoogle tea]);
+    ] ++ (with pkgs; [wslu locale glibcLocales haskellPackages.hoogle tea pgrok]);
   };
 }

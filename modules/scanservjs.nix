@@ -102,7 +102,7 @@ in
           UMask = "077";
         };
         environment = {
-          # Required for sane to use the system config 
+          # Required for sane to use the system config
           LD_LIBRARY_PATH = "/etc/sane-libs";
           SANE_CONFIG_DIR = "/etc/sane-config";
 

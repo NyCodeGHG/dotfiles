@@ -2,7 +2,6 @@
   description = "System configuration";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-pgrok.url = "github:NyCodeGHG/nixpkgs/update-pgrok";
     nixpkgs-scanservjs.url = "github:NyCodeGHG/nixpkgs/pkg/scanservjs";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -22,6 +21,10 @@
     };
     disko = {
       url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ip-playground = {
@@ -112,7 +115,6 @@
           };
           overlays.default = (final: prev: withSystem prev.stdenv.hostPlatform.system (
             { config, ... }: {
-              inherit (inputs.nixpkgs-pgrok.legacyPackages.${prev.stdenv.hostPlatform.system}) pgrok;
               inherit (inputs.nixpkgs-scanservjs.legacyPackages.${prev.stdenv.hostPlatform.system}) scanservjs;
             }
           ));

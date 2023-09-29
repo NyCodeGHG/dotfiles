@@ -1,4 +1,4 @@
-{ modulesPath, ... }:
+{ modulesPath, self, ... }:
 {
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
@@ -11,11 +11,16 @@
     ./hardware.nix
     # ./waydroid.nix
     ./scanservjs.nix
+    self.inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
