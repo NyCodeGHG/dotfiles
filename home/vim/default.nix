@@ -99,7 +99,11 @@
           };
         };
         servers = {
-          hls.enable = true;
+          hls = {
+            enable = true;
+            rootDir = ''require("lspconfig/util").root_pattern(".git")'';
+            cmd = ["haskell-language-server-wrapper" "--lsp"];
+          };
           rust-analyzer.enable = true;
           tsserver.enable = true;
         };
