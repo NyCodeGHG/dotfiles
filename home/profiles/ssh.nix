@@ -38,6 +38,12 @@
         identityFile = "~/.ssh/default.ed25519";
         identitiesOnly = true;
       };
+      gitlabber = {
+        hostname = "warpgate.jemand771.net";
+        user = "marie:gitlabber";
+        identityFile = "~/.ssh/default.ed25519";
+        identitiesOnly = true;
+      };
       "*" = {
         extraOptions = {
           AddKeysToAgent = "yes";

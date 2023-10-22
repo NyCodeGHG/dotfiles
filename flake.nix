@@ -1,5 +1,4 @@
 {
-  description = "System configuration";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-scanservjs.url = "github:NyCodeGHG/nixpkgs/pkg/scanservjs";
@@ -82,7 +81,8 @@
             terraform
             google-cloud-sdk
             nurl
-          ] ++ [ inputs.agenix.packages.${pkgs.system}.default inputs.deploy-rs.packages.${pkgs.system}.default ];
+            deploy-rs
+          ] ++ [ inputs.agenix.packages.${pkgs.system}.default ];
         };
       };
       flake =

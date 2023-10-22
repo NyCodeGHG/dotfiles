@@ -6,6 +6,7 @@ let
   clientConfig."m.homeserver".base_url = "https://${matrixDomain}";
   clientConfig."m.homeserver".server_name = "marie.cologne";
   clientConfig."m.identity_server".base_url = "https://vector.im";
+  clientConfig."org.matrix.msc3575.proxy".url = "https://${matrixDomain}";
   serverConfig."m.server" = "${matrixDomain}:443";
   mkWellKnown = data: ''
     add_header Content-Type application/json;
@@ -24,6 +25,13 @@ in
     "${matrixDomain}" = {
       locations."/" = {
         return = "301 https://${frontendDomain}";
+      };
+      locations."~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
+        proxyPass = "http://[::1]:8009";
+        extraConfig = ''
+          client_max_body_size 50M;
+          proxy_http_version 1.1;
+        '';
       };
       locations."~ ^(/_matrix|/_synapse/client)" = {
         proxyPass = "http://[::1]:8008";
@@ -129,7 +137,7 @@ in
           ];
         }
         (lib.mkIf config.services.prometheus.enable {
-          port = 8009;
+          port = 8010;
           bind_addresses = [ "127.0.0.1" ];
           type = "metrics";
           tls = false;
@@ -160,21 +168,36 @@ in
         '')
       config.age.secrets.synapse-sso-config.path
     ];
+    sliding-sync = {
+      enable = true;
+      environmentFile = config.age.secrets.matrix-sliding-sync.path;
+      settings = {
+        SYNCV3_SERVER = "https://matrix.marie.cologne";
+        SYNCV3_BINDADDR = "[::]:8009";
+      };
+    };
   };
   systemd.services.matrix-synapse = {
     after = [ "network-online.target" "postgresql.service" "podman-authentik-server.service" ];
     wants = [ "network-online.target" "postgresql.service" "podman-authentik-server.service" ];
+    startLimitIntervalSec = 500;
+    startLimitBurst = 20;
+    serviceConfig = {
+      Restart = lib.mkForce "on-failure";
+      RestartSec = lib.mkForce 10;
+    };
   };
   age.secrets.synapse-sso-config = {
     file = "${self}/secrets/synapse-sso-config.age";
     owner = "matrix-synapse";
   };
+  age.secrets.matrix-sliding-sync.file = "${self}/secrets/matrix-sliding-sync.age";
   services.prometheus.scrapeConfigs = [
     {
       job_name = "synapse";
       static_configs = [
         {
-          targets = [ "127.0.0.1:8009" ];
+          targets = [ "127.0.0.1:8010" ];
         }
       ];
     }

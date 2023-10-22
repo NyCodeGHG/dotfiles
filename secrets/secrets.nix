@@ -29,4 +29,5 @@ in
   "forgejo-runner-token.age".publicKeys = withSystems systems.artemis;
   "traewelling-env.age".publicKeys = withSystems systems.delphi;
   "minio.age".publicKeys = withSystems systems.delphi;
+  "matrix-sliding-sync.age".publicKeys = withSystems systems.artemis;
 }

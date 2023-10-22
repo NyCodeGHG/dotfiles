@@ -23,8 +23,8 @@
     stateVersion = "23.11";
     username = "marie";
     homeDirectory = "/home/marie";
-    packages = [
-      self.inputs.unlock-ssh-keys.packages.${pkgs.system}.default
-    ] ++ (with pkgs; [wslu locale glibcLocales haskellPackages.hoogle tea pgrok]);
+    packages = with pkgs; [ wslu locale glibcLocales haskellPackages.hoogle tea pgrok ];
   };
+  nix.package = pkgs.nix;
+  nix.registry.nixpkgs.flake = self.inputs.nixpkgs;
 }

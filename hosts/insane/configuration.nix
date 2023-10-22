@@ -1,4 +1,4 @@
-{ modulesPath, self, ... }:
+{ pkgs, modulesPath, self, ... }:
 {
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
@@ -21,6 +21,8 @@
     enable = true;
     pkiBundle = "/etc/secureboot";
   };
+
+  environment.systemPackages = with pkgs; [ sbctl ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -28,7 +28,7 @@
       foldenable = false;
     };
 
-    extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim telescope_hoogle trim-nvim ];
+    extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim telescope_hoogle trim-nvim telescope-ui-select-nvim ];
     extraConfigLua = ''
       require('trim').setup({})
     '';
@@ -53,7 +53,7 @@
           };
         };
         extensions.fzf-native.enable = true;
-        enabledExtensions = ["hoogle"];
+        enabledExtensions = [ "hoogle" "ui-select" ];
       };
       which-key.enable = true;
       illuminate = {
@@ -82,6 +82,10 @@
 
       # Languages
       nix.enable = true;
+      crates-nvim.enable = true;
+      crates-nvim.extraOptions = {
+        src.cmp.enabled = true;
+      };
 
       # LSP
       lsp = {
@@ -102,10 +106,12 @@
           hls = {
             enable = true;
             rootDir = ''require("lspconfig/util").root_pattern(".git")'';
-            cmd = ["haskell-language-server-wrapper" "--lsp"];
+            cmd = [ "haskell-language-server-wrapper" "--lsp" ];
           };
           rust-analyzer.enable = true;
           tsserver.enable = true;
+          phpactor.enable = true;
+          terraformls.enable = true;
         };
       };
       fidget.enable = true;
@@ -114,7 +120,7 @@
       nvim-cmp = {
         enable = true;
         snippet.expand = "luasnip";
-        mappingPresets = ["insert"];
+        mappingPresets = [ "insert" ];
         mapping = {
           "<CR>" = "cmp.mapping.confirm({ select = true })";
           "<Tab>" = {
@@ -137,13 +143,16 @@
           "<C-Space>" = "cmp.mapping.complete()";
           "<C-e>" = "cmp.mapping.abort()";
         };
-        preselect = "None";
+        preselect = "Item";
         sources = [
           { name = "nvim_lsp"; }
           { name = "luasnip"; }
           { name = "path"; }
           { name = "buffer"; }
+          { name = "crates"; }
+          { name = "emoji"; }
         ];
+        extraOptions.autocomplete = false;
       };
       luasnip.enable = true;
       lspsaga.enable = true;
@@ -174,6 +183,13 @@
         };
       };
     };
+
+    keymaps = [
+      { key = "<C-h>"; action = "<C-w>h"; }
+      { key = "<C-j>"; action = "<C-w>j"; }
+      { key = "<C-k>"; action = "<C-w>k"; }
+      { key = "<C-l>"; action = "<C-w>l"; }
+    ];
 
     maps = {
       normal."<leader>e" = {
