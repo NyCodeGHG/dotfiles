@@ -15,3 +15,16 @@ locals {
   artemis-ipv4 = "89.58.10.36"
   artemis-ipv6 = "2a03:4000:5f:f5b::"
 }
+
+terraform {
+  backend "s3" {
+    endpoint = "https://minio.marie.cologne"
+    key = "terraform.tfstate"
+    region = "eu-frankfurt"
+    bucket = "terraform"
+    force_path_style = true
+    skip_region_validation = true
+    skip_metadata_api_check = true
+    skip_credentials_validation = true
+  }
+}
