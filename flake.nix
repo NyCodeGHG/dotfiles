@@ -77,9 +77,7 @@
         formatter = pkgs.nixpkgs-fmt;
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
-            nixpkgs-fmt
             opentofu
-            google-cloud-sdk
             nurl
             deploy-rs
           ] ++ [ inputs.agenix.packages.${pkgs.system}.default ];
