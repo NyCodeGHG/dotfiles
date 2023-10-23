@@ -78,7 +78,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             nixpkgs-fmt
-            terraform
+            opentofu
             google-cloud-sdk
             nurl
             deploy-rs
