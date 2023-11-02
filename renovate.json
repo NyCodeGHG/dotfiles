@@ -4,11 +4,6 @@
     "config:base"
   ],
   "timezone": "Europe/Berlin",
-  "automergeType": "pr",
-  "automerge": true,
-  "automergeSchedule": [
-    "at any time"
-  ],
   "regexManagers": [
     {
       "description": "Update docker images in nix files.",
@@ -32,6 +27,7 @@
   "enabledManagers": [
     "regex",
     "terraform",
-    "github-actions"
+    "github-actions",
+    "nix"
   ]
 }

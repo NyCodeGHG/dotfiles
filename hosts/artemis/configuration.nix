@@ -27,7 +27,6 @@
   security.sudo.wheelNeedsPassword = false;
 
   console.keyMap = "de";
-  nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "22.11";
 }
