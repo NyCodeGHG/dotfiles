@@ -16,5 +16,5 @@ jobs:
         with:
           name: uwumarie
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - run: nix build .#traewelling .#renovate .#node-mixin --accept-flake-config
- 
+      - run: nix build .#renovate .#node-mixin --accept-flake-config
+      - run: nix build .#nixosConfigurations.{artemis,delphi,minimal,insane}.config.system --accept-flake-config
