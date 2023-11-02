@@ -1,4 +1,4 @@
-{ config, lib, pkgs, self, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   serverName = "marie.cologne";
   matrixDomain = "matrix.marie.cologne";
@@ -188,10 +188,10 @@ in
     };
   };
   age.secrets.synapse-sso-config = {
-    file = "${self}/secrets/synapse-sso-config.age";
+    file = "${inputs.self}/secrets/synapse-sso-config.age";
     owner = "matrix-synapse";
   };
-  age.secrets.matrix-sliding-sync.file = "${self}/secrets/matrix-sliding-sync.age";
+  age.secrets.matrix-sliding-sync.file = "${inputs.self}/secrets/matrix-sliding-sync.age";
   services.prometheus.scrapeConfigs = [
     {
       job_name = "synapse";

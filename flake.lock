@@ -674,22 +674,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-scanservjs": {
-      "locked": {
-        "lastModified": 1697724571,
-        "narHash": "sha256-T4/nvKMJ6jsfMP6wd7Pg143BB5SvfCCuxOyGsuYyuD4=",
-        "owner": "NyCodeGHG",
-        "repo": "nixpkgs",
-        "rev": "8a34e50ab82ed805663a2b761aec5ed5124634c4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NyCodeGHG",
-        "ref": "pkg/scanservjs",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1685801374,
@@ -917,7 +901,6 @@
         "ip-playground": "ip-playground",
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-scanservjs": "nixpkgs-scanservjs",
         "nixvim": "nixvim",
         "steam-fetcher": "steam-fetcher",
         "unlock-ssh-keys": "unlock-ssh-keys",

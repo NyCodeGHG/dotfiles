@@ -1,15 +1,5 @@
-{ self, ... }:
-let
-  inherit (self) inputs;
-in
 {
   imports = [
-    ../../profiles/nix-config.nix
-    ../../profiles/nginx.nix
-    ../../profiles/acme.nix
-    ../../profiles/openssh.nix
-    ../../profiles/locale.nix
-    ../../profiles/fail2ban.nix
     ./monitoring
     ./applications
     ./hardware.nix
@@ -17,19 +7,17 @@ in
     ./wireguard.nix
     ./restic.nix
     ./networking.nix
-  ] ++ (with inputs; [
-    agenix.nixosModules.default
-    vscode-server.nixosModules.default
-    home-manager.nixosModules.home-manager
-  ]);
-
-  services.vscode-server.enable = true;
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.marie = import "${self}/home";
-    extraSpecialArgs = { inherit inputs; graphical = false; };
+  ];
+  uwumarie.profiles = {
+    fail2ban = true;
+    openssh = true;
+    acme = true;
+    nginx = true;
+    nix = true;
+    users.marie = true;
   };
+
+  services.qemuGuest.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

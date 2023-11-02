@@ -1,4 +1,4 @@
-{ config, pkgs, self, ... }:
+{ config, pkgs, inputs, ... }:
 let
   repository = "s3:s3.eu-central-003.backblazeb2.com/marie-backups";
   mkResticService = service: {
@@ -14,8 +14,8 @@ let
   } // service;
 in
 {
-  age.secrets.restic-repo.file = "${self}/secrets/restic-repo.age";
-  age.secrets.b2-restic.file = "${self}/secrets/b2-restic.age";
+  age.secrets.restic-repo.file = "${inputs.self}/secrets/restic-repo.age";
+  age.secrets.b2-restic.file = "${inputs.self}/secrets/b2-restic.age";
 
   systemd.timers."restic-backup-postgres" = {
     wantedBy = [ "timers.target" ];

@@ -1,9 +1,6 @@
 { config, pkgs, lib, ... }:
 {
-  imports = [
-    ../../modules/scanservjs.nix
-  ];
-  services.scanservjs.enable = true;
+  services.scanservjs.enable = false;
   services.scanservjs.package = pkgs.scanservjs.overrideAttrs (prev: {
     patches = prev.patches ++ [
       (pkgs.fetchpatch {

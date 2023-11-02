@@ -1,9 +1,9 @@
-{ config, self, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 let
   renovateConfig = pkgs.writeText "renovate.json" (builtins.toJSON (import ./config.nix));
 in
 {
-  age.secrets.renovate-env.file = "${self}/secrets/renovate-env.age";
+  age.secrets.renovate-env.file = "${inputs.self}/secrets/renovate-env.age";
   # systemd.services.renovate = {
   #   environment = {
   #     RENOVATE_CONFIG_FILE = renovateConfig;

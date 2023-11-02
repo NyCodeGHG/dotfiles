@@ -1,4 +1,4 @@
-{ pkgs, config, self, ... }:
+{ pkgs, config, inputs, ... }:
 {
   services.gitea-actions-runner = {
     package = pkgs.forgejo-actions-runner;
@@ -18,7 +18,7 @@
       name = "artemis";
     };
   };
-  age.secrets.forgejo-runner-token.file = "${self}/secrets/forgejo-runner-token.age";
+  age.secrets.forgejo-runner-token.file = "${inputs.self}/secrets/forgejo-runner-token.age";
   virtualisation.podman.defaultNetwork.settings.dns_enable = true;
   networking.firewall.interfaces."podman*" = {
     allowedUDPPorts = [ 53 ];

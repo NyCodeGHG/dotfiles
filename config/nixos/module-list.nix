@@ -1,4 +1,10 @@
 [
+  ./applications/fail2ban.nix
+  ./applications/nginx.nix
+  ./applications/nix.nix
+  ./applications/openssh.nix
   ./system/base.nix
+  ./system/acme.nix
+  ./system/locale.nix
   ./users/marie.nix
 ]

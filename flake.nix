@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-scanservjs.url = "github:NyCodeGHG/nixpkgs/pkg/scanservjs";
+    #nixpkgs-scanservjs.url = "github:NyCodeGHG/nixpkgs/pkg/scanservjs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,12 +68,6 @@
       ];
       systems = [ "x86_64-linux" "aarch64-linux" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = [
-            inputs.steam-fetcher.overlays.default
-          ];
-        };
         formatter = pkgs.nixpkgs-fmt;
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
@@ -113,7 +107,7 @@
         };
         overlays.default = (final: prev: withSystem prev.stdenv.hostPlatform.system (
           { config, ... }: {
-            # inherit (inputs.nixpkgs-scanservjs.legacyPackages.${prev.stdenv.hostPlatform.system}) scanservjs;
+            #inherit (inputs.nixpkgs-scanservjs.legacyPackages.${prev.stdenv.hostPlatform.system}) scanservjs;
           }
         ));
         # deploy-rs configuration
@@ -148,13 +142,13 @@
           config = import ./config/nixos;
           hybrid = import ./config/hybrid;
         };
-        nixosConfigurations = {
-          minimal = self.lib.nixosSystem {
-            modules = [
-              ./hosts/minimal/configuration.nix
-            ];
-          };
-        };
+        nixosConfigurations =
+          let
+            systems = [ "artemis" "delphi" "minimal" "insane" ];
+            systemFromName = name: self.lib.nixosSystem {
+              modules = [ ./hosts/${name}/configuration.nix ];
+            };
+          in builtins.listToAttrs (builtins.map (system: { name = system; value = systemFromName system; }) systems);
         homeManagerModules = {
           config = import ./config/home-manager;
           hybrid = import ./config/hybrid;

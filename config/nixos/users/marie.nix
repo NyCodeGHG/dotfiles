@@ -13,5 +13,5 @@ lib.mkIf config.uwumarie.profiles.users.marie {
     ];
   };
   programs.zsh.enable = config.users.users.marie.shell == pkgs.zsh;
-  home-manager.users.marie.uwumarie.profiles.git.enable = true;
+  #home-manager.users.marie.uwumarie.profiles.git.enable = true;
 }

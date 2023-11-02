@@ -1,7 +1,6 @@
 { config, self, ... }: {
   imports = [
     ./alertmanager.nix
-    self.inputs.awesome-prometheus-rules.nixosModules.default
   ];
   services.prometheus = {
     enable = true;

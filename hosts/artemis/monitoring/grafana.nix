@@ -1,4 +1,4 @@
-{ config, self, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 let
   port = 3000;
 in
@@ -85,7 +85,7 @@ in
       ];
       dashboards.settings.providers =
         let
-          dashboards = self.packages.${pkgs.system}.node-mixin.override { job = "node-exporter"; };
+          dashboards = inputs.self.packages.${pkgs.system}.node-mixin.override { job = "node-exporter"; };
           synapse = pkgs.fetchurl {
             url = "https://raw.githubusercontent.com/matrix-org/synapse/b5b7bb7c0fbfe50516d2ba6232461544b4fbea54/contrib/grafana/synapse.json";
             hash = "sha256:700f993f9b2760684d67bd0593e709d0f0667a78e98a0971d4e3ab34e7b91e52";
@@ -107,7 +107,7 @@ in
   };
 
   age.secrets.grafana-oauth-client-secret = {
-    file = "${self}/secrets/grafana-oauth-client-secret.age";
+    file = "${inputs.self}/secrets/grafana-oauth-client-secret.age";
     owner = "grafana";
     group = "grafana";
   };

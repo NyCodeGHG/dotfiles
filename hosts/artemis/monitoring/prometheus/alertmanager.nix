@@ -1,4 +1,4 @@
-{ config, self, ... }:
+{ config, inputs, ... }:
 {
   services.prometheus = {
     scrapeConfigs = [
@@ -61,7 +61,7 @@
       };
     };
   };
-  age.secrets.discord-webhook.file = "${self}/secrets/discord-webhook.age";
+  age.secrets.discord-webhook.file = "${inputs.self}/secrets/discord-webhook.age";
   services.nginx.virtualHosts = {
     "am.marie.cologne" = {
       locations."/" = {

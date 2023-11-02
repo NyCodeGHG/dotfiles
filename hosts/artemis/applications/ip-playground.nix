@@ -1,7 +1,7 @@
-{ config, self, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 let
-  frontendPackage = self.inputs.ip-playground.packages.${pkgs.system}.ip-playground-frontend;
-  backendPackage = self.inputs.ip-playground.packages.${pkgs.system}.ip-playground-backend;
+  frontendPackage = inputs.ip-playground.packages.${pkgs.system}.ip-playground-frontend;
+  backendPackage = inputs.ip-playground.packages.${pkgs.system}.ip-playground-backend;
   asnDbPath = "/var/lib/ip-playground/ip2asn-combined.tsv";
 in
 {
