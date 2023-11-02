@@ -63,8 +63,8 @@
   outputs = inputs@{ flake-parts, home-manager, nixpkgs, self, ... }:
     flake-parts.lib.mkFlake ({ inherit inputs; }) ({ withSystem, ... }: {
       imports = [
-        ./hosts/flake-module.nix
         ./pkgs/flake-module.nix
+        ./modules/nixos/flake-module.nix
       ];
       systems = [ "x86_64-linux" "aarch64-linux" ];
       perSystem = { config, self', inputs', pkgs, system, ... }: {
@@ -80,70 +80,91 @@
             opentofu
             nurl
             deploy-rs
+            nixos-rebuild
           ] ++ [ inputs.agenix.packages.${pkgs.system}.default ];
         };
       };
-      flake =
-        let
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-          };
-        in
-        {
-          homeConfigurations = {
-            marie = home-manager.lib.homeManagerConfiguration {
-              inherit pkgs;
-              modules = [
-                ./home
-              ];
-              extraSpecialArgs = {
-                inherit inputs self;
-                graphical = false;
+      flake = {
+        lib = {
+          nixosSystem = nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
+            nixpkgs.lib.nixosSystem {
+              specialArgs = {
+                inherit inputs;
+                configType = "nixos";
               };
-            };
-            wsl = home-manager.lib.homeManagerConfiguration {
-              inherit pkgs;
-              modules = [
-                ./home/wsl.nix
-              ];
-              extraSpecialArgs = {
-                inherit inputs self;
-              };
-            };
-          };
-          overlays.default = (final: prev: withSystem prev.stdenv.hostPlatform.system (
-            { config, ... }: {
-              inherit (inputs.nixpkgs-scanservjs.legacyPackages.${prev.stdenv.hostPlatform.system}) scanservjs;
+              modules = baseModules ++ [
+                { nixpkgs.overlays = [ self.overlays.default ]; }
+                self.nixosModules.config
+              ] ++ modules;
             }
-          ));
-          # deploy-rs configuration
-          deploy = {
-            sshOpts = [ "-t" ];
-            nodes = {
-              artemis = {
-                hostname = "uwu.nycode.dev";
-                profiles.system = {
-                  user = "root";
-                  path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
-                };
+          );
+          homeManagerConfiguration = nixpkgs.lib.makeOverridable ({ modules ? [ ], pkgs }:
+            home-manager.lib.homeManagerConfiguration {
+              inherit pkgs;
+              extraSpecialArgs = {
+                inherit inputs;
+                configType = "home-manager";
               };
-              delphi = {
-                hostname = "delphi";
-                profiles.system = {
-                  user = "root";
-                  path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.delphi;
-                };
-              };
-              insane = {
-                hostname = "insane";
-                profiles.system = {
-                  user = "root";
-                  path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.insane;
-                };
+              modules = [
+                { nixpkgs.overlays = [ self.overlays.default ]; }
+                self.homeManagerModules.config
+              ] ++ modules;
+            });
+        };
+        overlays.default = (final: prev: withSystem prev.stdenv.hostPlatform.system (
+          { config, ... }: {
+            # inherit (inputs.nixpkgs-scanservjs.legacyPackages.${prev.stdenv.hostPlatform.system}) scanservjs;
+          }
+        ));
+        # deploy-rs configuration
+        deploy = {
+          sshOpts = [ "-t" ];
+          nodes = {
+            artemis = {
+              hostname = "uwu.nycode.dev";
+              profiles.system = {
+                user = "root";
+                path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.artemis;
               };
             };
-            # remoteBuild = true;
+            delphi = {
+              hostname = "delphi";
+              profiles.system = {
+                user = "root";
+                path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.delphi;
+              };
+            };
+            insane = {
+              hostname = "insane";
+              profiles.system = {
+                user = "root";
+                path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.insane;
+              };
+            };
+          };
+          # remoteBuild = true;
+        };
+        nixosModules = {
+          config = import ./config/nixos;
+          hybrid = import ./config/hybrid;
+        };
+        nixosConfigurations = {
+          minimal = self.lib.nixosSystem {
+            modules = [
+              ./hosts/minimal/configuration.nix
+            ];
           };
         };
+        homeManagerModules = {
+          config = import ./config/home-manager;
+          hybrid = import ./config/hybrid;
+        };
+        homeConfigurations = {
+          wsl = self.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [ ./hosts/wsl/home.nix ];
+          };
+        };
+      };
     });
 }

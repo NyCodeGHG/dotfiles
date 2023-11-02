@@ -1,0 +1,4 @@
+[
+  ./direnv.nix
+  ./vim.nix
+]
