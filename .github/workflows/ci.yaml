@@ -29,6 +29,9 @@ jobs:
       - uses: cachix/install-nix-action@6a9a9e84a173d90b3ffb42c5ddaf9ea033fad011 # v23
       - name: Initialize OpenTofu
         run: nix run .#opentofu -- -chdir=infra init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Validate OpenTofu infra
         run: nix run .#opentofu -- -chdir=infra validate
         env:
