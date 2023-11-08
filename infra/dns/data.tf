@@ -10,7 +10,8 @@ locals {
     artemis6   = var.artemis-ipv6
     artemis-wg = "10.69.0.1"
     delphi     = var.delphi-ipv4
-    delphi6     = var.delphi-ipv6
+    delphi6    = var.delphi-ipv6
+    delphi-wg  = "10.69.0.7"
   }
 }
 

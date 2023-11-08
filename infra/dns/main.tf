@@ -85,7 +85,6 @@ locals {
       names = [
         "oci-fra01",
         "mc",
-        "paperless",
         "trwl-staging",
         "cdn",
         "minio",
@@ -100,7 +99,19 @@ locals {
           type = "v6"
         }
       ]
-    }
+    },
+    {
+      zone = data.cloudflare_zone.marie_cologne
+      names = [
+        "paperless"
+      ]
+      values = [
+        {
+          ip   = local.servers.delphi-wg
+          type = "v4"
+        }
+      ]
+    },
   ]
   records_flat = flatten([
     for record in local.records : [
