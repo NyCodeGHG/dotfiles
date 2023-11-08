@@ -68,6 +68,7 @@
             nixos-rebuild
           ] ++ [ inputs.agenix.packages.${pkgs.system}.default ];
         };
+        packages.opentofu = pkgs.opentofu;
       };
       flake = {
         lib = {
