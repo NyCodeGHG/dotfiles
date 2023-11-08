@@ -28,5 +28,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@6a9a9e84a173d90b3ffb42c5ddaf9ea033fad011 # v23
       - name: Initialize OpenTofu
-      - run: nix run .#opentofu -- -chdir=infra init
-      - run: nix run .#opentofu -- -chdir=infra validate
+        run: nix run .#opentofu -- -chdir=infra init
+      - name: Validate OpenTofu infra
+        run: nix run .#opentofu -- -chdir=infra validate
