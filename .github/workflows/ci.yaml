@@ -5,7 +5,14 @@ jobs:
   pre_ci:
     uses: dtolnay/.github/.github/workflows/pre_ci.yml@master
   build:
-    name: Build
+    strategy:
+      matrix:
+        nixosConfig:
+          - artemis
+          - delphi
+          - insane
+          - minimal
+    name: Build ${{ matrix.nixosConfig }}
     runs-on: ubuntu-latest
     needs: pre_ci
     if: needs.pre_ci.outputs.continue
@@ -16,8 +23,7 @@ jobs:
         with:
           name: uwumarie
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - run: nix build .#renovate .#node-mixin --accept-flake-config
-      - run: nix build .#nixosConfigurations.{artemis,delphi,minimal,insane}.config.system.build.toplevel --accept-flake-config
+      - run: nix build .#nixosConfigurations.${{ matrix.nixosConfig }}.config.system.build.toplevel --accept-flake-config
 
   opentofu:
     name: Check OpenTofu infra
