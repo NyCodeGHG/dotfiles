@@ -1,4 +1,4 @@
-{ config, self, ... }:
+{ config, inputs, ... }:
 let
   tikaPort = "33001";
   gotenbergPort = "33002";
@@ -28,7 +28,7 @@ in
       paperless-consumer.serviceConfig.EnvironmentFile = path;
       paperless-web.serviceConfig.EnvironmentFile = path;
     };
-  age.secrets.paperless-env.file = "${self}/secrets/paperless-env.age";
+  age.secrets.paperless-env.file = "${inputs.self}/secrets/paperless-env.age";
 
   virtualisation.oci-containers.containers.gotenberg = {
     user = "gotenberg:gotenberg";
@@ -43,6 +43,11 @@ in
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString config.services.paperless.port}";
       proxyWebsockets = true;
+      extraConfig = ''
+        allow 127.0.0.0/24;
+        allow 10.69.0.0/24;
+        deny all;
+      '';
     };
   };
 }

@@ -1,4 +1,4 @@
-{ config, self, ... }:
+{ config, inputs, ... }:
 {
   imports = [
     self.nixosModules.traewelling
@@ -13,5 +13,5 @@
     };
     secretFile = config.age.secrets.traewelling-env.path;
   };
-  age.secrets.traewelling-env.file = "${self}/secrets/traewelling-env.age";
+  age.secrets.traewelling-env.file = "${inputs.self}/secrets/traewelling-env.age";
 }

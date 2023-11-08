@@ -1,4 +1,4 @@
-{ config, self, ... }:
+{ config, inputs, ... }:
 {
   virtualisation.oci-containers.containers.minecraft = {
     image = "docker.io/itzg/minecraft-server:java17";
@@ -40,6 +40,6 @@
       mkdir -p /var/lib/minecraft/mechanical-mastery /var/lib/minecraft/modpacks
     '';
   };
-  age.secrets.curseforge-api-key.file = "${self}/secrets/curseforge-api-key.age";
+  age.secrets.curseforge-api-key.file = "${inputs.self}/secrets/curseforge-api-key.age";
   virtualisation.podman.defaultNetwork.settings.ipv6_enabled = true;
 }

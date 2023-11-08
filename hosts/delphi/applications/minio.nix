@@ -1,4 +1,4 @@
-{ config, self, ... }:
+{ config, inputs, ... }:
 {
   services.minio = {
     enable = true;
@@ -37,5 +37,5 @@
     MINIO_SERVER_URL = "https://minio.marie.cologne";
     MINIO_BROWSER_REDIRECT_URL = "https://minio.marie.cologne/ui";
   };
-  age.secrets.minio.file = "${self}/secrets/minio.age";
+  age.secrets.minio.file = "${inputs.self}/secrets/minio.age";
 }

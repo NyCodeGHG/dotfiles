@@ -1,27 +1,28 @@
-{ pkgs, config, lib, modulesPath, self, ... }:
+{ pkgs, config, lib, modulesPath, ... }:
 {
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/profiles/headless.nix"
-    ../../profiles/nix-config.nix
-    ../../profiles/acme.nix
-    ../../profiles/nginx.nix
-    ../../profiles/fail2ban.nix
-    ../../profiles/locale.nix
-    ../../profiles/openssh.nix
     ./wireguard.nix
     ./networking.nix
     ./monitoring
     ./applications
     ./minecraft.nix
-  ] ++ (with self.inputs; [
-    agenix.nixosModules.default
-    disko.nixosModules.default
-  ]);
+  ];
+  uwumarie.profiles = {
+    openssh = true;
+    acme = true;
+    nginx = true;
+    nix = true;
+    users.marie = true;
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.initrd.availableKernelModules = [ "xhci_pci" "virtio_pci" "virtio_scsi" "usbhid" ];
+
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 
   security.sudo.wheelNeedsPassword = false;
   time.timeZone = "Europe/Berlin";
