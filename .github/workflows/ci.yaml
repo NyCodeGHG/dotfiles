@@ -6,6 +6,7 @@ jobs:
     uses: dtolnay/.github/.github/workflows/pre_ci.yml@master
   build:
     strategy:
+      fail-fast: false
       matrix:
         nixosConfig:
           - artemis
