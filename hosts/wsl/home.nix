@@ -30,9 +30,12 @@
       gopls
       lua-language-server
       nil
+      jetbrains.idea-community
+      android-tools
     ];
   };
   nix.package = pkgs.nix;
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
   news.display = "silent";
+  programs.zsh.sessionVariables.BROWSER = "wslview";
 }
