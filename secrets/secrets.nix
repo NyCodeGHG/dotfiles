@@ -16,7 +16,6 @@ in
   "authentik-secrets.age".publicKeys = withSystems systems.artemis;
   "miniflux-credentials.age".publicKeys = withSystems systems.artemis;
   "grafana-oauth-client-secret.age".publicKeys = withSystems systems.artemis;
-  "coder-oauth.age".publicKeys = withSystems systems.artemis;
   "restic-repo.age".publicKeys = withSystems systems.artemis;
   "b2-restic.age".publicKeys = withSystems systems.artemis;
   "discord-webhook.age".publicKeys = withSystems systems.artemis;
@@ -27,7 +26,5 @@ in
   "curseforge-api-key.age".publicKeys = withSystems systems.delphi;
   "renovate-env.age".publicKeys = withSystems systems.artemis;
   "forgejo-runner-token.age".publicKeys = withSystems systems.artemis;
-  "traewelling-env.age".publicKeys = withSystems systems.delphi;
   "minio.age".publicKeys = withSystems systems.delphi;
-  "matrix-sliding-sync.age".publicKeys = withSystems systems.artemis;
 }

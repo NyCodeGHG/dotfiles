@@ -96,10 +96,10 @@
           job = "ip-playground";
           target = "127.0.0.1:3032";
         })
-        (mkTarget {
-          job = "unifiedmetrics";
-          target = "10.69.0.7:9101";
-        })
+        # (mkTarget {
+        #   job = "unifiedmetrics";
+        #   target = "10.69.0.7:9101";
+        # })
       ];
   };
 

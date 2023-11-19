@@ -75,4 +75,27 @@ in
         --keep-yearly 75
     '';
   };
+
+  services.restic.backups.matrix-synapse = {
+    repository = "s3:s3.eu-central-003.backblazeb2.com/marie-backups";
+    environmentFile = config.age.secrets.b2-restic.path;
+    pruneOpts = [
+      "--keep-daily 2"
+      "--keep-weekly 1"
+      "--keep-monthly 2"
+      "--tag matrix-synapse"
+      "--host ${config.networking.hostName}"
+    ];
+    timerConfig = {
+      OnCalendar = "0/6:00"; # every 6 hours
+      Persistent = true;
+    };
+    extraBackupArgs = [
+      "--tag matrix-synapse"
+    ];
+    paths = [
+      "/var/lib/matrix-synapse"
+    ];
+    passwordFile = config.age.secrets.restic-repo.path;
+  };
 }

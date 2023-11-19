@@ -23,7 +23,7 @@ in
       locations."= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
     };
     "${matrixDomain}" = {
-      locations."/" = {
+      locations."= /" = {
         return = "301 https://${frontendDomain}";
       };
       locations."~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
@@ -33,13 +33,17 @@ in
           proxy_http_version 1.1;
         '';
       };
-      locations."~ ^(/_matrix|/_synapse/client)" = {
+      locations."~ ^/(_matrix|_synapse)" = {
         proxyPass = "http://[::1]:8008";
         extraConfig = ''
           client_max_body_size 50M;
           proxy_http_version 1.1;
         '';
       };
+      locations."/synapse-admin".root = pkgs.linkFarm "synapse-admin-routing" [{
+        name = "synapse-admin";
+        path = "${pkgs.synapse-admin}";
+      }];
     };
     "${frontendDomain}" =
       let
@@ -168,14 +172,14 @@ in
         '')
       config.age.secrets.synapse-sso-config.path
     ];
-    sliding-sync = {
-      enable = true;
-      environmentFile = config.age.secrets.matrix-sliding-sync.path;
-      settings = {
-        SYNCV3_SERVER = "https://matrix.marie.cologne";
-        SYNCV3_BINDADDR = "[::]:8009";
-      };
-    };
+    # sliding-sync = {
+    #   enable = true;
+    #   environmentFile = config.age.secrets.matrix-sliding-sync.path;
+    #   settings = {
+    #     SYNCV3_SERVER = "https://matrix.marie.cologne";
+    #     SYNCV3_BINDADDR = "[::]:8009";
+    #   };
+    # };
   };
   systemd.services.matrix-synapse = {
     after = [ "network-online.target" "postgresql.service" "podman-authentik-server.service" ];
@@ -191,7 +195,7 @@ in
     file = "${inputs.self}/secrets/synapse-sso-config.age";
     owner = "matrix-synapse";
   };
-  age.secrets.matrix-sliding-sync.file = "${inputs.self}/secrets/matrix-sliding-sync.age";
+  # age.secrets.matrix-sliding-sync.file = "${inputs.self}/secrets/matrix-sliding-sync.age";
   services.prometheus.scrapeConfigs = [
     {
       job_name = "synapse";

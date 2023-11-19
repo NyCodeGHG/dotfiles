@@ -1,4 +1,16 @@
 { config, inputs, pkgs, ... }:
+let
+  diffoscopeWrapper = pkgs.writeScript "diffoscope-wrapper"
+      ''
+        #! ${pkgs.stdenv.shell}
+	exec >&2
+	echo ""
+        echo "non-determinism detected in $2; diff with previous round follows:"
+        echo ""
+        time ${pkgs.utillinux}/bin/runuser -u diffoscope -- ${pkgs.diffoscope}/bin/diffoscope "$1" "$2"
+        exit 0
+      '';
+in
 {
   uwumarie.profiles = {
     editors.neovim = true;
@@ -32,10 +44,15 @@
       nil
       jetbrains.idea-community
       android-tools
+      sshx
     ];
   };
   nix.package = pkgs.nix;
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
   news.display = "silent";
-  programs.zsh.sessionVariables.BROWSER = "wslview";
+  programs.zsh.sessionVariables = {
+    BROWSER = "wslview";
+    SSHX_SERVER = "https://sshx.marie.cologne";
+  };
+  xdg.configFile."nix-diff-hook".source = diffoscopeWrapper;
 }

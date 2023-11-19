@@ -2,10 +2,16 @@
 {
   imports = [
     inputs.disko.nixosModules.disko
+
     inputs.home-manager.nixosModules.home-manager
+
     inputs.lanzaboote.nixosModules.lanzaboote
+
     inputs.agenix.nixosModules.default
+    #inputs.agenix-rekey.nixosModules.default
+
     inputs.awesome-prometheus-rules.nixosModules.default
+
     inputs.self.nixosModules.authentik
     inputs.self.nixosModules.coder
     inputs.self.nixosModules.pgrok

@@ -1,40 +1,55 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs-scanservjs.url = "github:NyCodeGHG/nixpkgs/pkg/scanservjs";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    agenix-rekey = {
+      url = "github:oddlama/agenix-rekey";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     ip-playground = {
       url = "git+ssh://forgejo@git.marie.cologne/marie/ip-playground.git";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+
     awesome-prometheus-rules = {
       url = "github:NyCodeGHG/awesome-prometheus-rules.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     steam-fetcher = {
       url = "github:nix-community/steam-fetcher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
+
     unlock-ssh-keys = {
       url = "git+https://codeberg.org/marie/unlock-ssh-keys";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,18 +73,28 @@
         ./pkgs/flake-module.nix
         ./modules/nixos/flake-module.nix
       ];
+
       systems = [ "x86_64-linux" "aarch64-linux" ];
+
       perSystem = { config, self', inputs', pkgs, system, ... }: {
+        _module.args.pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            self.overlays.default
+          ];
+        };
         formatter = pkgs.nixpkgs-fmt;
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             opentofu
             nurl
             nixos-rebuild
-          ] ++ [ inputs.agenix.packages.${pkgs.system}.default ];
+            agenix-rekey
+          ];
         };
         packages.opentofu = pkgs.opentofu;
       };
+
       flake = {
         lib = {
           nixosSystem = nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
@@ -84,6 +109,7 @@
               ] ++ modules;
             }
           );
+
           homeManagerConfiguration = nixpkgs.lib.makeOverridable ({ modules ? [ ], pkgs }:
             home-manager.lib.homeManagerConfiguration {
               inherit pkgs;
@@ -97,15 +123,17 @@
               ] ++ modules;
             });
         };
-        overlays.default = (final: prev: withSystem prev.stdenv.hostPlatform.system (
-          { config, ... }: {
-            #inherit (inputs.nixpkgs-scanservjs.legacyPackages.${prev.stdenv.hostPlatform.system}) scanservjs;
-          }
-        ));
+
+        # overlays.default = ((final: prev: withSystem prev.stdenv.hostPlatform.system (
+        #   { config, self', ... }: {}
+        # )) // agenix-rekey.overlays.default);
+        overlays.default = inputs.agenix-rekey.overlays.default;
+
         nixosModules = {
           config = import ./config/nixos;
           hybrid = import ./config/hybrid;
         };
+
         nixosConfigurations =
           let
             systems = [ "artemis" "delphi" "minimal" "insane" ];
@@ -113,15 +141,22 @@
               modules = [ ./hosts/${name}/configuration.nix ];
             };
           in builtins.listToAttrs (builtins.map (system: { name = system; value = systemFromName system; }) systems);
+
         homeManagerModules = {
           config = import ./config/home-manager;
           hybrid = import ./config/hybrid;
         };
+
         homeConfigurations = {
           wsl = self.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [ ./hosts/wsl/home.nix ];
           };
+        };
+
+        agenix-rekey = inputs.agenix-rekey.configure {
+          userFlake = self;
+          nodes = self.nixosConfigurations;
         };
       };
     });
