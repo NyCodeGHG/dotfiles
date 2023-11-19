@@ -1,4 +1,4 @@
-{ pkgs, config, lib, modulesPath, ... }:
+{ pkgs, config, lib, modulesPath, inputs, ... }:
 {
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
@@ -32,4 +32,9 @@
   disko.devices = import ./disk-config.nix {
     inherit lib;
   };
+
+#  age.rekey = {
+#    hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3";
+#    masterIdentities = [ "/home/marie/.ssh/default.ed25519" ];
+#  };
 }

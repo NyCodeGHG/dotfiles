@@ -8,7 +8,6 @@
     inputs.lanzaboote.nixosModules.lanzaboote
 
     inputs.agenix.nixosModules.default
-    #inputs.agenix-rekey.nixosModules.default
 
     inputs.awesome-prometheus-rules.nixosModules.default
 

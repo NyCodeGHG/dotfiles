@@ -12,11 +12,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agenix-rekey = {
-      url = "github:oddlama/agenix-rekey";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -89,8 +84,9 @@
             opentofu
             nurl
             nixos-rebuild
-            agenix-rekey
+            inputs.agenix.packages.${system}.default
           ];
+          PRIVATE_KEY = "/home/marie/.ssh/default.ed25519";
         };
         packages.opentofu = pkgs.opentofu;
       };
@@ -124,10 +120,9 @@
             });
         };
 
-        # overlays.default = ((final: prev: withSystem prev.stdenv.hostPlatform.system (
-        #   { config, self', ... }: {}
-        # )) // agenix-rekey.overlays.default);
-        overlays.default = inputs.agenix-rekey.overlays.default;
+        overlays.default = ((final: prev: withSystem prev.stdenv.hostPlatform.system (
+          { config, self', ... }: {}
+          )));
 
         nixosModules = {
           config = import ./config/nixos;
@@ -152,11 +147,6 @@
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [ ./hosts/wsl/home.nix ];
           };
-        };
-
-        agenix-rekey = inputs.agenix-rekey.configure {
-          userFlake = self;
-          nodes = self.nixosConfigurations;
         };
       };
     });

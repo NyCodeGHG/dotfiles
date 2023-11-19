@@ -4,5 +4,6 @@
     ./paperless.nix
     # ./traewelling.nix
     ./minio.nix
+    ./coturn.nix
   ];
 }

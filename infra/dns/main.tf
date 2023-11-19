@@ -88,6 +88,7 @@ locals {
         "trwl-staging",
         "cdn",
         "minio",
+        "turn",
       ]
       values = [
         {

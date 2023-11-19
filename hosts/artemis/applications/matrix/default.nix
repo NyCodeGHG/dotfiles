@@ -150,7 +150,7 @@ in
         })
       ];
       password_config = {
-        enabled = false;
+        enabled = true;
       };
       sso = {
         client_whitelist = [
@@ -158,6 +158,12 @@ in
         ];
         update_profile_information = true;
       };
+      turn_user_lifetime = "1h";
+      turn_allow_guests = false;
+      turn_uris = [
+        "turn:turn.marie.cologne:3478?transport=udp"
+        "turn:turn.marie.cologne:3478?transport=tcp"
+      ];
     };
     extraConfigFiles = [
       (pkgs.writeText
@@ -171,6 +177,7 @@ in
               user: matrix-synapse
         '')
       config.age.secrets.synapse-sso-config.path
+      config.age.secrets.turn-secret-synapse-config.path
     ];
     # sliding-sync = {
     #   enable = true;
@@ -194,6 +201,23 @@ in
   age.secrets.synapse-sso-config = {
     file = "${inputs.self}/secrets/synapse-sso-config.age";
     owner = "matrix-synapse";
+  };
+  age.secrets.turn-secret-synapse-config = {
+    file = "${inputs.self}/secrets/turn-secret-synapse-config.age";
+    owner = "matrix-synapse";
+    # rekeyFile = "${inputs.self}/secrets/turn-secret-synapse-config.age";
+    # generator = {
+    #   dependencies = [
+    #     inputs.self.nixosConfigurations.delphi.config.age.secrets.turn-secret
+    #   ];
+    #   script = { pkgs, lib, decrypt, deps, ... }:
+    #   let
+    #     turn-secret = builtins.head deps;
+    #   in
+    #     ''
+    #       echo "turn_shared_secret: \"$(${decrypt} ${lib.escapeShellArg turn-secret.file})\""
+    #     '';
+    # };
   };
   # age.secrets.matrix-sliding-sync.file = "${inputs.self}/secrets/matrix-sliding-sync.age";
   services.prometheus.scrapeConfigs = [

@@ -99,7 +99,7 @@ resource "oci_core_security_list" "sl" {
   }
   # Allow ssh traffic
   dynamic "ingress_security_rules" {
-    for_each = ["0.0.0.0/0", "::/0"] 
+    for_each = ["0.0.0.0/0", "::/0"]
     content {
       source = ingress_security_rules.value
       protocol = "6"
@@ -111,7 +111,7 @@ resource "oci_core_security_list" "sl" {
   }
   # Allow http traffic
   dynamic "ingress_security_rules" {
-    for_each = ["0.0.0.0/0", "::/0"] 
+    for_each = ["0.0.0.0/0", "::/0"]
     content {
       source = ingress_security_rules.value
       protocol = "6"
@@ -123,7 +123,7 @@ resource "oci_core_security_list" "sl" {
   }
   # Allow https traffic
   dynamic "ingress_security_rules" {
-    for_each = ["0.0.0.0/0", "::/0"] 
+    for_each = ["0.0.0.0/0", "::/0"]
     content {
       source = ingress_security_rules.value
       protocol = "6"
@@ -134,7 +134,7 @@ resource "oci_core_security_list" "sl" {
     }
   }
   dynamic "ingress_security_rules" {
-    for_each = ["0.0.0.0/0", "::/0"] 
+    for_each = ["0.0.0.0/0", "::/0"]
     content {
       source = ingress_security_rules.value
       protocol = "6"
@@ -145,7 +145,7 @@ resource "oci_core_security_list" "sl" {
     }
   }
   dynamic "ingress_security_rules" {
-    for_each = ["0.0.0.0/0", "::/0"] 
+    for_each = ["0.0.0.0/0", "::/0"]
     content {
       source = ingress_security_rules.value
       protocol = "17"
@@ -162,7 +162,7 @@ resource "oci_core_security_list" "sl" {
       max = 51820
       min = 51820
     }
-  } 
+  }
   dynamic "ingress_security_rules" {
     for_each = [ { code = 0, type = 8 }, { code = 4, type = 3 }, { code = 0, type = 11 }]
     content {
@@ -182,6 +182,61 @@ resource "oci_core_security_list" "sl" {
       icmp_options {
         code = ingress_security_rules.value.code
         type = ingress_security_rules.value.type
+      }
+    }
+  }
+  dynamic "ingress_security_rules" {
+    for_each = ["0.0.0.0/0", "::/0"]
+    content {
+      source = ingress_security_rules.value
+      protocol = "17"
+      udp_options {
+        max = 50000
+        min = 49000
+      }
+    }
+  }
+  dynamic "ingress_security_rules" {
+    for_each = ["0.0.0.0/0", "::/0"]
+    content {
+      source = ingress_security_rules.value
+      protocol = "17"
+      udp_options {
+        max = 3478
+        min = 3478
+      }
+    }
+  }
+  dynamic "ingress_security_rules" {
+    for_each = ["0.0.0.0/0", "::/0"]
+    content {
+      source = ingress_security_rules.value
+      protocol = "17"
+      udp_options {
+        max = 5349
+        min = 5349
+      }
+    }
+  }
+  dynamic "ingress_security_rules" {
+    for_each = ["0.0.0.0/0", "::/0"]
+    content {
+      source = ingress_security_rules.value
+      protocol = "6"
+      tcp_options {
+        max = 3478
+        min = 3478
+      }
+    }
+  }
+  dynamic "ingress_security_rules" {
+    for_each = ["0.0.0.0/0", "::/0"]
+    content {
+      source = ingress_security_rules.value
+      protocol = "6"
+      tcp_options {
+        max = 5349
+        min = 5349
       }
     }
   }
