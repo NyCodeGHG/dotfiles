@@ -22,6 +22,16 @@ in
     partOf = [ "restic-backup-postgres.service" ];
     timerConfig = {
       OnCalendar = "daily";
+      RandomizedDelaySec = "1200";
+    };
+  };
+
+  systemd.timers."restic-backup-forgejo" = {
+    wantedBy = [ "timers.target" ];
+    partOf = [ "restic-backup-forgejo.service" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      RandomizedDelaySec = "1200";
     };
   };
 
@@ -33,11 +43,13 @@ in
       set -eo pipefail
       ${pkgs.sudo}/bin/sudo -u postgres ${config.services.postgresql.package}/bin/pg_dumpall | \
       ${pkgs.restic}/bin/restic backup \
+        --retry-lock 30m \
         --tag postgres \
         --stdin \
         --stdin-filename all_databases.sql
 
       ${pkgs.restic}/bin/restic forget \
+        --retry-lock 30m \
         --tag postgres \
         --host ${config.networking.hostName} \
         --keep-daily 7 \
@@ -62,11 +74,13 @@ in
       set -eo pipefail
       HOME="${config.services.forgejo.stateDir}" ${pkgs.sudo}/bin/sudo -Eu forgejo ${config.services.forgejo.package}/bin/gitea dump --type tar -f - | \
       ${pkgs.restic}/bin/restic backup \
+        --retry-lock 30m \
         --tag forgejo \
         --stdin \
         --stdin-filename forgejo-dump-$(${pkgs.coreutils}/bin/date +%Y-%m-%d_%H-%M-%S).tar
 
       ${pkgs.restic}/bin/restic forget \
+        --retry-lock 30m \
         --tag forgejo \
         --host ${config.networking.hostName} \
         --keep-daily 7 \
@@ -80,6 +94,7 @@ in
     repository = "s3:s3.eu-central-003.backblazeb2.com/marie-backups";
     environmentFile = config.age.secrets.b2-restic.path;
     pruneOpts = [
+      "--retry-lock 30m"
       "--keep-daily 2"
       "--keep-weekly 1"
       "--keep-monthly 2"
@@ -91,6 +106,7 @@ in
       Persistent = true;
     };
     extraBackupArgs = [
+      "--retry-lock 30m"
       "--tag matrix-synapse"
     ];
     paths = [

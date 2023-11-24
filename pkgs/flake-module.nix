@@ -8,6 +8,7 @@
 #        tf2-server-unwrapped = self'.packages.tf2-server;
 #      };
       # preview-colors = pkgs.callPackage ./preview-colors { };
+      guard-nvim = pkgs.callPackage ./guard-nvim { };
     };
   };
 }

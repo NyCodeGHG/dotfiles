@@ -58,9 +58,10 @@ in
         locations."/" = {
           root = pkgs.element-web.override {
             conf = {
+              show_labs_settings = true;
               default_server_config = clientConfig;
               default_country_code = "DE";
-              room_directory.servers = [ "matrix.org" "mozilla.org" "skji.org" ];
+              room_directory.servers = [ "matrix.org" "mozilla.org" "skji.org" "nixos.org" ];
               default_theme = "dark";
               default_device_display_name = "Element Web";
               permalink_prefix = "https://chat.marie.cologne";

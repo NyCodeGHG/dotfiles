@@ -121,8 +121,12 @@
         };
 
         overlays.default = ((final: prev: withSystem prev.stdenv.hostPlatform.system (
-          { config, self', ... }: {}
-          )));
+          { config, self', system, ... }: {
+            vimPlugins = prev.vimPlugins.extend (_: _: {
+              inherit (self.packages.${system}) guard-nvim;
+            });
+          }
+        )));
 
         nixosModules = {
           config = import ./config/nixos;

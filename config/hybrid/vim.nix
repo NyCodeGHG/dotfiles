@@ -30,7 +30,7 @@
         foldenable = false;
       };
 
-      extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim telescope_hoogle trim-nvim telescope-ui-select-nvim ];
+      extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim telescope_hoogle trim-nvim telescope-ui-select-nvim guard-nvim ];
       extraConfigLua = ''
         require('trim').setup({})
       '';
@@ -114,6 +114,7 @@
             tsserver.enable = true;
             phpactor.enable = true;
             terraformls.enable = true;
+            gopls.enable = true;
           };
         };
         fidget.enable = true;
@@ -223,6 +224,11 @@
           silent = true;
           action = "<C-\\><C-n>";
         };
+      };
+
+      highlight = {
+        "@text.diff.add.diff" = { fg = "#04b539"; };
+        "@text.diff.delete.diff" = { fg = "#e30202"; };
       };
     };
   };

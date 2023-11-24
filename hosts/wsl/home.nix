@@ -44,7 +44,6 @@ in
       nil
       jetbrains.idea-community
       android-tools
-      sshx
     ];
   };
   nix.package = pkgs.nix;
