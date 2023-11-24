@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-db-rest.url = "github:NyCodeGHG/nixpkgs/nixos/db-rest";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -102,6 +103,7 @@
               modules = baseModules ++ [
                 { nixpkgs.overlays = [ self.overlays.default ]; }
                 self.nixosModules.config
+                "${inputs.nixpkgs-db-rest}/nixos/modules/services/misc/db-rest.nix"
               ] ++ modules;
             }
           );
@@ -121,7 +123,7 @@
         };
 
         overlays.default = ((final: prev: withSystem prev.stdenv.hostPlatform.system (
-          { config, self', system, ... }: {
+          { config, self', system, pkgs, ... }: {
             vimPlugins = prev.vimPlugins.extend (_: _: {
               inherit (self.packages.${system}) guard-nvim;
             });

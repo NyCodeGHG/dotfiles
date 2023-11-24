@@ -568,6 +568,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-db-rest": {
+      "locked": {
+        "lastModified": 1700237326,
+        "narHash": "sha256-1FmEKT0OJk90tbHVRZrgnH5bCZWzsGtDc+HVAoW63D0=",
+        "owner": "NyCodeGHG",
+        "repo": "nixpkgs",
+        "rev": "434a3b8275839cc3dd8644653b28df5ee24b9540",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NyCodeGHG",
+        "ref": "nixos/db-rest",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -830,6 +846,7 @@
         "ip-playground": "ip-playground",
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-db-rest": "nixpkgs-db-rest",
         "nixvim": "nixvim",
         "steam-fetcher": "steam-fetcher",
         "unlock-ssh-keys": "unlock-ssh-keys"

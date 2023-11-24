@@ -5,5 +5,6 @@
     # ./traewelling.nix
     ./minio.nix
     ./coturn.nix
+    ./db-rest.nix
   ];
 }

@@ -89,6 +89,7 @@ locals {
         "cdn",
         "minio",
         "turn",
+        "db-rest",
       ]
       values = [
         {
