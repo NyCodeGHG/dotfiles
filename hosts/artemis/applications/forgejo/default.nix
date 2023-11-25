@@ -11,13 +11,17 @@
       name = "forgejo";
     };
     lfs.enable = true;
-    appName = "marie's catgit: git with more meow";
     settings = {
       server = {
+        APP_NAME = "marie's catgit: git with more meow";
         PROTOCOL = "fcgi+unix";
         DOMAIN = "git.marie.cologne";
         ROOT_URL = "https://git.marie.cologne";
         STATIC_URL_PREFIX = "/_/static";
+      };
+      other = {
+        SHOW_FOOTER_BRANDING = false;
+        SHOW_FOOTER_VERSION = true;
       };
       service.DISABLE_REGISTRATION = true;
       session = {
@@ -25,13 +29,26 @@
         PROVIDER = "db";
       };
       cron.ENABLED = true;
+      "cron.update_checker".ENABLED = true;
       metrics.ENABLED = true;
-      federation.ENABLED = true;
       actions.ENABLED = true;
       oauth2_client = {
         ENABLE_AUTO_REGISTRATION = true;
         REGISTER_EMAIL_CONFIRM = false;
       };
+    };
+    package = pkgs.forgejo.override {
+      buildGoModule = args: pkgs.buildGoModule (args // rec {
+        version = "1.20.5-1";
+        src = pkgs.fetchFromGitea {
+          domain = "codeberg.org";
+          owner = "forgejo";
+          repo = "forgejo";
+          rev = "v${version}";
+          hash = "sha256-4arWZge+RC2lwa6CQIEsDHo229cElspm0TJo3JHz2WQ=";
+        };
+        vendorHash = "sha256-dgtZjsLBwblhdge3BvdbK/mN/TeZKps9K5dJbqomtjo=";
+      });
     };
   };
 
