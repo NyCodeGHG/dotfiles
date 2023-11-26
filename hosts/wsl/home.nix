@@ -44,6 +44,8 @@ in
       nil
       jetbrains.idea-community
       android-tools
+      fd
+      bat
     ];
   };
   nix.package = pkgs.nix;
