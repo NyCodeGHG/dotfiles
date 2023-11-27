@@ -46,6 +46,7 @@ in
       android-tools
       fd
       bat
+      tokei
     ];
   };
   nix.package = pkgs.nix;
