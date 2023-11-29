@@ -7,4 +7,5 @@
   ./system/acme.nix
   ./system/locale.nix
   ./users/marie.nix
+  ./system/upgrade-diff.nix
 ]
