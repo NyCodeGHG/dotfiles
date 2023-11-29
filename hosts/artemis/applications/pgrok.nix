@@ -48,9 +48,7 @@
     ensureUsers = [
       {
         name = "pgrok";
-        ensurePermissions = {
-          "DATABASE pgrok" = "ALL PRIVILEGES";
-        };
+        ensureDBOwnership = true;
       }
     ];
   };

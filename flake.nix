@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-db-rest.url = "github:NyCodeGHG/nixpkgs/nixos/db-rest";
 
     home-manager = {
@@ -94,7 +95,7 @@
 
       flake = {
         lib = {
-          nixosSystem = nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
+          nixosSystem = nixpkgs: nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
             nixpkgs.lib.nixosSystem {
               specialArgs = {
                 inherit inputs;
@@ -137,11 +138,20 @@
 
         nixosConfigurations =
           let
-            systems = [ "artemis" "delphi" "minimal" "insane" ];
-            systemFromName = name: self.lib.nixosSystem {
+            systems = [ "minimal" "insane" ];
+            systemFromName = name: self.lib.nixosSystem inputs.nixpkgs {
               modules = [ ./hosts/${name}/configuration.nix ];
             };
-          in builtins.listToAttrs (builtins.map (system: { name = system; value = systemFromName system; }) systems);
+          in builtins.listToAttrs (builtins.map (system: { name = system; value = systemFromName system; }) systems) // {
+
+          artemis = self.lib.nixosSystem inputs.nixpkgs-stable {
+            modules = [ ./hosts/artemis/configuration.nix ];
+          };
+
+          delphi = self.lib.nixosSystem inputs.nixpkgs-stable {
+            modules = [ ./hosts/delphi/configuration.nix ];
+          };
+        };
 
         homeManagerModules = {
           config = import ./config/home-manager;

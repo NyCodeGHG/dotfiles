@@ -219,9 +219,7 @@ in
           ensureUsers = [
             {
               name = "authentik";
-              ensurePermissions = {
-                "DATABASE authentik" = "ALL PRIVILEGES";
-              };
+              ensureDBOwnership = true;
             }
           ];
         };
