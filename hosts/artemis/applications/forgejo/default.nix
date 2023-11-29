@@ -39,15 +39,15 @@
     };
     package = pkgs.forgejo.override {
       buildGoModule = args: pkgs.buildGoModule (args // rec {
-        version = "1.20.5-1";
+        version = "1.21.1-0";
         src = pkgs.fetchFromGitea {
           domain = "codeberg.org";
           owner = "forgejo";
           repo = "forgejo";
           rev = "v${version}";
-          hash = "sha256-4arWZge+RC2lwa6CQIEsDHo229cElspm0TJo3JHz2WQ=";
+          hash = "sha256-e7Y1YBJq3PwYl7hf5KUa/CSI4ihbpN/TjWwltjNwXRM=";
         };
-        vendorHash = "sha256-dgtZjsLBwblhdge3BvdbK/mN/TeZKps9K5dJbqomtjo=";
+        vendorHash = "sha256-+/wOEF44dSqy7ZThZyd66xyI3wVnFwZbsAd4ujyVku8=";
       });
     };
   };

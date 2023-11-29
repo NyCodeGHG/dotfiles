@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, options, config, lib, inputs, ... }:
 let
   cfg = config.uwumarie.profiles.git;
 in
@@ -18,6 +18,11 @@ in
       type = types.bool;
       description = "Enables the github cli";
     };
+    enableGitEmail = mkOption {
+      default = false;
+      type = types.bool;
+      description = "Configures git for email usage";
+    };
   };
   config = with lib; mkIf cfg.enable {
     programs.git = {
@@ -25,6 +30,8 @@ in
 
       userEmail = "me@nycode.dev";
       userName = "Marie Ramlow";
+
+      package = pkgs.gitFull;
 
       extraConfig = mkMerge [
         (mkIf (cfg.signingKey != null) {
@@ -42,8 +49,18 @@ in
           ''}";
         }
       ];
+      includes = mkIf cfg.enableGitEmail ([
+        {
+          # hardcode path because git can't expand $XDG_RUNTIME_DIR
+          path = "/run/user/1000/agenix/git-email";
+        }
+      ]);
       lfs.enable = true;
     };
     programs.gh.enable = cfg.enableGitHubCLI;
+    age.secrets.git-email = mkIf cfg.enableGitEmail {
+      file = "${inputs.self}/secrets/git-email.age";
+    };
+    age.identityPaths = ["${config.home.homeDirectory}/.ssh/agenix"];
   };
 }

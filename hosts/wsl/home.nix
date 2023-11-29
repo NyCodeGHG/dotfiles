@@ -19,6 +19,7 @@ in
     git = {
       enable = true;
       signingKey = "github.ed25519";
+      enableGitEmail = true;
     };
     jujutsu = true;
     ripgrep = true;

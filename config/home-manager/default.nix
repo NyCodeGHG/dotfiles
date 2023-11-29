@@ -3,6 +3,7 @@
   imports = [
     inputs.self.homeManagerModules.hybrid
     inputs.unlock-ssh-keys.homeManagerModules.default
+    inputs.agenix.homeManagerModules.default
   ] ++ import ./module-list.nix;
 
   options = {
