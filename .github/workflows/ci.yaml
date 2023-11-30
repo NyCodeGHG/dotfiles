@@ -10,8 +10,8 @@ jobs:
       matrix:
         nixosConfig:
           - artemis
-          - delphi
-          - insane
+          # - delphi
+          # - insane
           - minimal
     name: Build ${{ matrix.nixosConfig }}
     runs-on: ubuntu-latest
