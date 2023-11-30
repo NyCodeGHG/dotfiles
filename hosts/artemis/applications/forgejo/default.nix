@@ -37,23 +37,11 @@
         REGISTER_EMAIL_CONFIRM = false;
       };
     };
-    package = pkgs.forgejo.override {
-      buildGoModule = args: pkgs.buildGoModule (args // rec {
-        version = "1.21.1-0";
-        src = pkgs.fetchFromGitea {
-          domain = "codeberg.org";
-          owner = "forgejo";
-          repo = "forgejo";
-          rev = "v${version}";
-          hash = "sha256-e7Y1YBJq3PwYl7hf5KUa/CSI4ihbpN/TjWwltjNwXRM=";
-        };
-        vendorHash = "sha256-+/wOEF44dSqy7ZThZyd66xyI3wVnFwZbsAd4ujyVku8=";
-      });
-    };
+    package = pkgs.unstable.forgejo;
   };
 
   services.nginx.virtualHosts."git.marie.cologne" = {
-    locations."/_/static/assets/" = {
+    locations."/_/static/" = {
       alias = "${config.services.forgejo.package.data}/public/";
     };
     locations."/" = {

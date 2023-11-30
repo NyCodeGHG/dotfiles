@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-23.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,12 +31,12 @@
 
     ip-playground = {
       url = "git+ssh://forgejo@git.marie.cologne/marie/ip-playground.git";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     awesome-prometheus-rules = {
       url = "github:NyCodeGHG/awesome-prometheus-rules.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     steam-fetcher = {
@@ -95,7 +100,10 @@
 
       flake = {
         lib = {
-          nixosSystem = nixpkgs: nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
+          nixosSystem = inputs:
+          let
+            inherit (inputs) nixpkgs;
+          in nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
             nixpkgs.lib.nixosSystem {
               specialArgs = {
                 inherit inputs;
@@ -128,6 +136,7 @@
             vimPlugins = prev.vimPlugins.extend (_: _: {
               inherit (self.packages.${system}) guard-nvim;
             });
+            unstable = inputs.nixpkgs.legacyPackages.${system};
           }
         )));
 
@@ -139,16 +148,16 @@
         nixosConfigurations =
           let
             systems = [ "minimal" "insane" ];
-            systemFromName = name: self.lib.nixosSystem inputs.nixpkgs {
+            systemFromName = name: self.lib.nixosSystem inputs {
               modules = [ ./hosts/${name}/configuration.nix ];
             };
           in builtins.listToAttrs (builtins.map (system: { name = system; value = systemFromName system; }) systems) // {
 
-          artemis = self.lib.nixosSystem inputs.nixpkgs-stable {
+          artemis = self.lib.nixosSystem (inputs // { nixpkgs = inputs.nixpkgs-stable; home-manager = inputs.home-manager-stable; }) {
             modules = [ ./hosts/artemis/configuration.nix ];
           };
 
-          delphi = self.lib.nixosSystem inputs.nixpkgs-stable {
+          delphi = self.lib.nixosSystem (inputs // { nixpkgs = inputs.nixpkgs-stable; home-manager = inputs.home-manager-stable; }) {
             modules = [ ./hosts/delphi/configuration.nix ];
           };
         };
