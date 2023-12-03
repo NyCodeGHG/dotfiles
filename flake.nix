@@ -95,7 +95,9 @@
           ];
           PRIVATE_KEY = "/home/marie/.ssh/default.ed25519";
         };
-        packages.opentofu = pkgs.opentofu;
+        packages = {
+          inherit (pkgs) opentofu neovim-unwrapped;
+        };
       };
 
       flake = {
@@ -137,6 +139,15 @@
               inherit (self.packages.${system}) guard-nvim;
             });
             unstable = inputs.nixpkgs.legacyPackages.${system};
+            neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (_: rec {
+              version = "unstable-2023-12-03";
+              src = prev.fetchFromGitHub {
+                owner = "neovim";
+                repo = "neovim";
+                rev = "0d885247b03439ee3aff4c0b9ec095a29bb21759";
+                hash = "sha256-6XTxEVzXkmDH4Vc8To3z6lgEKbxEMqt/XBQ7t2vLnQU=";
+              };
+            });
           }
         )));
 
