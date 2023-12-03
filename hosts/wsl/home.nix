@@ -48,6 +48,7 @@ in
       fd
       bat
       tokei
+      cachix
     ];
   };
   nix.package = pkgs.nix;
