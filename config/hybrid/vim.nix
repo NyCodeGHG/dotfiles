@@ -110,7 +110,11 @@
               rootDir = ''require("lspconfig/util").root_pattern(".git")'';
               cmd = [ "haskell-language-server-wrapper" "--lsp" ];
             };
-            rust-analyzer.enable = true;
+            rust-analyzer = {
+              enable = true;
+              installRustc = false;
+              installCargo = false;
+            };
             tsserver.enable = true;
             phpactor.enable = true;
             terraformls.enable = true;
