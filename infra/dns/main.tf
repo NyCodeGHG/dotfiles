@@ -21,10 +21,7 @@ locals {
       zone = data.cloudflare_zone.marie_cologne
       names = [
         "marie.cologne",
-        "coder",
-        "*.coder",
         "git",
-        "git2",
         "grafana",
         "chat",
         "matrix",
