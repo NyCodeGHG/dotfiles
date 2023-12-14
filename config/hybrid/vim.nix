@@ -108,7 +108,6 @@
             hls = {
               enable = true;
               rootDir = ''require("lspconfig/util").root_pattern(".git")'';
-              cmd = [ "haskell-language-server-wrapper" "--lsp" ];
             };
             rust-analyzer = {
               enable = true;
@@ -192,43 +191,16 @@
       };
 
       keymaps = [
-        { key = "<C-h>"; action = "<C-w>h"; }
-        { key = "<C-j>"; action = "<C-w>j"; }
-        { key = "<C-k>"; action = "<C-w>k"; }
-        { key = "<C-l>"; action = "<C-w>l"; }
+        { mode = "n"; key = "<C-h>"; action = "<C-w>h"; options.silent = true; }
+        { mode = "n"; key = "<C-j>"; action = "<C-w>j"; options.silent = true; }
+        { mode = "n"; key = "<C-k>"; action = "<C-w>k"; options.silent = true; }
+        { mode = "n"; key = "<C-l>"; action = "<C-w>l"; options.silent = true; }
+        { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree toggle<cr>"; options = { desc = "Toggle Neotree"; silent = true; }; }
+        { mode = ["n" "v"]; key = "j"; action = "gj"; options.silent = true; }
+        { mode = ["n" "v"]; key = "k"; action = "gk"; options.silent = true; }
+        { mode = ["n" "v"]; key = "<leader>cd"; options.silent = true; action = "vim.diagnostic.open_float"; lua = true; }
+        { mode = "t"; options.silent = true; key = "<ESC>"; action = "<C-\\><C-n>"; }
       ];
-
-      maps = {
-        normal."<leader>e" = {
-          silent = true;
-          action = "<cmd>Neotree toggle<CR>";
-          desc = "Toggle Neotree";
-        };
-        normal."j" = {
-          silent = true;
-          action = "gj";
-        };
-        visualOnly."j" = {
-          silent = true;
-          action = "gj";
-        };
-        normal."k" = {
-          silent = true;
-          action = "gk";
-        };
-        visualOnly."k" = {
-          silent = true;
-          action = "gk";
-        };
-        normal."<leader>cd" = {
-          silent = true;
-          action = "<cmd>lua vim.diagnostic.open_float()<cr>";
-        };
-        terminal."<ESC>" = {
-          silent = true;
-          action = "<C-\\><C-n>";
-        };
-      };
 
       highlight = {
         "@text.diff.add.diff" = { fg = "#04b539"; };
