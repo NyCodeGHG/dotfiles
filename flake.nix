@@ -92,6 +92,7 @@
             nurl
             nixos-rebuild
             inputs.agenix.packages.${system}.default
+            self'.packages.deploy
           ];
           PRIVATE_KEY = "/home/marie/.ssh/default.ed25519";
         };
