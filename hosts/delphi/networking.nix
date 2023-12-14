@@ -8,6 +8,7 @@
       "1.1.1.1"
       "1.0.0.1"
     ];
+    useNetworkd = true;
   };
   networking.firewall.interfaces.wg0.allowedTCPPorts = [ 9100 3031 ];
 }
