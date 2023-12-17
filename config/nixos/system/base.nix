@@ -13,5 +13,12 @@
         }
       ];
     };
+    environment.systemPackages = with pkgs; [
+      htop
+      neofetch
+      pciutils
+      file
+      dnsutils
+    ];
   };
 }
