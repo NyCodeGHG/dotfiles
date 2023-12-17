@@ -1,5 +1,6 @@
 {
   inputs = {
+    # nixpkgs inputs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-db-rest.url = "github:NyCodeGHG/nixpkgs/nixos/db-rest";
@@ -8,7 +9,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -16,17 +16,13 @@
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.darwin.follows = "";
     };
 
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.3.0";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     ip-playground = {
@@ -37,11 +33,6 @@
     awesome-prometheus-rules = {
       url = "github:NyCodeGHG/awesome-prometheus-rules.nix";
       inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
-    steam-fetcher = {
-      url = "github:nix-community/steam-fetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";

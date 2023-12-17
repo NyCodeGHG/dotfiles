@@ -5,8 +5,6 @@
 
     inputs.home-manager.nixosModules.home-manager
 
-    inputs.lanzaboote.nixosModules.lanzaboote
-
     inputs.agenix.nixosModules.default
 
     inputs.awesome-prometheus-rules.nixosModules.default
