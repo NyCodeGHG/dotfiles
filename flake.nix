@@ -158,19 +158,17 @@
         };
 
         nixosConfigurations =
-          let
-            systems = [ "minimal" "insane" ];
-            systemFromName = name: self.lib.nixosSystem inputs {
-              modules = [ ./hosts/${name}/configuration.nix ];
-            };
-          in builtins.listToAttrs (builtins.map (system: { name = system; value = systemFromName system; }) systems) // {
-
-          artemis = self.lib.nixosSystem (inputs // { nixpkgs = inputs.nixpkgs-stable; home-manager = inputs.home-manager-stable; }) {
+        let
+          stableInputs = inputs // { nixpkgs = inputs.nixpkgs-stable; home-manager = inputs.home-manager-stable; };
+        in {
+          artemis = self.lib.nixosSystem stableInputs {
             modules = [ ./hosts/artemis/configuration.nix ];
           };
-
-          delphi = self.lib.nixosSystem (inputs // { nixpkgs = inputs.nixpkgs-stable; home-manager = inputs.home-manager-stable; }) {
+          delphi = self.lib.nixosSystem stableInputs {
             modules = [ ./hosts/delphi/configuration.nix ];
+          };
+          minimal = self.lib.nixosSystem stableInputs {
+            modules = [ ./hosts/artemis/configuration.nix ];
           };
         };
 
