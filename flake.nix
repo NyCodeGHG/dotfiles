@@ -61,6 +61,9 @@
   };
 
   outputs = inputs@{ flake-parts, home-manager, nixpkgs, self, ... }:
+  let
+    stableInputs = inputs // { nixpkgs = inputs.nixpkgs-stable; home-manager = inputs.home-manager-stable; };
+  in
     flake-parts.lib.mkFlake ({ inherit inputs; }) ({ withSystem, ... }: {
       imports = [
         ./pkgs/flake-module.nix
@@ -87,8 +90,15 @@
           ];
           PRIVATE_KEY = "/home/marie/.ssh/default.ed25519";
         };
-        packages = {
+        packages =
+        let
+          currentHostPlatform = { nixpkgs.hostPlatform = system; };
+          installerImage = inputs:
+            (self.lib.nixosSystem inputs { modules = [ ./hosts/installer/configuration.nix currentHostPlatform ]; }).config.system.build.isoImage;
+        in {
           inherit (pkgs) opentofu neovim-unwrapped;
+          installer-stable = installerImage stableInputs;
+          installer-unstable = installerImage inputs;
         };
       };
 
@@ -148,10 +158,7 @@
           hybrid = import ./config/hybrid;
         };
 
-        nixosConfigurations =
-        let
-          stableInputs = inputs // { nixpkgs = inputs.nixpkgs-stable; home-manager = inputs.home-manager-stable; };
-        in {
+        nixosConfigurations = {
           artemis = self.lib.nixosSystem stableInputs {
             modules = [ ./hosts/artemis/configuration.nix ];
           };
