@@ -32,7 +32,7 @@ in
 
   virtualisation.oci-containers.containers.gotenberg = {
     user = "gotenberg:gotenberg";
-    image = "docker.io/gotenberg/gotenberg:7.10.1";
+    image = "docker.io/gotenberg/gotenberg:7.10.2";
     cmd = [ "gotenberg" "--chromium-disable-javascript=true" "--chromium-allow-list=file:///tmp/.*" ];
     ports = [
       "127.0.0.1:${gotenbergPort}:3000"
