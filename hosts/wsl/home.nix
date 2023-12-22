@@ -43,12 +43,12 @@ in
       gopls
       lua-language-server
       nil
-      jetbrains.idea-community
       android-tools
       fd
       bat
       tokei
       cachix
+      dogdns
     ];
   };
   nix.package = pkgs.nix;
