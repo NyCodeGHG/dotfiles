@@ -94,7 +94,7 @@
         let
           currentHostPlatform = { nixpkgs.hostPlatform = system; };
           installerImage = inputs:
-            (self.lib.nixosSystem inputs { modules = [ ./hosts/installer/configuration.nix currentHostPlatform ]; }).config.system.build.isoImage;
+            (inputs.nixpkgs.lib.nixosSystem { modules = [ ./hosts/installer/configuration.nix currentHostPlatform ]; }).config.system.build.isoImage;
         in {
           inherit (pkgs) opentofu neovim-unwrapped;
           installer-stable = installerImage stableInputs;
