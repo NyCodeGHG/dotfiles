@@ -1,0 +1,23 @@
+name: update-flake-lock
+on:
+  workflow_dispatch: # allows manual triggering
+  schedule:
+    - cron: '0 14 * * 5' # runs weekly on Sunday at 00:00
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@7ac1ec25491415c381d9b62f0657c7a028df52a7 # v24
+      - uses: cachix/cachix-action@v13
+        with:
+          name: uwumarie
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          pr-title: "flake: update inputs" # Title of PR to be created
+          pr-labels: |                  # Labels to be set on the PR
+            dependencies
