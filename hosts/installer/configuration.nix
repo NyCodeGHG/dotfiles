@@ -16,6 +16,4 @@
     openFirewall = true;
   };
   users.users.nixos.password = "meow";
-  uwumarie.profiles.users.marie = false;
-  uwumarie.profiles.openssh = false;
 }
