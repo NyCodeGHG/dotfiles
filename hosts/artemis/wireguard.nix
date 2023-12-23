@@ -61,6 +61,12 @@ in
               allowedIPs = [ "10.69.0.8/32" "192.168.178.0/24" ];
               persistentKeepalive = 25;
             }
+            {
+              name = "nas-test-vm";
+              publicKey = "WQDkk3lmPp+sx6vMVY+NEdyR5DoHIu0ThLMzKltr8jk=";
+              allowedIPs = [ "10.69.0.9/32" "192.168.1.0/24" ];
+              persistentKeepalive = 25;
+            }
           ];
         };
       };
