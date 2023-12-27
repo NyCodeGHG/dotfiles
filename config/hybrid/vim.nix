@@ -30,9 +30,9 @@
         foldenable = false;
       };
 
-      extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim telescope_hoogle trim-nvim telescope-ui-select-nvim guard-nvim ];
-      extraConfigLua = ''
-        require('trim').setup({})
+      extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim telescope_hoogle telescope-ui-select-nvim guard-nvim neoconf-nvim ];
+      extraConfigLuaPre = ''
+        require("neoconf").setup()
       '';
 
       plugins = {
@@ -118,6 +118,7 @@
             phpactor.enable = true;
             terraformls.enable = true;
             gopls.enable = true;
+            lua-ls.enable = true;
           };
         };
         fidget.enable = true;

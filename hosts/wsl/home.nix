@@ -43,12 +43,20 @@ in
       gopls
       lua-language-server
       nil
+
       android-tools
       fd
       bat
       tokei
-      cachix
       dogdns
+      units
+
+      cachix
+
+      rustup
+      cargo-binutils
+      gdb
+      qemu
     ];
   };
   nix.package = pkgs.nix;
