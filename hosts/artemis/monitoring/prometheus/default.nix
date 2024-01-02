@@ -71,10 +71,6 @@
           job = "grafana";
           target = "localhost:${toString config.services.grafana.settings.server.http_port}";
         })
-        (mkTarget {
-          job = "smartctl-exporter";
-          target = "10.69.0.8:9633";
-        })
         {
           job_name = "promtail";
           static_configs = [
