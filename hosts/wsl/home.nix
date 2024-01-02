@@ -57,6 +57,7 @@ in
       cargo-binutils
       gdb
       qemu
+      lazygit
     ];
   };
   nix.package = pkgs.nix;
