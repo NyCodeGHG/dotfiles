@@ -67,6 +67,7 @@ in
       wireguardConfig = {
         PrivateKeyFile = config.age.secrets.wg-private.path;
         ListenPort = port;
+        RouteTable = "main";
       };
       wireguardPeers = [
         { # raspberrypi
