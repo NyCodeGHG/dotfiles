@@ -5,7 +5,6 @@
     ./applications
     ./hardware.nix
     ./postgres.nix
-    ./wireguard.nix
     ./restic.nix
     ./networking.nix
   ];

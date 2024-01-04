@@ -22,6 +22,7 @@ in
   "discord-webhook.age".publicKeys = withSystems systems.artemis;
   "synapse-sso-config.age".publicKeys = withSystems systems.artemis;
   "delphi-wg-privatekey.age".publicKeys = withSystems systems.delphi;
+  "artemis-wg-privatekey.age".publicKeys = withSystems systems.artemis;
   "pgrok-client-secret.age".publicKeys = withSystems systems.artemis;
   "paperless-env.age".publicKeys = withSystems systems.delphi;
   "curseforge-api-key.age".publicKeys = withSystems systems.delphi;
