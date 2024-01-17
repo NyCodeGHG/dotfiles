@@ -27,6 +27,7 @@ in
     starship = true;
     unlock-ssh-keys = true;
     zsh = true;
+    tmux = true;
   };
   programs.home-manager.enable = true;
   home = {

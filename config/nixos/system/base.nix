@@ -18,7 +18,12 @@
       neofetch
       pciutils
       file
+      inetutils
       dnsutils
+      wget
+      curl
+      vim
     ];
+    programs.nano.enable = false;
   };
 }

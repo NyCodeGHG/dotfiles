@@ -142,12 +142,12 @@
             });
             unstable = inputs.nixpkgs.legacyPackages.${system};
             neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (_: rec {
-              version = "unstable-2023-12-03";
+              version = "unstable-2024-11-01";
               src = prev.fetchFromGitHub {
                 owner = "neovim";
                 repo = "neovim";
-                rev = "0d885247b03439ee3aff4c0b9ec095a29bb21759";
-                hash = "sha256-6XTxEVzXkmDH4Vc8To3z6lgEKbxEMqt/XBQ7t2vLnQU=";
+                rev = "a767c046f4e6bff1412269d56a8edfe33857d954";
+                hash = "sha256-i5jy4GWnNm20d5LbHQ7ja5x8Lba0EpanfAiYx2OGf3w=";
               };
             });
           }

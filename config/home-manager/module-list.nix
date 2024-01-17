@@ -7,4 +7,5 @@
   ./programs/starship.nix
   ./programs/unlock-ssh-keys.nix
   ./programs/zsh.nix
+  ./programs/tmux.nix
 ]
