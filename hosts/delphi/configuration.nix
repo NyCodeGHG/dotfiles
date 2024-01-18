@@ -4,7 +4,6 @@
     inputs.disko.nixosModules.default
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/profiles/headless.nix"
-    ./wireguard.nix
     ./networking.nix
     ./monitoring
     ./applications
