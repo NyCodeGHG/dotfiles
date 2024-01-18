@@ -1,19 +1,15 @@
 { config, inputs, lib, ... }:
 {
-  imports = [
-    inputs.disko.nixosModules.disko
+  imports = with inputs; [
+    home-manager.nixosModules.default
+    agenix.nixosModules.default
 
-    inputs.home-manager.nixosModules.home-manager
+    awesome-prometheus-rules.nixosModules.default
 
-    inputs.agenix.nixosModules.default
-
-    inputs.awesome-prometheus-rules.nixosModules.default
-
-    inputs.self.nixosModules.authentik
-    inputs.self.nixosModules.coder
-    inputs.self.nixosModules.pgrok
+    self.nixosModules.authentik
+    self.nixosModules.coder
+    self.nixosModules.pgrok
     #inputs.self.nixosModules.scanservjs
-    inputs.self.nixosModules.hybrid
   ] ++ import ./module-list.nix;
 
   options = {
