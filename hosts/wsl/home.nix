@@ -59,6 +59,8 @@ in
       gdb
       qemu
       lazygit
+
+      nixpkgs-review
     ];
   };
   nix.package = pkgs.nix;
