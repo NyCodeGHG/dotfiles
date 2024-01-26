@@ -29,6 +29,11 @@ in
     zsh = true;
     tmux = true;
   };
+  # locale workaround
+  programs.zsh.package = pkgs.writeShellScriptBin "zsh" ''
+    export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
+    exec ${pkgs.zsh}/bin/zsh "$@"
+  '';
   programs.home-manager.enable = true;
   home = {
     stateVersion = "23.05";
@@ -61,6 +66,7 @@ in
       lazygit
 
       nixpkgs-review
+      nix-output-monitor
     ];
   };
   nix.package = pkgs.nix;
