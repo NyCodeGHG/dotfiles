@@ -33,4 +33,6 @@ in
   "turn-secret-synapse-config.age".publicKeys = withSystems systems.artemis;
 
   "git-email.age".publicKeys = withSystems systems.wsl;
+
+  "dn42-peer-emma-wg-private.age".publicKeys = withSystems systems.artemis;
 }

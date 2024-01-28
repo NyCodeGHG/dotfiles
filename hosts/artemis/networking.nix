@@ -18,7 +18,20 @@ in
       ];
       allowedUDPPorts = [ port ];
     };
-    nftables.enable = true;
+    nftables = {
+      enable = true;
+      tables.forwarding = {
+        family = "inet";
+        content = ''
+          chain forward {
+            type filter hook forward priority 0; policy drop;
+
+            iifname "dn42n*" oifname "dn42n*" accept
+            iifname wg0 accept
+          }
+        '';
+      };
+    };
     useDHCP = false;
     nameservers = [
       # Netcup

@@ -7,6 +7,7 @@
     ./postgres.nix
     ./restic.nix
     ./networking.nix
+    ./dn42
   ];
   uwumarie.profiles = {
     fail2ban = true;
