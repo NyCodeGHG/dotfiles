@@ -7,7 +7,7 @@
     ./networking.nix
     ./monitoring
     ./applications
-    #./minecraft.nix
+    ./minecraft.nix
   ];
   uwumarie.profiles = {
     openssh = true;
