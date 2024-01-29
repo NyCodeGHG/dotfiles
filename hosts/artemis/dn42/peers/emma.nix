@@ -23,8 +23,7 @@ in
       addresses = [
         {
           addressConfig = {
-            Address = "fdf1:3ba4:9723::1/128";
-            Peer = "fd42:e99e:1f58::1/128";
+            Address = "fe80::d56f:a7fc:c62d:b88a/64";
           };
         }
       ];

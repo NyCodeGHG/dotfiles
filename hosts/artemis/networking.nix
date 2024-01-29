@@ -13,9 +13,9 @@ in
       logRefusedConnections = false;
       pingLimit = "2/minute burst 5 packets";
       # Allow Loki access from Wireguard
-      interfaces.wg0.allowedTCPPorts = [
-        3030
-      ];
+      interfaces.wg0.allowedTCPPorts = [ 3030 ];
+      # bgp from dn42
+      interfaces."dn42n*".allowedTCPPorts = [ 179 ];
       allowedUDPPorts = [ port ];
     };
     nftables = {
@@ -23,11 +23,16 @@ in
       tables.forwarding = {
         family = "inet";
         content = ''
+          chain prerouting {
+            type filter hook prerouting priority -100;
+            ip6 daddr fd42:e99e:1f58::/48 meta nftrace set 1
+          }
           chain forward {
             type filter hook forward priority 0; policy drop;
 
             iifname "dn42n*" oifname "dn42n*" accept
             iifname wg0 accept
+            meta nftrace set 1
           }
         '';
       };
