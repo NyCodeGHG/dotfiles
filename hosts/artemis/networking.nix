@@ -5,17 +5,32 @@ in
 {
   environment.systemPackages = with pkgs; [ wireguard-tools ];
 
+  services.resolved.enable = false;
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      server = [
+        "/dn42/fd42:d42:d42:54::1"
+        "/dn42/fd42:d42:d42:53::1"
+        "/d.f.ip6.arpa/fd42:d42:d42:54::1"
+        "/d.f.ip6.arpa/fd42:d42:d42:53::1"
+      ];
+    };
+  };
+
   networking = {
     hostName = "artemis";
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 80 443 ];
+      allowedTCPPorts = [ 80 443 1234 ];
       logRefusedConnections = false;
       pingLimit = "2/minute burst 5 packets";
       # Allow Loki access from Wireguard
-      interfaces.wg0.allowedTCPPorts = [ 3030 ];
+      interfaces.wg0.allowedTCPPorts = [ 3030 53 ];
+      interfaces.wg0.allowedUDPPorts = [ 53 ];
       # bgp from dn42
       interfaces."dn42n*".allowedTCPPorts = [ 179 ];
+      trustedInterfaces = [ "dn42" ];
       allowedUDPPorts = [ port ];
     };
     nftables = {
@@ -32,6 +47,7 @@ in
 
             iifname "dn42n*" oifname "dn42n*" accept
             iifname wg0 accept
+            ct state { established, related } accept
             meta nftrace set 1
           }
         '';
@@ -39,11 +55,6 @@ in
     };
     useDHCP = false;
     nameservers = [
-      # Netcup
-      "2a03:4000:0:1::e1e6"
-      "2a03:4000:8000::fce6"
-      "46.38.225.230"
-      "46.38.252.230"
       # Cloudflare
       "2606:4700:4700::1111"
       "2606:4700:4700::1001"
@@ -74,7 +85,10 @@ in
       };
       "50-wg0" = {
         name = "wg0";
-        address = ["10.69.0.1/24"];
+        address = [
+          "10.69.0.1/24"
+          "fdf1:3ba4:9723:1000::1/64"
+        ];
       };
     };
     netdevs."50-wg0" = {
@@ -105,7 +119,7 @@ in
         { # marie desktop win11
           wireguardPeerConfig = {
             PublicKey = "AxWlpfetKOpXU8LdlNvAdE/CO4259fmXJYC7YTbtgzw=";
-            AllowedIPs = [ "10.69.0.5/32" ];
+            AllowedIPs = [ "10.69.0.5/32" "fdf1:3ba4:9723:1000::2/128" ];
             PersistentKeepalive = 25;
           };
         }

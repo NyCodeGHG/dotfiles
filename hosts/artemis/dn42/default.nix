@@ -7,10 +7,20 @@
     enable = true;
     networks = {
       "60-dn42" = {
-        name = "lo";
-        address = [
-          "fdf1:3ba4:9723::1/128"
+        name = "dn42";
+        addresses = [
+          { addressConfig = {
+              Address = "fdf1:3ba4:9723::1/128";
+              Scope = "global";
+            };
+          }
         ];
+      };
+    };
+    netdevs."60-dn42" = {
+      netdevConfig = {
+        Name = "dn42";
+        Kind = "dummy";
       };
     };
   };
