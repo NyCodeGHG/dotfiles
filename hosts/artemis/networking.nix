@@ -48,6 +48,7 @@ in
             iifname "dn42n*" oifname "dn42n*" accept
             iifname wg0 accept
             ct state { established, related } accept
+            icmpv6 type != { nd-redirect, 139 } accept
             meta nftrace set 1
           }
         '';
@@ -112,7 +113,7 @@ in
         { # marie pixel smartphone
           wireguardPeerConfig = {
             PublicKey = "bbeNjsvKgB/5TCeQ8zZw2cOUuVIp0UYyeNYmfyxKLDM=";
-            AllowedIPs = [ "10.69.0.4/32" ];
+            AllowedIPs = [ "10.69.0.4/32" "fdf1:3ba4:9723:1000::3/128"];
             PersistentKeepalive = 25;
           };
         }
