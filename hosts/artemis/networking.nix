@@ -83,6 +83,7 @@ in
           { routeConfig.Gateway = "89.58.8.1"; }
           { routeConfig.Gateway = "fe80::1"; }
         ];
+        networkConfig.KeepConfiguration = "yes";
       };
       "50-wg0" = {
         name = "wg0";
@@ -90,6 +91,7 @@ in
           "10.69.0.1/24"
           "fdf1:3ba4:9723:1000::1/64"
         ];
+        networkConfig.KeepConfiguration = "yes";
       };
     };
     netdevs."50-wg0" = {

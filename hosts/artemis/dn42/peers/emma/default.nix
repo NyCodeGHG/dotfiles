@@ -6,7 +6,7 @@ in
 {
   networking.firewall.allowedUDPPorts = [ port ];
   age.secrets.dn42-peer-emma-wg-private = {
-    file = ../../../../secrets/dn42/emma-wg-private.age;
+    file = ./wg-private.age;
     owner = "systemd-network";
     group = "systemd-network";
   };

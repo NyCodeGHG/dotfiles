@@ -1,7 +1,7 @@
 { pkgs, config, libs, ... }:
 {
   imports = [
-    ./peers/emma.nix
+    ./peers/emma
   ];
   systemd.network = {
     enable = true;
