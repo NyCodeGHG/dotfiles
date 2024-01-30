@@ -15,6 +15,8 @@ in
         "/d.f.ip6.arpa/fd42:d42:d42:54::1"
         "/d.f.ip6.arpa/fd42:d42:d42:53::1"
       ];
+      interface = [ "lo" "wg0" ];
+      bind-interfaces = true;
     };
   };
 
@@ -28,8 +30,13 @@ in
       # Allow Loki access from Wireguard
       interfaces.wg0.allowedTCPPorts = [ 3030 53 ];
       interfaces.wg0.allowedUDPPorts = [ 53 ];
-      # bgp from dn42
-      interfaces."dn42n*".allowedTCPPorts = [ 179 ];
+      interfaces.dn42.allowedUDPPorts = [ 53 ];
+      interfaces.dn42.allowedTCPPorts = [ 53 ];
+
+      # bgp, dns from dn42
+      interfaces."dn42n*".allowedTCPPorts = [ 179 53 ];
+      interfaces."dn42n*".allowedUDPPorts = [ 53 ];
+
       trustedInterfaces = [ "dn42" ];
       allowedUDPPorts = [ port ];
       checkReversePath = "loose";
@@ -54,7 +61,6 @@ in
             iifname wg0 accept
             ct state { established, related } accept
             icmpv6 type != { nd-redirect, 139 } accept
-            meta nftrace set 1
           }
         '';
       };

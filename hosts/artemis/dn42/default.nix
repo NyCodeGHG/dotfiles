@@ -1,6 +1,7 @@
 { pkgs, config, libs, ... }:
 {
   imports = [
+    ./dns.nix
     ./peers/emma
     ./peers/kioubit
   ];
