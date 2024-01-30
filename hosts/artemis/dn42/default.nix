@@ -2,6 +2,7 @@
 {
   imports = [
     ./peers/emma
+    ./peers/kioubit
   ];
   systemd.network = {
     enable = true;
@@ -167,6 +168,10 @@
       }
       protocol bgp emma_v6 from dnpeers {
           neighbor fe80::d119:602d:d206:e469%dn42n0 as 4242423161;
+      }
+
+      protocol bgp kioubit_v6 from dnpeers {
+          neighbor fe80::ade0%dn42n1 as 4242423914;
       }
     '';
   };

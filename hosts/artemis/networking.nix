@@ -32,6 +32,11 @@ in
       interfaces."dn42n*".allowedTCPPorts = [ 179 ];
       trustedInterfaces = [ "dn42" ];
       allowedUDPPorts = [ port ];
+      checkReversePath = "loose";
+      extraInputRules = ''
+        # make traceroute work
+        udp dport { 33434-33523 } reject
+      '';
     };
     nftables = {
       enable = true;

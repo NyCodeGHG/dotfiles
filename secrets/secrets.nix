@@ -35,4 +35,5 @@ in
   "git-email.age".publicKeys = withSystems systems.wsl;
 
   "../hosts/artemis/dn42/peers/emma/wg-private.age".publicKeys = withSystems systems.artemis;
+  "../hosts/artemis/dn42/peers/kioubit/wg-private.age".publicKeys = withSystems systems.artemis;
 }
