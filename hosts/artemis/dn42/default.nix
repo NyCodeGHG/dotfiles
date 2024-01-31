@@ -209,4 +209,6 @@
     mode = "0755";
     user = "bird2";
   };
+
+  security.pki.certificateFiles = [ ./dn42-ca.pem ];
 }
