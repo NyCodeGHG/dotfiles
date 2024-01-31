@@ -2,6 +2,7 @@
 {
   imports = [
     ./dns.nix
+    ./nginx.nix
     ./peers/emma
     ./peers/kioubit
   ];
