@@ -17,6 +17,8 @@ in
       ];
       interface = [ "lo" "wg0" ];
       bind-interfaces = true;
+      # My network is v6 only, so don't respond with v4 records
+      # "filter-A" = true;
     };
   };
 
