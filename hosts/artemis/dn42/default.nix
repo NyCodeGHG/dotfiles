@@ -1,8 +1,9 @@
-{ pkgs, config, libs, ... }:
+{ pkgs, config, lib, ... }:
 {
   imports = [
     ./dns.nix
     ./nginx.nix
+    ./peers
     ./peers/emma
     ./peers/kioubit
   ];
@@ -12,7 +13,8 @@
       "60-dn42" = {
         name = "dn42";
         addresses = [
-          { addressConfig = {
+          {
+            addressConfig = {
               Address = "fdf1:3ba4:9723::1/128";
               Scope = "global";
             };
@@ -168,13 +170,11 @@
               import limit 1000 action block; 
           };
       }
-      protocol bgp emma_v6 from dnpeers {
-          neighbor fe80::d119:602d:d206:e469%dn42n0 as 4242423161;
-      }
-
-      protocol bgp kioubit_v6 from dnpeers {
-          neighbor fe80::ade0%dn42n1 as 4242423914;
-      }
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: conf: ''
+        protocol bgp ${name}_v6 from dnpeers {
+            neighbor ${conf.peer.wireguard.linkLocalAddress}%${conf.self.wireguard.interface} as ${toString conf.peer.asn};
+        }
+      '') config.dn42.peers)}
     '';
   };
 
