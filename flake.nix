@@ -61,9 +61,9 @@
   };
 
   outputs = inputs@{ flake-parts, home-manager, nixpkgs, self, ... }:
-  let
-    stableInputs = inputs // { nixpkgs = inputs.nixpkgs-stable; home-manager = inputs.home-manager-stable; };
-  in
+    let
+      stableInputs = inputs // { nixpkgs = inputs.nixpkgs-stable; home-manager = inputs.home-manager-stable; };
+    in
     flake-parts.lib.mkFlake ({ inherit inputs; }) ({ withSystem, ... }: {
       imports = [
         ./pkgs/flake-module.nix
@@ -91,35 +91,37 @@
           PRIVATE_KEY = "/home/marie/.ssh/default.ed25519";
         };
         packages =
-        let
-          currentHostPlatform = { nixpkgs.hostPlatform = system; };
-          installerImage = inputs:
-            (inputs.nixpkgs.lib.nixosSystem { modules = [ ./hosts/installer/configuration.nix currentHostPlatform ]; }).config.system.build.isoImage;
-        in {
-          inherit (pkgs) opentofu neovim-unwrapped;
-          installer-stable = installerImage stableInputs;
-          installer-unstable = installerImage inputs;
-        };
+          let
+            currentHostPlatform = { nixpkgs.hostPlatform = system; };
+            installerImage = inputs:
+              (inputs.nixpkgs.lib.nixosSystem { modules = [ ./hosts/installer/configuration.nix currentHostPlatform ]; }).config.system.build.isoImage;
+          in
+          {
+            inherit (pkgs) opentofu neovim-unwrapped;
+            installer-stable = installerImage stableInputs;
+            installer-unstable = installerImage inputs;
+          };
       };
 
       flake = {
         lib = {
           nixosSystem = inputs:
-          let
-            inherit (inputs) nixpkgs;
-          in nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
-            nixpkgs.lib.nixosSystem {
-              specialArgs = {
-                inherit inputs;
-                configType = "nixos";
-              };
-              modules = baseModules ++ [
-                { nixpkgs.overlays = [ self.overlays.default ]; }
-                self.nixosModules.config
-                "${inputs.nixpkgs-db-rest}/nixos/modules/services/misc/db-rest.nix"
-              ] ++ modules;
-            }
-          );
+            let
+              inherit (inputs) nixpkgs;
+            in
+            nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
+              nixpkgs.lib.nixosSystem {
+                specialArgs = {
+                  inherit inputs;
+                  configType = "nixos";
+                };
+                modules = baseModules ++ [
+                  { nixpkgs.overlays = [ self.overlays.default ]; }
+                  self.nixosModules.config
+                  "${inputs.nixpkgs-db-rest}/nixos/modules/services/misc/db-rest.nix"
+                ] ++ modules;
+              }
+            );
 
           homeManagerConfiguration = nixpkgs.lib.makeOverridable ({ modules ? [ ], pkgs }:
             home-manager.lib.homeManagerConfiguration {
@@ -135,23 +137,25 @@
             });
         };
 
-        overlays.default = ((final: prev: withSystem prev.stdenv.hostPlatform.system (
-          { config, self', system, pkgs, ... }: {
-            vimPlugins = prev.vimPlugins.extend (_: _: {
-              inherit (self.packages.${system}) guard-nvim;
-            });
-            unstable = inputs.nixpkgs.legacyPackages.${system};
-            neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (_: rec {
-              version = "unstable-2024-11-01";
-              src = prev.fetchFromGitHub {
-                owner = "neovim";
-                repo = "neovim";
-                rev = "a767c046f4e6bff1412269d56a8edfe33857d954";
-                hash = "sha256-i5jy4GWnNm20d5LbHQ7ja5x8Lba0EpanfAiYx2OGf3w=";
-              };
-            });
-          }
-        )));
+        overlays.default = (
+          (final: prev: withSystem prev.stdenv.hostPlatform.system (
+            { config, self', system, pkgs, ... }: {
+              vimPlugins = prev.vimPlugins.extend (_: _: {
+                inherit (self.packages.${system}) guard-nvim;
+              });
+              unstable = inputs.nixpkgs.legacyPackages.${system};
+              neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (_: rec {
+                version = "unstable-2024-11-01";
+                src = prev.fetchFromGitHub {
+                  owner = "neovim";
+                  repo = "neovim";
+                  rev = "a767c046f4e6bff1412269d56a8edfe33857d954";
+                  hash = "sha256-i5jy4GWnNm20d5LbHQ7ja5x8Lba0EpanfAiYx2OGf3w=";
+                };
+              });
+            }
+          ))
+        );
 
         nixosModules = {
           config = import ./config/nixos;

@@ -42,18 +42,19 @@
   };
   # open the firewall
   networking.firewall = {
-    interfaces.enp0s6 = let
-      range = with config.services.coturn; [ {
-      from = min-port;
-      to = max-port;
-    } ];
-    in
-    {
-      allowedUDPPortRanges = range;
-      allowedUDPPorts = [ 3478 5349 ];
-      allowedTCPPortRanges = [ ];
-      allowedTCPPorts = [ 3478 5349 ];
-    };
+    interfaces.enp0s6 =
+      let
+        range = with config.services.coturn; [{
+          from = min-port;
+          to = max-port;
+        }];
+      in
+      {
+        allowedUDPPortRanges = range;
+        allowedUDPPorts = [ 3478 5349 ];
+        allowedTCPPortRanges = [ ];
+        allowedTCPPorts = [ 3478 5349 ];
+      };
   };
   # get a certificate
   security.acme.certs.${config.services.coturn.realm} = {

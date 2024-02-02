@@ -197,9 +197,9 @@
         { mode = "n"; key = "<C-k>"; action = "<C-w>k"; options.silent = true; }
         { mode = "n"; key = "<C-l>"; action = "<C-w>l"; options.silent = true; }
         { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree toggle<cr>"; options = { desc = "Toggle Neotree"; silent = true; }; }
-        { mode = ["n" "v"]; key = "j"; action = "gj"; options.silent = true; }
-        { mode = ["n" "v"]; key = "k"; action = "gk"; options.silent = true; }
-        { mode = ["n" "v"]; key = "<leader>cd"; options.silent = true; action = "vim.diagnostic.open_float"; lua = true; }
+        { mode = [ "n" "v" ]; key = "j"; action = "gj"; options.silent = true; }
+        { mode = [ "n" "v" ]; key = "k"; action = "gk"; options.silent = true; }
+        { mode = [ "n" "v" ]; key = "<leader>cd"; options.silent = true; action = "vim.diagnostic.open_float"; lua = true; }
         { mode = "t"; options.silent = true; key = "<ESC>"; action = "<C-\\><C-n>"; }
         { mode = "n"; options.silent = true; key = "<leader>fb"; action = "<cmd>Telescope buffers<cr>"; }
         { mode = "n"; options.silent = true; key = "<leader>t"; action = "<cmd>terminal<cr>"; }

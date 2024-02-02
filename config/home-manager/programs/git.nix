@@ -61,6 +61,6 @@ in
     age.secrets.git-email = mkIf cfg.enableGitEmail {
       file = "${inputs.self}/secrets/git-email.age";
     };
-    age.identityPaths = ["${config.home.homeDirectory}/.ssh/agenix"];
+    age.identityPaths = [ "${config.home.homeDirectory}/.ssh/agenix" ];
   };
 }

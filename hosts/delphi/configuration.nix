@@ -33,8 +33,8 @@
     inherit lib;
   };
 
-#  age.rekey = {
-#    hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3";
-#    masterIdentities = [ "/home/marie/.ssh/default.ed25519" ];
-#  };
+  #  age.rekey = {
+  #    hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3";
+  #    masterIdentities = [ "/home/marie/.ssh/default.ed25519" ];
+  #  };
 }

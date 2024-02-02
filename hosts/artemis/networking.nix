@@ -118,42 +118,48 @@ in
         RouteTable = "main";
       };
       wireguardPeers = [
-        { # raspberrypi
+        {
+          # raspberrypi
           wireguardPeerConfig = {
             PublicKey = "8XzwNX81oK3gXbOLcgLmYyxqZCz4K9HEfDUCbWfuegg=";
             AllowedIPs = [ "10.69.0.3/32" ];
             PersistentKeepalive = 25;
           };
         }
-        { # marie pixel smartphone
+        {
+          # marie pixel smartphone
           wireguardPeerConfig = {
             PublicKey = "bbeNjsvKgB/5TCeQ8zZw2cOUuVIp0UYyeNYmfyxKLDM=";
-            AllowedIPs = [ "10.69.0.4/32" "fdf1:3ba4:9723:1000::3/128"];
+            AllowedIPs = [ "10.69.0.4/32" "fdf1:3ba4:9723:1000::3/128" ];
             PersistentKeepalive = 25;
           };
         }
-        { # marie desktop win11
+        {
+          # marie desktop win11
           wireguardPeerConfig = {
             PublicKey = "AxWlpfetKOpXU8LdlNvAdE/CO4259fmXJYC7YTbtgzw=";
             AllowedIPs = [ "10.69.0.5/32" "fdf1:3ba4:9723:1000::2/128" ];
             PersistentKeepalive = 25;
           };
         }
-        { # firetv stick
+        {
+          # firetv stick
           wireguardPeerConfig = {
             PublicKey = "ix5kGyVlSASM0EruH3kzZtMwd0QJ0Ar8v6IIs24Jzzo=";
             AllowedIPs = [ "10.69.0.6/32" ];
             PersistentKeepalive = 25;
           };
         }
-        { # delphi
+        {
+          # delphi
           wireguardPeerConfig = {
             PublicKey = "qj6y6xfFtYga5hpT8FygOAOKN0xIDO5+sdtT8K2ozUc=";
             AllowedIPs = [ "10.69.0.7/32" ];
             Endpoint = "141.144.240.28:51820";
           };
         }
-        { # tobi nas
+        {
+          # tobi nas
           wireguardPeerConfig = {
             PublicKey = "aFMhUNLlj6oF3iDqUdlcJR1sxVjjRSDJ1S8bcH+fwhA=";
             AllowedIPs = [ "10.69.0.8/32" "192.168.178.0/24" ];
