@@ -3,7 +3,6 @@
     # nixpkgs inputs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
-    nixpkgs-db-rest.url = "github:NyCodeGHG/nixpkgs/nixos/db-rest";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -113,7 +112,6 @@
                 modules = baseModules ++ [
                   { nixpkgs.overlays = [ self.overlays.default ]; }
                   self.nixosModules.config
-                  "${inputs.nixpkgs-db-rest}/nixos/modules/services/misc/db-rest.nix"
                 ] ++ modules;
               }
             );

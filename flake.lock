@@ -416,22 +416,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-db-rest": {
-      "locked": {
-        "lastModified": 1706706357,
-        "narHash": "sha256-rGByAzES+WzEDFAeClMK8a/Djn6K+c1s+CPG+Qw3SI8=",
-        "owner": "NyCodeGHG",
-        "repo": "nixpkgs",
-        "rev": "71af657855a7765a334dd2d69ad9292d6df880b9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NyCodeGHG",
-        "ref": "nixos/db-rest",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -623,7 +607,6 @@
         "home-manager-stable": "home-manager-stable",
         "ip-playground": "ip-playground",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-db-rest": "nixpkgs-db-rest",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixvim": "nixvim",
         "unlock-ssh-keys": "unlock-ssh-keys"
