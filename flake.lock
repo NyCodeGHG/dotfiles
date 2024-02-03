@@ -23,43 +23,6 @@
         "type": "github"
       }
     },
-    "awesome-prometheus-alerts": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1689437125,
-        "narHash": "sha256-DaX690hv09axyzahuhmgp3cIX7YPh72SFnVHp2wZpfQ=",
-        "owner": "samber",
-        "repo": "awesome-prometheus-alerts",
-        "rev": "0eb66a5d2cbdff0ab7c7199e197bd7d291e1db19",
-        "type": "github"
-      },
-      "original": {
-        "owner": "samber",
-        "repo": "awesome-prometheus-alerts",
-        "type": "github"
-      }
-    },
-    "awesome-prometheus-rules": {
-      "inputs": {
-        "awesome-prometheus-alerts": "awesome-prometheus-alerts",
-        "nixpkgs": [
-          "nixpkgs-stable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1689765190,
-        "narHash": "sha256-G2n1Wzg96EYofnP/VvAsCl48ypzVes77vgpMNicjyYg=",
-        "owner": "NyCodeGHG",
-        "repo": "awesome-prometheus-rules.nix",
-        "rev": "01050b8aea7902e0d9744ba52666e576d7f1f08f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NyCodeGHG",
-        "repo": "awesome-prometheus-rules.nix",
-        "type": "github"
-      }
-    },
     "devenv": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -654,7 +617,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "awesome-prometheus-rules": "awesome-prometheus-rules",
         "disko": "disko",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager_2",

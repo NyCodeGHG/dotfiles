@@ -4,8 +4,6 @@
     home-manager.nixosModules.default
     agenix.nixosModules.default
 
-    awesome-prometheus-rules.nixosModules.default
-
     self.nixosModules.authentik
     self.nixosModules.coder
     self.nixosModules.pgrok

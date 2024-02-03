@@ -2,7 +2,7 @@ $ORIGIN marie.dn42.
 $TTL 5m
 
 @                                                                               IN      SOA     ns1.marie.dn42. me.nycode.dev. (
-                                                                                                5       ; serial
+                                                                                                7       ; serial
                                                                                                 4h      ; refresh
                                                                                                 15m     ; retry
                                                                                                 8h      ; expire

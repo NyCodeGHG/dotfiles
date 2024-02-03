@@ -10,17 +10,16 @@
       node = {
         enable = true;
         # Enable additional collectors
-        enabledCollectors = [
-          "network_route"
-          "systemd"
+        enabledCollectors = [ "systemd" ];
+        disabledCollectors = [
+          "fibrechannel"
+          "hwmon"
+          "infiniband"
+          "thermal_zone"
+          "xfs"
+          "zfs"
         ];
       };
-    };
-    awesome-prometheus-alerts = {
-      prometheus-self-monitoring.embedded-exporter.enable = true;
-      host-and-hardware.node-exporter.enable = true;
-      loki.embedded-exporter.enable = true;
-      promtail.embedded-exporter.enable = true;
     };
     globalConfig.scrape_interval = "30s";
     scrapeConfigs =
@@ -60,34 +59,9 @@
           ];
         }
         (mkTarget {
-          job = "loki";
-          target = "localhost:${toString config.services.loki.configuration.server.http_listen_port}";
-        })
-        (mkTarget {
-          job = "tempo";
-          target = "localhost:${toString config.services.tempo.settings.server.http_listen_port}";
-        })
-        (mkTarget {
           job = "grafana";
           target = "localhost:${toString config.services.grafana.settings.server.http_port}";
         })
-        {
-          job_name = "promtail";
-          static_configs = [
-            {
-              targets = [ "localhost:${toString config.services.promtail.configuration.server.http_listen_port}" ];
-              labels = {
-                instance = config.networking.hostName;
-              };
-            }
-            {
-              targets = [ "10.69.0.7:3031" ];
-              labels = {
-                instance = "delphi";
-              };
-            }
-          ];
-        }
         (mkTarget {
           job = "ip-playground";
           target = "127.0.0.1:3032";

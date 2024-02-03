@@ -30,11 +30,6 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    awesome-prometheus-rules = {
-      url = "github:NyCodeGHG/awesome-prometheus-rules.nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     unlock-ssh-keys = {

@@ -106,8 +106,6 @@ in
         ALLOWED_ORIGINS = "https://ip.marie.cologne,https://v4.ip.marie.cologne,https://v6.ip.marie.cologne";
         PORT = "3032";
         LOG_FORMAT = "json";
-        ENABLE_OTLP = "true";
-        OTEL_SERVICE_NAME = "ip-playground";
         ASN_DB_PATH = asnDbPath;
         REDIS_URL = "redis+unix://${config.services.redis.servers.ip-playground.unixSocket}";
         RUST_LOG = "info";

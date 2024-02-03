@@ -44,34 +44,10 @@ in
       enable = true;
       datasources.settings.datasources = [
         {
-          name = "Loki";
-          type = "loki";
-          access = "proxy";
-          url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
-        }
-        {
-          name = "Marie Raspberry Pi Prometheus";
-          type = "prometheus";
-          access = "proxy";
-          url = "http://10.69.0.3:9090";
-        }
-        {
           name = "Prometheus artemis";
           type = "prometheus";
           access = "proxy";
           url = "http://127.0.0.1:${toString config.services.prometheus.port}";
-        }
-        {
-          name = "Prometheus Tobi";
-          type = "prometheus";
-          access = "proxy";
-          url = "http://10.69.0.8:9090";
-        }
-        {
-          name = "Tempo";
-          type = "tempo";
-          access = "proxy";
-          url = "http://127.0.0.1:${toString config.services.tempo.settings.server.http_listen_port}";
         }
         {
           name = "Alertmanager";
@@ -83,26 +59,6 @@ in
           };
         }
       ];
-      dashboards.settings.providers =
-        let
-          dashboards = inputs.self.packages.${pkgs.system}.node-mixin.override { job = "node-exporter"; };
-          synapse = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/matrix-org/synapse/b5b7bb7c0fbfe50516d2ba6232461544b4fbea54/contrib/grafana/synapse.json";
-            hash = "sha256:700f993f9b2760684d67bd0593e709d0f0667a78e98a0971d4e3ab34e7b91e52";
-          };
-        in
-        [
-          {
-            name = "Node Exporter";
-            type = "file";
-            options.path = "${dashboards}/dashboards/nodes.json";
-          }
-          {
-            name = "Synapse";
-            type = "file";
-            options.path = "${synapse}";
-          }
-        ];
     };
   };
 
