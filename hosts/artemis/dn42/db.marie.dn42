@@ -1,16 +1,15 @@
 $ORIGIN marie.dn42.
 $TTL 5m
 
-@                                                                               IN      SOA     ns1.marie.dn42. me.nycode.dev. (
-                                                                                                7       ; serial
-                                                                                                4h      ; refresh
-                                                                                                15m     ; retry
-                                                                                                8h      ; expire
-                                                                                                4m)     ; negative caching TTL
-                                                                                IN      NS      ns1.marie.dn42.
-                                                                                IN      AAAA    fdf1:3ba4:9723::1
-de-nue1                                                                         IN      AAAA    fdf1:3ba4:9723::1
-ns1                                                                             IN      AAAA    fdf1:3ba4:9723::1
-wg.de-nue1                                                                      IN      AAAA    fdf1:3ba4:9723:1000::1
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.2.7.9.4.a.b.3.1.f.d.f.ip6.arpa.       IN      PTR     de-nue1.marie.dn42.
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.3.2.7.9.4.a.b.3.1.f.d.f.ip6.arpa.       IN      PTR     wg.de-nue1.marie.dn42.
+@               IN      SOA     ns1.marie.dn42. me.nycode.dev. (
+                                8       ; serial
+                                4h      ; refresh
+                                15m     ; retry
+                                8h      ; expire
+                                4m)     ; negative caching TTL
+                IN      NS      ns1.marie.dn42.
+                IN      AAAA    fdf1:3ba4:9723::1
+de-nue1         IN      AAAA    fdf1:3ba4:9723::1
+ns1             IN      AAAA    fdf1:3ba4:9723::1
+wg.de-nue1      IN      AAAA    fdf1:3ba4:9723:1000::1
+de-fra1         IN      AAAA    fdf1:3ba4:9723:2000::1

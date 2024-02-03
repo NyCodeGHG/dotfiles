@@ -3,12 +3,15 @@ let
   port = 51820;
 in
 {
+  environment.systemPackages = with pkgs; [ wireguard-tools ];
   networking = {
     hostName = "delphi";
-    # Use OCI firewall
+    nftables.enable = true;
     firewall = {
-      enable = false;
-      interfaces.wg0.allowedTCPPorts = [ 9100 3031 ];
+      enable = true;
+      extraInputRules = ''
+        iifname wg0 ip saddr 10.69.0.0/24 tcp dport { 9100, 3031 } accept
+      '';
     };
     nameservers = [
       "2606:4700:4700::1111"
@@ -28,7 +31,7 @@ in
       };
       "50-wg0" = {
         name = "wg0";
-        address = [ "10.69.0.7/24" ];
+        address = [ "10.69.0.7/24" "fdf1:3ba4:9723:2000::1/64" ];
       };
     };
     netdevs."50-wg0" = {
@@ -39,12 +42,13 @@ in
       wireguardConfig = {
         PrivateKeyFile = config.age.secrets.delphi-wg-privatekey.path;
         ListenPort = port;
+        RouteTable = "main";
       };
       wireguardPeers = [
         {
           wireguardPeerConfig = {
             PublicKey = "cIsemKHaYdTw/ki2RP3AfmYSx3f1G0ejent4N0yFDlg=";
-            AllowedIPs = [ "10.69.0.0/24" ];
+            AllowedIPs = [ "10.69.0.0/24" "fd00::/8" ];
             Endpoint = "89.58.10.36:51820";
           };
         }

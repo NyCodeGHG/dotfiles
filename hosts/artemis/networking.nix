@@ -154,7 +154,7 @@ in
           # delphi
           wireguardPeerConfig = {
             PublicKey = "qj6y6xfFtYga5hpT8FygOAOKN0xIDO5+sdtT8K2ozUc=";
-            AllowedIPs = [ "10.69.0.7/32" ];
+            AllowedIPs = [ "10.69.0.7/32" "fdf1:3ba4:9723:2000::1/128" ];
             Endpoint = "141.144.240.28:51820";
           };
         }

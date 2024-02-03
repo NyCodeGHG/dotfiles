@@ -2,10 +2,11 @@ $ORIGIN 3.2.7.9.4.a.b.3.1.f.d.f.ip6.arpa.
 $TTL 30m
 
 @                                             IN      SOA     ns1.marie.dn42. me.nycode.dev. (
-                                                              1       ; serial
+                                                              2       ; serial
                                                               4h      ; refresh
                                                               15m     ; retry
                                                               8h      ; expire
                                                               30m)    ; negative caching TTL
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0       IN      PTR     de-nue1.marie.dn42.
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1       IN      PTR     wg.de-nue1.marie.dn42.
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2       IN      PTR     de-fra1.marie.dn42.
