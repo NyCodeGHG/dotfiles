@@ -1,7 +1,4 @@
 { ... }:
 {
-  imports = [
-    ./prometheus.nix
-    ./promtail.nix
-  ];
+  imports = [ ./prometheus.nix ];
 }
