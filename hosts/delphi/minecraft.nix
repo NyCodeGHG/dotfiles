@@ -26,12 +26,11 @@
       GID = toString config.users.groups.minecraft.gid;
     };
     environmentFiles = [ config.age.secrets.curseforge-api-key.path ];
-    ports = [
-      "25565:25565"
-      "9101:9100"
-    ];
     volumes = [
       "/var/lib/minecraft/cabin:/data"
+    ];
+    extraOptions = [
+      "--network=host"
     ];
     user = "${toString config.users.users.minecraft.uid}:${toString config.users.groups.minecraft.gid}";
   };
