@@ -20,6 +20,7 @@
           "zfs"
         ];
       };
+      bird.enable = true;
     };
     globalConfig.scrape_interval = "30s";
     scrapeConfigs =
@@ -65,6 +66,10 @@
         (mkTarget {
           job = "ip-playground";
           target = "127.0.0.1:3032";
+        })
+        (mkTarget {
+          job = "bird";
+          target = "127.0.0.1:${toString config.services.prometheus.exporters.bird.port}";
         })
         # (mkTarget {
         #   job = "unifiedmetrics";
