@@ -6,21 +6,6 @@ in
   environment.systemPackages = with pkgs; [ wireguard-tools ];
 
   services.resolved.enable = false;
-  services.dnsmasq = {
-    enable = true;
-    settings = {
-      server = [
-        "/dn42/fd42:d42:d42:54::1"
-        "/dn42/fd42:d42:d42:53::1"
-        "/d.f.ip6.arpa/fd42:d42:d42:54::1"
-        "/d.f.ip6.arpa/fd42:d42:d42:53::1"
-      ];
-      interface = [ "lo" "wg0" ];
-      bind-interfaces = true;
-      # My network is v6 only, so don't respond with v4 records
-      # "filter-A" = true;
-    };
-  };
 
   networking = {
     hostName = "artemis";

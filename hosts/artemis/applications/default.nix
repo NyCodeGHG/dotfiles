@@ -2,6 +2,7 @@
 {
   imports = [
     ./authentik.nix
+    ./coredns.nix
     ./forgejo
     ./forgejo-runner
     ./miniflux.nix
