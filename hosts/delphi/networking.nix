@@ -12,6 +12,8 @@ in
       extraInputRules = ''
         iifname wg0 ip saddr 10.69.0.0/24 tcp dport { 9100, 3031 } accept
       '';
+      allowedUDPPorts = [ port ];
+      allowedTCPPorts = [ 80 443 ];
     };
     nameservers = [
       "2606:4700:4700::1111"
