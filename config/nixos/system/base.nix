@@ -18,7 +18,7 @@
       neofetch
       pciutils
       file
-      inetutils
+      iputils
       dnsutils
       wget
       curl

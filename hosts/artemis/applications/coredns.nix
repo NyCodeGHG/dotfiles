@@ -5,7 +5,6 @@
     config = ''
       (base) {
         prometheus
-        log
         errors
       }
       (dn42) {
@@ -31,11 +30,11 @@
           except dn42 d.f.ip6.arpa
         }
 
-        forward dn42 [fd42:d42:d42:54::1]:53 [fd42:d42:d42:53::1]:53
-        forward d.f.ip6.arpa [fd42:d42:d42:54::1]:53 [fd42:d42:d42:53::1]:53
+        forward dn42 fd42:d42:d42:54::1 fd42:d42:d42:53::1
+        forward d.f.ip6.arpa fd42:d42:d42:54::1 fd42:d42:d42:53::1
         cache 30
 
-        acl dn42 {
+        acl dn42. {
           filter type A
         }
       }

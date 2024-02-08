@@ -2,14 +2,16 @@ $ORIGIN marie.dn42.
 $TTL 5m
 
 @               IN      SOA     ns1.marie.dn42. me.nycode.dev. (
-                                8       ; serial
+                                9       ; serial
                                 4h      ; refresh
                                 15m     ; retry
                                 8h      ; expire
                                 4m)     ; negative caching TTL
                 IN      NS      ns1.marie.dn42.
                 IN      AAAA    fdf1:3ba4:9723::1
+www             IN      AAAA    fdf1:3ba4:9723::1
 de-nue1         IN      AAAA    fdf1:3ba4:9723::1
 ns1             IN      AAAA    fdf1:3ba4:9723::1
 wg.de-nue1      IN      AAAA    fdf1:3ba4:9723:1000::1
 de-fra1         IN      AAAA    fdf1:3ba4:9723:2000::1
+
