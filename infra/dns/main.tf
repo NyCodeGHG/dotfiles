@@ -49,7 +49,7 @@ locals {
         "uptime-kuma",
         "prometheus",
         "am",
-        "jellyfin",
+        "syncthing.artemis.marie.cologne",
       ]
       values = [
         {
@@ -102,7 +102,8 @@ locals {
     {
       zone = data.cloudflare_zone.marie_cologne
       names = [
-        "paperless"
+        "paperless",
+        "syncthing.delphi",
       ]
       values = [
         {

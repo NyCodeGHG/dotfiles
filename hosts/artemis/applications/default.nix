@@ -12,5 +12,6 @@
     ./tika.nix
     ./nginx-meta.nix
     ./renovate
+    ./syncthing.nix
   ];
 }

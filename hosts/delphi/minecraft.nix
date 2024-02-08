@@ -37,7 +37,7 @@
   networking.firewall.allowedTCPPorts = [ 25565 ];
   systemd.tmpfiles.settings."10-minecraft"."/var/lib/minecraft/cabin".d = {
     group = "minecraft";
-    mode = "0700";
+    mode = "0775";
     user = "minecraft";
   };
   users = {
