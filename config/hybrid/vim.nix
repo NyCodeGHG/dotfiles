@@ -30,7 +30,15 @@
         foldenable = false;
       };
 
-      extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim telescope_hoogle telescope-ui-select-nvim guard-nvim neoconf-nvim vim-nftables ];
+      extraPlugins = with pkgs.vimPlugins; [
+        zen-mode-nvim 
+        telescope_hoogle 
+        telescope-ui-select-nvim 
+        guard-nvim 
+        neoconf-nvim 
+        vim-nftables 
+        vim-caddyfile
+      ];
       extraConfigLuaPre = ''
         require("neoconf").setup()
       '';
