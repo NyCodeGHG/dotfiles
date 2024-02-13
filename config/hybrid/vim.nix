@@ -30,7 +30,7 @@
         foldenable = false;
       };
 
-      extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim telescope_hoogle telescope-ui-select-nvim guard-nvim neoconf-nvim ];
+      extraPlugins = with pkgs.vimPlugins; [ zen-mode-nvim telescope_hoogle telescope-ui-select-nvim guard-nvim neoconf-nvim vim-nftables ];
       extraConfigLuaPre = ''
         require("neoconf").setup()
       '';
@@ -126,6 +126,7 @@
         # Completion
         nvim-cmp = {
           enable = true;
+          autoEnableSources = true;
           snippet.expand = "luasnip";
           mappingPresets = [ "insert" ];
           mapping = {
