@@ -35,6 +35,7 @@ in
     exec ${pkgs.zsh}/bin/zsh "$@"
   '';
   programs.home-manager.enable = true;
+  programs.zoxide.enable = true;
   home = {
     stateVersion = "23.05";
     username = "marie";
