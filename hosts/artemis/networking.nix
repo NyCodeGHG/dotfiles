@@ -36,20 +36,7 @@ in
       enable = true;
       tables.forwarding = {
         family = "inet";
-        content = ''
-          chain prerouting {
-            type filter hook prerouting priority -100;
-            ip6 daddr fd42:e99e:1f58::/48 meta nftrace set 1
-          }
-          chain forward {
-            type filter hook forward priority 0; policy drop;
-
-            iifname "dn42n*" oifname "dn42n*" accept
-            iifname wg0 accept
-            ct state { established, related } accept
-            icmpv6 type != { nd-redirect, 139 } accept
-          }
-        '';
+        content = builtins.readFile ./firewall.nft;
       };
     };
     useDHCP = false;

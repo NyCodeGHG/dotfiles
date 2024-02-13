@@ -1,0 +1,43 @@
+set dn42 {
+  type ipv6_addr
+  auto-merge
+  flags interval
+  elements = {
+    fd00::/8
+  }
+}
+
+set as4242423085 {
+  type ipv6_addr
+  auto-merge
+  flags interval
+  elements = {
+    fdf1:3ba4:9723::/48
+  }
+}
+
+counter dn42_own_as_external {
+  comment "external traffic using own source addresses"
+}
+
+counter dn42_invalid {
+  comment "invalid traffic from dn42"
+}
+
+chain filter {
+  type filter hook forward priority 0; policy drop;
+
+  ct state { established, related } accept;
+  icmpv6 type != { nd-redirect, 139 } accept;
+
+  iifname "dn42n*" jump dn42;
+
+  iifname wg0 accept;
+}
+
+chain dn42 {
+  ip6 saddr @as4242423085 counter name dn42_own_as_external reject with icmpv6 admin-prohibited;
+  ip6 saddr @dn42 ip6 daddr @dn42 counter accept;
+
+  counter name dn42_invalid reject with icmpv6 admin-prohibited;
+}
