@@ -4,7 +4,6 @@
     ./authentik.nix
     ./coredns.nix
     ./forgejo
-    ./forgejo-runner
     ./miniflux.nix
     ./matrix
     ./ip-playground.nix

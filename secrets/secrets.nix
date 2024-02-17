@@ -27,7 +27,6 @@ in
   "paperless-env.age".publicKeys = withSystems systems.delphi;
   "curseforge-api-key.age".publicKeys = withSystems systems.delphi;
   "renovate-env.age".publicKeys = withSystems systems.artemis;
-  "forgejo-runner-token.age".publicKeys = withSystems systems.artemis;
   "minio.age".publicKeys = withSystems systems.delphi;
   "turn-secret.age".publicKeys = withSystems systems.delphi;
   "turn-secret-synapse-config.age".publicKeys = withSystems systems.artemis;
