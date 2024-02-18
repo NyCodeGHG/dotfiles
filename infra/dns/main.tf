@@ -136,3 +136,10 @@ resource "cloudflare_record" "record" {
   value    = each.value.value
   type     = each.value.type
 }
+
+resource "cloudflare_record" "name" {
+  zone_id = local.cloudflare.zones.marie_cologne
+  name    = "ha"
+  value   = "192.168.1.28"
+  type    = "A"
+}
