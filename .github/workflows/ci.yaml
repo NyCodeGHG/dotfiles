@@ -18,7 +18,7 @@ jobs:
     if: needs.pre_ci.outputs.continue
     steps:
       - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@7ac1ec25491415c381d9b62f0657c7a028df52a7 # v24
+      - uses: cachix/install-nix-action@6004951b182f8860210c8d6f0d808ec5b1a33d28 # v25
       - uses: cachix/cachix-action@v13
         with:
           name: uwumarie
@@ -38,7 +38,7 @@ jobs:
     if: needs.pre_ci.outputs.continue
     steps:
       - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@7ac1ec25491415c381d9b62f0657c7a028df52a7 # v24
+      - uses: cachix/install-nix-action@6004951b182f8860210c8d6f0d808ec5b1a33d28 # v25
       - uses: cachix/cachix-action@v13
         with:
           name: uwumarie
@@ -52,7 +52,7 @@ jobs:
     if: needs.pre_ci.outputs.continue
     steps:
       - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@7ac1ec25491415c381d9b62f0657c7a028df52a7 # v24
+      - uses: cachix/install-nix-action@6004951b182f8860210c8d6f0d808ec5b1a33d28 # v25
       - name: Initialize OpenTofu
         run: nix run .#opentofu -- -chdir=infra init
         env:
