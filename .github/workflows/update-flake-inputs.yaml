@@ -11,7 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - uses: cachix/install-nix-action@6004951b182f8860210c8d6f0d808ec5b1a33d28 # v25
-      - uses: cachix/cachix-action@v13
+      - uses: cachix/cachix-action@v14
         with:
           name: uwumarie
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
