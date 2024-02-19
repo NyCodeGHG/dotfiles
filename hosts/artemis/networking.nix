@@ -93,7 +93,7 @@ in
         {
           # raspberrypi
           wireguardPeerConfig = {
-            PublicKey = "PH5w4xfPj9APxr/VzmllrWH5+4t1kfJnk+aIti9rXxo=";
+            PublicKey = "dsK1pAePkg4YvuMYBDDVqOyMIKudscMcH3nn1Dag7jQ=";
             AllowedIPs = [ "10.69.0.3/32" "192.168.1.0/24" ];
             PersistentKeepalive = 25;
           };
@@ -101,8 +101,8 @@ in
         {
           # marie pixel smartphone
           wireguardPeerConfig = {
-            PublicKey = "bbeNjsvKgB/5TCeQ8zZw2cOUuVIp0UYyeNYmfyxKLDM=";
-            AllowedIPs = [ "10.69.0.4/32" "fdf1:3ba4:9723:1000::3/128" ];
+            PublicKey = "evf0qYXAybDRj1xRnWzWFBoofc6LSBZd9NpOLoi7PwE=";
+            AllowedIPs = [ "10.69.0.9/32" "fdf1:3ba4:9723:1000::4/128" ];
             PersistentKeepalive = 25;
           };
         }
