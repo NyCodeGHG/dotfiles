@@ -93,8 +93,8 @@ in
         {
           # raspberrypi
           wireguardPeerConfig = {
-            PublicKey = "8XzwNX81oK3gXbOLcgLmYyxqZCz4K9HEfDUCbWfuegg=";
-            AllowedIPs = [ "10.69.0.3/32" ];
+            PublicKey = "PH5w4xfPj9APxr/VzmllrWH5+4t1kfJnk+aIti9rXxo=";
+            AllowedIPs = [ "10.69.0.3/32" "192.168.1.0/24" ];
             PersistentKeepalive = 25;
           };
         }
