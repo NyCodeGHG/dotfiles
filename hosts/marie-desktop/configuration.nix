@@ -6,16 +6,26 @@
     inputs.nixos-wsl.nixosModules.wsl
   ];
 
+  nixpkgs.hostPlatform = "x86_64-linux";
+  system.stateVersion = "23.11";
+
   uwumarie.profiles = {
     users.marie = true;
     nix = true;
   };
 
-  wsl.enable = true;
-  wsl.defaultUser = "marie";
+  wsl = {
+    enable = true;
+    defaultUser = "marie";
+    interop = {
+      includePath = false;
+      register = true;
+    };
+    wslConf.user.default = "marie";
+  };
 
-  nixpkgs.hostPlatform = "x86_64-linux";
-  system.stateVersion = "23.11";
+  programs.zsh.enable = true;
+  users.users.marie.shell = pkgs.zsh;
 
   home-manager.users.marie = { config, pkgs, ... }: {
     imports = [ 
