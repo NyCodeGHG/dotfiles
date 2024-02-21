@@ -15,7 +15,6 @@ in
   uwumarie.profiles = {
     editors.neovim = true;
     eza = true;
-    direnv = true;
     git = {
       enable = true;
       signingKey = "github.ed25519";
@@ -29,6 +28,7 @@ in
     zsh = true;
     tmux = true;
   };
+  programs.zsh.enable = true;
   # locale workaround
   programs.zsh.package = pkgs.writeShellScriptBin "zsh" ''
     export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
@@ -36,42 +36,6 @@ in
   '';
   programs.home-manager.enable = true;
   programs.zoxide.enable = true;
-  home = {
-    stateVersion = "23.05";
-    username = "marie";
-    homeDirectory = "/home/${config.home.username}";
-    packages = with pkgs; [
-      wslu
-      haskellPackages.hoogle
-      tea
-      pgrok
-      # language servers
-      haskell-language-server
-      gopls
-      lua-language-server
-      nil
-
-      android-tools
-      fd
-      bat
-      tokei
-      dogdns
-      units
-
-      cachix
-
-      rustup
-      cargo-binutils
-      gdb
-      qemu
-      lazygit
-
-      nixpkgs-review
-      nix-output-monitor
-    ];
-  };
-  nix.package = pkgs.nix;
-  nix.registry.nixpkgs.flake = inputs.nixpkgs;
   news.display = "silent";
   programs.zsh.sessionVariables = {
     BROWSER = "wslview";

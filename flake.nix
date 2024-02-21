@@ -1,32 +1,26 @@
 {
   inputs = {
-    # nixpkgs inputs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager-stable = {
       url = "github:nix-community/home-manager/release-23.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.darwin.follows = "";
     };
 
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ip-playground = {
       url = "git+ssh://forgejo@git.marie.cologne/marie/ip-playground.git";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -38,7 +32,12 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/nixos-23.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -55,9 +54,6 @@
   };
 
   outputs = inputs@{ flake-parts, home-manager, nixpkgs, self, ... }:
-    let
-      stableInputs = inputs // { nixpkgs = inputs.nixpkgs-stable; home-manager = inputs.home-manager-stable; };
-    in
     flake-parts.lib.mkFlake ({ inherit inputs; }) ({ withSystem, ... }: {
       imports = [
         ./pkgs/flake-module.nix
@@ -92,22 +88,17 @@
           in
           {
             inherit (pkgs) opentofu neovim-unwrapped;
-            installer-stable = installerImage stableInputs;
-            installer-unstable = installerImage inputs;
+            installer-stable = installerImage inputs;
           };
       };
 
       flake = {
         lib = {
-          nixosSystem = inputs:
-            let
-              inherit (inputs) nixpkgs;
-            in
+          nixosSystem =
             nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
               nixpkgs.lib.nixosSystem {
                 specialArgs = {
                   inherit inputs;
-                  configType = "nixos";
                 };
                 modules = baseModules ++ [
                   { nixpkgs.overlays = [ self.overlays.default ]; }
@@ -121,7 +112,6 @@
               inherit pkgs;
               extraSpecialArgs = {
                 inherit inputs;
-                configType = "home-manager";
               };
               modules = [
                 { nixpkgs.overlays = [ self.overlays.default ]; }
@@ -136,46 +126,25 @@
               vimPlugins = prev.vimPlugins.extend (_: _: {
                 inherit (self.packages.${system}) guard-nvim;
               });
-              unstable = inputs.nixpkgs.legacyPackages.${system};
-              neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (_: rec {
-                version = "unstable-2024-11-01";
-                src = prev.fetchFromGitHub {
-                  owner = "neovim";
-                  repo = "neovim";
-                  rev = "a767c046f4e6bff1412269d56a8edfe33857d954";
-                  hash = "sha256-i5jy4GWnNm20d5LbHQ7ja5x8Lba0EpanfAiYx2OGf3w=";
-                };
-              });
             }
           ))
         );
 
-        nixosModules = {
-          config = import ./config/nixos;
-          hybrid = import ./config/hybrid;
-        };
+        nixosModules.config = import ./config/nixos;
+        homeManagerModules.config = import ./config/home-manager;
 
         nixosConfigurations = {
-          artemis = self.lib.nixosSystem stableInputs {
+          artemis = self.lib.nixosSystem {
             modules = [ ./hosts/artemis/configuration.nix ];
           };
-          delphi = self.lib.nixosSystem stableInputs {
+          delphi = self.lib.nixosSystem {
             modules = [ ./hosts/delphi/configuration.nix ];
           };
-          minimal = self.lib.nixosSystem stableInputs {
+          minimal = self.lib.nixosSystem {
             modules = [ ./hosts/artemis/configuration.nix ];
           };
-        };
-
-        homeManagerModules = {
-          config = import ./config/home-manager;
-          hybrid = import ./config/hybrid;
-        };
-
-        homeConfigurations = {
-          wsl = self.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [ ./hosts/wsl/home.nix ];
+          marie-desktop = self.lib.nixosSystem {
+            modules = [ ./hosts/marie-desktop/configuration.nix ];
           };
         };
       };
