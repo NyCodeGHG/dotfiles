@@ -13,6 +13,7 @@
     users.marie = true;
     nix = true;
   };
+  programs.direnv.enable = true;
 
   wsl = {
     enable = true;
