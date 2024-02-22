@@ -12,6 +12,9 @@ let
     '';
 in
 {
+  imports = [
+    ./ssh-forward.nix
+  ];
   uwumarie.profiles = {
     editors.neovim = true;
     eza = true;

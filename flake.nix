@@ -77,6 +77,7 @@
             nixos-rebuild
             inputs.agenix.packages.${system}.default
             self'.packages.deploy
+            colmena
           ];
           PRIVATE_KEY = "/home/marie/.ssh/default.ed25519";
         };
@@ -145,6 +146,13 @@
           };
           marie-desktop = self.lib.nixosSystem {
             modules = [ ./hosts/marie-desktop/configuration.nix ];
+          };
+        };
+
+        colmena = {
+          artemis = { name, nodes, pkgs, ... }: {
+            meta = { inherit nixpkgs; };
+            deployment.buildOnTarget = true;
           };
         };
       };

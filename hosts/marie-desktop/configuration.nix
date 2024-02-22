@@ -35,7 +35,7 @@
   home-manager.users.marie = { config, pkgs, ... }: {
     imports = [ 
      inputs.self.homeManagerModules.config
-     ./home.nix
+     ./home
     ];
     home = {
       stateVersion = "23.11";

@@ -51,5 +51,5 @@ lib.mkIf config.uwumarie.profiles.ssh {
       };
     };
   };
-  services.ssh-agent.enable = true;
+  services.ssh-agent.enable = lib.mkDefault true;
 }
