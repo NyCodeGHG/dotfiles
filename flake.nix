@@ -154,13 +154,23 @@
           meta = {
             nixpkgs = import nixpkgs { system = "x86_64-linux"; };
             specialArgs = { inherit inputs; };
+            nodeNixpkgs.delphi = import nixpkgs { system = "aarch64-linux"; };
           };
           artemis = { name, nodes, pkgs, ... }: {
             imports = [
               ./hosts/artemis/configuration.nix
               self.nixosModules.config
             ];
-            # deployment.buildOnTarget = true;
+            deployment.buildOnTarget = true;
+            deployment.targetUser = null;
+            nixpkgs.overlays = [ self.overlays.default ];
+          };
+          delphi = {
+            imports = [
+              ./hosts/delphi/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.buildOnTarget = true;
             deployment.targetUser = null;
             nixpkgs.overlays = [ self.overlays.default ];
           };
