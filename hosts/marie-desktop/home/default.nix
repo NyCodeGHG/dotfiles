@@ -39,6 +39,7 @@ in
   programs.zsh.sessionVariables = {
     BROWSER = "wslview";
     SSHX_SERVER = "https://sshx.marie.cologne";
+    PAGER = "${pkgs.less}/bin/less -FRX";
   };
   xdg.configFile."nix-diff-hook".source = diffoscopeWrapper;
 }
