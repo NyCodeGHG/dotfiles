@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 {
   services.forgejo = {
     enable = true;
@@ -37,7 +37,7 @@
         REGISTER_EMAIL_CONFIRM = false;
       };
     };
-    package = pkgs.unstable.forgejo;
+    package = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.forgejo;
   };
 
   services.nginx.virtualHosts."git.marie.cologne" = {

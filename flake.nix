@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
@@ -150,9 +151,18 @@
         };
 
         colmena = {
+          meta = {
+            nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+            specialArgs = { inherit inputs; };
+          };
           artemis = { name, nodes, pkgs, ... }: {
-            meta = { inherit nixpkgs; };
-            deployment.buildOnTarget = true;
+            imports = [
+              ./hosts/artemis/configuration.nix
+              self.nixosModules.config
+            ];
+            # deployment.buildOnTarget = true;
+            deployment.targetUser = null;
+            nixpkgs.overlays = [ self.overlays.default ];
           };
         };
       };
