@@ -27,13 +27,18 @@ in
   systemd.network = {
     enable = true;
     networks = {
-      "10-enp0s6" = {
-        name = "enp0s6";
-        DHCP = "yes";
+      "10-ethernet" = {
+        matchConfig.Type = [ "ether" ];
+        networkConfig = {
+          DHCP = "ipv4";
+          IPv6AcceptRA = true;
+          KeepConfiguration = "yes";
+        };
       };
       "50-wg0" = {
         name = "wg0";
         address = [ "10.69.0.7/24" "fdf1:3ba4:9723:2000::1/64" ];
+        networkConfig.KeepConfiguration = "yes";
       };
     };
     netdevs."50-wg0" = {
