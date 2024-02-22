@@ -30,10 +30,6 @@ in
   };
   programs.zsh.enable = true;
   # locale workaround
-  programs.zsh.package = pkgs.writeShellScriptBin "zsh" ''
-    export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
-    exec ${pkgs.zsh}/bin/zsh "$@"
-  '';
   programs.home-manager.enable = true;
   programs.zoxide.enable = true;
   news.display = "silent";

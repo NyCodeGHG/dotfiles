@@ -25,7 +25,12 @@
   };
 
   programs.zsh.enable = true;
-  users.users.marie.shell = pkgs.zsh;
+  users.users.marie.shell = let
+    wrapper = pkgs.writeShellScriptBin "shell-wrapper" ''
+      export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
+      exec ${pkgs.zsh}/bin/zsh "$@"
+    '';
+  in lib.mkForce "${wrapper}/bin/shell-wrapper";
 
   home-manager.users.marie = { config, pkgs, ... }: {
     imports = [ 
