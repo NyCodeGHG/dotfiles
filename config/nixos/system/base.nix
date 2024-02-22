@@ -4,15 +4,6 @@
     default = true;
   };
   config = lib.mkIf config.uwumarie.profiles.base {
-    home-manager = {
-      useUserPackages = true;
-      useGlobalPkgs = true;
-      sharedModules = [
-        {
-          home.stateVersion = lib.mkDefault config.system.stateVersion;
-        }
-      ];
-    };
     environment.systemPackages = with pkgs; [
       htop
       neofetch
