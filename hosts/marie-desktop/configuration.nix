@@ -25,13 +25,18 @@
     wslConf.user.default = "marie";
   };
 
+  networking.hostName = "marie-desktop";
+
   programs.zsh.enable = true;
-  users.users.marie.shell = let
-    wrapper = pkgs.writeShellScriptBin "shell-wrapper" ''
-      export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
-      exec ${pkgs.zsh}/bin/zsh "$@"
-    '';
-  in lib.mkForce "${wrapper}/bin/shell-wrapper";
+  users.users.marie = {
+    shell = let
+        wrapper = pkgs.writeShellScriptBin "shell-wrapper" ''
+          export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
+          exec ${pkgs.zsh}/bin/zsh "$@"
+        '';
+      in lib.mkForce "${wrapper}/bin/shell-wrapper";
+    extraGroups = [ "kvm" ];
+  };
 
   home-manager.users.marie = { config, pkgs, ... }: {
     imports = [ 
