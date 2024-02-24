@@ -3,7 +3,6 @@
   imports = [
     inputs.unlock-ssh-keys.homeManagerModules.default
     inputs.agenix.homeManagerModules.default
-    inputs.nixvim.homeManagerModules.nixvim
   ] ++ import ./module-list.nix;
 
   options.uwumarie.profiles = {

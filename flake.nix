@@ -33,8 +33,9 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-23.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nix-darwin.follows = "";
     };
 
     nixos-wsl = {
@@ -89,8 +90,11 @@
               (inputs.nixpkgs.lib.nixosSystem { modules = [ ./hosts/installer/configuration.nix currentHostPlatform ]; }).config.system.build.isoImage;
           in
           {
-            inherit (pkgs) opentofu neovim-unwrapped;
+            inherit (pkgs) opentofu;
             installer-stable = installerImage inputs;
+            nixvim = inputs'.nixvim.legacyPackages.makeNixvimWithModule {
+              module = import ./config/nixvim;
+            };
           };
       };
 

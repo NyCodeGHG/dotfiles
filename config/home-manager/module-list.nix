@@ -8,5 +8,4 @@
   ./programs/unlock-ssh-keys.nix
   ./programs/zsh.nix
   ./programs/tmux.nix
-  ./programs/vim.nix
 ]

@@ -79,5 +79,10 @@
 
     nixpkgs-review
     nix-output-monitor
+
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim
   ];
+  environment.shellAliases = {
+    "vim" = "nvim";
+  };
 }

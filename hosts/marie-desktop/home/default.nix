@@ -16,7 +16,6 @@ in
     ./ssh-forward.nix
   ];
   uwumarie.profiles = {
-    editors.neovim = true;
     eza = true;
     git = {
       enable = true;
