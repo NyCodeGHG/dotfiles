@@ -56,6 +56,7 @@ in
         }
       ]);
       lfs.enable = true;
+      ignores = [ "*~" "*.swp" "*.qcow2" ];
     };
     programs.gh.enable = cfg.enableGitHubCLI;
     age.secrets.git-email = mkIf cfg.enableGitEmail {
