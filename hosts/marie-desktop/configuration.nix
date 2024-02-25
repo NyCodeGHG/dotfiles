@@ -87,6 +87,7 @@
     nix-output-monitor
 
     inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim
+    restic
   ];
   environment.shellAliases = {
     "vim" = "nvim";
