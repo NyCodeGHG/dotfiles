@@ -72,6 +72,7 @@
     tokei
     dogdns
     units
+    squashfs-tools-ng
 
     cachix
 
