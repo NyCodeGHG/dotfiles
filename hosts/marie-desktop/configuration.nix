@@ -88,8 +88,10 @@
 
     inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim
     restic
+    wl-clipboard
   ];
   environment.shellAliases = {
     "vim" = "nvim";
   };
+  virtualisation.podman.enable = true;
 }
