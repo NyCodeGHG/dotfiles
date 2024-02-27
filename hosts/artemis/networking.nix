@@ -68,7 +68,10 @@ in
           { routeConfig.Gateway = "89.58.8.1"; }
           { routeConfig.Gateway = "fe80::1"; }
         ];
-        networkConfig.KeepConfiguration = "yes";
+        networkConfig = {
+          KeepConfiguration = "yes";
+          IPv6AcceptRA = false;
+        };
       };
       "50-wg0" = {
         name = "wg0";

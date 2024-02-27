@@ -77,6 +77,7 @@
     cachix
 
     rustup
+    gcc
     cargo-binutils
     gdb
     qemu

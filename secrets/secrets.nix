@@ -35,5 +35,4 @@ in
 
   "../hosts/artemis/dn42/peers/emma/wg-private.age".publicKeys = withSystems systems.artemis;
   "../hosts/artemis/dn42/peers/kioubit/wg-private.age".publicKeys = withSystems systems.artemis;
-  "../hosts/artemis/dn42/peers/maraun/wg-private.age".publicKeys = withSystems systems.artemis;
 }
