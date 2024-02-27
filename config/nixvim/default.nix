@@ -121,6 +121,7 @@
           gopls.enable = true;
           lua-ls.enable = true;
           pylsp.enable = true;
+          gopls.enable = true;
         };
       };
       fidget.enable = true;
