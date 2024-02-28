@@ -14,6 +14,7 @@
       wget
       curl
       vim
+      tcpdump
     ];
     programs.nano.enable = false;
   };
