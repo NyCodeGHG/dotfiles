@@ -46,14 +46,15 @@ in
     path = with pkgs; [ sudo restic config.services.postgresql.package ];
     script = ''
       set -euo pipefail
-
+      
+      sudo -u postgres pg_dumpall | \
       restic backup \
         --retry-lock 30m \
         --tag postgres \
-        --stdin-from-command 'sudo -u postgres pg_dumpall' \
+        --stdin \
         --stdin-filename 'all_databases.psql'
 
-      ${pkgs.restic}/bin/restic forget \
+      restic forget \
         --retry-lock 30m \
         --tag postgres \
         --host ${config.networking.hostName} \
@@ -72,7 +73,7 @@ in
       RESTIC_PASSWORD_FILE = config.age.secrets.restic-repo.path;
       XDG_CACHE_DIR = "/var/cache/";
     };
-    path = with pkgs; [ sudo coreutils config.services.forgejo.package ];
+    path = with pkgs; [ sudo coreutils config.services.forgejo.package restic ];
     script = ''
       set -euo pipefail
       HOME="${config.services.forgejo.stateDir}" sudo -Eu forgejo gitea dump --type tar -f - | \
