@@ -50,6 +50,7 @@ locals {
         "prometheus",
         "am",
         "syncthing.artemis.marie.cologne",
+        "paperless",
       ]
       values = [
         {
@@ -102,7 +103,6 @@ locals {
     {
       zone = data.cloudflare_zone.marie_cologne
       names = [
-        "paperless",
         "syncthing.delphi",
       ]
       values = [

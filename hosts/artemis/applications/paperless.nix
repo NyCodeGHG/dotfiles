@@ -11,12 +11,25 @@ in
       PAPERLESS_TRUSTED_PROXIES = "127.0.0.1";
       PAPERLESS_OCR_LANGUAGE = "deu+eng";
       PAPERLESS_TIKA_ENABLED = true;
-      PAPERLESS_TIKA_ENDPOINT = "http://10.69.0.1:${tikaPort}";
+      PAPERLESS_TIKA_ENDPOINT = "http://127.0.0.1:${tikaPort}";
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT = "http://127.0.0.1:${gotenbergPort}";
       PAPERLESS_ENABLE_COMPRESSION = false;
       PAPERLESS_USE_X_FORWARD_HOST = true;
       PAPERLESS_USE_X_FORWARD_PORT = true;
+      PAPERLESS_DBHOST = "/run/postgresql";
     };
+  };
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [
+      "paperless"
+    ];
+    ensureUsers = [
+      {
+        name = "paperless";
+        ensureDBOwnership = true;
+      }
+    ];
   };
   systemd.services =
     let
@@ -49,5 +62,12 @@ in
         deny all;
       '';
     };
+  };
+
+  virtualisation.oci-containers.containers.tika = {
+    image = "docker.io/apache/tika:2.9.1.0";
+    ports = [
+      "127.0.0.1:${toString tikaPort}:9998"
+    ];
   };
 }

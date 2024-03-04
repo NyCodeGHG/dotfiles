@@ -8,9 +8,9 @@
     ./matrix
     ./ip-playground.nix
     ./pgrok.nix
-    ./tika.nix
     ./nginx-meta.nix
     ./renovate
     ./syncthing.nix
+    ./paperless.nix
   ];
 }
