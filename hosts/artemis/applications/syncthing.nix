@@ -17,6 +17,15 @@
           path = "/var/lib/syncthing/sharex-screenshots";
           devices = [ "marie-desktop" ];
         };
+        "transport-fever-2-saves" = {
+          path = "/var/lib/syncthing/transport-fever-2-saves";
+          label = "Transport Fever 2 Saves";
+          id = "jpfpm-rrary";
+          versioning = {
+            type = "simple";
+            params.keep = "10";
+          };
+        };
       };
     };
   };
