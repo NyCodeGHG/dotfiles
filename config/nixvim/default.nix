@@ -106,10 +106,10 @@
           };
         };
         servers = {
-          hls = {
-            enable = true;
-            rootDir = ''require("lspconfig/util").root_pattern(".git")'';
-          };
+          # hls = {
+          #   enable = true;
+          #   rootDir = ''require("lspconfig/util").root_pattern(".git")'';
+          # };
           rust-analyzer = {
             enable = true;
             installRustc = false;
@@ -127,43 +127,45 @@
       fidget.enable = true;
 
       # Completion
-      nvim-cmp = {
+      cmp = {
         enable = true;
-        autoEnableSources = true;
-        snippet.expand = "luasnip";
-        mappingPresets = [ "insert" ];
-        mapping = {
-          "<CR>" = "cmp.mapping.confirm({ select = true })";
-          "<Tab>" = {
-            action = ''
-            function(fallback)
-            if cmp.visible() then
-            cmp.select_next_item()
-            elseif require("luasnip").expand_or_jumpable() then
-            require("luasnip").expand_or_jump()
-            else
-            fallback()
-            end
-            end
-            '';
-            modes = [
-              "i"
-              "s"
-            ];
+        settings = {
+          autoEnableSources = true;
+          snippet.expand = "luasnip";
+          mappingPresets = [ "insert" ];
+          mappings = {
+            "<CR>" = "cmp.mapping.confirm({ select = true })";
+            "<Tab>" = {
+              action = ''
+              function(fallback)
+              if cmp.visible() then
+              cmp.select_next_item()
+              elseif require("luasnip").expand_or_jumpable() then
+              require("luasnip").expand_or_jump()
+              else
+              fallback()
+              end
+              end
+              '';
+              modes = [
+                "i"
+                "s"
+              ];
+            };
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<C-e>" = "cmp.mapping.abort()";
           };
-          "<C-Space>" = "cmp.mapping.complete()";
-          "<C-e>" = "cmp.mapping.abort()";
+          preselect = "Item";
+          sources = [
+            { name = "nvim_lsp"; }
+            { name = "luasnip"; }
+            { name = "path"; }
+            { name = "buffer"; }
+            { name = "crates"; }
+            { name = "emoji"; }
+          ];
+          extraOptions.autocomplete = false;
         };
-        preselect = "Item";
-        sources = [
-          { name = "nvim_lsp"; }
-          { name = "luasnip"; }
-          { name = "path"; }
-          { name = "buffer"; }
-          { name = "crates"; }
-          { name = "emoji"; }
-        ];
-        extraOptions.autocomplete = false;
       };
       luasnip.enable = true;
       lspsaga.enable = true;

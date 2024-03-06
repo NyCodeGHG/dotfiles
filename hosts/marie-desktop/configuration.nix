@@ -57,11 +57,11 @@
 
   environment.systemPackages = with pkgs; [
     wslu
-    haskellPackages.hoogle
+    # haskellPackages.hoogle
     tea
     pgrok
     # language servers
-    haskell-language-server
+    # haskell-language-server
     gopls
     lua-language-server
     nil
@@ -74,7 +74,7 @@
     units
     squashfs-tools-ng
 
-    cachix
+    # cachix
 
     rustup
     gcc
