@@ -58,13 +58,9 @@
   environment.systemPackages = with pkgs; [
     wslu
     # haskellPackages.hoogle
-    tea
     pgrok
     # language servers
     # haskell-language-server
-    gopls
-    lua-language-server
-    nil
 
     android-tools
     fd
@@ -72,7 +68,6 @@
     tokei
     dogdns
     units
-    squashfs-tools-ng
 
     # cachix
 
