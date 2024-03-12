@@ -68,6 +68,7 @@
     tokei
     dogdns
     units
+    whois
 
     # cachix
 
