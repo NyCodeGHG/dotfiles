@@ -123,6 +123,8 @@
           lua-ls.enable = true;
           pylsp.enable = true;
           svelte.enable = true;
+          # nixd.enable = true;
+          nil_ls.enable = true;
         };
       };
       fidget.enable = true;
