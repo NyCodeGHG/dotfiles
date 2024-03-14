@@ -14,11 +14,6 @@
       inputs.darwin.follows = "";
     };
 
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     ip-playground = {
       url = "git+ssh://forgejo@git.marie.cologne/marie/ip-playground.git";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -145,9 +140,6 @@
           };
           delphi = self.lib.nixosSystem {
             modules = [ ./hosts/delphi/configuration.nix ];
-          };
-          minimal = self.lib.nixosSystem {
-            modules = [ ./hosts/artemis/configuration.nix ];
           };
           marie-desktop = self.lib.nixosSystem {
             modules = [ ./hosts/marie-desktop/configuration.nix ];
