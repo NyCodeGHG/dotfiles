@@ -4,7 +4,6 @@ lib.mkIf config.uwumarie.profiles.jujutsu
   programs.jujutsu = {
     enable = true;
     enableZshIntegration = true;
-    package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.system}.jujutsu;
     settings = {
       user = {
         name = "Marie Ramlow";

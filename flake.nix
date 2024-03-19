@@ -37,6 +37,11 @@
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    jujutsu = {
+      url = "github:martinvonz/jj";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -123,10 +128,11 @@
 
         overlays.default = (
           (final: prev: withSystem prev.stdenv.hostPlatform.system (
-            { config, self', system, pkgs, ... }: {
+            { config, self', system, pkgs, inputs', ... }: {
               vimPlugins = prev.vimPlugins.extend (_: _: {
                 inherit (self.packages.${system}) guard-nvim;
               });
+              jujutsu = inputs'.jujutsu.packages.default;
             }
           ))
         );
