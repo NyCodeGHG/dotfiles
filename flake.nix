@@ -95,6 +95,12 @@
             nixvim = inputs'.nixvim.legacyPackages.makeNixvimWithModule {
               module = import ./config/nixvim;
             };
+            gitlabber-forgejo-runner-nspawn-tarball = (self.nixosConfigurations.gitlabber-forgejo-runner.extendModules {
+              modules = [ 
+                self.nixosModules.nspawnTarball
+                currentHostPlatform
+              ];
+            }).config.system.build.tarball;
           };
       };
 
@@ -149,6 +155,9 @@
           };
           marie-desktop = self.lib.nixosSystem {
             modules = [ ./hosts/marie-desktop/configuration.nix ];
+          };
+          gitlabber-forgejo-runner = self.lib.nixosSystem {
+            modules = [ ./hosts/gitlabber-forgejo-runner/configuration.nix ];
           };
         };
 

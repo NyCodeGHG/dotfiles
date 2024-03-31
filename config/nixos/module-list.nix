@@ -6,6 +6,7 @@
   ./system/base.nix
   ./system/acme.nix
   ./system/locale.nix
+  ./system/nspawn.nix
   ./users/marie.nix
   ./system/upgrade-diff.nix
 ]
