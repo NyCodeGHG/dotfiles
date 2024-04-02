@@ -12,6 +12,7 @@ let
     wget
     podman
     skopeo
+    buildah
   ];
 in
   
