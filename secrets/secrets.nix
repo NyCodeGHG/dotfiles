@@ -7,6 +7,7 @@ let
     artemis = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8 root@artemis";
     delphi = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3 root@delphi";
     wsl = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpKCSJGPFfckgr1/X1Rv7jeOe9E8tYmP1iqogzSXF+u";
+    gitlabber-forgejo-runner = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjK8vroivAknMuysTnxOl73Ase01Nl3Wa1XEKqf37q0 root@gitlabber-forgejo-runner";
   };
   allUsers = builtins.attrValues users;
   allSystems = builtins.attrValues systems;
@@ -35,4 +36,6 @@ in
 
   "../hosts/artemis/dn42/peers/emma/wg-private.age".publicKeys = withSystems systems.artemis;
   "../hosts/artemis/dn42/peers/kioubit/wg-private.age".publicKeys = withSystems systems.artemis;
+
+  "../hosts/gitlabber-forgejo-runner/secrets/forgejo-runner-1.age".publicKeys = withSystems systems.gitlabber-forgejo-runner;
 }

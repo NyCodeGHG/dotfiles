@@ -15,6 +15,7 @@
       curl
       vim
       tcpdump
+      git
     ];
     programs.nano.enable = false;
   };
