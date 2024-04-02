@@ -164,6 +164,7 @@ in
           ];
           volumes = mkIf mountPostgres [
             "/run/postgresql:/run/postgresql:ro"
+            "/var/lib/authentik/media:/media"
           ];
           user = "${builtins.toString cfg.id}:${builtins.toString cfg.id}";
         };
@@ -233,11 +234,17 @@ in
             isSystemUser = true;
             group = "authentik";
             uid = cfg.id;
+            home = "/var/lib/authentik";
+            createHome = true;
           };
           groups.authentik = {
             gid = cfg.id;
           };
         };
+
+        systemd.tmpfiles.rules = [
+          "d /var/lib/authentik/media 0740 authentik authentik -"
+        ];
 
         services.nginx = mkIf cfg.nginx.enable {
           enable = true;
