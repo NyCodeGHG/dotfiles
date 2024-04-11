@@ -96,4 +96,18 @@
     "vim" = "nvim";
   };
   virtualisation.podman.enable = true;
+  services.postgresql = {
+
+    enable = true;
+    ensureUsers = [
+      {
+        name = "marie";
+        ensureClauses = {
+          superuser = true;
+          login = true;
+        };
+      }
+    ];
+  };
+  systemd.services.postgresql.wantedBy = lib.mkForce [];
 }
