@@ -72,6 +72,7 @@
 
     # cachix
 
+    python3
     rustup
     gcc
     cargo-binutils
