@@ -111,6 +111,7 @@
           #   enable = true;
           #   rootDir = ''require("lspconfig/util").root_pattern(".git")'';
           # };
+          vuels.enable = true;
           rust-analyzer = {
             enable = true;
             installRustc = false;
