@@ -100,6 +100,7 @@ in
     };
     ip-playground = {
       description = "IP Playground";
+      requires = [ "network.target" "download-iptoasn-db.service" ];
       after = [ "network.target" "download-iptoasn-db.service" ];
       wantedBy = [ "multi-user.target" ];
       environment = {
