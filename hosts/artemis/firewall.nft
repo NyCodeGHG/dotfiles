@@ -7,6 +7,15 @@ set dn42 {
   }
 }
 
+set dn42v4 {
+  type ipv4_addr
+  auto-merge
+  flags interval
+  elements = {
+    172.20.0.0/14
+  }
+}
+
 set as4242423085 {
   type ipv6_addr
   auto-merge
@@ -26,6 +35,9 @@ counter dn42_invalid {
 
 chain filter {
   type filter hook forward priority 0; policy drop;
+
+  # reject dn42 ipv4, as my network is v6 only.
+  ip daddr @dn42v4 reject;
 
   ct state { established, related } accept;
   icmpv6 type != { nd-redirect, 139 } accept;
