@@ -23,6 +23,7 @@
       register = true;
     };
     wslConf.user.default = "marie";
+    usbip.enable = true;
   };
 
   networking.hostName = "marie-desktop";
