@@ -93,6 +93,7 @@
     inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim
     restic
     wl-clipboard
+    kondo
   ];
   environment.shellAliases = {
     "vim" = "nvim";
