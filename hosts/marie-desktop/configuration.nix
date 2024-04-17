@@ -94,6 +94,8 @@
     restic
     wl-clipboard
     kondo
+    man-pages man-pages-posix
+    p7zip
   ];
   environment.shellAliases = {
     "vim" = "nvim";
