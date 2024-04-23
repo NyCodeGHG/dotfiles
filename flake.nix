@@ -37,11 +37,6 @@
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    jujutsu = {
-      url = "github:martinvonz/jj";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   nixConfig = {
@@ -78,7 +73,6 @@
             nurl
             nixos-rebuild
             inputs.agenix.packages.${system}.default
-            self'.packages.deploy
             colmena
           ];
           PRIVATE_KEY = "/home/marie/.ssh/default.ed25519";
@@ -138,7 +132,7 @@
               vimPlugins = prev.vimPlugins.extend (_: _: {
                 inherit (self.packages.${system}) guard-nvim;
               });
-              jujutsu = inputs'.jujutsu.packages.default;
+              inherit (inputs'.nixpkgs-unstable.legacyPackages) jujutsu;
             }
           ))
         );

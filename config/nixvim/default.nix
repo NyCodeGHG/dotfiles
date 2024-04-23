@@ -45,15 +45,15 @@
         keymaps = {
           "<leader><space>" = {
             action = "find_files";
-            desc = "Find files";
+            options.desc = "Find files";
           };
           "<leader>ff" = {
             action = "find_files";
-            desc = "Find files";
+            options.desc = "Find files";
           };
           "<leader>/" = {
             action = "live_grep";
-            desc = "Live grep";
+            options.desc = "Live grep";
           };
         };
         extensions.fzf-native.enable = true;
