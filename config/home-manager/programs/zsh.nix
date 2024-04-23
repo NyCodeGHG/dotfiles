@@ -34,11 +34,11 @@ lib.mkIf config.uwumarie.profiles.zsh {
       bindkey "\e[3;6~" kill-line
     '';
     plugins = [
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
-      }
+      # {
+      #   name = "zsh-nix-shell";
+      #   file = "nix-shell.plugin.zsh";
+      #   src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
+      # }
     ];
   };
 }
