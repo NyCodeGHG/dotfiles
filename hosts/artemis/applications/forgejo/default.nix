@@ -1,5 +1,8 @@
-{ config, inputs, pkgs, ... }:
+{ config, pkgs, ... }:
 {
+  nixpkgs.overlays = [(final: prev: {
+    forgejo = final.callPackage ./package.nix { };
+  })];
   services.forgejo = {
     enable = true;
     user = "forgejo";
@@ -37,7 +40,6 @@
         REGISTER_EMAIL_CONFIRM = false;
       };
     };
-    package = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.forgejo;
   };
 
   services.nginx.virtualHosts."git.marie.cologne" = {
