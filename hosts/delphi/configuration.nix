@@ -6,7 +6,7 @@
     ./networking.nix
     ./monitoring
     ./applications
-    ./minecraft.nix
+    # ./minecraft.nix
     ./hardware.nix
   ];
   uwumarie.profiles = {
