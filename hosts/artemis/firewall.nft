@@ -45,6 +45,9 @@ chain filter {
   iifname "dn42n*" jump dn42;
 
   iifname wg0 accept;
+
+  iifname wg1 oifname ens3 accept;
+  oifname wg1 iifname ens3 accept;
 }
 
 chain dn42 {

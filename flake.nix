@@ -89,6 +89,12 @@
             nixvim = inputs'.nixvim.legacyPackages.makeNixvimWithModule {
               module = import ./config/nixvim;
             };
+            gitlabber-tarball = (self.nixosConfigurations.gitlabber.extendModules {
+              modules = [ 
+                self.nixosModules.nspawnTarball
+                currentHostPlatform
+              ];
+            }).config.system.build.tarball;
           };
       };
 
@@ -143,6 +149,9 @@
           };
           marie-desktop = self.lib.nixosSystem {
             modules = [ ./hosts/marie-desktop/configuration.nix ];
+          };
+          gitlabber = self.lib.nixosSystem {
+            modules = [ ./hosts/gitlabber/configuration.nix ];
           };
         };
 
