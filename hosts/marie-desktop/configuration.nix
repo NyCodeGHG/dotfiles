@@ -9,6 +9,8 @@
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "23.11";
 
+  security.polkit.enable = true;
+
   uwumarie.profiles = {
     users.marie = true;
     nix = true;
@@ -30,12 +32,13 @@
 
   programs.zsh.enable = true;
   users.users.marie = {
-    shell = let
-        wrapper = pkgs.writeShellScriptBin "shell-wrapper" ''
-          export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
-          exec ${pkgs.zsh}/bin/zsh "$@"
-        '';
-      in lib.mkForce "${wrapper}/bin/shell-wrapper";
+    shell = pkgs.zsh;
+    # shell = let
+    #     wrapper = pkgs.writeShellScriptBin "shell-wrapper" ''
+    #       export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
+    #       exec ${pkgs.zsh}/bin/zsh "$@"
+    #     '';
+    #   in lib.mkForce "${wrapper}/bin/shell-wrapper";
     extraGroups = [ "kvm" ];
   };
 
@@ -96,6 +99,8 @@
     kondo
     man-pages man-pages-posix
     p7zip
+    jq
+    yq
   ];
   environment.shellAliases = {
     "vim" = "nvim";
@@ -115,11 +120,4 @@
     ];
   };
   systemd.services.postgresql.wantedBy = lib.mkForce [];
-
-  services.kanidm = {
-    enableClient = true;
-    clientSettings = {
-      uri = "https://idm.marie.cologne";
-    };
-  };
 }
