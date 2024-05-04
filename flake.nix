@@ -166,7 +166,7 @@
               ./hosts/artemis/configuration.nix
               self.nixosModules.config
             ];
-            deployment.buildOnTarget = true;
+            deployment.buildOnTarget = false;
             deployment.targetUser = null;
             nixpkgs.overlays = [ self.overlays.default ];
           };
