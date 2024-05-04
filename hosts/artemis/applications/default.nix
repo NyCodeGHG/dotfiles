@@ -12,6 +12,5 @@
     ./renovate
     ./syncthing.nix
     ./paperless.nix
-    ./kanidm
   ];
 }
