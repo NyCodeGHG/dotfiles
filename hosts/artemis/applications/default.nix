@@ -12,5 +12,6 @@
     ./renovate
     ./syncthing.nix
     ./paperless.nix
+    ./hydra
   ];
 }
