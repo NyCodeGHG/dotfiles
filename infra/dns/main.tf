@@ -31,6 +31,7 @@ locals {
         "ip",
         "tunnel",
         "*.tunnel",
+        "idm",
       ]
       values = [
         {

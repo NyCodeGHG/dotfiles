@@ -115,4 +115,11 @@
     ];
   };
   systemd.services.postgresql.wantedBy = lib.mkForce [];
+
+  services.kanidm = {
+    enableClient = true;
+    clientSettings = {
+      uri = "https://idm.marie.cologne";
+    };
+  };
 }
