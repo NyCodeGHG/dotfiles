@@ -127,6 +127,7 @@
           svelte.enable = true;
           # nixd.enable = true;
           nil_ls.enable = true;
+          gleam.enable = true;
         };
       };
       fidget.enable = true;
