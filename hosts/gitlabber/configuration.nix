@@ -9,6 +9,10 @@
     nspawn = true;
     openssh = true;
   };
+  users.users.marie.openssh.authorizedKeys.keys = [
+    # framework
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILCcImzZop8RaAlrAy9HBy6LZz3iOaq9V5tThwIB8Ar4"
+  ];
 
   environment.systemPackages = with pkgs; [ wireguard-tools ];
 
