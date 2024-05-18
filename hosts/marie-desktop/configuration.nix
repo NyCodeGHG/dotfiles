@@ -103,6 +103,8 @@
     p7zip
     jq
     yq
+    wgsl-analyzer
+    qpm-cli
   ];
   environment.shellAliases = {
     "vim" = "nvim";
