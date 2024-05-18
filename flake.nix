@@ -133,6 +133,7 @@
                 inherit (self.packages.${system}) guard-nvim;
               });
               inherit (inputs'.nixpkgs-unstable.legacyPackages) jujutsu;
+              wgsl-analyzer = pkgs.callPackage ./pkgs/wgsl-analyzer/package.nix { };
             }
           ))
         );
