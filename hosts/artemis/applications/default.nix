@@ -13,5 +13,6 @@
     ./syncthing.nix
     ./paperless.nix
     ./hydra
+    ./iperf3.nix
   ];
 }
