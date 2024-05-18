@@ -1,7 +1,7 @@
 { config, inputs, ... }:
 {
   virtualisation.oci-containers.containers.minecraft = {
-    image = "docker.io/itzg/minecraft-server:java17";
+    image = "docker.io/itzg/minecraft-server:java8";
     environment = {
       EULA = "true";
       INIT_MEMORY = "4G";
@@ -11,23 +11,17 @@
       ENABLE_WHITELIST = "true";
       OPS = "ec6a3dab-6b35-4596-9d7f-f9bdd773874f";
       USE_NATIVE_TRANSPORT = "true";
-      SIMULATION_DISTANCE = "16";
       VIEW_DISTANCE = "20";
-      USE_SIMD_FLAGS = "true";
       TYPE = "AUTO_CURSEFORGE";
       CF_BASE_DIR = "/data";
-      CF_PAGE_URL = "https://www.curseforge.com/minecraft/modpacks/cabin/files/5054719";
-      CF_EXCLUDE_MODS = "legendary-tooltips";
-      # CF_SERVER_MOD = "/modpacks/MechanicalMastery-Server-r1.5.0.zip";
-      # SERVER_IP = "::";
-      # JVM_OPTS = "-Djava.net.preferIPv6Addresses=true";
+      CF_PAGE_URL = "https://www.curseforge.com/minecraft/modpacks/nomi-ceu/files/5224499";
       USE_AIKAR_FLAGS = "true";
       UID = toString config.users.users.minecraft.uid;
       GID = toString config.users.groups.minecraft.gid;
     };
     environmentFiles = [ config.age.secrets.curseforge-api-key.path ];
     volumes = [
-      "/var/lib/minecraft/cabin:/data"
+      "/var/lib/minecraft/nomi-ceu:/data"
     ];
     extraOptions = [
       "--network=host"
@@ -35,7 +29,7 @@
     user = "${toString config.users.users.minecraft.uid}:${toString config.users.groups.minecraft.gid}";
   };
   networking.firewall.allowedTCPPorts = [ 25565 ];
-  systemd.tmpfiles.settings."10-minecraft"."/var/lib/minecraft/cabin".d = {
+  systemd.tmpfiles.settings."10-minecraft"."/var/lib/minecraft/nomi-ceu".d = {
     group = "minecraft";
     mode = "0775";
     user = "minecraft";

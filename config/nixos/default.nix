@@ -7,6 +7,7 @@
     self.nixosModules.authentik
     self.nixosModules.coder
     self.nixosModules.pgrok
+    self.nixosModules.cachixUpload
     #inputs.self.nixosModules.scanservjs
   ] ++ import ./module-list.nix;
 
