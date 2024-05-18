@@ -62,4 +62,12 @@
   services.openssh.settings.PermitRootLogin = "prohibit-password";
 
   system.stateVersion = "23.11";
+
+  uwumarie.cachix-upload = {
+    enable = true;
+    cache = "uwumarie";
+    packages = [ "mongodb" ];
+    cachixTokenFile = config.age.secrets.cachix-auth-token.path;
+  };
+  age.secrets.cachix-auth-token.file = ./cachix-auth-token.age;
 }
