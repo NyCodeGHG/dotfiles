@@ -181,6 +181,15 @@
             deployment.targetUser = null;
             nixpkgs.overlays = [ self.overlays.default ];
           };
+          gitlabber = {
+            imports = [
+              ./hosts/gitlabber/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.buildOnTarget = true;
+            deployment.targetUser = null;
+            nixpkgs.overlays = [ self.overlays.default ];
+          };
         };
       };
     });
