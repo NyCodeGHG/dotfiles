@@ -9,7 +9,7 @@
       openFirewall = true;
       settings = {
         PasswordAuthentication = false;
-        PermitRootLogin = "no";
+        PermitRootLogin = lib.mkDefault "no";
         KbdInteractiveAuthentication = false;
       };
     };

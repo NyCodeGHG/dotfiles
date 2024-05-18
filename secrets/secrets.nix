@@ -3,7 +3,6 @@ let
   artemis = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8 root@artemis"];
   delphi = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3 root@delphi"];
   wsl = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpKCSJGPFfckgr1/X1Rv7jeOe9E8tYmP1iqogzSXF+u"];
-  gitlabber = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA+CrA/K1r42azS0JvEpDVkABw0ZwpwXLdL7bNe4lGwI"];
   allSystems = artemis ++ delphi ++ wsl;
   users = marie-desktop; 
 in
@@ -34,5 +33,4 @@ in
 
   "../hosts/artemis/secrets/wg1-private.age".publicKeys = users ++ artemis;
   "../hosts/artemis/applications/hydra/cachix-auth-token.age".publicKeys = users ++ artemis;
-  "../hosts/gitlabber/secrets/wg0-private.age".publicKeys = users ++ gitlabber;
 }
