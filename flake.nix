@@ -134,6 +134,7 @@
               });
               inherit (inputs'.nixpkgs-unstable.legacyPackages) jujutsu;
               wgsl-analyzer = pkgs.callPackage ./pkgs/wgsl-analyzer/package.nix { };
+              qpm-cli = inputs'.nixpkgs-unstable.legacyPackages.callPackage ./pkgs/qpm-cli/default.nix { };
             }
           ))
         );
