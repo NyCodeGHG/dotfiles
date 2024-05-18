@@ -4,11 +4,13 @@
   imports = [
     # include NixOS-WSL modules
     inputs.nixos-wsl.nixosModules.wsl
+    ./vscode.nix
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "23.11";
 
+  vscode-remote-workaround.enable = true;
   security.polkit.enable = true;
 
   uwumarie.profiles = {
