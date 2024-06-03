@@ -20,6 +20,7 @@
         DOMAIN = "git.marie.cologne";
         ROOT_URL = "https://git.marie.cologne";
         STATIC_URL_PREFIX = "/_/static";
+        OFFLINE_MODE = false;
       };
       other = {
         SHOW_FOOTER_VERSION = true;
