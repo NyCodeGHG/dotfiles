@@ -6,7 +6,7 @@ in
 {
   services.paperless = {
     enable = true;
-    extraConfig = {
+    settings = {
       PAPERLESS_URL = "https://paperless.marie.cologne";
       PAPERLESS_TRUSTED_PROXIES = "127.0.0.1";
       PAPERLESS_OCR_LANGUAGE = "deu+eng";
