@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, ... }:
+{ config, pkgs, ... }:
 {
   services.forgejo = {
     enable = true;
@@ -12,15 +12,16 @@
     };
     lfs.enable = true;
     settings = {
-      server = {
+      DEFAULT = {
         APP_NAME = "marie's catgit: git with more meow";
+      };
+      server = {
         PROTOCOL = "fcgi+unix";
         DOMAIN = "git.marie.cologne";
         ROOT_URL = "https://git.marie.cologne";
         STATIC_URL_PREFIX = "/_/static";
       };
       other = {
-        SHOW_FOOTER_BRANDING = false;
         SHOW_FOOTER_VERSION = true;
       };
       service.DISABLE_REGISTRATION = true;
@@ -29,15 +30,16 @@
         PROVIDER = "db";
       };
       cron.ENABLED = true;
-      "cron.update_checker".ENABLED = true;
-      metrics.ENABLED = true;
       actions.ENABLED = true;
+      repository = {
+        DISABLE_STARS = true;
+        "upload.ENABLED" = false;
+      };
       oauth2_client = {
         ENABLE_AUTO_REGISTRATION = true;
         REGISTER_EMAIL_CONFIRM = false;
       };
     };
-    package = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.forgejo;
   };
 
   services.nginx.virtualHosts."git.marie.cologne" = {
@@ -52,9 +54,11 @@
       '';
     };
     locations."/robots.txt" = {
-      return = ''200 'User-Agent: *
-Disallow: /'
-'';
+      return = 
+        ''
+          200 'User-Agent: *
+          Disallow: /'
+        '';
     };
     locations."/metrics" = {
       extraConfig = ''
