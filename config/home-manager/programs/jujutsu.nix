@@ -3,7 +3,6 @@ lib.mkIf config.uwumarie.profiles.jujutsu
 {
   programs.jujutsu = {
     enable = true;
-    enableZshIntegration = true;
     settings = {
       user = {
         name = "Marie Ramlow";

@@ -27,18 +27,14 @@ in
     ssh = true;
     starship = true;
     unlock-ssh-keys = true;
-    zsh = true;
+    fish = true;
     tmux = true;
   };
-  programs.zsh.enable = true;
   # locale workaround
   programs.home-manager.enable = true;
   programs.zoxide.enable = true;
   news.display = "silent";
   programs.zsh.sessionVariables = {
-    BROWSER = "wslview";
-    SSHX_SERVER = "https://sshx.marie.cologne";
-    PAGER = "${pkgs.less}/bin/less -FRX";
   };
   xdg.configFile."nix-diff-hook".source = diffoscopeWrapper;
 }

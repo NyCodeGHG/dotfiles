@@ -32,15 +32,9 @@
 
   networking.hostName = "marie-desktop";
 
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
   users.users.marie = {
-    shell = pkgs.zsh;
-    # shell = let
-    #     wrapper = pkgs.writeShellScriptBin "shell-wrapper" ''
-    #       export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
-    #       exec ${pkgs.zsh}/bin/zsh "$@"
-    #     '';
-    #   in lib.mkForce "${wrapper}/bin/shell-wrapper";
+    shell = pkgs.fish;
     extraGroups = [ "kvm" ];
   };
 
@@ -59,6 +53,12 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
+  };
+
+  environment.sessionVariables = {
+    BROWSER = "wslview";
+    SSHX_SERVER = "https://sshx.marie.cologne";
+    PAGER = "${pkgs.less}/bin/less -FRX";
   };
 
   environment.systemPackages = with pkgs; [
@@ -105,6 +105,8 @@
     yq
     wgsl-analyzer
     qpm-cli
+    wsl-open
+    (writeShellScriptBin "xdg-open" "exec ${lib.getExe wsl-open} $?")
   ];
   environment.shellAliases = {
     "vim" = "nvim";

@@ -2,7 +2,7 @@
 lib.mkIf config.uwumarie.profiles.eza {
   programs.eza = {
     enable = true;
-    enableAliases = true;
+    enableFishIntegration = true;
     git = true;
     icons = true;
   };

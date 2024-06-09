@@ -1,4 +1,3 @@
-{ inputs, ... }:
 {
   imports = [
     ./monitoring

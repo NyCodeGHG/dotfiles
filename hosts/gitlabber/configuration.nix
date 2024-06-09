@@ -68,12 +68,4 @@
     nix-output-monitor
     tmux
   ];
-
-  uwumarie.cachix-upload = {
-    enable = true;
-    cache = "uwumarie";
-    packages = [ "mongodb" ];
-    cachixTokenFile = config.age.secrets.cachix-auth-token.path;
-  };
-  age.secrets.cachix-auth-token.file = ./cachix-auth-token.age;
 }
