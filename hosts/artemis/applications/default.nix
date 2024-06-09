@@ -9,7 +9,6 @@
     ./ip-playground.nix
     ./pgrok.nix
     ./nginx-meta.nix
-    ./renovate
     ./syncthing.nix
     ./paperless.nix
     ./hydra
