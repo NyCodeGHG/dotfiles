@@ -132,7 +132,7 @@
               vimPlugins = prev.vimPlugins.extend (_: _: {
                 inherit (self.packages.${system}) guard-nvim;
               });
-              inherit (inputs'.nixpkgs-unstable.legacyPackages) jujutsu;
+              inherit (inputs'.nixpkgs-unstable.legacyPackages) jujutsu renovate;
               wgsl-analyzer = pkgs.callPackage ./pkgs/wgsl-analyzer/package.nix { };
               qpm-cli = inputs'.nixpkgs-unstable.legacyPackages.callPackage ./pkgs/qpm-cli/default.nix { };
             }

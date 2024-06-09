@@ -34,6 +34,8 @@ in
 
   "../hosts/artemis/secrets/wg1-private.age".publicKeys = users ++ artemis;
   "../hosts/artemis/applications/hydra/cachix-auth-token.age".publicKeys = users ++ artemis;
+  "../hosts/artemis/secrets/renovate-token.age".publicKeys = users ++ artemis;
+  "../hosts/artemis/secrets/renovate-github-token.age".publicKeys = users ++ artemis;
 
   "../hosts/gitlabber/cachix-auth-token.age".publicKeys = users ++ gitlabber;
 }
