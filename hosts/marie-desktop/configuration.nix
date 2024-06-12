@@ -108,6 +108,7 @@
     qpm-cli
     wsl-open
     (writeShellScriptBin "xdg-open" "exec ${lib.getExe wsl-open} $?")
+    openssl
   ];
   environment.shellAliases = {
     "vim" = "nvim";
