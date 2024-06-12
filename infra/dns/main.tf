@@ -32,6 +32,7 @@ locals {
         "tunnel",
         "*.tunnel",
         "hydra",
+        "hedgedoc",
       ]
       values = [
         {

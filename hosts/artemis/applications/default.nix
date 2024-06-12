@@ -14,5 +14,6 @@
     ./paperless.nix
     ./hydra
     ./iperf3.nix
+    ./hedgedoc
   ];
 }
