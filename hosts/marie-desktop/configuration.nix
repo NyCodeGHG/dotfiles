@@ -59,6 +59,7 @@
     BROWSER = "wslview";
     SSHX_SERVER = "https://sshx.marie.cologne";
     PAGER = "${pkgs.less}/bin/less -FRX";
+    EDITOR = "nvim";
   };
 
   environment.systemPackages = with pkgs; [
@@ -126,4 +127,5 @@
     ];
   };
   systemd.services.postgresql.wantedBy = lib.mkForce [];
+  programs.command-not-found.enable = false;
 }

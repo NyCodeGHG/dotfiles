@@ -34,7 +34,5 @@ in
   programs.home-manager.enable = true;
   programs.zoxide.enable = true;
   news.display = "silent";
-  programs.zsh.sessionVariables = {
-  };
   xdg.configFile."nix-diff-hook".source = diffoscopeWrapper;
 }
