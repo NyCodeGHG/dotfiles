@@ -126,8 +126,9 @@
           pylsp.enable = true;
           svelte.enable = true;
           # nixd.enable = true;
-          nil_ls.enable = true;
+          nil-ls.enable = true;
           gleam.enable = true;
+          jsonls.enable = true;
         };
       };
       fidget.enable = true;
