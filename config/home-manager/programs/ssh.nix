@@ -28,7 +28,7 @@ lib.mkIf config.uwumarie.profiles.ssh {
         identityFile = "~/.ssh/default.ed25519";
         identitiesOnly = true;
       };
-      nas = {
+      wg-nas = {
         hostname = "10.69.0.8";
         identityFile = "~/.ssh/default.ed25519";
         identitiesOnly = true;
