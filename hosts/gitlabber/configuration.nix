@@ -3,6 +3,7 @@
   imports = [
     (modulesPath + "/profiles/minimal.nix")
     ./hardware.nix
+    ./forgejo-runner.nix
   ];
 
   boot.loader.systemd-boot = {
