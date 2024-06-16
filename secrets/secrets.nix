@@ -1,11 +1,11 @@
 let
-  marie-desktop = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiS+tzh0R/nN5nqSwvLerCV4nBwI51zOKahFfiiINGp"];
+  marie-desktop-wsl = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiS+tzh0R/nN5nqSwvLerCV4nBwI51zOKahFfiiINGp"];
   artemis = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8 root@artemis"];
   delphi = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3 root@delphi"];
   wsl = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpKCSJGPFfckgr1/X1Rv7jeOe9E8tYmP1iqogzSXF+u"];
   gitlabber = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0hOumgZQqYpGnraf+hjPXSEcTVH8QKa25WLW7r1Psk"];
   allSystems = artemis ++ delphi ++ wsl;
-  users = marie-desktop; 
+  users = marie-desktop-wsl;
 in
 {
   "cloudflare-api-key.age".publicKeys = users ++ allSystems;

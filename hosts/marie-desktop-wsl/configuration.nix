@@ -130,3 +130,4 @@
   systemd.services.postgresql.wantedBy = lib.mkForce [];
   programs.command-not-found.enable = false;
 }
+
