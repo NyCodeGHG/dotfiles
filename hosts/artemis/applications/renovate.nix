@@ -1,11 +1,10 @@
 { config, inputs, pkgs, ... }:
 {
   imports = [
-    inputs.self.nixosModules.renovate
+    (inputs.nixpkgs-unstable + "/nixos/modules/services/misc/renovate.nix")
   ];
   services.renovate = {
     enable = true;
-    package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.callPackage ../../../pkgs/renovate {};
     schedule = "hourly";
     settings = {
       platform = "gitea";
@@ -26,6 +25,7 @@
       config.nix.package
       nodejs
       corepack
+      cargo
     ];
   };
   age.secrets.renovate-token.file = ../secrets/renovate-token.age;
