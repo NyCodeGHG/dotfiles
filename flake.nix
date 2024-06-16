@@ -149,6 +149,9 @@
           delphi = self.lib.nixosSystem {
             modules = [ ./hosts/delphi/configuration.nix ];
           };
+          marie-desktop = self.lib.nixosSystem {
+            modules = [ ./hosts/marie-desktop/configuration.nix ];
+          };
           marie-desktop-wsl = self.lib.nixosSystem {
             modules = [ ./hosts/marie-desktop-wsl/configuration.nix ];
           };
