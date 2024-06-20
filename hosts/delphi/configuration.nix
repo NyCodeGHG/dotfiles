@@ -1,6 +1,8 @@
-{ modulesPath, ... }:
+{ modulesPath, inputs, ... }:
 {
-  imports = [
+  imports = with inputs; [
+    home-manager.nixosModules.default
+    agenix.nixosModules.default
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/profiles/headless.nix"
     ./networking.nix

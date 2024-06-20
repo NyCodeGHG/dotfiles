@@ -1,9 +1,6 @@
 { config, inputs, lib, ... }:
 {
   imports = with inputs; [
-    home-manager.nixosModules.default
-    agenix.nixosModules.default
-
     self.nixosModules.authentik
     self.nixosModules.coder
     self.nixosModules.pgrok

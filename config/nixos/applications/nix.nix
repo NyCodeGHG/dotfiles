@@ -16,7 +16,7 @@
         experimental-features = [ "nix-command" "flakes" ];
         trusted-users = [ "@wheel" ];
       };
-      registry.nixpkgs.flake = inputs.nixpkgs;
+      # registry.nixpkgs.flake = inputs.nixpkgs;
       nixPath = [
         "nixpkgs=${inputs.nixpkgs}"
       ];

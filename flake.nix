@@ -8,6 +8,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,7 +55,7 @@
     ];
   };
 
-  outputs = inputs@{ flake-parts, home-manager, nixpkgs, self, ... }:
+  outputs = inputs@{ flake-parts, home-manager, nixpkgs, nixpkgs-unstable, self, agenix, ... }:
     flake-parts.lib.mkFlake ({ inherit inputs; }) ({ withSystem, ... }: {
       imports = [
         ./pkgs/flake-module.nix
@@ -100,7 +105,7 @@
 
       flake = {
         lib = {
-          nixosSystem =
+          nixosSystem = nixpkgs:
             nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
               nixpkgs.lib.nixosSystem {
                 specialArgs = {
@@ -144,22 +149,22 @@
         homeManagerModules.config = import ./config/home-manager;
 
         nixosConfigurations = {
-          artemis = self.lib.nixosSystem {
+          artemis = self.lib.nixosSystem nixpkgs {
             modules = [ ./hosts/artemis/configuration.nix ];
           };
-          delphi = self.lib.nixosSystem {
+          delphi = self.lib.nixosSystem nixpkgs {
             modules = [ ./hosts/delphi/configuration.nix ];
           };
-          marie-desktop = self.lib.nixosSystem {
+          marie-desktop = self.lib.nixosSystem nixpkgs-unstable {
             modules = [ ./hosts/marie-desktop/configuration.nix ];
           };
-          marie-desktop-wsl = self.lib.nixosSystem {
+          marie-desktop-wsl = self.lib.nixosSystem nixpkgs {
             modules = [ ./hosts/marie-desktop-wsl/configuration.nix ];
           };
-          gitlabber = self.lib.nixosSystem {
+          gitlabber = self.lib.nixosSystem nixpkgs {
             modules = [ ./hosts/gitlabber/configuration.nix ];
           };
-          installer = nixpkgs.lib.nixosSystem {
+          installer = nixpkgs.lib.nixosSystem nixpkgs {
             system = "x86_64-linux";
             modules = [
               "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"

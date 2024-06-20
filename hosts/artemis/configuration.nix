@@ -1,5 +1,8 @@
+{ inputs, ... }:
 {
-  imports = [
+  imports = with inputs; [
+    home-manager.nixosModules.default
+    agenix.nixosModules.default
     ./monitoring
     ./applications
     ./hardware.nix

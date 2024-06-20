@@ -1,5 +1,8 @@
 { config, lib, pkgs, inputs, ... }:
 {
+  imports = with inputs; [
+    agenix.nixosModules.default
+  ];
   options.uwumarie.profiles.acme = lib.mkEnableOption (lib.mdDoc "acme config");
   config = lib.mkIf config.uwumarie.profiles.acme {
     security.acme.acceptTerms = true;

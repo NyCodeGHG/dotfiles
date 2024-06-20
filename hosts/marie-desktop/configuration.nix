@@ -1,6 +1,7 @@
 { pkgs, config, lib, inputs, ... }:
 {
-  imports = [
+  imports = with inputs; [
+    home-manager-unstable.nixosModules.default
     ./hardware.nix
     ./nvidia.nix
     ./gaming.nix
@@ -85,7 +86,7 @@
     vesktop
     spotify
     qpwgraph
-    jetbrains.idea-community
+    # jetbrains.idea-community
     vscodium
     # (inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim)
     nvtopPackages.nvidia

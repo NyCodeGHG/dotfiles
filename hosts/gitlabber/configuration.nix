@@ -1,6 +1,8 @@
-{ pkgs, modulesPath, config, ... }:
+{ pkgs, modulesPath, config, inputs, ... }:
 {
-  imports = [
+  imports = with inputs; [
+    home-manager.nixosModules.default
+    agenix.nixosModules.default
     (modulesPath + "/profiles/minimal.nix")
     ./hardware.nix
     ./forgejo-runner.nix
