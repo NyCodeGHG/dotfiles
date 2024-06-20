@@ -90,7 +90,13 @@
     vscodium
     # (inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim)
     nvtopPackages.nvidia
-  ];
+    whois
+    element-desktop
+    signal-desktop
+    ladybird
+  ] ++ (with pkgs.kdePackages;[
+    kcalc
+  ]);
 
   environment.sessionVariables = {
     "SSH_ASKPASS_REQUIRE" = "prefer";
