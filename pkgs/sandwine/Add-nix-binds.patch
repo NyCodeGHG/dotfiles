@@ -1,0 +1,14 @@
+diff --git a/sandwine/_main.py b/sandwine/_main.py
+index a832a8f..a3287cd 100644
+--- a/sandwine/_main.py
++++ b/sandwine/_main.py
+@@ -245,6 +245,9 @@ def create_bwrap_argv(config):
+         MountTask(MountMode.TMPFS, '/tmp'),
+         MountTask(MountMode.BIND_RO, '/usr'),
+         MountTask(MountMode.TMPFS, my_home),
++        MountTask(MountMode.BIND_RO, '/nix'),
++        MountTask(MountMode.BIND_RO, '/run/current-system'),
++        MountTask(MountMode.BIND_RO, '/run/opengl-driver'),
+     ]
+     env_tasks = {var: None for var in ['HOME', 'TERM', 'USER', 'WINEDEBUG']}
+     env_tasks['container'] = 'sandwine'

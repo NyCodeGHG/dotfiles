@@ -5,6 +5,7 @@
       # preview-colors = pkgs.callPackage ./preview-colors { };
       guard-nvim = pkgs.callPackage ./guard-nvim { };
       deploy = pkgs.callPackage ../tools/deploy { };
+      sandwine = pkgs.callPackage ./sandwine { };
     };
   };
 }
