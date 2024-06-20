@@ -131,6 +131,7 @@
     extraSpecialArgs = { inherit inputs; };
   };
 
+  programs.command-not-found.enable = false;
   programs.nix-ld.enable = true;
 
   hardware.bluetooth.enable = true;
