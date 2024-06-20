@@ -3,6 +3,7 @@
   imports = with inputs; [
     home-manager.nixosModules.default
     agenix.nixosModules.default
+    ../../config/nixos/system/acme.nix
     (modulesPath + "/profiles/minimal.nix")
     ./hardware.nix
     ./forgejo-runner.nix

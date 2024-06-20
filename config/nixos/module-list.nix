@@ -4,7 +4,6 @@
   ./applications/nix.nix
   ./applications/openssh.nix
   ./system/base.nix
-  ./system/acme.nix
   ./system/locale.nix
   ./system/nspawn.nix
   ./users/marie.nix

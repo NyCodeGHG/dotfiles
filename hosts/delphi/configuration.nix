@@ -1,8 +1,9 @@
-{ modulesPath, inputs, ... }:
+{ modulesPath, inputs, pkgs, ... }:
 {
   imports = with inputs; [
     home-manager.nixosModules.default
     agenix.nixosModules.default
+    ../../config/nixos/system/acme.nix
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/profiles/headless.nix"
     ./networking.nix
@@ -18,6 +19,8 @@
     nix = true;
     users.marie = true;
   };
+
+  environment.systemPackages = with pkgs; [ p7zip ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
