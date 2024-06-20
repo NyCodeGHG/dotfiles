@@ -88,7 +88,7 @@
       nix.enable = true;
       crates-nvim.enable = true;
       crates-nvim.extraOptions = {
-        src.cmp.enabled = true;
+        completion.cmp.enabled = true;
       };
 
       # LSP
@@ -171,30 +171,6 @@
       lspsaga.enable = true;
 
       neogit.enable = true;
-      neorg = {
-        enable = true;
-        modules = {
-          "core.defaults" = {
-            __empty = null;
-          };
-          "core.concealer" = {
-            __empty = null;
-          };
-          "core.dirman" = {
-            config = {
-              workspaces = {
-                home = "~/notes/home";
-                work = "~/notes/work";
-              };
-            };
-          };
-          "core.completion" = {
-            config = {
-              engine = "nvim-cmp";
-            };
-          };
-        };
-      };
     };
 
     keymaps = [
@@ -205,7 +181,7 @@
       { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree toggle<cr>"; options = { desc = "Toggle Neotree"; silent = true; }; }
       { mode = [ "n" "v" ]; key = "j"; action = "gj"; options.silent = true; }
       { mode = [ "n" "v" ]; key = "k"; action = "gk"; options.silent = true; }
-      { mode = [ "n" "v" ]; key = "<leader>cd"; options.silent = true; action = "vim.diagnostic.open_float"; lua = true; }
+      { mode = [ "n" "v" ]; key = "<leader>cd"; options.silent = true; action.__raw = "vim.diagnostic.open_float"; }
       { mode = "t"; options.silent = true; key = "<ESC>"; action = "<C-\\><C-n>"; }
       { mode = "n"; options.silent = true; key = "<leader>fb"; action = "<cmd>Telescope buffers<cr>"; }
       { mode = "n"; options.silent = true; key = "<leader>t"; action = "<cmd>terminal<cr>"; }

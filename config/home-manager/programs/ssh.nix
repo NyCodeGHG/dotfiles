@@ -1,55 +1,59 @@
 { config, lib, pkgs, ... }:
-lib.mkIf config.uwumarie.profiles.ssh {
-  programs.ssh = {
-    enable = true;
-    package = pkgs.openssh;
-    matchBlocks = {
-      "github.com" = {
-        user = "git";
-        identitiesOnly = true;
-        identityFile = "~/.ssh/github.ed25519";
-      };
-      catcafe = {
-        hostname = "192.168.1.35";
-        identityFile = "~/.ssh/github.ed25519";
-      };
-      artemis = {
-        hostname = "nue01.marie.cologne";
-        identitiesOnly = true;
-        identityFile = "~/.ssh/default.ed25519";
-      };
-      delphi = {
-        hostname = "oci-fra01.marie.cologne";
-        identitiesOnly = true;
-        identityFile = "~/.ssh/default.ed25519";
-      };
-      raspberrypi = {
-        user = "pi";
-        identityFile = "~/.ssh/default.ed25519";
-        identitiesOnly = true;
-      };
-      wg-nas = {
-        hostname = "10.69.0.8";
-        identityFile = "~/.ssh/default.ed25519";
-        identitiesOnly = true;
-      };
-      insane = {
-        hostname = "192.168.178.125";
-        identityFile = "~/.ssh/default.ed25519";
-        identitiesOnly = true;
-      };
-      gitlabber = {
-        hostname = "warpgate.jemand771.net";
-        user = "marie:gitlabber";
-        identityFile = "~/.ssh/default.ed25519";
-        identitiesOnly = true;
-      };
-      "*" = {
-        extraOptions = {
-          AddKeysToAgent = "yes";
+{
+  options.uwumarie.profiles.ssh = {
+    enable = lib.mkEnableOption (lib.mdDoc "ssh config");
+    githubKeyFile = lib.mkOption {
+      type = lib.types.str;
+      default = "~/.ssh/github.ed25519";
+    };
+    defaultKeyFile = lib.mkOption {
+      type = lib.types.str;
+      default = "~/.ssh/default.ed25519";
+    };
+  };
+  config = lib.mkIf config.uwumarie.profiles.ssh.enable {
+    programs.ssh = {
+      enable = true;
+      package = pkgs.openssh;
+      matchBlocks = {
+        "github.com" = {
+          user = "git";
+          identitiesOnly = true;
+          identityFile = config.uwumarie.profiles.ssh.githubKeyFile;
+        };
+        artemis = {
+          hostname = "nue01.marie.cologne";
+          identitiesOnly = true;
+          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
+        };
+        delphi = {
+          hostname = "oci-fra01.marie.cologne";
+          identitiesOnly = true;
+          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
+        };
+        raspberrypi = {
+          user = "pi";
+          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
+          identitiesOnly = true;
+        };
+        wg-nas = {
+          hostname = "10.69.0.8";
+          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
+          identitiesOnly = true;
+        };
+        gitlabber = {
+          hostname = "warpgate.jemand771.net";
+          user = "marie:gitlabber";
+          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
+          identitiesOnly = true;
+        };
+        "*" = {
+          extraOptions = {
+            AddKeysToAgent = "yes";
+          };
         };
       };
     };
+    services.ssh-agent.enable = lib.mkDefault true;
   };
-  services.ssh-agent.enable = lib.mkDefault true;
 }

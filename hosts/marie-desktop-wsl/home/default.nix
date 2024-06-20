@@ -24,7 +24,7 @@ in
     };
     jujutsu = true;
     ripgrep = true;
-    ssh = true;
+    ssh.enable = true;
     starship = true;
     unlock-ssh-keys = true;
     zsh = true;

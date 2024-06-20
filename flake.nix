@@ -134,6 +134,7 @@
               });
               inherit (inputs'.nixpkgs-unstable.legacyPackages) jujutsu renovate;
               wgsl-analyzer = pkgs.callPackage ./pkgs/wgsl-analyzer/package.nix { };
+              sandwine = pkgs.callPackage ./pkgs/sandwine { };
               qpm-cli = inputs'.nixpkgs-unstable.legacyPackages.callPackage ./pkgs/qpm-cli/default.nix { };
             }
           ))
@@ -157,6 +158,16 @@
           };
           gitlabber = self.lib.nixosSystem {
             modules = [ ./hosts/gitlabber/configuration.nix ];
+          };
+          installer = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+              ({ pkgs, ... }: {
+                environment.systemPackages = [ pkgs.neovim ];
+                environment.etc."dotfiles".source = self;
+              })
+            ];
           };
         };
 
