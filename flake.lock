@@ -524,6 +524,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-libvirt": {
+      "locked": {
+        "lastModified": 1719242405,
+        "narHash": "sha256-zqt//2GIMEt8Zn/nnOXyhgx9MzY+Y6C4oHCi+YKejQ4=",
+        "owner": "nycodeghg",
+        "repo": "nixpkgs",
+        "rev": "35b3707f20951d112234ae872c19b9c161224ae5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nycodeghg",
+        "ref": "update-libvirt",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -654,6 +670,7 @@
         "ip-playground": "ip-playground",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-libvirt": "nixpkgs-libvirt",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "unlock-ssh-keys": "unlock-ssh-keys"

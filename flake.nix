@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-libvirt.url = "github:nycodeghg/nixpkgs/update-libvirt";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
@@ -141,6 +142,7 @@
               wgsl-analyzer = pkgs.callPackage ./pkgs/wgsl-analyzer/package.nix { };
               sandwine = pkgs.callPackage ./pkgs/sandwine { };
               qpm-cli = inputs'.nixpkgs-unstable.legacyPackages.callPackage ./pkgs/qpm-cli/default.nix { };
+              inherit (inputs'.nixpkgs-libvirt.legacyPackages) libvirt virt-manager;
             }
           ))
         );

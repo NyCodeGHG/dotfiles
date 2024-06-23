@@ -21,7 +21,8 @@
       "matchPackagePrefixes": [
         "ghcr.io/goauthentik/"
       ],
-      "groupName": "authentik"
+      "groupName": "authentik",
+      "changelogUrl": "https://github.com/authentik/authentik"
     },
     {
       "matchPackageNames": [

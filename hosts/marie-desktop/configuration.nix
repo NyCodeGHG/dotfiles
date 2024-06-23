@@ -5,6 +5,10 @@
     ./hardware.nix
     ./nvidia.nix
     ./gaming.nix
+    (nixpkgs-libvirt + "/nixos/modules/virtualisation/libvirtd.nix")
+  ];
+  disabledModules = [
+    "virtualisation/libvirtd.nix"
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: (builtins.elem (lib.getName pkg) [
@@ -83,6 +87,7 @@
 
   environment.systemPackages = with pkgs; [
     firefox
+    chromium
     vesktop
     spotify
     qpwgraph
@@ -94,6 +99,17 @@
     element-desktop
     signal-desktop
     ladybird
+    hyfetch
+    bat
+    tokei
+    ripgrep
+    virt-manager
+    nix-output-monitor
+    obs-studio
+    vlc
+    ffmpeg
+    alsa-utils
+    nixpkgs-review
   ] ++ (with pkgs.kdePackages;[
     kcalc
   ]);
@@ -112,6 +128,8 @@
     enableAskPassword = true;
     askPassword = lib.getExe pkgs.kdePackages.ksshaskpass;
   };
+
+  virtualisation.libvirtd.enable = true;
 
   fonts.packages = with pkgs; [
     corefonts
