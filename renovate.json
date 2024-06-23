@@ -22,6 +22,12 @@
         "ghcr.io/goauthentik/"
       ],
       "groupName": "authentik"
+    },
+    {
+      "matchPackageNames": [
+        "ghcr.io/coder/coder"
+      ],
+      "enabled": false
     }
   ],
   "enabledManagers": [
