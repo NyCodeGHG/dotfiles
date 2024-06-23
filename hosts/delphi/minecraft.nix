@@ -9,12 +9,13 @@
       ENABLE_ROLLING_LOGS = "true";
       TZ = "Europe/Berlin";
       ENABLE_WHITELIST = "true";
-      OPS = "ec6a3dab-6b35-4596-9d7f-f9bdd773874f";
       USE_NATIVE_TRANSPORT = "true";
       VIEW_DISTANCE = "20";
-      TYPE = "AUTO_CURSEFORGE";
-      CF_BASE_DIR = "/data";
-      CF_PAGE_URL = "https://www.curseforge.com/minecraft/modpacks/nomi-ceu/files/5224499";
+      SPAWN_PROTECTION = "0";
+      ALLOW_FLIGHT = "true";
+      TYPE = "CUSTOM";
+      CUSTOM_SERVER = "forge-1.12.2-14.23.5.2860.jar";
+      GENERIC_PACK = "https://github.com/Nomi-CEu/Nomi-CEu/releases/download/1.7-alpha-4/nomi-ceu-1.7-alpha-4-server.zip";
       USE_AIKAR_FLAGS = "true";
       UID = toString config.users.users.minecraft.uid;
       GID = toString config.users.groups.minecraft.gid;
