@@ -65,7 +65,7 @@ in
   };
 
   virtualisation.oci-containers.containers.tika = {
-    image = "docker.io/apache/tika:2.9.2.0";
+    image = "docker.io/apache/tika:2.9.2.1";
     ports = [
       "127.0.0.1:${toString tikaPort}:9998"
     ];
