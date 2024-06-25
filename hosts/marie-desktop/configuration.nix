@@ -11,6 +11,8 @@
     "virtualisation/libvirtd.nix"
   ];
 
+  programs.direnv.enable = true;
+
   nixpkgs.config.allowUnfreePredicate = pkg: (builtins.elem (lib.getName pkg) [
     "nvidia-x11"
     "nvidia-settings"
@@ -91,7 +93,7 @@
     vesktop
     spotify
     qpwgraph
-    # jetbrains.idea-community
+    jetbrains.idea-community
     vscodium
     # (inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim)
     nvtopPackages.nvidia
