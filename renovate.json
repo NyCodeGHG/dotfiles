@@ -22,8 +22,7 @@
         "ghcr.io/goauthentik/"
       ],
       "groupName": "authentik",
-      "sourceUrl": "https://github.com/goauthentik/authentik",
-      "changelogUrl": "https://github.com/goauthentik/authentik"
+      "sourceUrl": "https://github.com/goauthentik/authentik"
     },
     {
       "matchPackageNames": [
