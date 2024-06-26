@@ -134,6 +134,7 @@
   };
 
   virtualisation.libvirtd.enable = true;
+  virtualisation.podman.enable = true;
 
   fonts.packages = with pkgs; [
     corefonts
