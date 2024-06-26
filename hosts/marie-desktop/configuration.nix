@@ -112,6 +112,8 @@
     ffmpeg
     alsa-utils
     nixpkgs-review
+    restic
+    rclone
   ] ++ (with pkgs.kdePackages;[
     kcalc
   ]);
