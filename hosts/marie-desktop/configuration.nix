@@ -110,6 +110,9 @@
     nixpkgs-review
     restic
     rclone
+    fastfetch
+    python3
+    squashfsTools
   ] ++ (with pkgs.kdePackages;[
     kcalc
   ]);
