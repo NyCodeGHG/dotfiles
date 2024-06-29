@@ -5,10 +5,6 @@
     ./hardware.nix
     ./nvidia.nix
     ./gaming.nix
-    (nixpkgs-libvirt + "/nixos/modules/virtualisation/libvirtd.nix")
-  ];
-  disabledModules = [
-    "virtualisation/libvirtd.nix"
   ];
 
   programs.direnv.enable = true;
