@@ -17,6 +17,13 @@
   virtualisation.podman = {
     enable = true;
     dockerSocket.enable = true;
+    defaultNetwork.settings = {
+      dns_enabled = true;
+    };
+  };
+  networking.firewall.interfaces."podman+" = {
+    allowedUDPPorts = [ 53 ];
+    allowedTCPPorts = [ 53 ];
   };
   age.secrets.forgejo-runner.file = ./forgejo-runner.age;
 }
