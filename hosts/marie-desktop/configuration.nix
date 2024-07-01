@@ -113,6 +113,9 @@
     fastfetch
     python3
     squashfsTools
+    partclone
+    wireguard-tools
+    btop
   ] ++ (with pkgs.kdePackages;[
     kcalc
   ]);
