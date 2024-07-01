@@ -25,7 +25,10 @@
       other = {
         SHOW_FOOTER_VERSION = true;
       };
-      service.DISABLE_REGISTRATION = true;
+      service = {
+        ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
+        SHOW_REGISTRATION_BUTTON = false;
+      };
       session = {
         COOKIE_SECURE = true;
         PROVIDER = "db";
@@ -39,6 +42,7 @@
       oauth2_client = {
         ENABLE_AUTO_REGISTRATION = true;
         REGISTER_EMAIL_CONFIRM = false;
+        USERNAME = "nickname";
       };
     };
   };
