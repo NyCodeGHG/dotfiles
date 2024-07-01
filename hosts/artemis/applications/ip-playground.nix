@@ -48,8 +48,8 @@ in
   systemd.services = {
     download-iptoasn-db = {
       description = "IP to ASN Database download";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      requires = [ "network-online.target" ];
       serviceConfig = {
         WorkingDirectory = "/var/lib/ip-playground";
         # ExecStartPost = "+${pkgs.systemd}/bin/systemctl reload ip-playground.service";
@@ -94,7 +94,7 @@ in
         fi
 
         if systemctl is-active --quiet ip-playground.service; then
-          ${pkgs.curl}/bin/curl -X POST --fail "http://127.0.0.1:3032/reload"
+          curl -X POST --fail "http://127.0.0.1:3032/reload"
         fi
       '';
     };
@@ -112,11 +112,8 @@ in
         RUST_LOG = "info";
       };
       serviceConfig = {
-        ExecStart = ''
-          ${backendPackage}/bin/ip-playground
-        '';
-        Restart = "on-failure";
-        RestartSec = "10";
+        ExecStart = "${backendPackage}/bin/ip-playground";
+        Restart = "always";
         CapabilityBoundingSet = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;
