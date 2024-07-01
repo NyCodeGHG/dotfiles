@@ -8,7 +8,7 @@
     ./applications
     ./hardware.nix
     ./postgres.nix
-    ./restic.nix
+    # ./restic.nix
     ./networking.nix
     ./dn42
   ];
