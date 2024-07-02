@@ -27,4 +27,15 @@ terraform {
     skip_metadata_api_check = true
     skip_credentials_validation = true
   }
+  encryption {
+    method "aes_gcm" "encryption" {
+      keys = key_provider.pbkdf2.key
+    }
+
+    state {
+      method = method.aes_gcm.encryption
+      enforced = true
+    }
+  }
 }
+
