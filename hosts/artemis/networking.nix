@@ -123,7 +123,7 @@ in
           {
             # marie desktop win11
             wireguardPeerConfig = {
-              PublicKey = "AxWlpfetKOpXU8LdlNvAdE/CO4259fmXJYC7YTbtgzw=";
+              PublicKey = "Ramif2e77i0Z7t9TjdvA4vO/tMOBj8k2li4an3HXTRY=";
               AllowedIPs = [ "10.69.0.5/32" "fdf1:3ba4:9723:1000::2/128" ];
               PersistentKeepalive = 25;
             };
