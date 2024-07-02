@@ -117,6 +117,7 @@
     wireguard-tools
     btop
     xclip
+    openssl
   ] ++ (with pkgs.kdePackages;[
     kcalc
   ]);
