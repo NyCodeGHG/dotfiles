@@ -116,6 +116,7 @@
     partclone
     wireguard-tools
     btop
+    xclip
   ] ++ (with pkgs.kdePackages;[
     kcalc
   ]);
