@@ -29,6 +29,12 @@
         "ghcr.io/coder/coder"
       ],
       "enabled": false
+    },
+    {
+      "matchManagers": ["nix"],
+      "lockFileMaintenance": {
+        "enabled": false
+      }
     }
   ],
   "enabledManagers": [
