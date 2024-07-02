@@ -28,6 +28,7 @@
       cargo
     ];
   };
+  systemd.services.renovate.serviceConfig.RestrictAddressFamilies = [ "AF_UNIX" ];
   age.secrets.renovate-token.file = ../secrets/renovate-token.age;
   age.secrets.renovate-github-token.file = ../secrets/renovate-github-token.age;
 }
