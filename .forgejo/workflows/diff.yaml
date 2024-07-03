@@ -1,0 +1,71 @@
+name: NixOS config diff
+on:
+  pull_request:
+jobs:
+  diff:
+    name: Diff
+    runs-on: ubuntu-22.04
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     configuration:
+    #       - nixosConfigurations.artemis
+    #       - nixosConfigurations.gitlabber
+    #       - nixosConfigurations.marie-desktop
+    steps:
+      - name: Install Nix
+        uses: https://github.com/cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            extra-substituters = https://uwumarie.cachix.org
+            extra-trusted-public-keys = uwumarie.cachix.org-1:H6nX8e82pu2GQ8CGU3j1qHTG7QMYzZ15oSBh26XhtVo=
+
+      - name: Checkout Base Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.base_ref }}
+
+      - name: Start SSH Agent
+        uses: https://github.com/webfactory/ssh-agent@v0.9.0
+        with:
+            ssh-private-key: ${{ secrets.SSH_KEY }}
+      
+      - name: Add git.marie.cologne's ssh host key
+        run: echo "git.marie.cologne ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8" >> ~/.ssh/known_hosts
+      
+      - name: Build base configuration
+        run: |
+          set -eo pipefail
+          echo "base_storedir=$(nix build .#nixosConfigurations.artemis.config.system.build.toplevel --no-link --print-out-paths)" >> $GITHUB_ENV
+        shell: bash
+      
+      - name: Checkout PR Repository
+        uses: actions/checkout@v4
+      
+      - name: Build PR configuration
+        run: |
+          set -eo pipefail
+          echo "pr_storedir=$(nix build .#nixosConfigurations.artemis.config.system.build.toplevel --no-link --print-out-paths)" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Run diff
+        run: |
+          difftext="$(
+            nix-shell --packages nvd -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/d032c1a6dfad4eedec7e35e91986becc699d7d69.tar.gz \
+              --run "nvd diff $base_storedir $pr_storedir"
+          )"
+          echo "difftext=$difftext" >> $GITHUB_ENV
+
+      - name: Post PR comment
+        uses: https://github.com/thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Beep Boop :robot:
+
+            ---
+
+            Version changes for the flake attribute `.#artemis`:
+            
+            ```
+            ${{ env.difftext }}
+            ```
