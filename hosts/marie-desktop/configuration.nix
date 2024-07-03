@@ -118,8 +118,13 @@
     btop
     xclip
     openssl
+    yt-dlp
+    android-tools
+    adbfs-rootless
   ] ++ (with pkgs.kdePackages;[
     kcalc
+    isoimagewriter
+    kdenlive
   ]);
 
   environment.sessionVariables = {
