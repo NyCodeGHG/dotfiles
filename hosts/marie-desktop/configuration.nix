@@ -132,10 +132,13 @@
     yt-dlp
     android-tools
     adbfs-rootless
+    protontricks
+    ghidra
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
     kdenlive
+    partitionmanager
   ]);
 
   environment.sessionVariables = {
