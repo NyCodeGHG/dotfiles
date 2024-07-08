@@ -53,6 +53,12 @@
       nssmdns4 = true;
     };
     printing.enable = true;
+    resolved = {
+      enable = true;
+      extraConfig = ''
+        MulticastDNS=resolve
+      '';
+    };
   };
 
   services.pipewire = {
