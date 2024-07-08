@@ -59,6 +59,10 @@
         MulticastDNS=resolve
       '';
     };
+    mullvad-vpn = {
+      enable = true;
+      package = pkgs.mullvad-vpn;
+    };
   };
 
   services.pipewire = {
