@@ -8,6 +8,9 @@
     sandwine
     protonup-qt
     bubblewrap
+    gamemode
+    vulkan-tools
+    glxinfo
   ];
 
   services.flatpak.enable = true;
