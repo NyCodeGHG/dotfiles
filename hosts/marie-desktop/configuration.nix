@@ -152,8 +152,10 @@
     enableAskPassword = true;
     askPassword = lib.getExe pkgs.kdePackages.ksshaskpass;
   };
-
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.swtpm.enable = true;
+  };
   virtualisation.podman.enable = true;
 
   fonts.packages = with pkgs; [
