@@ -52,6 +52,7 @@
       openFirewall = true;
       nssmdns4 = true;
     };
+    printing.enable = true;
   };
 
   services.pipewire = {
