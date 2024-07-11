@@ -11,6 +11,10 @@
         ];
         tokenFile = config.age.secrets.forgejo-runner.path;
         url = "https://git.marie.cologne";
+        settings = {
+          # Required for podman-in-podman
+          container.privileged = true;
+        };
       };
     };
   };
