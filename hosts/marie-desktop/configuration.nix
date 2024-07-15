@@ -153,6 +153,8 @@
     "SSH_ASKPASS_REQUIRE" = "prefer";
     "PAGER" = "${pkgs.less}/bin/less -FRX";
     "EDITOR" = "nvim";
+    "KWIN_X11_FORCE_SOFTWARE_VSYNC" = "1";
+    "KWIN_X11_NO_SYNC_TO_VBLANK" = "1";
   };
 
   environment.shellAliases = {
