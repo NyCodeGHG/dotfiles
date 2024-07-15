@@ -144,6 +144,9 @@
     isoimagewriter
     kdenlive
     partitionmanager
+    kio-gdrive
+    kaccounts-integration
+    kaccounts-providers
   ]);
 
   environment.sessionVariables = {
