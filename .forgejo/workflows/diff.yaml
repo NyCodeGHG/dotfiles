@@ -9,9 +9,9 @@ jobs:
       fail-fast: false
       matrix:
         configuration:
-          - "nixosConfigurations.artemis"
-          - "nixosConfigurations.gitlabber"
-          - "nixosConfigurations.marie-desktop"
+          - "artemis"
+          - "gitlabber"
+          - "marie-desktop"
     steps:
       - name: Install Nix
         uses: https://github.com/cachix/install-nix-action@v27
@@ -35,3 +35,5 @@ jobs:
 
       - name: Post NixOS config diff
         uses: https://github.com/NyCodeGHG/nixos-diff-action@forgejo-actions
+        with:
+          configuration: ${{ matrix.configuration }}
