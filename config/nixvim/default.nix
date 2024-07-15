@@ -120,7 +120,7 @@
           };
           tsserver.enable = true;
           denols.enable = true;
-          phpactor.enable = true;
+          # phpactor.enable = true;
           terraformls.enable = true;
           gopls.enable = true;
           lua-ls.enable = true;
