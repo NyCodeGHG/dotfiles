@@ -32,43 +32,6 @@ jobs:
       
       - name: Add git.marie.cologne's ssh host key
         run: echo "git.marie.cologne ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8" >> ~/.ssh/known_hosts
-      
-      - name: Build base configuration
-        run: |
-          set -eo pipefail
-          echo "base_storedir=$(nix build .#${{ matrix.configuration }}.config.system.build.toplevel --no-link --print-out-paths)" >> $GITHUB_ENV
-        shell: bash
-      
-      - name: Checkout PR Repository
-        uses: actions/checkout@v4
-      
-      - name: Build PR configuration
-        run: |
-          set -eo pipefail
-          echo "pr_storedir=$(nix build .#${{ matrix.configuration }}.config.system.build.toplevel --no-link --print-out-paths)" >> $GITHUB_ENV
-        shell: bash
 
-      - name: Run diff
-        id: diff
-        run: |
-          difftext="$(
-            nix-shell --packages nvd -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/d032c1a6dfad4eedec7e35e91986becc699d7d69.tar.gz \
-              --run "nvd diff $base_storedir $pr_storedir"
-          )"
-          echo "difftext=$difftext" >> $GITHUB_OUTPUT
-
-      - name: Post PR comment
-        uses: https://github.com/thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            Beep Boop :robot:
-
-            ---
-
-            Version changes for the flake attribute `.#${{ matrix.configuration }}`:
-            
-            ```
-            ${{ steps.diff.outputs.difftext }}
-            ```
-            <!-- nixos-config-diff-marker-${{ matrix.configuration }} -->
-          comment_tag: nixos-config-diff-marker-${{ matrix.configuration }}
+      - name: Post NixOS config diff
+        uses: https://github.com/NyCodeGHG/nixos-diff-action@main
