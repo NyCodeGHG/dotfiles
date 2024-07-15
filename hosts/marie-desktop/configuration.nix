@@ -195,6 +195,10 @@
   programs.nix-ld.enable = true;
 
   hardware.bluetooth.enable = true;
+  hardware.openrazer = {
+    enable = true;
+    users = [ "marie" ];
+  };
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "24.05";
