@@ -71,6 +71,8 @@
     alsa.enable = true;
     pulse.enable = true;
   };
+  
+  programs.kdeconnect.enable = true;
 
   programs.fish.enable = true;
   users.users.marie = {
@@ -134,6 +136,9 @@
     adbfs-rootless
     protontricks
     ghidra
+    podman-compose
+    polychromatic
+    deno
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
