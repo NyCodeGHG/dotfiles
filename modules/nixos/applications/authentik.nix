@@ -139,8 +139,8 @@ in
 
   config =
     let
-      image = "ghcr.io/goauthentik/server:2024.6.0";
-      ldapImage = "ghcr.io/goauthentik/ldap:2024.6.0";
+      image = "ghcr.io/goauthentik/server:2024.6.3";
+      ldapImage = "ghcr.io/goauthentik/ldap:2024.6.3";
       mkAuthentikContainer =
         { cmd ? [ ]
         , dependsOn ? [ ]
