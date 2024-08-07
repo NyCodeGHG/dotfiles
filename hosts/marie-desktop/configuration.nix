@@ -109,7 +109,6 @@
     whois
     element-desktop
     signal-desktop
-    ladybird
     hyfetch
     bat
     tokei
