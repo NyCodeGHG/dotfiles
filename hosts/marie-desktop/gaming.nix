@@ -29,4 +29,9 @@
   };
   # Fixes Hogwarts Legacy to not crash
   boot.kernel.sysctl."vm.max_map_count" = 2146483642;
+
+  programs.alvr = {
+    enable = true;
+    openFirewall = true;
+  };
 }
