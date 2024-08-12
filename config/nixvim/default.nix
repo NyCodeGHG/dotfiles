@@ -130,6 +130,7 @@
           nil-ls.enable = true;
           gleam.enable = true;
           jsonls.enable = true;
+          astro.package = pkgs.astro-language-server;
         };
       };
       fidget.enable = true;
