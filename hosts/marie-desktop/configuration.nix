@@ -32,6 +32,7 @@
     hostName = "marie-desktop";
     networkmanager.enable = true;
     useDHCP = false;
+    firewall.logRefusedConnections = false;
   };
   console = {
     font = "Lat2-Terminus16";
@@ -98,6 +99,7 @@
 
   environment.systemPackages = with pkgs; [
     firefox
+    thunderbird
     chromium
     vesktop
     spotify
@@ -138,6 +140,12 @@
     podman-compose
     polychromatic
     deno
+    clang-tools
+    nixfmt-rfc-style
+    bashInteractive
+    dysk
+    dogdns
+    qbittorrent
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
