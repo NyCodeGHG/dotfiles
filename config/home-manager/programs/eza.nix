@@ -5,5 +5,9 @@ lib.mkIf config.uwumarie.profiles.eza {
     enableFishIntegration = true;
     git = true;
     icons = true;
+    extraOptions = [
+      "--group"
+      "--header"
+    ];
   };
 }
