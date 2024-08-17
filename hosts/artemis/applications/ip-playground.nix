@@ -84,7 +84,7 @@ in
       script = ''
         set -eo pipefail
         curl -fsSL \
-             --fail \
+              --verbose \
              --etag-save /var/lib/ip-playground/etag.txt \
              --etag-compare /var/lib/ip-playground/etag.txt \
              -O \
@@ -94,7 +94,7 @@ in
         fi
 
         if systemctl is-active --quiet ip-playground.service; then
-          curl -X POST --fail "http://127.0.0.1:3032/reload"
+          curl -X POST --fail --verbose "http://127.0.0.1:3032/reload"
         fi
       '';
     };
