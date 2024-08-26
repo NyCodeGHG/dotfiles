@@ -146,6 +146,8 @@
     dysk
     dogdns
     qbittorrent
+    cemu
+    weechat-unwrapped
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
