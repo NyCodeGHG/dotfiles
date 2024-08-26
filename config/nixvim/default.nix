@@ -108,10 +108,10 @@
           };
         };
         servers = {
-          # hls = {
-          #   enable = true;
-          #   rootDir = ''require("lspconfig/util").root_pattern(".git")'';
-          # };
+          hls = {
+            enable = true;
+            rootDir = ''require("lspconfig/util").root_pattern(".git")'';
+          };
           vuels.enable = true;
           rust-analyzer = {
             enable = true;
