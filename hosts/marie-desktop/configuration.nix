@@ -214,6 +214,10 @@
     users = [ "marie" ];
   };
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "jitsi-meet-1.0.8043"
+  ];
+
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "24.05";
 }
