@@ -6,11 +6,12 @@
   config = lib.mkIf config.uwumarie.profiles.base {
     environment.systemPackages = with pkgs; [
       htop
-      neofetch
+      fastfetch
       pciutils
       file
       iputils
       dnsutils
+      usbutils
       wget
       curl
       vim
@@ -18,5 +19,6 @@
       git
     ];
     programs.nano.enable = false;
+    security.sudo-rs.enable = true;
   };
 }
