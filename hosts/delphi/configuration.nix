@@ -27,6 +27,7 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   security.sudo.wheelNeedsPassword = false;
+  security.sudo-rs.wheelNeedsPassword = false;
   time.timeZone = "Europe/Berlin";
 
   system.stateVersion = "23.11";
