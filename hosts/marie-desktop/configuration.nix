@@ -147,6 +147,7 @@
     dogdns
     qbittorrent
     cemu
+    bitwarden
     weechat-unwrapped
   ] ++ (with pkgs.kdePackages;[
     kcalc
