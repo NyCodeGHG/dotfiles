@@ -11,6 +11,7 @@
     # ./restic.nix
     ./networking.nix
     ./dn42
+    ./storage-box.nix
   ];
   uwumarie.profiles = {
     fail2ban = true;
