@@ -152,29 +152,6 @@ in
               PersistentKeepalive = 25;
             };
           }
-          {
-            # bjarne
-            wireguardPeerConfig = {
-              PublicKey = "TfOvrs1e3J/PM2H9BNdY9WlhG5ajVRGXTFgiU+cuD20=";
-              AllowedIPs = [ "10.69.0.10/32" ];
-            };
-          }
-          {
-            # bjarne homeserver backup
-            wireguardPeerConfig = {
-              PublicKey = "JauuZ0kyM7GZF7lTSev5T0VkOeEBDPGwJIi7JYlX7Hg=";
-              AllowedIPs = [ "10.69.0.11/32" ];
-              Endpoint = "2a02:8071:d80:2100:921b:eff:fe04:3a4a:51822";
-            };
-          }
-          {
-            # bjarne homeserver
-            wireguardPeerConfig = {
-              PublicKey = "UXJWqDuCRIqbmnxh29NzL6+ymQ/Lo/71EUbrDRdqsmk=";
-              AllowedIPs = [ "10.42.0.0/24" ];
-              Endpoint = "2a02:8071:d80:2100:921b:eff:fe04:3a4a:51820";
-            };
-          }
         ];
       };
       "50-wg1" = {
