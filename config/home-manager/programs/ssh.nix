@@ -47,6 +47,13 @@
           identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
           identitiesOnly = true;
         };
+        storagebox = {
+          hostname = "u421385.your-storagebox.de";
+          user = "u421385";
+          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
+          identitiesOnly = true;
+          port = 23;
+        };
         "*" = {
           extraOptions = {
             AddKeysToAgent = "yes";
