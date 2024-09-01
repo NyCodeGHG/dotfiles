@@ -149,6 +149,7 @@
     cemu
     bitwarden
     weechat-unwrapped
+    p7zip
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
