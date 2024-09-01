@@ -8,11 +8,12 @@
     sandwine
     protonup-qt
     bubblewrap
-    gamemode
     vulkan-tools
     glxinfo
+    mangohud
   ];
 
+  programs.gamemode.enable = true;
   services.flatpak.enable = true;
 
   boot.kernelParams = [
