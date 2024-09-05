@@ -47,6 +47,10 @@ in
             me@nycode.dev ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIdeDXldzVPq9QIYsm5XBZEWFhyY4LBCjp+/dEMfyvbf
             me@nycode.dev ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESHraJJ0INX/OAXOQUR4UuLEre/2N70Uh3H5YkFC5zz
           ''}";
+          sendemail = {
+            confirm = "always";
+            suppressCc = "self";
+          };
         }
       ];
       includes = mkIf cfg.enableGitEmail ([

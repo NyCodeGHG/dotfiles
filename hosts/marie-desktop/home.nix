@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 {
   home.packages = [ inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim ];
   news.display = "silent";
@@ -8,7 +8,7 @@
       enable = true;
       # signingKey = "id_ed25519";
       signingKey = null;
-      enableGitEmail = false;
+      enableGitEmail = true;
     };
     jujutsu = true;
     ripgrep = true;
@@ -20,4 +20,7 @@
     fish = true;
     tmux = true;
   };
+  age.identityPaths = [
+    "${config.home.homeDirectory}/.ssh/agenix.ed25519"
+  ];
 }
