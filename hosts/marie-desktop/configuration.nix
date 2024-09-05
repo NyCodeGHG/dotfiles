@@ -157,6 +157,7 @@
     easyeffects
     lxqt.pavucontrol-qt
     fend
+    lm_sensors
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
