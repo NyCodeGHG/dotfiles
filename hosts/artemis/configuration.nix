@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = with inputs; [
     home-manager.nixosModules.default
@@ -37,6 +37,11 @@
   system.stateVersion = "22.11";
 
   programs.mtr.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    yt-dlp
+    rclone
+  ];
 
   # age.rekey = {
   #   hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8";
