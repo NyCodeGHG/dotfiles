@@ -19,6 +19,7 @@
       git
       fd
       inxi
+      pv
     ];
     programs.nano.enable = false;
     security.sudo-rs.enable = true;
