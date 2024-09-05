@@ -14,6 +14,7 @@ lib.mkIf config.uwumarie.profiles.jujutsu
         gf = [ "git" "fetch" ];
         f-master = [ "git" "fetch" "--branch=master" "--remote=upstream" ];
       };
+      revsets.log = "trunk() | reachable(@, trunk()..visible_heads())";
     };
   };
 }
