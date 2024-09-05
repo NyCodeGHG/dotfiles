@@ -158,6 +158,7 @@
     kio-gdrive
     kaccounts-integration
     kaccounts-providers
+    (callPackage ../../pkgs/signon-plugin-oauth2/package.nix { })
   ]);
 
   environment.sessionVariables = {
