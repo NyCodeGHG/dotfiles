@@ -25,7 +25,10 @@
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   boot.loader = {
-    systemd-boot.enable = true;
+    systemd-boot = {
+      enable = true;
+      memtest86.enable = true;
+    };
     efi.canTouchEfiVariables = true;
   };
   networking = {
