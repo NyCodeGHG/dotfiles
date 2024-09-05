@@ -18,6 +18,7 @@
       tcpdump
       git
       fd
+      inxi
     ];
     programs.nano.enable = false;
     security.sudo-rs.enable = true;
