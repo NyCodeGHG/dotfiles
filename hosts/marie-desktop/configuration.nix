@@ -156,6 +156,7 @@
     p7zip
     easyeffects
     lxqt.pavucontrol-qt
+    fend
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
