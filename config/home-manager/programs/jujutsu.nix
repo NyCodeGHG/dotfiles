@@ -1,4 +1,4 @@
-{ pkgs, lib, config, inputs, ... }:
+{ pkgs, lib, config, ... }:
 lib.mkIf config.uwumarie.profiles.jujutsu
 {
   programs.jujutsu = {
@@ -9,6 +9,11 @@ lib.mkIf config.uwumarie.profiles.jujutsu
         email = "me@nycode.dev";
       };
       ui.diff.tool = [ "${pkgs.difftastic}/bin/difft" "--color=always" "$left" "$right" ];
+      aliases = {
+        gc = [ "git" "clone" "--colocate" ];
+        gf = [ "git" "fetch" ];
+        f-master = [ "git" "fetch" "--branch=master" "--remote=upstream" ];
+      };
     };
   };
 }
