@@ -17,6 +17,7 @@
       vim
       tcpdump
       git
+      fd
     ];
     programs.nano.enable = false;
     security.sudo-rs.enable = true;
