@@ -161,6 +161,17 @@
     (callPackage ../../pkgs/signon-plugin-oauth2/package.nix { })
   ]);
 
+  nixpkgs.overlays = [(final: prev: {
+    kdePackages = prev.kdePackages // ({
+      signond = prev.kdePackages.signond.overrideAttrs {
+        qmakeFlags = [
+          "SIGNOND_EXTENSIONS_DIR=/run/current-system/sw/lib/signon/extensions"
+          "SIGNOND_SIGNOND_PLUGINS_DIR=/run/current-system/sw/lib/signon/extensions"
+        ];
+      };
+    });
+  })];
+
   environment.sessionVariables = {
     "SSH_ASKPASS_REQUIRE" = "prefer";
     "PAGER" = "${pkgs.less}/bin/less -FRX";
