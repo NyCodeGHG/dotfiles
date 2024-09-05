@@ -23,6 +23,7 @@
   ]) || (lib.strings.hasInfix "cuda" (lib.getName pkg)) || (lib.strings.hasInfix "libcu" (lib.getName pkg));
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelModules = [ "coretemp" "nct6775" ];
 
   boot.loader = {
     systemd-boot = {
