@@ -17,7 +17,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
 
       - name: Run nvidia update script
-        runs: ./scripts/update-nvidia.sh
+        run: ./scripts/update-nvidia.sh
 
       - name: Create Pull Request
         uses: https://github.com/peter-evans/create-pull-request@v7.0.1
