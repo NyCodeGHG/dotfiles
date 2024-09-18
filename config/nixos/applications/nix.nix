@@ -1,4 +1,4 @@
-{ config, lib, inputs, ... }:
+{ config, lib, ... }:
 {
   options.uwumarie.profiles.nix = lib.mkEnableOption (lib.mdDoc "nix config") // {
     default = true;
@@ -18,7 +18,7 @@
       };
       # registry.nixpkgs.flake = inputs.nixpkgs;
       nixPath = [
-        "nixpkgs=${inputs.nixpkgs}"
+        "nixpkgs=${config.nixpkgs.flake.source}"
       ];
     };
   };
