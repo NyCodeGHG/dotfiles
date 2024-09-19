@@ -158,9 +158,6 @@
           marie-desktop = self.lib.nixosSystem nixpkgs-unstable {
             modules = [ ./hosts/marie-desktop/configuration.nix ];
           };
-          marie-desktop-wsl = self.lib.nixosSystem nixpkgs {
-            modules = [ ./hosts/marie-desktop-wsl/configuration.nix ];
-          };
           gitlabber = self.lib.nixosSystem nixpkgs {
             modules = [ ./hosts/gitlabber/configuration.nix ];
           };
