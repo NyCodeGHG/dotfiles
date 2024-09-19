@@ -181,18 +181,19 @@
 
         colmena = {
           meta = {
-            nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+            nixpkgs = nixpkgs.legacyPackages.x86_64-linux;
             specialArgs = { inherit inputs; };
-            nodeNixpkgs.delphi = import nixpkgs { system = "aarch64-linux"; };
+            nodeNixpkgs.delphi = nixpkgs.legacyPackages.aarch64-linux;
           };
           artemis = { name, nodes, pkgs, ... }: {
             imports = [
               ./hosts/artemis/configuration.nix
               self.nixosModules.config
             ];
-            deployment.buildOnTarget = false;
+            deployment.buildOnTarget = true;
             deployment.targetUser = null;
             nixpkgs.overlays = [ self.overlays.default ];
+            nixpkgs.flake.source = nixpkgs;
           };
           delphi = {
             imports = [
@@ -202,6 +203,7 @@
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
             nixpkgs.overlays = [ self.overlays.default ];
+            nixpkgs.flake.source = nixpkgs;
           };
           gitlabber = {
             imports = [
@@ -212,6 +214,7 @@
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
             nixpkgs.overlays = [ self.overlays.default ];
+            nixpkgs.flake.source = nixpkgs;
           };
         };
       };
