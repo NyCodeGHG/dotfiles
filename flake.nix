@@ -68,12 +68,13 @@
         };
         formatter = pkgs.nixfmt-rfc-style;
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
+          nativeBuildInputs = with pkgs; [
             opentofu
             nurl
             nixos-rebuild
             inputs.agenix.packages.${system}.default
             colmena
+            nix-update
           ];
         };
         packages =
