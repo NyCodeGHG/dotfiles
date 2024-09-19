@@ -71,7 +71,7 @@
             self.overlays.default
           ];
         };
-        formatter = pkgs.nixpkgs-fmt;
+        formatter = pkgs.nixfmt-rfc-style;
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             opentofu
