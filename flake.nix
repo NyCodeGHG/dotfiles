@@ -134,9 +134,6 @@
         overlays.default = (
           (final: prev: withSystem prev.stdenv.hostPlatform.system (
             { config, self', system, pkgs, inputs', ... }: {
-              vimPlugins = prev.vimPlugins.extend (_: _: {
-                inherit (self.packages.${system}) guard-nvim;
-              });
               inherit (inputs'.nixpkgs-unstable.legacyPackages) jujutsu renovate;
               wgsl-analyzer = pkgs.callPackage ./pkgs/wgsl-analyzer/package.nix { };
               sandwine = pkgs.callPackage ./pkgs/sandwine { };
