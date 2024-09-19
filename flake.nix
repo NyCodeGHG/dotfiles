@@ -80,7 +80,6 @@
             inputs.agenix.packages.${system}.default
             colmena
           ];
-          PRIVATE_KEY = "/home/marie/.ssh/default.ed25519";
         };
         packages =
           let
