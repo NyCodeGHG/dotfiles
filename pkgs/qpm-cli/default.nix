@@ -13,13 +13,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "qpm-cli";
-  version = "1.3.0";
+  version = "1.3.1";
 
   src = fetchFromGitHub {
     owner = "QuestPackageManager";
     repo = "QPM.CLI";
     rev = "v${version}";
-    hash = "sha256-w6IYcM1/3XFD5mLYM4pGt8Jqi6dyXgh5mucDF/fcsbs=";
+    hash = "sha256-c0GNOT/zfaLtAxZfUkdMHSJE7Wq4VBBfXguwTJPtIhg=";
   };
 
   cargoLock = {
@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
       "qpm_arg_tokenizer-0.1.0" = "sha256-1bYxmEYfWuWSNPs7TvutNxMjB44ITOtkaM2KvzND/d0=";
       "qpm_package-0.4.0" = "sha256-dz2NqHtqyK7PvrpBNGy8paPqWm+/LJSYF4o93qEg+9k=";
       "qpm_qmod-0.1.0" = "sha256-kFzj8odyXDnHFXPWN9EHBS0g7W1Hb3mcz085E0SWFYw=";
-      "templatr-0.1.0" = "sha256-zqQNAjbHG8ytW+B6fM3Hc1WQdRQnX5FnFfRyTW8qmaw=";
+      "templatr-0.1.0" = "sha256-aaPV2HACXpvxPIEsUtf4ob/WtSxtlflgZG/lXvP6axM=";
     };
   };
 
