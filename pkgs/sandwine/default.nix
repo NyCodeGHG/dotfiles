@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "sandwine";
-  version = "4.0.0";
+  version = "4.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "hartwork";
     repo = "sandwine";
     rev = "refs/tags/${version}";
-    hash = "sha256-pH0Zi4yzOvHQI3Q58o6eOLEBbXheFkRu/AzP8felz5I=";
+    hash = "sha256-S6QkAQhFCuHaYr90BC+FD4a7Y8+7Rl8GElGCo6vqzyA=";
   };
 
   patches = [ ./Add-nix-binds.patch ];
