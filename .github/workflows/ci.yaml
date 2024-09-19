@@ -31,7 +31,6 @@ jobs:
       matrix:
         package:
           - installer-stable
-          - deploy
     name: Build package ${{ matrix.package }}
     runs-on: ubuntu-latest
     needs: pre_ci
