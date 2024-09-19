@@ -1,10 +1,11 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   options.uwumarie.profiles.nix = lib.mkEnableOption (lib.mdDoc "nix config") // {
     default = true;
   };
   config = lib.mkIf config.uwumarie.profiles.nix {
     nix = {
+      package = pkgs.lix;
       gc = {
         automatic = true;
         dates = "weekly";
