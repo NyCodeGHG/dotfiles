@@ -158,6 +158,7 @@
     lxqt.pavucontrol-qt
     fend
     lm_sensors
+    krita
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
