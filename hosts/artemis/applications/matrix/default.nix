@@ -1,12 +1,22 @@
 { config, lib, pkgs, inputs, ... }:
 let
+  headers = ''
+    add_header X-Frame-Options SAMEORIGIN;
+    add_header X-Content-Type-Options nosniff;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Content-Security-Policy "frame-ancestors 'self'";
+  '';
   serverName = "marie.cologne";
   matrixDomain = "matrix.marie.cologne";
   frontendDomain = "chat.marie.cologne";
-  clientConfig."m.homeserver".base_url = "https://${matrixDomain}";
-  clientConfig."m.homeserver".server_name = "marie.cologne";
-  clientConfig."m.identity_server".base_url = "https://vector.im";
-  clientConfig."org.matrix.msc3575.proxy".url = "https://${matrixDomain}";
+  clientConfig = {
+    "m.homeserver" = {
+      base_url = "https://${matrixDomain}";
+      server_name = "marie.cologne";
+    };
+    "m.identity_server".base_url = "https://vector.im";
+    "org.matrix.msc3575.proxy".url = "https://${matrixDomain}";
+  };
   serverConfig."m.server" = "${matrixDomain}:443";
   mkWellKnown = data: ''
     add_header Content-Type application/json;
@@ -18,9 +28,16 @@ in
 {
   services.nginx.virtualHosts = {
     "${serverName}" = {
-
       locations."= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
       locations."= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
+    };
+    "admin.chat.marie.cologne" = {
+      useACMEHost = null;
+      enableACME = true;
+      locations."/" = {
+        root = pkgs.synapse-admin;
+        extraConfig = headers;
+      };
     };
     "${matrixDomain}" = {
       locations."= /" = {
@@ -40,20 +57,8 @@ in
           proxy_http_version 1.1;
         '';
       };
-      locations."/synapse-admin".root = pkgs.linkFarm "synapse-admin-routing" [{
-        name = "synapse-admin";
-        path = "${pkgs.synapse-admin}";
-      }];
     };
     "${frontendDomain}" =
-      let
-        headers = ''
-          add_header X-Frame-Options SAMEORIGIN;
-          add_header X-Content-Type-Options nosniff;
-          add_header X-XSS-Protection "1; mode=block";
-          add_header Content-Security-Policy "frame-ancestors 'self'";
-        '';
-      in
       {
         locations."/" = {
           root = pkgs.element-web.override {
@@ -61,7 +66,6 @@ in
               show_labs_settings = true;
               default_server_config = clientConfig;
               default_country_code = "DE";
-              room_directory.servers = [ "matrix.org" "mozilla.org" "skji.org" "nixos.org" ];
               default_theme = "dark";
               default_device_display_name = "Element Web";
               permalink_prefix = "https://chat.marie.cologne";
@@ -162,6 +166,32 @@ in
       turn_uris = [
         "turn:turn.marie.cologne:3478?transport=udp"
         "turn:turn.marie.cologne:3478?transport=tcp"
+      ];
+      enable_authenticated_media = true;
+      url_preview_ip_range_blacklist = [
+        "10.0.0.0/8"
+        "100.64.0.0/10"
+        "127.0.0.0/8"
+        "169.254.0.0/16"
+        "172.16.0.0/12"
+        "192.0.0.0/24"
+        "192.0.2.0/24"
+        "192.168.0.0/16"
+        "192.88.99.0/24"
+        "198.18.0.0/15"
+        "198.51.100.0/24"
+        "2001:db8::/32"
+        "203.0.113.0/24"
+        "224.0.0.0/4"
+        "::1/128"
+        "fc00::/7"
+        "fe80::/10"
+        "fec0::/10"
+        "ff00::/8"
+      ];
+      url_preview_ip_range_whitelist = [
+        # dn42
+        "fd00::/8"
       ];
     };
     extraConfigFiles = [

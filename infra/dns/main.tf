@@ -24,6 +24,7 @@ locals {
         "git",
         "grafana",
         "chat",
+        "admin.chat",
         "matrix",
         "miniflux",
         "status",
