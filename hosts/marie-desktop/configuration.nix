@@ -159,6 +159,7 @@
     fend
     lm_sensors
     krita
+    gimp
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
