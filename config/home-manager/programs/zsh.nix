@@ -6,7 +6,7 @@ lib.mkIf config.uwumarie.profiles.zsh {
     enableCompletion = true;
     sessionVariables = {
       EDITOR = "nvim";
-      NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
+      # NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
     };
     dotDir = ".config/zsh";
     history.path = "${config.home.homeDirectory}/.local/share/zsh/.zsh_history";

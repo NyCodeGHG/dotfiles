@@ -17,9 +17,6 @@
         experimental-features = [ "nix-command" "flakes" ];
         trusted-users = [ "@wheel" ];
       };
-      nixPath = [
-        "nixpkgs=${config.nixpkgs.flake.source}"
-      ];
     };
   };
 }
