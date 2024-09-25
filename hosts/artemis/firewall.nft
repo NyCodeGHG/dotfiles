@@ -42,12 +42,12 @@ chain filter {
   ct state { established, related } accept;
   icmpv6 type != { nd-redirect, 139 } accept;
 
+  iifname wg1 oifname "dn42n*" accept;
+  oifname wg1 iifname "dn42n*" accept;
+
   iifname "dn42n*" jump dn42;
 
   iifname wg0 accept;
-
-  iifname wg1 oifname ens3 accept;
-  oifname wg1 iifname ens3 accept;
 }
 
 chain dn42 {

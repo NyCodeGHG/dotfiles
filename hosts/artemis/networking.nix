@@ -168,8 +168,8 @@ in
           {
             # gitlabber
             wireguardPeerConfig = {
-              PublicKey = "VjZxw3D2YJIAvGF5APDOVeKzYNnEfSUzcBVPLqc7i2E=";
-              AllowedIPs = [ "2a03:4000:5f:f5b:8596:a039:73f9:f2bf/128" ];
+              PublicKey = "7B7AAcR1qKn8a5PO+QFT/vZpavKWGimbB6NG2ZEyhyQ=";
+              AllowedIPs = [ "fdf1:3ba4:9723:6373::/64" ];
               PersistentKeepalive = 25;
             };
           }
