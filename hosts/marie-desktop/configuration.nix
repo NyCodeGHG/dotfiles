@@ -234,6 +234,10 @@
     "jitsi-meet-1.0.8043"
   ];
 
+  users.users.marie.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILCcImzZop8RaAlrAy9HBy6LZz3iOaq9V5tThwIB8Ar4"
+  ];
+
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "24.05";
 }
