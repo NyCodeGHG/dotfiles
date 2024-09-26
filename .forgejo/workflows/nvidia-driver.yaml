@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Install Nix
-        uses: https://github.com/cachix/install-nix-action@v27
+        uses: https://github.com/cachix/install-nix-action@v29
         with:
           extra_nix_config: |
             extra-substituters = https://uwumarie.cachix.org
