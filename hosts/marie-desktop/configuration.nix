@@ -71,6 +71,8 @@
     };
   };
 
+  systemd.services.cups-browsed.enable = false;
+
   services.pipewire = {
     enable = true;
     jack.enable = true;
