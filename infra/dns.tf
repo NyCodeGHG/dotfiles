@@ -237,3 +237,10 @@ resource "cloudflare_record" "ip-playground-v6" {
   value   = resource.cloudflare_record.artemis_v6.value
   type    = "AAAA"
 }
+
+resource "cloudflare_record" "pronouns" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "pronouns"
+  value   = "she/her"
+  type    = "TXT"
+}
