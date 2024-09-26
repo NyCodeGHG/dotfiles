@@ -5,7 +5,7 @@ on:
     - cron: '0 7 * * 1'
 jobs:
   update-flake-lock:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Install Nix
         uses: https://github.com/cachix/install-nix-action@v27
