@@ -130,6 +130,7 @@
           nil-ls.enable = true;
           gleam.enable = true;
           jsonls.enable = true;
+          clangd.enable = true;
         };
       };
       fidget.enable = true;
