@@ -130,8 +130,8 @@
           (final: prev: withSystem prev.stdenv.hostPlatform.system (
             { config, self', system, pkgs, inputs', ... }: {
               inherit (inputs'.nixpkgs-unstable.legacyPackages) jujutsu renovate;
-              wgsl-analyzer = pkgs.callPackage ./pkgs/wgsl-analyzer/package.nix { };
-              sandwine = pkgs.callPackage ./pkgs/sandwine { };
+              wgsl-analyzer = prev.callPackage ./pkgs/wgsl-analyzer/package.nix { };
+              sandwine = prev.callPackage ./pkgs/sandwine { };
               qpm-cli = inputs'.nixpkgs-unstable.legacyPackages.callPackage ./pkgs/qpm-cli/default.nix { };
               yt-dlp = prev.yt-dlp.overrideAttrs (prev: {
                 patches = (prev.patches or []) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
