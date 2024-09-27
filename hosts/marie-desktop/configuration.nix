@@ -163,6 +163,7 @@
     lm_sensors
     krita
     gimp
+    phoronix-test-suite
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
