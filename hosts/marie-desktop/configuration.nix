@@ -3,7 +3,6 @@
   imports = with inputs; [
     home-manager-unstable.nixosModules.default
     ./hardware.nix
-    ./nvidia.nix
     ./gaming.nix
   ];
 
@@ -24,7 +23,12 @@
 
   # boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = [ "coretemp" "nct6775" ];
+  # boot.kernelModules = [ "coretemp" "nct6775" ];
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 
   boot.loader = {
     systemd-boot = {
@@ -114,7 +118,7 @@
     jetbrains.idea-community
     vscodium
     # (inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim)
-    nvtopPackages.nvidia
+    nvtopPackages.amd
     whois
     element-desktop
     signal-desktop
