@@ -133,6 +133,7 @@
               wgsl-analyzer = prev.callPackage ./pkgs/wgsl-analyzer/package.nix { };
               sandwine = prev.callPackage ./pkgs/sandwine { };
               qpm-cli = inputs'.nixpkgs-unstable.legacyPackages.callPackage ./pkgs/qpm-cli/default.nix { };
+              alvr = prev.callPackage ./pkgs/alvr/package.nix { };
               yt-dlp = prev.yt-dlp.overrideAttrs (prev: {
                 patches = (prev.patches or []) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
               });
