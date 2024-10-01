@@ -245,6 +245,8 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILCcImzZop8RaAlrAy9HBy6LZz3iOaq9V5tThwIB8Ar4"
   ];
 
+  time.hardwareClockInLocalTime = true;
+
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "24.05";
 }
