@@ -2,7 +2,13 @@
 {
   config = {
     # colorschemes.oxocarbon.enable = true;
-    colorschemes.melange.enable = true;
+    # colorschemes.melange.enable = true;
+    colorschemes.kanagawa = {
+      enable = true;
+      settings = {
+        background.dark = "dragon";
+      };
+    };
     globals.mapleader = " ";
     options = {
       # Line Numbers
@@ -60,10 +66,7 @@
         enabledExtensions = [ "hoogle" "ui-select" ];
       };
       which-key.enable = true;
-      illuminate = {
-        enable = true;
-
-      };
+      illuminate.enable = true;
       lualine.enable = true;
 
       # Treesitter
@@ -73,6 +76,7 @@
         indent = true;
 
         settings = {
+          highlight.enable = true;
           incremental_selection = {
             enable = true;
             keymaps = {
@@ -102,7 +106,6 @@
             "gd" = "definition";
             "gi" = "implementation";
             "gt" = "type_definition";
-            "<leader>ca" = "code_action";
             "<leader>cr" = "rename";
             "<leader>cf" = "format";
           };
@@ -173,6 +176,8 @@
       lspsaga.enable = true;
 
       neogit.enable = true;
+
+      leap.enable = true;
     };
 
     keymaps = [
@@ -187,6 +192,7 @@
       { mode = "t"; options.silent = true; key = "<ESC>"; action = "<C-\\><C-n>"; }
       { mode = "n"; options.silent = true; key = "<leader>fb"; action = "<cmd>Telescope buffers<cr>"; }
       { mode = "n"; options.silent = true; key = "<leader>t"; action = "<cmd>terminal<cr>"; }
+      { mode = "n"; options.silent = true; key = "<leader>ca"; action = "<cmd>Lspsaga rename<cr>"; }
     ];
 
     highlight = {
