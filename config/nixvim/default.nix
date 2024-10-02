@@ -106,7 +106,6 @@
             "gd" = "definition";
             "gi" = "implementation";
             "gt" = "type_definition";
-            "<leader>cr" = "rename";
             "<leader>cf" = "format";
           };
         };
@@ -192,7 +191,8 @@
       { mode = "t"; options.silent = true; key = "<ESC>"; action = "<C-\\><C-n>"; }
       { mode = "n"; options.silent = true; key = "<leader>fb"; action = "<cmd>Telescope buffers<cr>"; }
       { mode = "n"; options.silent = true; key = "<leader>t"; action = "<cmd>terminal<cr>"; }
-      { mode = "n"; options.silent = true; key = "<leader>ca"; action = "<cmd>Lspsaga rename<cr>"; }
+      { mode = "n"; options.silent = true; key = "<leader>cr"; action = "<cmd>Lspsaga rename<cr>"; }
+      { mode = "n"; options.silent = true; key = "<leader>ca"; action = "<cmd>Lspsaga code_action<cr>"; }
     ];
 
     highlight = {
