@@ -23,7 +23,25 @@
             mode = "aggressive";
           };
         };
+        pgrokd = {
+          enabled = true;
+          settings = {
+            filter = "pgrokd";
+            maxretry = 3;
+            port = 2222;
+            findtime = "1h";
+            bantime = "2w";
+            backend = "systemd";
+            action = "nftables[port=2222]";
+          };
+        };
       };
     };
+    environment.etc."fail2ban/filter.d/pgrokd.conf".text =
+      ''
+        [Definition]
+        failregex = Failed to handshake remote=<HOST>:\d+
+        journalmatch = _SYSTEMD_UNIT=pgrok.service
+      '';
   };
 }
