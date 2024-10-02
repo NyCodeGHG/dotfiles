@@ -38,6 +38,7 @@
       neoconf-nvim 
       vim-nftables 
       vim-caddyfile
+      vim-glsl
     ];
     extraConfigLuaPre = ''
       require("neoconf").setup()
