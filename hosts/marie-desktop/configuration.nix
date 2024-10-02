@@ -168,6 +168,7 @@
     krita
     gimp
     phoronix-test-suite
+    man-pages
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
