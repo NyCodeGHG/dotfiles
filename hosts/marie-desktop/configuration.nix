@@ -47,12 +47,7 @@
     font = "Lat2-Terminus16";
   };
   services = {
-    displayManager = {
-      sddm = {
-        enable = true;
-      };
-      defaultSession = "plasmax11";
-    };
+    displayManager.sddm.enable = true;
     desktopManager.plasma6.enable = true;
     xserver.enable = true;
     xserver.xkb.layout = "de";
