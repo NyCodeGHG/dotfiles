@@ -71,10 +71,6 @@ in
         networkConfig = {
           KeepConfiguration = "yes";
           IPv6AcceptRA = false;
-          IPv6ProxyNDP = true;
-          IPv6ProxyNDPAddress = [
-            "2a03:4000:5f:f5b:8596:a039:73f9:f2bf"
-          ];
         };
       };
       "50-wg0" = {
