@@ -9,21 +9,14 @@
   programs.direnv.enable = true;
 
   nixpkgs.config.allowUnfreePredicate = pkg: (builtins.elem (lib.getName pkg) [
-    "nvidia-x11"
-    "nvidia-settings"
-    "nvidia-persistenced"
     "steam"
     "steam-original"
     "steam-run"
     "spotify"
     "corefonts"
-    "libnvjitlink"
-    "libnpp"
-  ]) || (lib.strings.hasInfix "cuda" (lib.getName pkg)) || (lib.strings.hasInfix "libcu" (lib.getName pkg));
+  ]);
 
-  # boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelModules = [ "coretemp" "nct6775" ];
 
   hardware.graphics = {
     enable = true;
