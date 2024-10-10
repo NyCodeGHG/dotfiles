@@ -166,6 +166,7 @@
     kio-gdrive
     kaccounts-integration
     kaccounts-providers
+    filelight
   ]);
 
   nixpkgs.overlays = [(final: prev: {
