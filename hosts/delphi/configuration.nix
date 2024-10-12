@@ -18,6 +18,7 @@
     nginx = true;
     nix = true;
     users.marie = true;
+    headless = true;
   };
 
   environment.systemPackages = with pkgs; [ p7zip ];

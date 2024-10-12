@@ -20,6 +20,7 @@
     nginx = true;
     nix = true;
     users.marie = true;
+    headless = true;
   };
 
   services.qemuGuest.enable = true;

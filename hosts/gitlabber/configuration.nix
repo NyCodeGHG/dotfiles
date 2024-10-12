@@ -23,6 +23,11 @@
 
   # use root account instead
   uwumarie.profiles.users.marie = false;
+  uwumarie.profiles = {
+    headless = true;
+    openssh = true;
+    nix = true;
+  };
 
   networking.useDHCP = false;
   systemd.network = {
