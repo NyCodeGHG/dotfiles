@@ -158,6 +158,7 @@
     gimp
     phoronix-test-suite
     man-pages
+    unrar-wrapper
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
