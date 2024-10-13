@@ -159,6 +159,7 @@
     phoronix-test-suite
     man-pages
     unrar-wrapper
+    smartmontools
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
