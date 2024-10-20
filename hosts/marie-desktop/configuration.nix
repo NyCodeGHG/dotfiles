@@ -162,6 +162,7 @@
     unrar-wrapper
     smartmontools
     keepassxc
+    libreoffice-qt6-fresh
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
