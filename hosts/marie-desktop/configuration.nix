@@ -161,6 +161,7 @@
     man-pages
     unrar-wrapper
     smartmontools
+    keepassxc
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
