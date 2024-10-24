@@ -163,6 +163,9 @@
     smartmontools
     keepassxc
     libreoffice-qt6-fresh
+    yq-go
+    nushell
+    jq
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
