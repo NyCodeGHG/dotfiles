@@ -130,7 +130,7 @@
     squashfsTools
     partclone
     wireguard-tools
-    btop
+    (btop.override { rocmSupport = true; })
     xclip
     openssl
     yt-dlp
