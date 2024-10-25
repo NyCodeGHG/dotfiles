@@ -133,6 +133,7 @@
           gleam.enable = true;
           jsonls.enable = true;
           clangd.enable = true;
+          cssls.enable = true;
         };
       };
       fidget.enable = true;
