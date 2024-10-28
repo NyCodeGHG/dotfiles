@@ -43,13 +43,6 @@ in
       locations."= /" = {
         return = "301 https://${frontendDomain}";
       };
-      locations."~ ^/(client/|_matrix/client/unstable/org.matrix.msc3575/sync)" = {
-        proxyPass = "http://[::1]:8009";
-        extraConfig = ''
-          client_max_body_size 50M;
-          proxy_http_version 1.1;
-        '';
-      };
       locations."~ ^/(_matrix|_synapse)" = {
         proxyPass = "http://[::1]:8008";
         extraConfig = ''
