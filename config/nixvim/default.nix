@@ -69,14 +69,14 @@
       which-key.enable = true;
       illuminate.enable = true;
       lualine.enable = true;
+      web-devicons.enable = true;
 
       # Treesitter
       treesitter = {
         enable = true;
         folding = true;
-        indent = true;
-
         settings = {
+          indent.enable = false;
           highlight.enable = true;
           incremental_selection = {
             enable = true;
@@ -116,21 +116,22 @@
             rootDir = ''require("lspconfig/util").root_pattern(".git")'';
             installGhc = false;
           };
-          rust-analyzer = {
+          rust_analyzer = {
             enable = true;
             installRustc = false;
             installCargo = false;
+            settings.diagnostics.enable = true;
           };
-          tsserver.enable = true;
+          ts_ls.enable = true;
           denols.enable = true;
           # phpactor.enable = true;
           terraformls.enable = true;
           gopls.enable = true;
-          lua-ls.enable = true;
+          lua_ls.enable = true;
           pylsp.enable = true;
           svelte.enable = true;
           # nixd.enable = true;
-          nil-ls.enable = true;
+          nil_ls.enable = true;
           gleam.enable = true;
           jsonls.enable = true;
           clangd.enable = true;
