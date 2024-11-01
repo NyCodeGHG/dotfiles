@@ -129,6 +129,7 @@
     nix-output-monitor
     obs-studio
     vlc
+    mpv
     ffmpeg
     alsa-utils
     nixpkgs-review
