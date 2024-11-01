@@ -114,6 +114,7 @@
           hls = {
             enable = true;
             rootDir = ''require("lspconfig/util").root_pattern(".git")'';
+            installGhc = false;
           };
           rust-analyzer = {
             enable = true;
