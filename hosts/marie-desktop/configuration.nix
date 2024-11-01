@@ -34,7 +34,10 @@
   };
   networking = {
     hostName = "marie-desktop";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
     useDHCP = false;
     firewall.logRefusedConnections = false;
   };
