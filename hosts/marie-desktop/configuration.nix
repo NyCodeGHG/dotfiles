@@ -114,14 +114,11 @@
     vesktop
     spotify
     qpwgraph
-    jetbrains.idea-community
     vscodium
     # (inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim)
     nvtopPackages.amd
     whois
     element-desktop
-    signal-desktop
-    hyfetch
     bat
     tokei
     ripgrep
@@ -141,14 +138,11 @@
     partclone
     wireguard-tools
     (btop.override { rocmSupport = true; })
-    xclip
     openssl
     yt-dlp
     android-tools
     adbfs-rootless
     protontricks
-    ghidra
-    podman-compose
     polychromatic
     deno
     clang-tools
@@ -157,17 +151,14 @@
     dysk
     dogdns
     qbittorrent
-    cemu
+    # cemu
     bitwarden
     weechat-unwrapped
     p7zip
     easyeffects
-    lxqt.pavucontrol-qt
     fend
     lm_sensors
-    krita
     gimp
-    phoronix-test-suite
     man-pages
     unrar-wrapper
     smartmontools
