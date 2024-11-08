@@ -10,4 +10,5 @@
       deny all;
     '';
   };
+  users.users.marie.extraGroups = [ "jellyfin" ];
 }
