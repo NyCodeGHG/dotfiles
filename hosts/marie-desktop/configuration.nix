@@ -167,6 +167,7 @@
     yq-go
     nushell
     jq
+    wl-clipboard-rs
   ] ++ (with pkgs.kdePackages;[
     kcalc
     isoimagewriter
