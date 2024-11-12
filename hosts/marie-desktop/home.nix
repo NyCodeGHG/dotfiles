@@ -1,5 +1,8 @@
 { config, inputs, pkgs, ... }:
 {
+  imports = [
+    ../../modules/hm/switch-to-windows.nix
+  ];
   home.packages = [ inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim ];
   news.display = "silent";
   uwumarie.profiles = {
@@ -23,4 +26,5 @@
   age.identityPaths = [
     "${config.home.homeDirectory}/.ssh/agenix.ed25519"
   ];
+  programs.switch-to-windows.enable = true;
 }
