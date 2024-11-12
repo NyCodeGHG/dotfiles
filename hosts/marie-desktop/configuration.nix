@@ -61,7 +61,10 @@
       openFirewall = true;
       nssmdns4 = true;
     };
-    printing.enable = true;
+    printing = {
+      enable = true;
+      drivers = with pkgs; [ hplip ];
+    };
     resolved = {
       enable = true;
       extraConfig = ''
