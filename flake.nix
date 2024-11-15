@@ -24,12 +24,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
     unlock-ssh-keys = {
       url = "git+https://codeberg.org/marie/unlock-ssh-keys";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
     };
 
     nixvim = {
@@ -50,24 +47,30 @@
     ];
   };
 
-  outputs = inputs@{ flake-parts, home-manager, nixpkgs, nixpkgs-unstable, self, agenix, ... }:
-    flake-parts.lib.mkFlake ({ inherit inputs; }) ({ withSystem, ... }: {
-      imports = [
-        ./pkgs/flake-module.nix
-        ./modules/nixos/flake-module.nix
-      ];
-
-      systems = [ "x86_64-linux" "aarch64-linux" ];
-
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
-        _module.args.pkgs = import nixpkgs {
-          inherit system;
-          overlays = [
-            self.overlays.default
-          ];
-        };
-        formatter = pkgs.nixfmt-rfc-style;
-        devShells.default = pkgs.mkShell {
+  outputs =
+    inputs@{
+      agenix,
+      home-manager,
+      nixpkgs,
+      nixpkgs-unstable,
+      nixvim,
+      self,
+      ...
+    }:
+    let
+      forEachSystem =
+        nixpkgs: f:
+        nixpkgs.lib.genAttrs [
+          "x86_64-linux"
+          "aarch64-linux"
+        ] (system: f nixpkgs.legacyPackages.${system});
+      packages = pkgs: {
+      };
+    in
+    {
+      formatter = forEachSystem nixpkgs (pkgs: pkgs.nixfmt-rfc-style);
+      devShells = forEachSystem nixpkgs (pkgs: {
+        default = pkgs.mkShellNoCC {
           nativeBuildInputs = with pkgs; [
             opentofu
             nurl
@@ -77,105 +80,141 @@
             nix-update
           ];
         };
-        packages =
-          let
-            currentHostPlatform = { nixpkgs.hostPlatform = system; };
-            installerImage = inputs:
-              (inputs.nixpkgs.lib.nixosSystem { modules = [ ./hosts/installer/configuration.nix currentHostPlatform ]; }).config.system.build.isoImage;
-          in
-          {
-            inherit (pkgs) opentofu;
-            installer-stable = installerImage inputs;
-            nixvim = inputs'.nixvim.legacyPackages.makeNixvimWithModule {
-              module = import ./config/nixvim;
-            };
-            gitlabber-tarball = (self.nixosConfigurations.gitlabber.extendModules {
-              modules = [ 
-                self.nixosModules.nspawnTarball
+      });
+      packages = forEachSystem nixpkgs (
+        pkgs:
+        let
+          inherit (pkgs.stdenv.hostPlatform) system;
+          currentHostPlatform = {
+            nixpkgs.hostPlatform = system;
+          };
+          installerImage =
+            (nixpkgs.lib.nixosSystem {
+              modules = [
+                ./hosts/installer/configuration.nix
                 currentHostPlatform
               ];
-            }).config.system.build.tarball;
-          };
-      };
+            }).config.system.build.isoImage;
+        in
+        {
+          inherit (pkgs) opentofu;
+          installer-stable = installerImage inputs;
+          nixvim = nixvim.legacyPackages.${system}.makeNixvimWithModule { module = import ./config/nixvim; };
+          wgsl-analyzer = pkgs.callPackage ./pkgs/wgsl-analyzer/package.nix { };
+          sandwine = pkgs.callPackage ./pkgs/sandwine { };
+          qpm-cli = nixpkgs-unstable.legacyPackages.${system}.callPackage ./pkgs/qpm-cli/default.nix { };
+          alvr = pkgs.callPackage ./pkgs/alvr/package.nix { };
+          yt-dlp = pkgs.yt-dlp.overrideAttrs (prev: {
+            patches = (prev.patches or [ ]) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
+          });
+        }
+      );
 
-      flake = {
-        lib = {
-          nixosSystem = nixpkgs:
-            nixpkgs.lib.makeOverridable ({ modules ? [ ], baseModules ? [ ] }:
-              nixpkgs.lib.nixosSystem {
-                specialArgs = {
-                  inherit inputs;
-                };
-                modules = baseModules ++ [
-                  { nixpkgs.overlays = [ self.overlays.default ]; }
-                  self.nixosModules.config
-                ] ++ modules;
-              }
-            );
-
-          homeManagerConfiguration = nixpkgs.lib.makeOverridable ({ modules ? [ ], pkgs }:
-            home-manager.lib.homeManagerConfiguration {
-              inherit pkgs;
-              extraSpecialArgs = {
+      lib = {
+        nixosSystem =
+          nixpkgs:
+          nixpkgs.lib.makeOverridable (
+            {
+              modules ? [ ],
+              baseModules ? [ ],
+            }:
+            nixpkgs.lib.nixosSystem {
+              specialArgs = {
                 inherit inputs;
               };
-              modules = [
-                { nixpkgs.overlays = [ self.overlays.default ]; }
-                self.homeManagerModules.config
-              ] ++ modules;
-            });
-        };
-
-        overlays.default = (
-          (final: prev: withSystem prev.stdenv.hostPlatform.system (
-            { config, self', system, pkgs, inputs', ... }: {
-              inherit (inputs'.nixpkgs-unstable.legacyPackages) jujutsu renovate;
-              wgsl-analyzer = prev.callPackage ./pkgs/wgsl-analyzer/package.nix { };
-              sandwine = prev.callPackage ./pkgs/sandwine { };
-              qpm-cli = inputs'.nixpkgs-unstable.legacyPackages.callPackage ./pkgs/qpm-cli/default.nix { };
-              alvr = prev.callPackage ./pkgs/alvr/package.nix { };
-              yt-dlp = prev.yt-dlp.overrideAttrs (prev: {
-                patches = (prev.patches or []) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
-              });
+              modules =
+                baseModules
+                ++ [
+                  { nixpkgs.overlays = [ self.overlays.default ]; }
+                  self.nixosModules.config
+                ]
+                ++ modules;
             }
-          ))
-        );
+          );
 
-        nixosModules.config = import ./config/nixos;
-        homeManagerModules.config = import ./config/home-manager;
-
-        nixosConfigurations = {
-          artemis = self.lib.nixosSystem nixpkgs {
-            modules = [ ./hosts/artemis/configuration.nix ];
-          };
-          delphi = self.lib.nixosSystem nixpkgs {
-            modules = [ ./hosts/delphi/configuration.nix ];
-          };
-          marie-desktop = self.lib.nixosSystem nixpkgs-unstable {
-            modules = [ ./hosts/marie-desktop/configuration.nix ];
-          };
-          gitlabber = self.lib.nixosSystem nixpkgs {
-            modules = [ ./hosts/gitlabber/configuration.nix ];
-          };
-          installer = nixpkgs.lib.nixosSystem nixpkgs {
-            system = "x86_64-linux";
+        homeManagerConfiguration = nixpkgs.lib.makeOverridable (
+          {
+            modules ? [ ],
+            pkgs,
+          }:
+          home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = {
+              inherit inputs;
+            };
             modules = [
-              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-              ({ pkgs, ... }: {
+              { nixpkgs.overlays = [ self.overlays.default ]; }
+              self.homeManagerModules.config
+            ] ++ modules;
+          }
+        );
+      };
+
+      overlays.default = (
+        final: prev:
+        let
+          inherit (final.stdenv.hostPlatform) system;
+        in
+        {
+          inherit (nixpkgs-unstable.legacyPackages.${system}) jujutsu renovate;
+          wgsl-analyzer = prev.callPackage ./pkgs/wgsl-analyzer/package.nix { };
+          sandwine = prev.callPackage ./pkgs/sandwine { };
+          qpm-cli = nixpkgs-unstable.legacyPackages.${system}.callPackage ./pkgs/qpm-cli/default.nix { };
+          alvr = prev.callPackage ./pkgs/alvr/package.nix { };
+          yt-dlp = prev.yt-dlp.overrideAttrs (prev: {
+            patches = (prev.patches or [ ]) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
+          });
+        }
+      );
+
+      nixosModules = {
+        config = import ./config/nixos;
+        authentik = ./modules/nixos/applications/authentik.nix;
+        coder = ./modules/nixos/applications/coder.nix;
+        pgrok = ./modules/nixos/applications/pgrok.nix;
+        nspawnTarball = ./modules/nixos/nspawn-tarball.nix;
+        cachixUpload = ./modules/nixos/cachix-upload.nix;
+      };
+      homeManagerModules.config = import ./config/home-manager;
+
+      nixosConfigurations = {
+        artemis = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/artemis/configuration.nix ]; };
+        delphi = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/delphi/configuration.nix ]; };
+        marie-desktop = self.lib.nixosSystem nixpkgs-unstable {
+          modules = [ ./hosts/marie-desktop/configuration.nix ];
+        };
+        gitlabber = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/gitlabber/configuration.nix ]; };
+        installer = nixpkgs.lib.nixosSystem nixpkgs {
+          system = "x86_64-linux";
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+            (
+              { pkgs, ... }:
+              {
                 environment.systemPackages = [ pkgs.neovim ];
                 environment.etc."dotfiles".source = self;
-              })
-            ];
-          };
+              }
+            )
+          ];
         };
+      };
 
-        colmena = {
-          meta = {
-            nixpkgs = nixpkgs.legacyPackages.x86_64-linux;
-            specialArgs = { inherit inputs; };
-            nodeNixpkgs.delphi = nixpkgs.legacyPackages.aarch64-linux;
+      colmena = {
+        meta = {
+          nixpkgs = nixpkgs.legacyPackages.x86_64-linux;
+          specialArgs = {
+            inherit inputs;
           };
-          artemis = { name, nodes, pkgs, ... }: {
+          nodeNixpkgs.delphi = nixpkgs.legacyPackages.aarch64-linux;
+        };
+        artemis =
+          {
+            name,
+            nodes,
+            pkgs,
+            ...
+          }:
+          {
             imports = [
               ./hosts/artemis/configuration.nix
               self.nixosModules.config
@@ -185,28 +224,27 @@
             nixpkgs.overlays = [ self.overlays.default ];
             nixpkgs.flake.source = nixpkgs;
           };
-          delphi = {
-            imports = [
-              ./hosts/delphi/configuration.nix
-              self.nixosModules.config
-            ];
-            deployment.buildOnTarget = true;
-            deployment.targetUser = null;
-            nixpkgs.overlays = [ self.overlays.default ];
-            nixpkgs.flake.source = nixpkgs;
-          };
-          gitlabber = {
-            imports = [
-              ./hosts/gitlabber/configuration.nix
-              self.nixosModules.config
-            ];
-            deployment.targetHost = "marie:gitlabber@jemand771.net";
-            deployment.buildOnTarget = true;
-            deployment.targetUser = null;
-            nixpkgs.overlays = [ self.overlays.default ];
-            nixpkgs.flake.source = nixpkgs;
-          };
+        delphi = {
+          imports = [
+            ./hosts/delphi/configuration.nix
+            self.nixosModules.config
+          ];
+          deployment.buildOnTarget = true;
+          deployment.targetUser = null;
+          nixpkgs.overlays = [ self.overlays.default ];
+          nixpkgs.flake.source = nixpkgs;
+        };
+        gitlabber = {
+          imports = [
+            ./hosts/gitlabber/configuration.nix
+            self.nixosModules.config
+          ];
+          deployment.targetHost = "marie:gitlabber@jemand771.net";
+          deployment.buildOnTarget = true;
+          deployment.targetUser = null;
+          nixpkgs.overlays = [ self.overlays.default ];
+          nixpkgs.flake.source = nixpkgs;
         };
       };
-    });
+    };
 }
