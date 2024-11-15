@@ -13,7 +13,6 @@ lib.mkIf config.uwumarie.profiles.jujutsu
         gc = [ "git" "clone" "--colocate" ];
         gf = [ "git" "fetch" ];
         f-master = [ "git" "fetch" "--branch=master" "--remote=upstream" ];
-        branch = [ "bookmark" ];
         bump = [ "bookmark" "move" "--from" "heads(::@- & bookmarks())" "--to" "@-" ];
       };
       revsets.log = "trunk() | reachable(@, trunk()..visible_heads())";
