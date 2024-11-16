@@ -15,5 +15,6 @@
     ./iperf3.nix
     ./hedgedoc
     ./jellyfin.nix
+    ./netbox
   ];
 }
