@@ -192,6 +192,7 @@
     "EDITOR" = "nvim";
     "KWIN_X11_FORCE_SOFTWARE_VSYNC" = "1";
     "KWIN_X11_NO_SYNC_TO_VBLANK" = "1";
+    "FREETYPE_PROPERTIES" = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
   };
 
   environment.shellAliases = {
