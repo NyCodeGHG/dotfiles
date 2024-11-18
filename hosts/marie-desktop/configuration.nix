@@ -4,6 +4,7 @@
     home-manager-unstable.nixosModules.default
     ./hardware.nix
     ./gaming.nix
+    ./suspend-fix.nix
   ];
 
   programs.direnv.enable = true;
