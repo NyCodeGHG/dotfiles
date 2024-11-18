@@ -191,8 +191,8 @@ resource "cloudflare_record" "oci-fra01_marie_cologne" {
 resource "cloudflare_record" "mc_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "mc"
-  value   = "delphi.marie.cologne"
-  type    = "CNAME"
+  value   = cloudflare_record.delphi_v4.value
+  type    = "A"
 }
 
 resource "cloudflare_record" "cdn_marie_cologne" {
