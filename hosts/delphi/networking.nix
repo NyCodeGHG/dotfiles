@@ -28,7 +28,10 @@ in
     enable = true;
     networks = {
       "10-ethernet" = {
-        matchConfig.Type = [ "ether" ];
+        matchConfig = {
+          Type = [ "ether" ];
+          Kind = [ "!veth" ];
+        };
         networkConfig = {
           DHCP = "ipv4";
           IPv6AcceptRA = true;
