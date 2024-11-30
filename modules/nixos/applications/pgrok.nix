@@ -76,6 +76,10 @@ in
           after = [
             "network.target"
             "pgrok-config.service"
+            "postgresql.service"
+          ];
+          requires = [
+            "postgresql.service"
           ];
           bindsTo = [
             "pgrok-config.service"
