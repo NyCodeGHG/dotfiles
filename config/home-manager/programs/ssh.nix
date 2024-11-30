@@ -44,7 +44,6 @@
         gitlabber = {
           hostname = "warpgate.jemand771.net";
           user = "marie:gitlabber";
-          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
           identitiesOnly = true;
         };
         storagebox = {
