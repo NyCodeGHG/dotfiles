@@ -74,7 +74,7 @@ in
           DHCP = "no";
           networkConfig = {
             IPv6AcceptRA = false;
-            IPForward = "yes";
+            IPv6Forwarding = "yes";
             KeepConfiguration = "yes";
           };
           addresses = [
