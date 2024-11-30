@@ -1,8 +1,5 @@
-{ config, inputs, pkgs, ... }:
+{ config, pkgs, ... }:
 {
-  imports = [
-    (inputs.nixpkgs-unstable + "/nixos/modules/services/misc/renovate.nix")
-  ];
   services.renovate = {
     enable = true;
     schedule = "hourly";

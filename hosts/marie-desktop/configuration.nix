@@ -18,7 +18,7 @@
     "corefonts"
   ]);
 
-  boot.kernelPackages = pkgs.linuxPackages_6_11;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.graphics = {
     enable = true;
@@ -214,7 +214,7 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    nerd-fonts.jetbrains-mono
   ];
 
   home-manager.users.marie = { config, pkgs, ... }: {

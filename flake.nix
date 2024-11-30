@@ -1,12 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     home-manager-unstable = {
       url = "github:nix-community/home-manager";
@@ -151,7 +146,7 @@
           inherit (final.stdenv.hostPlatform) system;
         in
         {
-          inherit (nixpkgs-unstable.legacyPackages.${system}) jujutsu renovate;
+          inherit (nixpkgs-unstable.legacyPackages.${system}) jujutsu;
           wgsl-analyzer = prev.callPackage ./pkgs/wgsl-analyzer/package.nix { };
           sandwine = prev.callPackage ./pkgs/sandwine { };
           qpm-cli = nixpkgs-unstable.legacyPackages.${system}.callPackage ./pkgs/qpm-cli/default.nix { };

@@ -1,7 +1,6 @@
 { pkgs, modulesPath, config, inputs, ... }:
 {
   imports = with inputs; [
-    home-manager.nixosModules.default
     agenix.nixosModules.default
     ../../config/nixos/system/acme.nix
     (modulesPath + "/profiles/minimal.nix")
