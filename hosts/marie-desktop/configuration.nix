@@ -19,6 +19,13 @@
   ]);
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPatches = [{
+    name = "Corsair HS80 fix";
+    patch = (pkgs.fetchpatch {
+      url = "https://github.com/tiwai/sound/commit/a7de2b873f3dbcda02d504536f1ec6dc50e3f6c4.patch";
+      hash = "sha256-q+EFq9B7WVyJIc8xpIr81dV9e5yymo6RePFYrUQah38=";
+    });
+  }];
 
   hardware.graphics = {
     enable = true;
