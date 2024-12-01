@@ -174,7 +174,7 @@
     unrar-wrapper
     smartmontools
     keepassxc
-    # libreoffice-qt6-fresh
+    libreoffice-qt6-fresh
     yq-go
     nushell
     jq
