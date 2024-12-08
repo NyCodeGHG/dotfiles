@@ -11,10 +11,10 @@ let
     domain = "gitgud.io";
     owner = "wackyideas";
     repo = "aerothemeplasma";
-    rev = "2b0f425c44942ebd9b42e338b90ad4af7833a8f4";
-    hash = "sha256-TI8ukqWh7gUsttdHxes7e3lWMf+PQ9HWeOUNZE9112s=";
+    rev = "ba7d918081fad109b1f70158990986a7643c3a7c";
+    hash = "sha256-bg9QjmlPlqZ+DPlDFlX5YHlqwaWUboopRhH40DVkJbk=";
   };
-  version = "0-unstable-2024-12-02";
+  version = "0-unstable-2024-12-06";
   breeze = stdenv.mkDerivation (finalAttrs: {
     pname = "plasma-aero-theme-breeze";
     inherit src version;
