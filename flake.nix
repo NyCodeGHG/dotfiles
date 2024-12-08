@@ -97,6 +97,7 @@
           yt-dlp = pkgs.yt-dlp.overrideAttrs (prev: {
             patches = (prev.patches or [ ]) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
           });
+          plasma-aero-theme = pkgs.callPackage ./pkgs/plasma-aero-theme/package.nix { };
         }
       );
 
@@ -154,6 +155,7 @@
           yt-dlp = prev.yt-dlp.overrideAttrs (prev: {
             patches = (prev.patches or [ ]) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
           });
+          plasma-aero-theme = prev.callPackage ./pkgs/plasma-aero-theme/package.nix { };
         }
       );
 
