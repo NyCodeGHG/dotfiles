@@ -78,8 +78,8 @@
           currentHostPlatform = {
             nixpkgs.hostPlatform = system;
           };
-          installerImage =
-            (nixpkgs.lib.nixosSystem {
+          installerImage = inputs:
+            (inputs.nixpkgs.lib.nixosSystem {
               modules = [
                 ./hosts/installer/configuration.nix
                 currentHostPlatform
