@@ -12,6 +12,7 @@ jobs:
           - artemis
           # - delphi
           - minimal
+          - marie-desktop
     name: Build ${{ matrix.nixosConfig }}
     runs-on: ubuntu-latest
     needs: pre_ci
@@ -31,6 +32,14 @@ jobs:
       matrix:
         package:
           - installer-stable
+          - alvr
+          - nixvim
+          - opentofu
+          - plasma-aero-theme
+          - qpm-cli
+          - sandwine
+          - wgsl-analyzer
+          - yt-dlp
     name: Build package ${{ matrix.package }}
     runs-on: ubuntu-latest
     needs: pre_ci
