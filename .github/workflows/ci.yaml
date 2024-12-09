@@ -10,15 +10,15 @@ jobs:
       fail-fast: false
       matrix:
         package:
-          - installer-stable
-          - alvr
-          - nixvim
-          - opentofu
-          - plasma-aero-theme
-          - qpm-cli
-          - sandwine
-          - wgsl-analyzer
-          - yt-dlp
+          - packages.x86_64-linux.installer-stable
+          - packages.x86_64-linux.alvr
+          - packages.x86_64-linux.nixvim
+          - packages.x86_64-linux.opentofu
+          - packages.x86_64-linux.plasma-aero-theme
+          - packages.x86_64-linux.qpm-cli
+          - packages.x86_64-linux.sandwine
+          - packages.x86_64-linux.wgsl-analyzer
+          - packages.x86_64-linux.yt-dlp
           - nixosConfigurations.marie-desktop.config.system.build.kernel
     name: Build package ${{ matrix.package }}
     runs-on: ubuntu-latest
