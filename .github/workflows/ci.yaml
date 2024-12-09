@@ -4,34 +4,6 @@ on:
 jobs:
   pre_ci:
     uses: dtolnay/.github/.github/workflows/pre_ci.yml@master
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        nixosConfig:
-          - artemis
-          # - delphi
-          - minimal
-          - marie-desktop
-    name: Build ${{ matrix.nixosConfig }}
-    runs-on: ubuntu-latest
-    needs: pre_ci
-    if: needs.pre_ci.outputs.continue
-    steps:
-      - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@ba0dd844c9180cbf77aa72a116d6fbc515d0e87b # v27
-      - name: Build ${{ matrix.nixosConfig }}
-        env:
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        run: |
-          nix shell --inputs-from . \
-            nixpkgs#nix-fast-build \
-              -c \
-                nix-fast-build \
-                  --skip-cached \
-                  --no-nom \
-                  --cachix-cache uwumarie \
-                  --flake .#nixosConfigurations.marie-desktop.config.system.build.toplevel
 
   build-packages:
     strategy:
@@ -47,6 +19,7 @@ jobs:
           - sandwine
           - wgsl-analyzer
           - yt-dlp
+          - nixosConfigurations.marie-desktop.config.system.build.kernel
     name: Build package ${{ matrix.package }}
     runs-on: ubuntu-latest
     needs: pre_ci
@@ -54,27 +27,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@ba0dd844c9180cbf77aa72a116d6fbc515d0e87b # v27
-      - uses: cachix/cachix-action@v15
-        with:
-          name: uwumarie
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - run: nix build .#packages.x86_64-linux.${{ matrix.package }} --print-build-logs
-
-  opentofu:
-    name: Check OpenTofu infra
-    runs-on: ubuntu-latest
-    needs: pre_ci
-    if: needs.pre_ci.outputs.continue
-    steps:
-      - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@ba0dd844c9180cbf77aa72a116d6fbc515d0e87b # v27
-      - name: Initialize OpenTofu
-        run: nix run .#opentofu -- -chdir=infra init
+      - name: Build ${{ matrix.package }}
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name: Validate OpenTofu infra
-        run: nix run .#opentofu -- -chdir=infra validate
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        run: |
+          nix shell --inputs-from . \
+            nixpkgs#nix-fast-build \
+              -c \
+                nix-fast-build \
+                  --skip-cached \
+                  --no-nom \
+                  --cachix-cache uwumarie \
+                  --flake '.#${{ matrix.package }}'
