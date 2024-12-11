@@ -156,6 +156,9 @@
             patches = (prev.patches or [ ]) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
           });
           plasma-aero-theme = prev.callPackage ./pkgs/plasma-aero-theme/package.nix { };
+          btop = prev.btop.overrideAttrs (prev: {
+            patches = (prev.patches or [ ]) ++ [ ./patches/btop_Fix-typo-Mhz-MHz.patch ];
+          });
         }
       );
 
