@@ -20,6 +20,7 @@ jobs:
           - packages.x86_64-linux.wgsl-analyzer
           - packages.x86_64-linux.yt-dlp
           - nixosConfigurations.marie-desktop.config.system.build.kernel
+          - nixosConfigurations.marie-desktop.config.system.build.initialRamdisk
     name: Build package ${{ matrix.package }}
     runs-on: ubuntu-latest
     needs: pre_ci
@@ -27,10 +28,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@ba0dd844c9180cbf77aa72a116d6fbc515d0e87b # v27
+      - uses: cachix/cachix-action@@ad2ddac53f961de1989924296a1f236fcfbaa4fc # v15
         with:
-          extra_nix_config: |
-            trusted-public-keys = uwumarie.cachix.org-1:H6nX8e82pu2GQ8CGU3j1qHTG7QMYzZ15oSBh26XhtVo= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-            substituters = https://uwumarie.cachix.org https://cache.nixos.org/
+          name: uwumarie
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Cleanup disk space
         run: |
           sudo rm -rf /usr/share/dotnet
@@ -38,8 +39,6 @@ jobs:
           sudo rm -rf "/usr/local/share/boost"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
       - name: Build ${{ matrix.package }}
-        env:
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
           nix shell --inputs-from . \
             nixpkgs#nix-fast-build \
@@ -47,5 +46,4 @@ jobs:
                 nix-fast-build \
                   --skip-cached \
                   --no-nom \
-                  --cachix-cache uwumarie \
                   --flake '.#${{ matrix.package }}'
