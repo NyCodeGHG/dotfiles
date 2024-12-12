@@ -10,15 +10,18 @@ jobs:
       fail-fast: false
       matrix:
         package:
-          - packages.x86_64-linux.installer-stable
+          - packages.x86_64-linux.alvr-unstable
           - packages.x86_64-linux.alvr
-          - packages.x86_64-linux.nixvim
-          - packages.x86_64-linux.opentofu
           - packages.x86_64-linux.plasma-aero-theme
+          - packages.x86_64-linux.plasma-aero-theme-unstable
           - packages.x86_64-linux.qpm-cli
+          - packages.x86_64-linux.qpm-cli-unstable
           - packages.x86_64-linux.sandwine
+          - packages.x86_64-linux.sandwine-unstable
           - packages.x86_64-linux.wgsl-analyzer
+          - packages.x86_64-linux.wgsl-analyzer-unstable
           - packages.x86_64-linux.yt-dlp
+          - packages.x86_64-linux.yt-dlp-unstable
           - nixosConfigurations.marie-desktop.config.system.build.kernel
           - nixosConfigurations.marie-desktop.config.system.build.initialRamdisk
     name: Build package ${{ matrix.package }}

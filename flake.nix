@@ -54,8 +54,6 @@
           "x86_64-linux"
           "aarch64-linux"
         ] (system: f nixpkgs.legacyPackages.${system});
-      packages = pkgs: {
-      };
     in
     {
       formatter = forEachSystem nixpkgs (pkgs: pkgs.nixfmt-rfc-style);
@@ -71,35 +69,10 @@
           ];
         };
       });
-      packages = forEachSystem nixpkgs (
-        pkgs:
-        let
-          inherit (pkgs.stdenv.hostPlatform) system;
-          currentHostPlatform = {
-            nixpkgs.hostPlatform = system;
-          };
-          installerImage = inputs:
-            (inputs.nixpkgs.lib.nixosSystem {
-              modules = [
-                ./hosts/installer/configuration.nix
-                currentHostPlatform
-              ];
-            }).config.system.build.isoImage;
-        in
-        {
-          inherit (pkgs) opentofu;
-          installer-stable = installerImage inputs;
-          nixvim = nixvim.legacyPackages.${system}.makeNixvimWithModule { module = import ./config/nixvim; };
-          wgsl-analyzer = pkgs.callPackage ./pkgs/wgsl-analyzer/package.nix { };
-          sandwine = pkgs.callPackage ./pkgs/sandwine { };
-          qpm-cli = nixpkgs-unstable.legacyPackages.${system}.callPackage ./pkgs/qpm-cli/default.nix { };
-          alvr = pkgs.callPackage ./pkgs/alvr/package.nix { };
-          yt-dlp = pkgs.yt-dlp.overrideAttrs (prev: {
-            patches = (prev.patches or [ ]) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
-          });
-          plasma-aero-theme = pkgs.callPackage ./pkgs/plasma-aero-theme/package.nix { };
-        }
-      );
+      packages = let
+        stable = forEachSystem nixpkgs (pkgs: self.overlays.packages pkgs pkgs);
+        unstable = forEachSystem nixpkgs-unstable (pkgs: nixpkgs.lib.mapAttrs' (n: v: nixpkgs.lib.nameValuePair "${n}-unstable" v) (self.overlays.packages pkgs pkgs));
+      in nixpkgs.lib.recursiveUpdate stable unstable;
 
       lib = {
         nixosSystem =
@@ -148,19 +121,22 @@
         in
         {
           inherit (nixpkgs-unstable.legacyPackages.${system}) jujutsu;
-          wgsl-analyzer = prev.callPackage ./pkgs/wgsl-analyzer/package.nix { };
-          sandwine = prev.callPackage ./pkgs/sandwine { };
-          qpm-cli = nixpkgs-unstable.legacyPackages.${system}.callPackage ./pkgs/qpm-cli/default.nix { };
-          alvr = prev.callPackage ./pkgs/alvr/package.nix { };
-          yt-dlp = prev.yt-dlp.overrideAttrs (prev: {
-            patches = (prev.patches or [ ]) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
-          });
-          plasma-aero-theme = prev.callPackage ./pkgs/plasma-aero-theme/package.nix { };
-          btop = prev.btop.overrideAttrs (prev: {
-            patches = (prev.patches or [ ]) ++ [ ./patches/btop_Fix-typo-Mhz-MHz.patch ];
-          });
-        }
+        } // self.overlays.packages final prev
       );
+
+      overlays.packages = (final: prev: {
+        wgsl-analyzer = prev.callPackage ./pkgs/wgsl-analyzer/package.nix { };
+        sandwine = prev.callPackage ./pkgs/sandwine { };
+        qpm-cli = prev.callPackage ./pkgs/qpm-cli/default.nix { };
+        alvr = prev.callPackage ./pkgs/alvr/package.nix { };
+        yt-dlp = prev.yt-dlp.overrideAttrs (prev: {
+          patches = (prev.patches or [ ]) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
+        });
+        plasma-aero-theme = prev.callPackage ./pkgs/plasma-aero-theme/package.nix { };
+        btop = prev.btop.overrideAttrs (prev: {
+          patches = (prev.patches or [ ]) ++ [ ./patches/btop_Fix-typo-Mhz-MHz.patch ];
+        });
+      });
 
       nixosModules = {
         config = import ./config/nixos;
