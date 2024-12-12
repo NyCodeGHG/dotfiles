@@ -129,7 +129,7 @@
         sandwine = prev.callPackage ./pkgs/sandwine { };
         qpm-cli = prev.callPackage ./pkgs/qpm-cli/default.nix { };
         alvr = prev.callPackage ./pkgs/alvr/package.nix { };
-        wivrn = prev.callPackage ./pkgs/wivrn/package.nix { };
+        wivrn = prev.qt6Packages.callPackage ./pkgs/wivrn/package.nix { };
         yt-dlp = prev.yt-dlp.overrideAttrs (prev: {
           patches = (prev.patches or [ ]) ++ [ ./patches/yt-dlp-ZDF-fields.patch ];
         });
