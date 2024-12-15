@@ -70,6 +70,21 @@
       illuminate.enable = true;
       lualine.enable = true;
       web-devicons.enable = true;
+      trouble.enable = true;
+
+      lsp-format.enable = true;
+      none-ls = {
+        enable = true;
+        sources = {
+          formatting = {
+            sqruff.enable = true;
+            typstyle.enable = true;
+          };
+          diagnostics = {
+            sqruff.enable = true;
+          };
+        };
+      };
 
       # Treesitter
       treesitter = {
@@ -174,7 +189,12 @@
           extraOptions.autocomplete = false;
         };
       };
-      luasnip.enable = true;
+      luasnip = {
+        enable = true;
+        settings = {
+          enable_autosnippets = true;
+        };
+      };
       lspsaga.enable = true;
 
       neogit.enable = true;
@@ -196,6 +216,9 @@
       { mode = "n"; options.silent = true; key = "<leader>t"; action = "<cmd>terminal<cr>"; }
       { mode = "n"; options.silent = true; key = "<leader>cr"; action = "<cmd>Lspsaga rename<cr>"; }
       { mode = "n"; options.silent = true; key = "<leader>ca"; action = "<cmd>Lspsaga code_action<cr>"; }
+      { mode = "i"; options.silent = true; key = "<C-k>"; action.__raw = "function() require('luasnip').expand() end"; }
+      { mode = "i"; options.silent = true; key = "<C-j>"; action.__raw = "function() require('luasnip').jump(1) end"; }
+      { mode = "i"; options.silent = true; key = "<C-l>"; action.__raw = "function() require('luasnip').jump(-1) end"; }
     ];
 
     highlight = {
