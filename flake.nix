@@ -137,6 +137,7 @@
         btop = prev.btop.overrideAttrs (prev: {
           patches = (prev.patches or [ ]) ++ [ ./patches/btop_Fix-typo-Mhz-MHz.patch ];
         });
+        nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule { module = import ./config/nixvim; };
       });
 
       nixosModules = {
