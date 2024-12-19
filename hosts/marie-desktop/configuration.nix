@@ -118,6 +118,13 @@
     };
   };
 
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-pipewire-audio-capture
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     firefox
     thunderbird
@@ -135,7 +142,6 @@
     ripgrep
     virt-manager
     nix-output-monitor
-    obs-studio
     vlc
     mpv
     ffmpeg
