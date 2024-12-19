@@ -5,6 +5,7 @@
     ./hardware.nix
     ./gaming.nix
     ./suspend-fix.nix
+    ./tailscale.nix
   ];
 
   programs.direnv.enable = true;
