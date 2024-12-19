@@ -199,4 +199,6 @@ in
     "net.ipv6.conf.all.forwarding" = true;
     "net.ipv6.conf.default.forwarding" = true;
   };
+
+  services.tailscale.enable = true;
 }
