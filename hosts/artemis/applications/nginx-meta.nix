@@ -12,7 +12,7 @@
       };
       locations."@fallback" = {
         root = "/var/lib/www";
-        tryFiles = "$uri =404";
+        tryFiles = "$uri $uri/index.html =404";
         extraConfig = ''
           add_header 'Content-Security-Policy' 'upgrade-insecure-requests';
         '';
