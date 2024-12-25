@@ -149,7 +149,7 @@ resource "cloudflare_record" "prometheus_marie_cologne" {
 resource "cloudflare_record" "jellyfin_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "jellyfin"
-  value   = "wg.artemis.marie.cologne"
+  value   = "artemis.weasel-gentoo.ts.net"
   type    = "CNAME"
 }
 
