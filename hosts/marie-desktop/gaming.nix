@@ -17,6 +17,7 @@
     vulkan-tools
     glxinfo
     mangohud
+    dualsensectl
   ];
 
   programs.gamemode.enable = true;
@@ -40,7 +41,7 @@
   boot.kernel.sysctl."vm.max_map_count" = 2146483642;
 
   programs.alvr = {
-    enable = true;
+    enable = false;
     openFirewall = true;
   };
 
@@ -57,7 +58,7 @@
     wivrn = final.qt6Packages.callPackage ../../pkgs/wivrn/package.nix { };
   })];
   services.wivrn = {
-    enable = true;
+    enable = false;
     defaultRuntime = true;
     openFirewall = true;
     config = {
