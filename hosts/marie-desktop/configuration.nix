@@ -129,25 +129,21 @@
     spotify
     qpwgraph
     vscodium
-    # (inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim)
     nvtopPackages.amd
     whois
     element-desktop
     bat
     tokei
     ripgrep
-    virt-manager
     nix-output-monitor
     vlc
     mpv
     ffmpeg
-    alsa-utils
     nixpkgs-review
     restic
     rclone
     fastfetch
     python3
-    squashfsTools
     partclone
     wireguard-tools
     (btop.override { rocmSupport = true; })
@@ -157,7 +153,6 @@
     adbfs-rootless
     protontricks
     polychromatic
-    deno
     clang-tools
     nixfmt-rfc-style
     bashInteractive
@@ -166,7 +161,6 @@
     qbittorrent
     # cemu
     bitwarden
-    weechat-unwrapped
     p7zip
     easyeffects
     fend
@@ -181,26 +175,18 @@
     nushell
     jq
     wl-clipboard-rs
+    trashy
   ] ++ (with pkgs.kdePackages;[
-    kcalc
     isoimagewriter
     kdenlive
     partitionmanager
-    kio-gdrive
-    kaccounts-integration
-    kaccounts-providers
     filelight
   ]);
-
-  nixpkgs.overlays = [(final: prev: {
-  })];
 
   environment.sessionVariables = {
     "SSH_ASKPASS_REQUIRE" = "prefer";
     "PAGER" = "${pkgs.less}/bin/less -FRX";
     "EDITOR" = "nvim";
-    "KWIN_X11_FORCE_SOFTWARE_VSYNC" = "1";
-    "KWIN_X11_NO_SYNC_TO_VBLANK" = "1";
     "FREETYPE_PROPERTIES" = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
   };
 
@@ -211,10 +197,6 @@
   programs.ssh = {
     enableAskPassword = true;
     askPassword = lib.getExe pkgs.kdePackages.ksshaskpass;
-  };
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu.swtpm.enable = true;
   };
   virtualisation.podman.enable = true;
 
@@ -262,8 +244,6 @@
     # termux mobile
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAs0W2PBnnSG7LvyE0TnfnFjzaC4tbRludscIZM+SWci"
   ];
-
-  time.hardwareClockInLocalTime = true;
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "24.05";
