@@ -200,5 +200,8 @@ in
     "net.ipv6.conf.default.forwarding" = true;
   };
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+  };
 }
