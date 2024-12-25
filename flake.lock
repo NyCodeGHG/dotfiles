@@ -789,6 +789,21 @@
         "type": "github"
       }
     },
+    "preservation": {
+      "locked": {
+        "lastModified": 1734453061,
+        "narHash": "sha256-FfHXIRuyTmv9/U3ioOu3jnij1NPA6ywk7GdC3A+FMAA=",
+        "owner": "WilliButz",
+        "repo": "preservation",
+        "rev": "9ee89d71475c0f4a6e97ed4a9169e377222ea8d6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "WilliButz",
+        "repo": "preservation",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -797,7 +812,8 @@
         "ip-playground": "ip-playground",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixvim": "nixvim"
+        "nixvim": "nixvim",
+        "preservation": "preservation"
       }
     },
     "systems": {

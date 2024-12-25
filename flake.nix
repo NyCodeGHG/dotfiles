@@ -24,6 +24,8 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.nix-darwin.follows = "";
     };
+
+    preservation.url = "github:WilliButz/preservation";
   };
 
   nixConfig = {
