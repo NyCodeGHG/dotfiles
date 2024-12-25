@@ -41,6 +41,11 @@
       define OWNNETv6 = fdf1:3ba4:9723::/48;
       define OWNNETSETv6 = [fdf1:3ba4:9723::/48+];
 
+      define BLACKLISTv6 = [
+        # tailscale
+        fd7a:115c:a1e0::/48+
+      ];
+
       router id 89.58.10.36;
 
       protocol device {
@@ -62,6 +67,10 @@
         return net ~ [
           fd00::/8{44,64} # ULA address space as per RFC 4193
         ];
+      }
+
+      function is_blacklist_network_v6() {
+        return net ~ BLACKLISTv6;
       }
 
       protocol kernel {
@@ -92,14 +101,14 @@
 
           ipv6 {   
               import filter {
-                if is_valid_network_v6() && !is_self_net_v6() then {
+                if is_valid_network_v6() && !is_self_net_v6() && !is_blacklist_network_v6() then {
                   if (roa_check(dn42_roa_v6, net, bgp_path.last) != ROA_VALID) then {
                     print "[dn42] ROA check failed for ", net, " ASN ", bgp_path.last;
                     reject;
                   } else accept;
                 } else reject;
               };
-              export filter { if is_valid_network_v6() && source ~ [RTS_STATIC, RTS_BGP] then accept; else reject; };
+              export filter { if is_valid_network_v6() && !is_blacklist_network_v6() && source ~ [RTS_STATIC, RTS_BGP] then accept; else reject; };
               import limit 1000 action block; 
           };
       }

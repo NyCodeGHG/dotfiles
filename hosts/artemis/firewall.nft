@@ -25,6 +25,15 @@ set as4242423085 {
   }
 }
 
+set tailscale {
+  type ipv6_addr
+  auto-merge
+  flags interval
+  elements = {
+    fd7a:115c:a1e0::/48
+  }
+}
+
 counter dn42_own_as_external {
   comment "external traffic using own source addresses"
 }
@@ -51,6 +60,8 @@ chain filter {
 }
 
 chain dn42 {
+  ip6 saddr @tailscale reject;
+  ip6 daddr @tailscale reject;
   ip6 saddr @as4242423085 counter name dn42_own_as_external reject with icmpv6 admin-prohibited;
   ip6 saddr @dn42 ip6 daddr @dn42 counter accept;
 
