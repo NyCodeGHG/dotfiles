@@ -17,6 +17,7 @@
     "steam-unwrapped"
     "spotify"
     "corefonts"
+    "discord"
   ]);
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -124,6 +125,7 @@
     thunderbird
     chromium
     vesktop
+    discord
     spotify
     qpwgraph
     vscodium
