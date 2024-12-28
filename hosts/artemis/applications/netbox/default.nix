@@ -9,7 +9,7 @@ in
     (inputs.nixpkgs-unstable + "/nixos/modules/services/web-apps/netbox.nix")
   ];
   services.netbox = {
-    enable = true;
+    enable = false;
     package = netbox_4_1.overrideAttrs (prev: {
       installPhase = prev.installPhase + ''
         cp ${./custom_pipeline.py} $out/opt/netbox/netbox/netbox/custom_pipeline.py
