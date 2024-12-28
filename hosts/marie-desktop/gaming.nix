@@ -10,7 +10,7 @@
     prismlauncher
     heroic
     winetricks
-    wineWowPackages.staging
+    wineWowPackages.unstable
     sandwine
     protonup-qt
     bubblewrap
