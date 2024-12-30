@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     oci = {
-      source = "oracle/oci"
+      source  = "oracle/oci"
       version = "6.3.0"
     }
   }
@@ -92,16 +92,16 @@ resource "oci_core_security_list" "sl" {
     stateless        = false
   }
   egress_security_rules {
-    destination = "::/0"
+    destination      = "::/0"
     destination_type = "CIDR_BLOCK"
-    protocol = "all"
-    stateless = false
+    protocol         = "all"
+    stateless        = false
   }
   # Allow ssh traffic
   dynamic "ingress_security_rules" {
     for_each = ["0.0.0.0/0", "::/0"]
     content {
-      source = ingress_security_rules.value
+      source   = ingress_security_rules.value
       protocol = "6"
       tcp_options {
         max = 22
@@ -113,7 +113,7 @@ resource "oci_core_security_list" "sl" {
   dynamic "ingress_security_rules" {
     for_each = ["0.0.0.0/0", "::/0"]
     content {
-      source = ingress_security_rules.value
+      source   = ingress_security_rules.value
       protocol = "6"
       tcp_options {
         max = 80
@@ -125,7 +125,7 @@ resource "oci_core_security_list" "sl" {
   dynamic "ingress_security_rules" {
     for_each = ["0.0.0.0/0", "::/0"]
     content {
-      source = ingress_security_rules.value
+      source   = ingress_security_rules.value
       protocol = "6"
       tcp_options {
         max = 443
@@ -136,7 +136,7 @@ resource "oci_core_security_list" "sl" {
   dynamic "ingress_security_rules" {
     for_each = ["0.0.0.0/0", "::/0"]
     content {
-      source = ingress_security_rules.value
+      source   = ingress_security_rules.value
       protocol = "6"
       tcp_options {
         max = 25565
@@ -147,7 +147,7 @@ resource "oci_core_security_list" "sl" {
   dynamic "ingress_security_rules" {
     for_each = ["0.0.0.0/0", "::/0"]
     content {
-      source = ingress_security_rules.value
+      source   = ingress_security_rules.value
       protocol = "17"
       udp_options {
         max = 25565
@@ -164,9 +164,9 @@ resource "oci_core_security_list" "sl" {
     }
   }
   dynamic "ingress_security_rules" {
-    for_each = [ { code = 0, type = 8 }, { code = 4, type = 3 }, { code = 0, type = 11 }]
+    for_each = [{ code = 0, type = 8 }, { code = 4, type = 3 }, { code = 0, type = 11 }]
     content {
-      source = "0.0.0.0/0"
+      source   = "0.0.0.0/0"
       protocol = "1"
       icmp_options {
         code = ingress_security_rules.value.code
@@ -175,9 +175,9 @@ resource "oci_core_security_list" "sl" {
     }
   }
   dynamic "ingress_security_rules" {
-    for_each = [ { code = 0, type = 128 }, { code = 0, type = 2 }, { code = 0, type = 3 }]
+    for_each = [{ code = 0, type = 128 }, { code = 0, type = 2 }, { code = 0, type = 3 }]
     content {
-      source = "::/0"
+      source   = "::/0"
       protocol = "58"
       icmp_options {
         code = ingress_security_rules.value.code
@@ -188,7 +188,7 @@ resource "oci_core_security_list" "sl" {
   dynamic "ingress_security_rules" {
     for_each = ["0.0.0.0/0", "::/0"]
     content {
-      source = ingress_security_rules.value
+      source   = ingress_security_rules.value
       protocol = "17"
       udp_options {
         max = 50000
@@ -199,7 +199,7 @@ resource "oci_core_security_list" "sl" {
   dynamic "ingress_security_rules" {
     for_each = ["0.0.0.0/0", "::/0"]
     content {
-      source = ingress_security_rules.value
+      source   = ingress_security_rules.value
       protocol = "17"
       udp_options {
         max = 3478
@@ -210,7 +210,7 @@ resource "oci_core_security_list" "sl" {
   dynamic "ingress_security_rules" {
     for_each = ["0.0.0.0/0", "::/0"]
     content {
-      source = ingress_security_rules.value
+      source   = ingress_security_rules.value
       protocol = "17"
       udp_options {
         max = 5349
@@ -221,7 +221,7 @@ resource "oci_core_security_list" "sl" {
   dynamic "ingress_security_rules" {
     for_each = ["0.0.0.0/0", "::/0"]
     content {
-      source = ingress_security_rules.value
+      source   = ingress_security_rules.value
       protocol = "6"
       tcp_options {
         max = 3478
@@ -232,7 +232,7 @@ resource "oci_core_security_list" "sl" {
   dynamic "ingress_security_rules" {
     for_each = ["0.0.0.0/0", "::/0"]
     content {
-      source = ingress_security_rules.value
+      source   = ingress_security_rules.value
       protocol = "6"
       tcp_options {
         max = 5349
@@ -252,7 +252,7 @@ resource "oci_core_subnet" "sn" {
 
 resource "oci_core_route_table" "rt" {
   compartment_id = var.compartment_id
-  vcn_id = oci_core_vcn.vcn.id
+  vcn_id         = oci_core_vcn.vcn.id
   route_rules {
     destination       = "0.0.0.0/0"
     network_entity_id = oci_core_internet_gateway.ig.id
@@ -265,7 +265,7 @@ resource "oci_core_route_table" "rt" {
 
 resource "oci_core_internet_gateway" "ig" {
   compartment_id = var.compartment_id
-  vcn_id = oci_core_vcn.vcn.id
+  vcn_id         = oci_core_vcn.vcn.id
 }
 
 data "oci_core_vnic" "delphi" {
