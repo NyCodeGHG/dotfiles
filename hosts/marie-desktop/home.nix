@@ -28,6 +28,14 @@
   ];
   programs.switch-to-windows.enable = true;
 
+  programs.atuin = {
+    enable = true;
+    settings = {
+      sync_address = "https://atuin.marie.cologne";
+      sync.records = true;
+    };
+  };
+
   # OpenComposite
   # For WiVRn:
 #   xdg.configFile."openxr/1/active_runtime.json".source = "${pkgs.wivrn}/share/openxr/1/openxr_wivrn.json";
