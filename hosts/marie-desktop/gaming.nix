@@ -1,10 +1,7 @@
 { pkgs, config, lib, ... }:
 {
-  disabledModules = [
-    "services/video/wivrn.nix"
-  ];
   imports = [
-    ./wivrn.nix
+    # ./wivrn.nix
   ];
   environment.systemPackages = with pkgs; [
     prismlauncher
