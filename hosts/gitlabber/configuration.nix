@@ -43,36 +43,10 @@
           KeepConfiguration = "yes";
         };
       };
-      "50-wg0" = {
-        name = "wg0";
-        address = [ "fdf1:3ba4:9723:6373::1/64" ];
-      };
-    };
-    netdevs."50-wg0" = {
-      netdevConfig = {
-        Kind = "wireguard";
-        Name = "wg0";
-      };
-      wireguardConfig = {
-        PrivateKeyFile = config.age.secrets.wg-private.path;
-        RouteTable = "main";
-      };
-      wireguardPeers = [{
-        wireguardPeerConfig = {
-          PublicKey = "ph9Pg7QVjZtuWYScyYWBkIgbROcFUSK0JDly/sY+3lQ=";
-          AllowedIPs = [ "fd00::/8" ];
-          PersistentKeepalive = 5;
-          Endpoint = "artemis.marie.cologne:52020";
-        };
-      }];
     };
   };
 
-  age.secrets.wg-private = {
-    file = ./wg-private.age;
-    owner = "systemd-network";
-    group = "systemd-network";
-  };
+  services.tailscale.enable = true;
 
   services.resolved.enable = true;
 

@@ -44,6 +44,5 @@ in
   "../hosts/artemis/secrets/netbox-client-secret.age".publicKeys = users ++ artemis;
   "../hosts/gitlabber/cachix-auth-token.age".publicKeys = users ++ gitlabber;
   "../hosts/gitlabber/forgejo-runner.age".publicKeys = users ++ gitlabber;
-  "../hosts/gitlabber/wg-private.age".publicKeys = users ++ gitlabber;
   "../hosts/artemis/applications/hedgedoc/env.age".publicKeys = users ++ artemis;
 }
