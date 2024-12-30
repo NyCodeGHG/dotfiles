@@ -10,7 +10,7 @@
       };
     };
     globals.mapleader = " ";
-    options = {
+    opts = {
       # Line Numbers
       number = true;
       relativenumber = true;
@@ -107,9 +107,11 @@
 
       # Languages
       nix.enable = true;
-      crates-nvim.enable = true;
-      crates-nvim.extraOptions = {
-        completion.cmp.enabled = true;
+      crates = {
+        enable = true;
+        settings = {
+          completion.cmp.enabled = true;
+        };
       };
 
       # LSP
