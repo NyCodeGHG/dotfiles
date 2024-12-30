@@ -26,7 +26,7 @@
     enable = true;
     enable32Bit = true;
   };
-  hardware.amdgpu.opencl.enable = true;
+  # hardware.amdgpu.opencl.enable = true;
 
   boot.loader = {
     systemd-boot = {
