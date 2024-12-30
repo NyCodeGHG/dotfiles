@@ -30,6 +30,9 @@ in
       wal_level = "replica";
     };
   };
+  systemd.services.postgresql.serviceConfig.ReadWritePaths = [
+    "/mnt/pgbackrest"
+  ];
   environment.etc = {
     "pgbackrest/pgbackrest.conf".source = configFormat.generate "pgbackrest.conf" pgBackrestConfig;
     "pgbackrest/conf.d/encryption.conf".source = config.age.secrets.pgbackrest.path;
