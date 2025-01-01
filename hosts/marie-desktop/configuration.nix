@@ -10,6 +10,8 @@
 
   programs.direnv.enable = true;
 
+  virtualisation.libvirtd.enable = true;
+
   nixpkgs.config.allowUnfreePredicate = pkg: (builtins.elem (lib.getName pkg) [
     "steam"
     "steam-original"
