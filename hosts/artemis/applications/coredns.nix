@@ -24,14 +24,19 @@
         bind lo wg0
         import base
 
+        forward ts.net 100.100.100.100 tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001 {
+          tls_servername cloudflare-dns.com
+        }
+
         forward . tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001 {
           tls_servername cloudflare-dns.com
           health_check 5s
-          except dn42 d.f.ip6.arpa
+          except dn42 d.f.ip6.arpa ts.net
         }
 
         forward dn42 fd42:d42:d42:54::1 fd42:d42:d42:53::1
         forward d.f.ip6.arpa fd42:d42:d42:54::1 fd42:d42:d42:53::1
+
         cache 30
       }
     '';
