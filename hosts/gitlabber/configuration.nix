@@ -66,6 +66,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICFPCqSH26mf3vHii7DUtHRZ33OhSVYpjUMmbTDReS+s"
       # Marie desktop
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiS+tzh0R/nN5nqSwvLerCV4nBwI51zOKahFfiiINGp"
+      # root@marie-desktop
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKl1gOAizi410fKbP0wP6+XJMAk+JDx+mLp2amPKKQPY"
     ];
     group = "builder";
     shell = pkgs.bashInteractive;
