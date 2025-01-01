@@ -56,12 +56,12 @@ in
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString config.services.paperless.port}";
       proxyWebsockets = true;
-      extraConfig = ''
-        allow 127.0.0.0/24;
-        allow 10.69.0.0/24;
-        deny all;
-      '';
     };
+  };
+
+  services.nginx.tailscaleAuth = {
+    enable = true;
+    virtualHosts = [ "paperless.marie.cologne" ];
   };
 
   virtualisation.oci-containers.containers.tika = {
