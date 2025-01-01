@@ -160,16 +160,16 @@ module "jellyfin_record" {
   hostname = "artemis"
 }
 
+module "paperless_record" {
+  source = "./tailscale-record"
+  zone_id  = data.cloudflare_zone.marie_cologne.id
+  name     = "paperless"
+  hostname = "artemis"
+}
+
 resource "cloudflare_record" "syncthing_artemis_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "syncthing.artemis"
-  content = "wg.artemis.marie.cologne"
-  type    = "CNAME"
-}
-
-resource "cloudflare_record" "paperless_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "paperless"
   content = "wg.artemis.marie.cologne"
   type    = "CNAME"
 }
