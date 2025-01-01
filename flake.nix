@@ -31,11 +31,9 @@
   nixConfig = {
     extra-substituters = [
       "https://uwumarie.cachix.org"
-      "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
       "uwumarie.cachix.org-1:H6nX8e82pu2GQ8CGU3j1qHTG7QMYzZ15oSBh26XhtVo="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
 
