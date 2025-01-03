@@ -30,6 +30,7 @@
 
   programs.atuin = {
     enable = true;
+    flags = [ "--disable-up-arrow" ];
     settings = {
       sync_address = "https://atuin.marie.cologne";
       sync.records = true;
