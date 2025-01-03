@@ -148,7 +148,8 @@
     python3
     partclone
     wireguard-tools
-    (btop.override { rocmSupport = true; })
+    # (btop.override { rocmSupport = true; })
+    btop
     openssl
     yt-dlp
     android-tools
