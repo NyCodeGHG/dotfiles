@@ -24,6 +24,7 @@
     "spotify"
     "corefonts"
     "discord"
+    "hplip"
   ]);
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -169,6 +170,11 @@
     partitionmanager
     filelight
   ]);
+
+  hardware.sane = {
+    enable = true;
+    extraBackends = with pkgs; [ hplipWithPlugin ];
+  };
 
   environment.sessionVariables = {
     "SSH_ASKPASS_REQUIRE" = "prefer";
