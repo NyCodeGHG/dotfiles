@@ -3,11 +3,13 @@
   ./applications/nginx.nix
   ./applications/nix.nix
   ./applications/openssh.nix
+  ./system/audio.nix
   ./system/base.nix
+  ./system/graphical.nix
+  ./system/headless.nix
   ./system/locale.nix
   ./system/nspawn.nix
   ./system/ntp.nix
-  ./system/headless.nix
-  ./users/marie.nix
   ./system/upgrade-diff.nix
+  ./users/marie.nix
 ]

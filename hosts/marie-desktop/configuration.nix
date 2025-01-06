@@ -8,6 +8,10 @@
     ./tailscale.nix
   ];
 
+  uwumarie.profiles = {
+    graphical = true;
+  };
+
   programs.direnv.enable = true;
 
   virtualisation.libvirtd.enable = true;
@@ -50,17 +54,6 @@
     font = "Lat2-Terminus16";
   };
   services = {
-    displayManager.sddm = {
-      enable = true;
-      wayland = {
-        enable = true;
-        compositor = "kwin";
-      };
-    };
-    desktopManager.plasma6.enable = true;
-    xserver.enable = true;
-    xserver.xkb.layout = "de";
-    libinput.enable = true;
     avahi = {
       enable = true;
       openFirewall = true;
@@ -83,15 +76,6 @@
   };
 
   systemd.services.cups-browsed.enable = false;
-
-  services.pipewire = {
-    enable = true;
-    jack.enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
-  
-  programs.kdeconnect.enable = true;
 
   programs.fish.enable = true;
   users.users.marie = {
@@ -190,26 +174,15 @@
     "SSH_ASKPASS_REQUIRE" = "prefer";
     "PAGER" = "${pkgs.less}/bin/less -FRX";
     "EDITOR" = "nvim";
-    "FREETYPE_PROPERTIES" = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
   };
 
   environment.shellAliases = {
     "vim" = "nvim";
   };
-
-  programs.ssh = {
-    enableAskPassword = true;
-    askPassword = lib.getExe pkgs.kdePackages.ksshaskpass;
-  };
+  
   virtualisation.podman.enable = true;
 
-  fonts.packages = with pkgs; [
-    corefonts
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-color-emoji
-    nerd-fonts.jetbrains-mono
-  ];
+  fonts.packages = with pkgs; [ corefonts ];
 
   home-manager.users.marie = { config, pkgs, ... }: {
     imports = [
@@ -228,7 +201,6 @@
     extraSpecialArgs = { inherit inputs; };
   };
 
-  programs.command-not-found.enable = false;
   programs.nix-ld.enable = true;
 
   hardware.bluetooth.enable = true;
