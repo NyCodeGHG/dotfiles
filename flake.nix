@@ -26,6 +26,8 @@
     };
 
     preservation.url = "github:WilliButz/preservation";
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
   nixConfig = {
