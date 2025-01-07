@@ -17,6 +17,9 @@ lib.mkIf config.uwumarie.profiles.jujutsu
         roots = [ "log" "-r" "mine() & visible_heads()" ];
       };
       revsets.log = "trunk() | reachable(@, trunk()..visible_heads())";
+      core.fsmonitor = "watchman";
+      core.watchman.register_snapshot_trigger = true;
     };
   };
+  home.packages = with pkgs; [ watchman ];
 }
