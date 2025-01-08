@@ -164,6 +164,7 @@
     jq
     wl-clipboard-rs
     trashy
+    jetbrains.idea-community
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
