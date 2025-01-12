@@ -42,7 +42,6 @@
   outputs =
     inputs@{
       agenix,
-      home-manager,
       nixpkgs,
       nixpkgs-unstable,
       nixvim,
@@ -97,23 +96,6 @@
                 ++ modules;
             }
           );
-
-        homeManagerConfiguration = nixpkgs.lib.makeOverridable (
-          {
-            modules ? [ ],
-            pkgs,
-          }:
-          home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            extraSpecialArgs = {
-              inherit inputs;
-            };
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
-              self.homeManagerModules.config
-            ] ++ modules;
-          }
-        );
       };
 
       overlays.default = (
