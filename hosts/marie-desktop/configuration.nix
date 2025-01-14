@@ -11,6 +11,8 @@
   uwumarie.profiles = {
     graphical = true;
   };
+  
+  services.fwupd.enable = true;
 
   programs.direnv.enable = true;
 
