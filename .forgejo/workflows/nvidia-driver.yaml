@@ -20,7 +20,7 @@ jobs:
         run: ./scripts/update-nvidia.sh
 
       - name: Create Pull Request
-        uses: https://github.com/peter-evans/create-pull-request@v7.0.1
+        uses: https://github.com/peter-evans/create-pull-request@v7.0.6
         with:
           committer: Forgejo Actions <noreply@forgejo.org>
           branch: update-nvidia-driver
