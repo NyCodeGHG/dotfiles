@@ -23,6 +23,6 @@ jobs:
         run: echo "git.marie.cologne ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8" >> ~/.ssh/known_hosts
 
       - name: Update flake inputs
-        uses: https://github.com/DeterminateSystems/update-flake-lock@v23
+        uses: https://github.com/DeterminateSystems/update-flake-lock@v24
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
