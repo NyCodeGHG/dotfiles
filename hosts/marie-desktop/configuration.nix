@@ -27,6 +27,7 @@
     "corefonts"
     "discord"
     "hplip"
+    "makemkv"
   ]);
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -84,6 +85,7 @@
   users.users.marie = {
     shell = pkgs.fish;
     hashedPassword = "$y$j9T$sNg5DYGGsP1H6KIGjT1bZ1$uGpk3HwXHDTsOBT1Q/BpBbCe5Dxu4eKyqIx1RlWbkN1";
+    extraGroups = [ "cdrom" ];
   };
 
   fileSystems = {
@@ -167,6 +169,7 @@
     wl-clipboard-rs
     trashy
     jetbrains.idea-community
+    makemkv
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
