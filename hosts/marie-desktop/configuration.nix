@@ -175,6 +175,7 @@
     trashy
     jetbrains.idea-community
     makemkv
+    scrcpy
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
