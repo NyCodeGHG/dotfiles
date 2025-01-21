@@ -122,6 +122,7 @@
           patches = (prev.patches or [ ]) ++ [ ./patches/btop_Fix-typo-Mhz-MHz.patch ];
         });
         nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule { module = import ./config/nixvim; };
+        libray= prev.callPackage ./pkgs/libray/package.nix { };
       });
 
       nixosModules = {
