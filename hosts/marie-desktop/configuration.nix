@@ -11,6 +11,11 @@
   uwumarie.profiles = {
     graphical = true;
   };
+
+  programs.nh = {
+    enable = true;
+    flake = "/home/marie/dotfiles";
+  };
   
   services.fwupd.enable = true;
 
