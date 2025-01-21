@@ -195,6 +195,8 @@
     sequoia-sq
     sequoia-chameleon-gnupg
     magic-wormhole
+    wireguard-tools
+    chatterino7
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
