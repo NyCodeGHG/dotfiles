@@ -14,10 +14,8 @@
         name = "dn42";
         addresses = [
           {
-            addressConfig = {
-              Address = "fdf1:3ba4:9723::1/128";
-              Scope = "global";
-            };
+            Address = "fdf1:3ba4:9723::1/128";
+            Scope = "global";
           }
         ];
       };

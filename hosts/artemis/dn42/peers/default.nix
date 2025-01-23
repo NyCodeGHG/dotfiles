@@ -78,7 +78,7 @@ in
             KeepConfiguration = "yes";
           };
           addresses = [
-            { addressConfig.Address = conf.self.wireguard.linkLocalAddress; }
+            { Address = conf.self.wireguard.linkLocalAddress; }
           ];
         })
         peers;
@@ -95,11 +95,9 @@ in
           };
           wireguardPeers = [
             {
-              wireguardPeerConfig = {
-                PublicKey = conf.peer.wireguard.publicKey;
-                Endpoint = conf.peer.wireguard.endpoint;
-                AllowedIPs = conf.peer.wireguard.allowedIPs;
-              };
+              PublicKey = conf.peer.wireguard.publicKey;
+              Endpoint = conf.peer.wireguard.endpoint;
+              AllowedIPs = conf.peer.wireguard.allowedIPs;
             }
           ];
         })
