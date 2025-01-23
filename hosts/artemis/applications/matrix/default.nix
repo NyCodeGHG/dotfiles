@@ -23,7 +23,6 @@ let
     add_header Access-Control-Allow-Origin *;
     return 200 '${builtins.toJSON data}';
   '';
-  backgrounds = pkgs.callPackage ./backgrounds.nix { };
 in
 {
   services.nginx.virtualHosts = {
@@ -63,9 +62,6 @@ in
               default_device_display_name = "Element Web";
               permalink_prefix = "https://chat.marie.cologne";
               disable_guests = true;
-              branding = {
-                welcome_background_url = map (name: "/_backgrounds/${name}") (builtins.attrNames (builtins.readDir backgrounds));
-              };
               logout_redirect_url = "https://sso.nycode.dev/application/o/synapse/end-session/";
               integrations_ui_url = "https://scalar.vector.im/";
               integrations_rest_url = "https://scalar.vector.im/api";
@@ -83,14 +79,6 @@ in
             };
           };
           extraConfig = headers;
-        };
-        locations."/_backgrounds" = {
-          root = "${backgrounds}";
-          tryFiles = "$uri =404";
-          extraConfig = ''
-            rewrite ^/_backgrounds/(.*) /$1 break;
-            ${headers}
-          '';
         };
       };
   };
