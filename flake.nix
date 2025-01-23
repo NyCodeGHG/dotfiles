@@ -197,7 +197,7 @@
             ./hosts/gitlabber/configuration.nix
             self.nixosModules.config
           ];
-          deployment.targetHost = "marie:gitlabber@jemand771.net";
+          deployment.targetHost = "root@gitlabber.weasel-gentoo.ts.net";
           deployment.buildOnTarget = true;
           deployment.targetUser = null;
           nixpkgs.overlays = [ self.overlays.default ];
