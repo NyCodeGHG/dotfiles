@@ -2,10 +2,12 @@
 {
   imports = with inputs; [
     agenix.nixosModules.default
+    preservation.nixosModules.default
     ../../config/nixos/system/acme.nix
     (modulesPath + "/profiles/minimal.nix")
+    # ./forgejo-runner.nix
+    ./state.nix
     ./hardware.nix
-    ./forgejo-runner.nix
   ];
 
   boot.loader.systemd-boot = {
@@ -78,7 +80,7 @@
 
   services.openssh.settings.PermitRootLogin = "prohibit-password";
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.11";
 
   environment.systemPackages = with pkgs; [ 
     rsync
