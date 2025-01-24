@@ -12,7 +12,7 @@
       iputils
       dnsutils
       usbutils
-      wget
+      wget2
       curl
       vim
       tcpdump
