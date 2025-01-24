@@ -19,6 +19,7 @@
       git
       fd
       bat
+      ripgrep
       inxi
       pv
     ];
