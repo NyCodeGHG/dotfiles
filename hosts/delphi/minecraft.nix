@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ lib, config, inputs, ... }:
 {
   virtualisation.oci-containers.containers.minecraft = {
     image = "docker.io/itzg/minecraft-server:java21";
@@ -15,17 +15,24 @@
       VIEW_DISTANCE = "16";
       SPAWN_PROTECTION = "0";
       ALLOW_FLIGHT = "true";
-      TYPE = "AUTO_CURSEFORGE";
-      CF_SLUG = "fear-nightfall";
-      CF_FILENAME_MATCHER = "Fear Nightfall Remains of Chaos-v1.0.6.zip";
-      CF_EXCLUDE_MODS = "yungs-menu-tweaks";
+      TYPE = "MODRINTH";
       USE_AIKAR_FLAGS = "true";
       UID = toString config.users.users.minecraft.uid;
       GID = toString config.users.groups.minecraft.gid;
+      MODRINTH_MODPACK = "adrenaline";
+      VERSION = "1.21.4";
+      MODRINTH_PROJECTS = lib.concatStringsSep "," [
+        "datapack:terralith"
+        "datapack:halbcraft"
+        "datapack:halbcore"
+      ];
+      RESOURCE_PACK = "https://cdn.modrinth.com/data/K7Ih6CPH/versions/uIcp8Xa5/halbcraft_RP_04.zip";
+      RESOURCE_PACK_SHA1 = "559984e4b807594b0f8f87c153fd897d4fd6f2e5";
+      MODRINTH_DEFAULT_VERSION_TYPE = "beta";
     };
     environmentFiles = [ config.age.secrets.curseforge-api-key.path ];
     volumes = [
-      "/var/lib/minecraft/fear-nightfall:/data"
+      "/var/lib/minecraft/halbcraft:/data"
     ];
     ports = [
       "25565:25565"
@@ -33,7 +40,7 @@
     ];
     user = "${toString config.users.users.minecraft.uid}:${toString config.users.groups.minecraft.gid}";
   };
-  systemd.tmpfiles.settings."10-minecraft"."/var/lib/minecraft/fear-nightfall".d = {
+  systemd.tmpfiles.settings."10-minecraft"."/var/lib/minecraft/halbcraft".d = {
     group = "minecraft";
     mode = "0775";
     user = "minecraft";
