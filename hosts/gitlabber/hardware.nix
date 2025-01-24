@@ -14,7 +14,7 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "UUID=4797707c-13ca-4798-898b-d2791e6d39e1";
+    { device = "/dev/disk/by-uuid/4797707c-13ca-4798-898b-d2791e6d39e1";
       fsType = "bcachefs";
     };
 
