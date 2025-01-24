@@ -18,6 +18,7 @@
       tcpdump
       git
       fd
+      bat
       inxi
       pv
     ];
