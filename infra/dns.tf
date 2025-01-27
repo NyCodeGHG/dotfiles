@@ -146,11 +146,11 @@ module "uptime-kuma_record" {
   hostname = "artemis"
 }
 
-resource "cloudflare_record" "prometheus_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "prometheus"
-  content = "wg.artemis.marie.cologne"
-  type    = "CNAME"
+module "prometheus_record" {
+  source   = "./tailscale-record"
+  zone_id  = data.cloudflare_zone.marie_cologne.id
+  name     = "prometheus"
+  hostname = "artemis"
 }
 
 module "jellyfin_record" {

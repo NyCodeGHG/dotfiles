@@ -1,4 +1,4 @@
-{ config, self, ... }: {
+{ config, ... }: {
   services.prometheus = {
     enable = true;
     retentionTime = "15d";
@@ -27,9 +27,7 @@
           static_configs = [
             {
               targets = [ target ];
-              labels = {
-                inherit instance;
-              };
+              labels = { inherit instance; };
             }
           ];
         };
@@ -44,22 +42,14 @@
           static_configs = [
             {
               targets = [ "localhost:${toString config.services.prometheus.exporters.node.port}" ];
-              labels = {
-                instance = config.networking.hostName;
-              };
+              labels.instance = config.networking.hostName;
             }
             {
               targets = [ "10.69.0.7:9100" ];
-              labels = {
-                instance = "delphi";
-              };
+              labels.instance = "delphi";
             }
           ];
         }
-        (mkTarget {
-          job = "grafana";
-          target = "localhost:${toString config.services.grafana.settings.server.http_port}";
-        })
         (mkTarget {
           job = "ip-playground";
           target = "127.0.0.1:3032";
@@ -68,10 +58,6 @@
           job = "bird";
           target = "127.0.0.1:${toString config.services.prometheus.exporters.bird.port}";
         })
-        # (mkTarget {
-        #   job = "unifiedmetrics";
-        #   target = "10.69.0.7:9101";
-        # })
       ];
   };
 
@@ -79,11 +65,10 @@
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString config.services.prometheus.port}";
       proxyWebsockets = true;
-      extraConfig = ''
-        allow 127.0.0.1/24;
-        allow 10.69.0.1/24;
-        deny all;
-      '';
     };
+  };
+  services.nginx.tailscaleAuth = {
+    enable = true;
+    virtualHosts = [ "prometheus.marie.cologne" ];
   };
 }
