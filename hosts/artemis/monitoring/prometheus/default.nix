@@ -1,7 +1,4 @@
 { config, self, ... }: {
-  imports = [
-    ./alertmanager.nix
-  ];
   services.prometheus = {
     enable = true;
     retentionTime = "15d";
