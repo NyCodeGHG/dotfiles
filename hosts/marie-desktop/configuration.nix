@@ -120,17 +120,13 @@
     firefox
     thunderbird
     chromium
-    vesktop
     discord
     spotify
     qpwgraph
     vscodium
     nvtopPackages.amd
     whois
-    element-desktop
-    bat
     tokei
-    ripgrep
     nix-output-monitor
     vlc
     mpv
@@ -140,16 +136,11 @@
     rclone
     fastfetch
     python3
-    partclone
-    wireguard-tools
-    # (btop.override { rocmSupport = true; })
     btop
     openssl
     yt-dlp
     android-tools
-    adbfs-rootless
     protontricks
-    polychromatic
     clang-tools
     nixfmt-rfc-style
     bashInteractive
@@ -166,7 +157,6 @@
     man-pages
     unrar-wrapper
     smartmontools
-    keepassxc
     libreoffice-qt6-fresh
     yq-go
     nushell
@@ -181,6 +171,7 @@
     kdenlive
     partitionmanager
     filelight
+    konversation
   ]);
 
   hardware.sane = {
