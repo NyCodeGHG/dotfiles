@@ -166,6 +166,7 @@
     jetbrains.idea-community
     makemkv
     scrcpy
+    zfs # to view manpages
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
