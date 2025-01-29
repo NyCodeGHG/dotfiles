@@ -3,6 +3,7 @@
   ./applications/nginx.nix
   ./applications/nix.nix
   ./applications/openssh.nix
+  ./applications/tailscale.nix
   ./system/audio.nix
   ./system/base.nix
   ./system/graphical.nix
