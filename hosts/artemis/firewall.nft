@@ -56,6 +56,8 @@ chain filter {
 
   iifname "dn42n*" jump dn42;
 
+  iifname "tailscale0" accept;
+  
   iifname wg0 jump vpn;
 }
 
@@ -80,48 +82,8 @@ set vpn_v6 {
   elements = { fdf1:3ba4:9723:1000::/64 }
 }
 
-set vpn_trusted {
-  type ipv4_addr
-  flags interval
-  elements = {
-    192.168.1.0/24,
-    192.168.178.0/24,
-  }
-}
-
-set vpn_egress_clients_v4 {
-  type ipv4_addr
-  flags interval
-  elements = {
-    10.69.0.5/32, # marie-desktop
-    10.69.0.9/32, # marie pixel
-  }
-}
-set vpn_egress_clients_v6 {
-  type ipv6_addr
-  flags interval
-  elements = {
-    fdf1:3ba4:9723:1000::2/128, # marie-desktop
-    fdf1:3ba4:9723:1000::4/128, # marie pixel
-  }
-}
-
 chain vpn {
   # vpn -> vpn
   ip saddr @vpn_v4 ip daddr @vpn_v4 accept;
   ip6 saddr @vpn_v6 ip6 daddr @vpn_v6 accept;
-
-  # vpn egress clients -> trusted vpn networks
-  ip saddr @vpn_egress_clients_v4 ip daddr @vpn_trusted accept;
-
-  # vpn egress clients -> internet
-  ip saddr @vpn_egress_clients_v4 oifname ens3 accept;
-  ip6 saddr @vpn_egress_clients_v6 oifname ens3 accept;
-}
-
-chain vpn_nat {
-  type nat hook postrouting priority 0;
-
-  ip saddr @vpn_egress_clients_v4 oifname ens3 masquerade;
-  ip6 saddr @vpn_egress_clients_v6 oifname ens3 masquerade;
 }
