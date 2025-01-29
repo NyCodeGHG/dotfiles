@@ -29,5 +29,6 @@
     programs.command-not-found.enable = false;
     documentation.nixos.enable = lib.mkDefault false;
     boot.initrd.systemd.enable = true;
+    programs.traceroute.enable = true;
   };
 }
