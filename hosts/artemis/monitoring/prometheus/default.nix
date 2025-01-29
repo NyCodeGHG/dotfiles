@@ -45,7 +45,7 @@
               labels.instance = config.networking.hostName;
             }
             {
-              targets = [ "10.69.0.7:9100" ];
+              targets = [ "delphi:9100" ];
               labels.instance = "delphi";
             }
           ];

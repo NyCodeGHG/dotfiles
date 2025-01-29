@@ -6,7 +6,7 @@
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/profiles/headless.nix"
     ./networking.nix
-    ./monitoring
+    ./monitoring.nix
     ./applications
     ./minecraft.nix
     ./hardware.nix

@@ -1,4 +1,0 @@
-{ ... }:
-{
-  imports = [ ./prometheus.nix ];
-}

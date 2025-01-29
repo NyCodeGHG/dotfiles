@@ -19,7 +19,6 @@ in
   "restic-repo.age".publicKeys = users ++ artemis;
   "b2-restic.age".publicKeys = users ++ artemis;
   "synapse-sso-config.age".publicKeys = users ++ artemis;
-  "delphi-wg-privatekey.age".publicKeys = users ++ delphi;
   "artemis-wg-privatekey.age".publicKeys = users ++ artemis;
   "pgrok-client-secret.age".publicKeys = users ++ artemis;
   "paperless-env.age".publicKeys = users ++ artemis;
