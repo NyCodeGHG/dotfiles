@@ -23,6 +23,7 @@
       inxi
       pv
     ];
+    programs.trippy.enable = true;
     programs.nano.enable = false;
     security.sudo-rs.enable = true;
     services.lvm.enable = lib.mkDefault false;
