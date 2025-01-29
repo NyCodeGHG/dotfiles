@@ -76,4 +76,9 @@ in
     owner = "systemd-network";
     group = "systemd-network";
   };
+
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "server";
+  };
 }
