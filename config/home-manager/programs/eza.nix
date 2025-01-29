@@ -3,7 +3,7 @@ lib.mkIf config.uwumarie.profiles.eza {
   programs.eza = {
     enable = true;
     enableFishIntegration = true;
-    git = true;
+    git = false;
     icons = "auto";
     extraOptions = [
       "--group"
