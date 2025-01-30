@@ -39,6 +39,11 @@ in
         name_attribute_path = "nickname";
         id_token_attribute_name = "sub";
       };
+      database = {
+        type = "postgres";
+        user = "grafana";
+        host = "/run/postgresql";
+      };
     };
     provision = {
       enable = true;
@@ -49,17 +54,17 @@ in
           access = "proxy";
           url = "http://127.0.0.1:${toString config.services.prometheus.port}";
         }
-        {
-          name = "Alertmanager";
-          type = "alertmanager";
-          url = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
-          jsonData = {
-            implementation = "prometheus";
-            handleGrafanaManagedAlerts = config.services.prometheus.enable;
-          };
-        }
       ];
     };
+  };
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "grafana" ];
+    ensureUsers = [{
+      name = "grafana";
+      ensureDBOwnership = true;
+    }];
   };
 
   age.secrets.grafana-oauth-client-secret = {
