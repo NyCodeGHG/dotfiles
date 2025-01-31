@@ -214,11 +214,6 @@
   programs.nix-ld.enable = true;
 
   hardware.bluetooth.enable = true;
-  hardware.openrazer = {
-    enable = true;
-    users = [ "marie" ];
-  };
-  boot.initrd.kernelModules = [ "razerkbd" "razermouse" ];
 
   nixpkgs.config.permittedInsecurePackages = [
     "jitsi-meet-1.0.8043"
