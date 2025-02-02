@@ -53,6 +53,7 @@
     "regex",
     "terraform",
     "github-actions",
-    "nix"
+    "nix",
+    "ansible-galaxy"
   ]
 }
