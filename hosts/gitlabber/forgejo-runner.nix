@@ -25,9 +25,6 @@
       dns_enabled = true;
     };
   };
-  networking.firewall.interfaces."podman+" = {
-    allowedUDPPorts = [ 53 ];
-    allowedTCPPorts = [ 53 ];
-  };
+  networking.firewall.trustedInterfaces = [ "podman+" ];
   age.secrets.forgejo-runner.file = ./forgejo-runner.age;
 }
