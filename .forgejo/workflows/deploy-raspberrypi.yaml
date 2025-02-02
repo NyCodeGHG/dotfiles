@@ -22,7 +22,4 @@ jobs:
           version: latest
 
       - name: Deploy with Ansible
-        run: nix develop -L --command bash -c '
-            set -euo pipefail
-            ansible-playbook -i ansible/inventory.yaml ansible/raspberrypi.yml
-          '
+        run: nix develop --command ansible-playbook -i ansible/inventory.yaml ansible/raspberrypi.yml
