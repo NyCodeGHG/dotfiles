@@ -13,10 +13,6 @@
           path = "/var/lib/syncthing/cabin-modpack";
           devices = [ "delphi" ];
         };
-        "sharex-screenshots" = {
-          path = "/var/lib/syncthing/sharex-screenshots";
-          devices = [ "marie-desktop" ];
-        };
         "transport-fever-2-saves" = {
           path = "/var/lib/syncthing/transport-fever-2-saves";
           label = "Transport Fever 2 Saves";
@@ -34,16 +30,10 @@
     locations."/" = {
       proxyPass = "http://${config.services.syncthing.guiAddress}";
       proxyWebsockets = true;
-      extraConfig = ''
-        allow 127.0.0.0/24;
-        allow 10.69.0.5/32;
-        deny all;
-      '';
     };
   };
-  # syncthing data + discovery ports
-  networking.firewall.interfaces.wg0 = {
-    allowedTCPPorts = [ 22000 ];
-    allowedUDPPorts = [ 21027 22000 ];
+  services.nginx.tailscaleAuth = {
+    enable = true;
+    virtualHosts = [ "syncthing.artemis.marie.cologne" ];
   };
 }
