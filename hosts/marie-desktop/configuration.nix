@@ -6,6 +6,7 @@
     ./gaming.nix
     ./suspend-fix.nix
     ./tailscale.nix
+    ./syncthing.nix
   ];
 
   uwumarie.profiles = {
