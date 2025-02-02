@@ -14,8 +14,7 @@ jobs:
         uses: https://github.com/DeterminateSystems/nix-installer-action@e50d5f73bfe71c2dd0aa4218de8f4afa59f8f81d # v16
         with:
           diagnostic-endpoint: ''
-          source-url: 'https://install.lix.systems/lix/lix-installer-x86_64-linux'
-          start-daemon: true
+          # source-url: 'https://install.lix.systems/lix/lix-installer-x86_64-linux'
       
       - name: Join Tailnet
         uses: https://github.com/tailscale/github-action@8688eb839e58e6b25c1ae96cd99d1c173299b842 # v3
