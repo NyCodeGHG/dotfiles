@@ -14,6 +14,18 @@
         "\"(?<depName>(?:ghcr\\.io|docker\\.io|quay\\.io)[^:]*):(?<currentValue>.*)\""
       ],
       "datasourceTemplate": "docker"
+    },
+    {
+      "description": "Update caddy version",
+      "fileMatch": [
+        "\\.y(?:a)?ml$"
+      ],
+      "matchStrings": [
+        "caddy_version: \"(?<currentValue>.*)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v(?<version>.*)$",
+      "depNameTemplate": "caddyserver/caddy"
     }
   ],
   "packageRules": [
