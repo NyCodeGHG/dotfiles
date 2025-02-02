@@ -31,11 +31,6 @@ jobs:
         run: echo '${{ secrets.ANSIBLE_VAULT_PASSWORD }}' > $HOME/vault-password
 
       - name: Deploy with Ansible
-        run: nix develop --command bash -c '
-            ansible-playbook \
-              ansible/raspberrypi.yml \
-              --vault-password-file "$HOME/vault-password" \
-              -i ansible/inventory.yaml
-          '
+        run: nix develop --command bash -c 'ansible-playbook ansible/raspberrypi.yml --vault-password-file "$HOME/vault-password" -i ansible/inventory.yaml'
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
