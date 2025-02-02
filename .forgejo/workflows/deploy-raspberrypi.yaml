@@ -22,10 +22,10 @@ jobs:
           version: latest
 
       - name: Build Nix Shell
-        run: nix build .#devShells.x86_64-linux.default
+        run: nix build .#devShells.x86_64-linux.ansible
       
       - name: Install Ansible Galaxy Dependencies
-        run: nix develop --command ansible-galaxy install -r ansible/requirements.yml
+        run: nix develop .#ansible --command ansible-galaxy install -r ansible/requirements.yml
       
       - name: Write Ansible Vault Password to file
         run: echo '${{ secrets.ANSIBLE_VAULT_PASSWORD }}' > $HOME/vault-password
