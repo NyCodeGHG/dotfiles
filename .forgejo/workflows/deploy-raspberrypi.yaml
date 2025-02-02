@@ -32,10 +32,10 @@ jobs:
 
       - name: Deploy with Ansible
         run: nix develop --command bash -c '
-          ansible-playbook \
-            --vault-password-file $HOME/vault-password \
-            -i ansible/inventory.yaml \
-            ansible/raspberrypi.yml
+            ansible-playbook \
+              --vault-password-file $HOME/vault-password \
+              -i ansible/inventory.yaml \
+              ansible/raspberrypi.yml
           '
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
