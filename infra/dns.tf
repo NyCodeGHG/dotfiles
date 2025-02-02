@@ -161,17 +161,17 @@ module "jellyfin_record" {
 }
 
 module "paperless_record" {
-  source = "./tailscale-record"
+  source   = "./tailscale-record"
   zone_id  = data.cloudflare_zone.marie_cologne.id
   name     = "paperless"
   hostname = "artemis"
 }
 
-resource "cloudflare_record" "syncthing_artemis_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "syncthing.artemis"
-  content = "wg.artemis.marie.cologne"
-  type    = "CNAME"
+module "artemis_syncthing_record" {
+  source   = "./tailscale-record"
+  zone_id  = data.cloudflare_zone.marie_cologne.id
+  name     = "syncthing.artemis"
+  hostname = "artemis"
 }
 
 resource "cloudflare_record" "delphi_v4" {
