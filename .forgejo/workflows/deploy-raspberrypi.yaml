@@ -21,5 +21,11 @@ jobs:
           tags: tag:ci
           version: latest
 
+      - name: Build Nix Shell
+        run: nix build .#devShells.x86_64-linux.default
+      
+      - name: Install Ansible Galaxy Dependencies
+        run: nix develop --command ansible-galaxy install -r ansible/requirements.yml
+
       - name: Deploy with Ansible
         run: nix develop --command ansible-playbook -i ansible/inventory.yaml ansible/raspberrypi.yml
