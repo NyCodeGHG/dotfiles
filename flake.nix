@@ -71,6 +71,9 @@
             ansible-lint
           ];
         };
+        ansible = pkgs.mkShellNoCC {
+          nativeBuildInputs = with pkgs; [ ansible ansible-lint ];
+        };
       });
       packages = let
         stable = forEachSystem nixpkgs (pkgs: self.overlays.packages pkgs pkgs);
