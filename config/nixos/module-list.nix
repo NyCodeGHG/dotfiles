@@ -6,6 +6,7 @@
   ./applications/tailscale.nix
   ./system/audio.nix
   ./system/base.nix
+  ./system/dns.nix
   ./system/graphical.nix
   ./system/headless.nix
   ./system/locale.nix
