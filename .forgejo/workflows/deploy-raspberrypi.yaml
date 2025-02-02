@@ -10,12 +10,9 @@ jobs:
       - name: Checkout Code
         uses: https://code.forgejo.org/actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-      - name: Install Lix
-        uses: https://github.com/DeterminateSystems/nix-installer-action@e50d5f73bfe71c2dd0aa4218de8f4afa59f8f81d # v16
-        with:
-          diagnostic-endpoint: ''
-          # source-url: 'https://install.lix.systems/lix/lix-installer-x86_64-linux'
-      
+      - name: Install Nix
+        uses: https://github.com/cachix/install-nix-action@08dcb3a5e62fa31e2da3d490afc4176ef55ecd72 # v30
+
       - name: Join Tailnet
         uses: https://github.com/tailscale/github-action@8688eb839e58e6b25c1ae96cd99d1c173299b842 # v3
         with:
@@ -23,7 +20,7 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
           version: latest
-      
+
       - name: Deploy with Ansible
         run: nix develop -L --command bash -c '
             set -euo pipefail
