@@ -29,3 +29,5 @@ jobs:
 
       - name: Deploy with Ansible
         run: nix develop --command ansible-playbook -i ansible/inventory.yaml ansible/raspberrypi.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "False"
