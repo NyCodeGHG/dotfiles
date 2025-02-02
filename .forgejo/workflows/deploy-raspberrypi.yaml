@@ -32,7 +32,7 @@ jobs:
 
       - name: Deploy with Ansible
         run: nix develop --command ansible-playbook \
-          --vault-password-file $HOME/vault-password
+          --vault-password-file $HOME/vault-password \
           -i ansible/inventory.yaml \
           ansible/raspberrypi.yml
         env:
