@@ -4,7 +4,7 @@
     enable = true;
     settings = {
       devices = {
-        "marie-desktop".id = "U3EOIRR-FLOIAZH-53X32J7-YRMDHK6-V3DRAIZ-EAZIZR6-DHZMCF3-THYCQQF";
+        "marie-desktop".id = "6TPYJWH-7QOBNQI-RCUCWBM-SYKPS6M-XOS3YXB-4LFTLBE-BCPOJ6L-ET6PJAG";
         "delphi".id = "PBHEMSO-H7S6F7I-2LXMQEL-XZLEUOF-QNSQIAO-MSS2B7D-HNRTTKY-5TRDDAO";
       };
       gui.insecureSkipHostcheck = true;
@@ -21,6 +21,12 @@
             type = "simple";
             params.keep = "10";
           };
+        };
+        "ftb-skies-expert-backups" = {
+          path = "/var/lib/syncthing/ftb-skies-expert-backups";
+          label = "FTB Skies Expert Backups";
+          id = "9dhwg-ge2q4";
+          devices = [ "marie-desktop" ];
         };
       };
     };
