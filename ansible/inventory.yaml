@@ -1,0 +1,5 @@
+hosts:
+  hosts:
+    raspberrypi:
+      ansible_host: raspberrypi.weasel-gentoo.ts.net
+      ansible_user: pi

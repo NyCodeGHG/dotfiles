@@ -1,0 +1,8 @@
+{
+    acme_dns cloudflare {file.{$CREDENTIALS_DIRECTORY}/cf-token}
+    acme_ca https://acme-v02.api.letsencrypt.org/directory
+    log
+}
+ha.marie.cologne {
+    reverse_proxy http://localhost:8123
+}

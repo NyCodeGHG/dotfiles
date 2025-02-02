@@ -1,0 +1,4 @@
+---
+roles:
+  - name: caddy_ansible.caddy_ansible
+    version: v3.2.0

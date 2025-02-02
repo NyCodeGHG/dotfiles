@@ -67,6 +67,8 @@
             inputs.agenix.packages.${system}.default
             colmena
             nix-update
+            ansible
+            ansible-lint
           ];
         };
       });
