@@ -2,6 +2,7 @@
 {
   services.forgejo = {
     enable = true;
+    package = pkgs.forgejo;
     user = "forgejo";
     group = "forgejo";
     database = {
