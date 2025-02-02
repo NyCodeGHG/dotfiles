@@ -12,6 +12,8 @@
         "/var/lib/tailscale"
         "/var/log"
         "/var/lib/acme"
+        "/var/lib/private/gitea-runner"
+        "/var/lib/containers"
       ];
       files = [
         { file = "/etc/machine-id"; inInitrd = true; how = "symlink"; configureParent = true; }

@@ -5,7 +5,7 @@
     preservation.nixosModules.default
     ../../config/nixos/system/acme.nix
     (modulesPath + "/profiles/minimal.nix")
-    # ./forgejo-runner.nix
+    ./forgejo-runner.nix
     ./state.nix
     ./hardware.nix
   ];
