@@ -48,6 +48,19 @@
       "lockFileMaintenance": {
         "enabled": false
       }
+    },
+    {
+      "matchPackageNames": [
+        "ubuntu"
+      ],
+      "matchDatasources": [
+        "github-runners"
+      ],
+      "matchFileNames": [
+        ".forgejo/workflows/*.yaml",
+        ".forgejo/workflows/*.yml"
+      ],
+      "enabled": false
     }
   ],
   "enabledManagers": [
