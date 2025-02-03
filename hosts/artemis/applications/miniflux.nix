@@ -8,7 +8,7 @@ in
     enable = true;
     config = {
       OAUTH2_PROVIDER = "oidc";
-      OAUTH2_REDIRECT_URL = "https://miniflux.nycode.dev/oauth2/oidc/callback";
+      OAUTH2_REDIRECT_URL = "https://miniflux.marie.cologne/oauth2/oidc/callback";
       OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://sso.nycode.dev/application/o/miniflux/";
       OAUTH2_USER_CREATION = "1";
       PORT = port;
@@ -25,9 +25,6 @@ in
         proxyPass = "http://127.0.0.1:${port}";
         proxyWebsockets = true;
       };
-    };
-    "miniflux.nycode.dev" = {
-      globalRedirect = "miniflux.marie.cologne";
     };
   };
 }
