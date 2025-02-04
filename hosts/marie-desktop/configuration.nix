@@ -168,6 +168,7 @@
     makemkv
     scrcpy
     zfs # to view manpages
+    attic-client
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
