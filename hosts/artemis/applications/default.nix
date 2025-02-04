@@ -16,5 +16,6 @@
     ./hedgedoc
     ./jellyfin.nix
     ./atuin.nix
+    ./attic.nix
   ];
 }
