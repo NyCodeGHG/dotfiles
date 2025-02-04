@@ -34,6 +34,13 @@ resource "cloudflare_record" "marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "cache_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "cache"
+  content = "artemis.marie.cologne"
+  type    = "CNAME"
+}
+
 resource "cloudflare_record" "git_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "git"
