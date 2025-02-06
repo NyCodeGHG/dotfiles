@@ -169,6 +169,7 @@
     scrcpy
     zfs # to view manpages
     attic-client
+    syncthingtray
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
