@@ -22,10 +22,10 @@
             params.keep = "10";
           };
         };
-        "ftb-skies-expert-backups" = {
-          path = "/var/lib/syncthing/ftb-skies-expert-backups";
-          label = "FTB Skies Expert Backups";
-          id = "9dhwg-ge2q4";
+        "prism-launcher" = {
+          path = "/var/lib/syncthing/PrismLauncher";
+          label = "Prism Launcher";
+          id = "bdugq-zrmhr";
           devices = [ "marie-desktop" ];
         };
       };
