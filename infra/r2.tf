@@ -3,3 +3,9 @@ resource "cloudflare_r2_bucket" "attic" {
   name       = "attic"
   location   = "WEUR"
 }
+
+resource "cloudflare_r2_bucket" "backups" {
+  account_id = "82758a83eb971497ed2c8171439a1ad5"
+  name       = "backups"
+  location   = "WEUR"
+}

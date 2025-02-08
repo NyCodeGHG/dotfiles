@@ -1,173 +1,169 @@
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
-  repository = "s3:s3.eu-central-003.backblazeb2.com/marie-backups";
-  mkResticService = service: {
+  mkResticService = service: lib.recursiveUpdate {
     serviceConfig = {
-      EnvironmentFile = config.age.secrets.b2-restic.path;
+      EnvironmentFile = config.age.secrets.restic.path;
+      User = "backup";
+      Group = "backup";
+      PrivateTmp = true;
     };
-    environment = {
-      RESTIC_REPOSITORY = repository;
-      RESTIC_PASSWORD_FILE = config.age.secrets.restic-repo.path;
-      XDG_CACHE_DIR = "/var/cache/";
-    };
-  } // service;
-  restic-wrapper = pkgs.writeShellScriptBin "restic-wrapped" ''
-    set -aeuo pipefail
-    source ${config.age.secrets.b2-restic.path}
-    RESTIC_REPOSITORY=${repository}
-    RESTIC_PASSWORD_FILE=${config.age.secrets.restic-repo.path}
-    exec ${pkgs.restic}/bin/restic $@
-  '';
+  } service;
+  resticWrapper = pkgs.writeScriptBin "restic-wrapper"
+    ''
+      set -aeuo pipefail
+      source ${config.age.secrets.restic.path}
+      exec ${lib.getExe pkgs.restic} "$@"
+    '';
 in
 {
-  users.users.root.packages = [ restic-wrapper ];
-  age.secrets.restic-repo.file = "${inputs.self}/secrets/restic-repo.age";
-  age.secrets.b2-restic.file = "${inputs.self}/secrets/b2-restic.age";
+  environment.systemPackages = [ resticWrapper ];
+  age.secrets.restic.file = ./secrets/restic.age;
+  users.users.backup = {
+    isSystemUser = true;
+    group = "backup";
+  };
+  users.groups.backup = {};
 
-  systemd.timers."restic-backup-postgres" = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "restic-backup-postgres.service" ];
-    timerConfig = {
-      OnCalendar = "daily";
-      RandomizedDelaySec = "1200";
+  systemd.services."postgres-user-backup" = {
+    after = [ "postgresql.service" ];
+    requires = [ "postgresql.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "postgres";
+      Group = "postgres";
+      ExecStart = "${lib.getExe' config.services.postgresql.package "psql"} -c 'CREATE ROLE backup WITH LOGIN IN ROLE pg_read_all_data;'";
+      ExecStop = "${lib.getExe' config.services.postgresql.package "psql"} -c 'DROP ROLE backup;'";
+      RemainAfterExit = true;
+    };
+    unitConfig = {
+      StopWhenUnneeded = true;
     };
   };
 
-  systemd.timers."restic-backup-forgejo" = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "restic-backup-forgejo.service" ];
-    timerConfig = {
-      OnCalendar = "daily";
-      RandomizedDelaySec = "1200";
-    };
-  };
-
-  systemd.services."restic-backup-postgres" = mkResticService {
-    path = with pkgs; [ sudo restic config.services.postgresql.package ];
+  systemd.services."restic-postgres" = mkResticService {
+    requires = [ "postgres-user-backup.service" ];
+    after = [ "postgres-user-backup.service" ];
+    path = with pkgs; [ restic config.services.postgresql.package gnugrep gawk hostname-debian ];
+    startAt = "03:00";
     script = ''
       set -euo pipefail
-      
-      sudo -u postgres pg_dumpall | \
-      restic backup \
+      dir="$(mktemp -d /tmp/postgres-backup.XXXXXX)"
+
+      for db in $(psql postgres -tc 'SELECT datname FROM pg_database WHERE datistemplate = false;' | grep '\S' | awk '{$1=$1};1'); do
+        echo "Dumping schema for database $db"
+        pg_dump "$db" \
+          --schema-only \
+          --file "$dir/$db-schema.psql"
+
+        echo "Dumping data for database $db"
+        pg_dump "$db" \
+          --data-only \
+          --file "$dir/$db-data.psql"
+      done
+
+      echo "Backing up using restic"
+
+      env -C "$dir" restic backup \
         --retry-lock 30m \
+        --one-file-system \
         --tag postgres \
-        --stdin \
-        --stdin-filename 'all_databases.psql'
+        --skip-if-unchanged \
+        .
+
+      echo "Cleaning up old snapshots"
 
       restic forget \
         --retry-lock 30m \
         --tag postgres \
-        --host ${config.networking.hostName} \
-        --keep-daily 7 \
-        --keep-weekly 5 \
+        --host "$(hostname)" \
+        --keep-within 7d \
+        --keep-weekly 4 \
         --keep-monthly 12 \
-        --keep-yearly 75
+        --keep-yearly 5
     '';
   };
 
-  systemd.services."restic-backup-forgejo" = mkResticService {
-    environment = {
-      GITEA_WORK_DIR = config.services.forgejo.stateDir;
-      GITEA_CUSTOM = config.services.forgejo.customDir;
-      RESTIC_REPOSITORY = repository;
-      RESTIC_PASSWORD_FILE = config.age.secrets.restic-repo.path;
-      XDG_CACHE_DIR = "/var/cache/";
+  systemd.services."restic-forgejo" = mkResticService {
+    environment = 
+    let
+      cfg = config.services.forgejo;
+    in {
+      USER = cfg.user;
+      HOME = cfg.stateDir;
+      FORGEJO_WORK_DIR = cfg.stateDir;
+      FORGEJO_CUSTOM = cfg.customDir;
     };
-    path = with pkgs; [ sudo coreutils config.services.forgejo.package restic ];
+    path = with pkgs; [ config.services.forgejo.package restic hostname-debian ];
+    serviceConfig = {
+      User = "forgejo";
+      Group = "forgejo";
+    };
+    startAt = "03:00";
     script = ''
       set -euo pipefail
-      HOME="${config.services.forgejo.stateDir}" sudo -Eu forgejo gitea dump --type tar -f - | \
-      restic backup \
-        --retry-lock 30m \
-        --tag forgejo \
-        --stdin \
-        --stdin-filename forgejo-dump-$(date +%Y-%m-%d_%H-%M-%S).tar
+      ${lib.getExe config.services.forgejo.package} dump --type tar -f - | \
+        restic backup \
+          --retry-lock 30m \
+          --tag forgejo \
+          --stdin \
+          --stdin-filename forgejo-dump.tar
 
       restic forget \
         --retry-lock 30m \
         --tag forgejo \
-        --host ${config.networking.hostName} \
-        --keep-daily 7 \
-        --keep-weekly 5 \
+        --host "$(hostname)" \
+        --keep-within 7d \
+        --keep-weekly 4 \
         --keep-monthly 12 \
-        --keep-yearly 75
+        --keep-yearly 5
     '';
   };
-
-  services.restic.backups.matrix-synapse = {
-    repository = "s3:s3.eu-central-003.backblazeb2.com/marie-backups";
-    environmentFile = config.age.secrets.b2-restic.path;
-    pruneOpts = [
-      "--retry-lock 30m"
-      "--keep-daily 2"
-      "--keep-weekly 1"
-      "--keep-monthly 2"
-      "--tag matrix-synapse"
-      "--host ${config.networking.hostName}"
-    ];
-    timerConfig = {
-      OnCalendar = "0/6:00"; # every 6 hours
-      Persistent = true;
+  systemd.services."restic-paperless" = mkResticService {
+    path = with pkgs; [ restic hostname-debian ];
+    serviceConfig = {
+      User = "paperless";
+      Group = "paperless";
     };
-    extraBackupArgs = [
-      "--retry-lock 30m"
-      "--tag matrix-synapse"
-    ];
-    paths = [
-      "/var/lib/matrix-synapse"
-    ];
-    passwordFile = config.age.secrets.restic-repo.path;
+    startAt = "03:00";
+    script = ''
+      set -euo pipefail
+      restic backup \
+        --retry-lock 30m \
+        --tag paperless \
+        /var/lib/paperless
+
+      restic forget \
+        --retry-lock 30m \
+        --tag paperless \
+        --host "$(hostname)" \
+        --keep-within 7d \
+        --keep-weekly 4 \
+        --keep-monthly 12 \
+        --keep-yearly 5
+    '';
   };
-
-  services.restic.backups.paperless = {
-    repository = "s3:s3.eu-central-003.backblazeb2.com/marie-backups";
-    environmentFile = config.age.secrets.b2-restic.path;
-    pruneOpts = [
-      "--retry-lock 30m"
-      "--keep-daily 1"
-      "--keep-weekly 2"
-      "--keep-monthly 2"
-      "--tag paperless"
-      "--host ${config.networking.hostName}"
-    ];
-    timerConfig = {
-      OnCalendar = "daily";
-      Persistent = true;
-      RandomizedDelaySec = "3h";
+  systemd.services."restic-synapse" = mkResticService {
+    path = with pkgs; [ restic hostname-debian ];
+    serviceConfig = {
+      User = "matrix-synapse";
+      Group = "matrix-synapse";
     };
-    extraBackupArgs = [
-      "--retry-lock 30m"
-      "--tag paperless"
-    ];
-    paths = [
-      "/var/lib/paperless"
-    ];
-    passwordFile = config.age.secrets.restic-repo.path;
-  };
+    startAt = "03:00";
+    script = ''
+      set -euo pipefail
+      restic backup \
+        --retry-lock 30m \
+        --tag synapse \
+        /var/lib/matrix-synapse
 
-  services.restic.backups.grafana = {
-    repository = "s3:s3.eu-central-003.backblazeb2.com/marie-backups";
-    environmentFile = config.age.secrets.b2-restic.path;
-    pruneOpts = [
-      "--retry-lock 30m"
-      "--keep-daily 1"
-      "--keep-weekly 2"
-      "--keep-monthly 2"
-      "--tag grafana"
-      "--host ${config.networking.hostName}"
-    ];
-    timerConfig = {
-      OnCalendar = "daily";
-      Persistent = true;
-      RandomizedDelaySec = "3h";
-    };
-    extraBackupArgs = [
-      "--retry-lock 30m"
-      "--tag grafana"
-    ];
-    paths = [
-      "/var/lib/grafana"
-    ];
-    passwordFile = config.age.secrets.restic-repo.path;
+      restic forget \
+        --retry-lock 30m \
+        --tag synapse \
+        --host "$(hostname)" \
+        --keep-within 7d \
+        --keep-weekly 4 \
+        --keep-monthly 12 \
+        --keep-yearly 5
+    '';
   };
 }

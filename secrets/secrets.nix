@@ -16,8 +16,6 @@ in
   "authentik-secrets.age".publicKeys = users ++ artemis;
   "miniflux-credentials.age".publicKeys = users ++ artemis;
   "grafana-oauth-client-secret.age".publicKeys = users ++ artemis;
-  "restic-repo.age".publicKeys = users ++ artemis;
-  "b2-restic.age".publicKeys = users ++ artemis;
   "synapse-sso-config.age".publicKeys = users ++ artemis;
   "artemis-wg-privatekey.age".publicKeys = users ++ artemis;
   "pgrok-client-secret.age".publicKeys = users ++ artemis;
@@ -40,6 +38,7 @@ in
   "../hosts/artemis/secrets/netbox-secret.age".publicKeys = users ++ artemis;
   "../hosts/artemis/secrets/netbox-client-secret.age".publicKeys = users ++ artemis;
   "../hosts/artemis/secrets/attic.age".publicKeys = users ++ artemis;
+  "../hosts/artemis/secrets/restic.age".publicKeys = users ++ artemis;
   "../hosts/gitlabber/cachix-auth-token.age".publicKeys = users ++ gitlabber;
   "../hosts/gitlabber/forgejo-runner.age".publicKeys = users ++ gitlabber;
   "../hosts/artemis/applications/hedgedoc/env.age".publicKeys = users ++ artemis;
