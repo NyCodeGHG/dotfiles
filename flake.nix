@@ -28,6 +28,11 @@
     preservation.url = "github:WilliButz/preservation";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    cloudflare-exporter = {
+      url = "https://codeberg.org/marie/cloudflare-prometheus-exporter/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {

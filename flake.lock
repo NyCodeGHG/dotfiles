@@ -56,6 +56,24 @@
         "type": "github"
       }
     },
+    "cloudflare-exporter": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739107555,
+        "narHash": "sha256-QtRiVXL70Ode98mXhaekY5dGQT8/mmI9U70ILQ0nM40=",
+        "rev": "e01c37bf295512c7e5c52cbd38bb4321325ad01a",
+        "type": "tarball",
+        "url": "https://codeberg.org/api/v1/repos/marie/cloudflare-prometheus-exporter/archive/e01c37bf295512c7e5c52cbd38bb4321325ad01a.tar.gz?rev=e01c37bf295512c7e5c52cbd38bb4321325ad01a"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://codeberg.org/marie/cloudflare-prometheus-exporter/archive/main.tar.gz"
+      }
+    },
     "devenv": {
       "inputs": {
         "cachix": "cachix",
@@ -785,6 +803,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "cloudflare-exporter": "cloudflare-exporter",
         "home-manager-unstable": "home-manager-unstable",
         "ip-playground": "ip-playground",
         "nixos-hardware": "nixos-hardware",

@@ -1,5 +1,8 @@
-{ config, ... }:
+{ config, inputs, ... }:
 {
+  imports = [
+    inputs.cloudflare-exporter.nixosModules.default
+  ];
   services.prometheus = {
     enable = true;
     retentionTime = "30d";
@@ -68,6 +71,10 @@
         (mkTarget {
           job = "bird";
           target = "127.0.0.1:${toString config.services.prometheus.exporters.bird.port}";
+        })
+        (mkTarget {
+          job = "cloudflare-exporter";
+          target = "127.0.0.1:27196";
         })
         (mkTarget {
           job = "blackbox-exporter";
@@ -147,4 +154,9 @@
     enable = true;
     virtualHosts = [ "prometheus.marie.cologne" ];
   };
+  services.cloudflare-prometheus-exporter = {
+    enable = true;
+    tokenFile = config.age.secrets.r2-monitoring-token.path;
+  };
+  age.secrets.r2-monitoring-token.file = ../../secrets/r2-monitoring-token.age;
 }
