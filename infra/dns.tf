@@ -139,13 +139,6 @@ resource "cloudflare_record" "atuin_marie_cologne" {
   type    = "CNAME"
 }
 
-module "uptime-kuma_record" {
-  source   = "./tailscale-record"
-  zone_id  = data.cloudflare_zone.marie_cologne.id
-  name     = "uptime-kuma"
-  hostname = "artemis"
-}
-
 module "prometheus_record" {
   source   = "./tailscale-record"
   zone_id  = data.cloudflare_zone.marie_cologne.id
