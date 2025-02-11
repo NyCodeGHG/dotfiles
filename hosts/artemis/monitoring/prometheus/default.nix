@@ -1,7 +1,7 @@
 { config, ... }: {
   services.prometheus = {
     enable = true;
-    retentionTime = "15d";
+    retentionTime = "30d";
     webExternalUrl = "https://prometheus.marie.cologne";
     exporters = {
       node = {
