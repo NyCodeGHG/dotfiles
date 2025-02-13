@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ pkgs, config, inputs, ... }:
 {
   imports = [
     inputs.cloudflare-exporter.nixosModules.default
@@ -25,6 +25,21 @@
       blackbox = {
         enable = true;
         configFile = ./blackbox-exporter.yaml;
+      };
+      json = {
+        enable = true;
+        configFile = (pkgs.formats.yaml { }).generate "json-exporter-config.yml" {
+          # thanks k900
+          modules.matrix-federation.metrics = [
+            {
+              name = "matrix_homeserver_federation_ok";
+              path = "{.FederationOK}";
+              help = "False if there's any problem with federation reported.";
+              type = "value";
+              value_type = "gauge";
+            }
+          ];
+        };
       };
     };
     globalConfig.scrape_interval = "30s";
@@ -138,6 +153,32 @@
                 "delphi"
                 "gitlabber"
               ];
+            }
+          ];
+        }
+        # thanks k900
+        {
+          job_name = "matrix-federation";
+          metrics_path = "/probe";
+          params.module = [ "matrix-federation" ];
+          relabel_configs = [
+            {
+              source_labels = [ "__address__" ];
+              target_label = "__param_target";
+            }
+            {
+              source_labels = [ "__address__" ];
+              target_label = "instance";
+            }
+            {
+              target_label = "__address__";
+              replacement = "localhost:${toString config.services.prometheus.exporters.json.port}";
+            }
+          ];
+          static_configs = [
+            {
+              targets = [ "https://federationtester.matrix.org/api/report?server_name=marie.cologne" ];
+              labels.matrix_instance = "marie.cologne";
             }
           ];
         }
