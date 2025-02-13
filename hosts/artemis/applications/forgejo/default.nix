@@ -29,10 +29,12 @@
       service = {
         ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
         SHOW_REGISTRATION_BUTTON = false;
+        ENABLE_BASIC_AUTHENTICATION = false;
       };
       session = {
         COOKIE_SECURE = true;
         PROVIDER = "db";
+        SESSION_LIFE_TIME = 1209600;
       };
       cron.ENABLED = true;
       actions.ENABLED = true;
@@ -45,6 +47,7 @@
         REGISTER_EMAIL_CONFIRM = false;
         USERNAME = "nickname";
       };
+      metrics.ENABLED = true;
     };
   };
 
@@ -69,9 +72,7 @@
     locations."/metrics" = {
       extraConfig = ''
         allow 127.0.0.0/24;
-        allow 10.69.0.0/24;
         deny all;
-        client_max_body_size 512M;
         include ${pkgs.nginx}/conf/fastcgi.conf;
         fastcgi_pass unix:/run/forgejo/forgejo.sock;
       '';
