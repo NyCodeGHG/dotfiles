@@ -184,7 +184,7 @@
         }
         (mkTarget {
           job = "forgejo";
-          target = "127.0.0.1:${toString config.services.forgejo.port}";
+          target = "127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
         })
       ];
   };

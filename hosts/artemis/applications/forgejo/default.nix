@@ -17,7 +17,8 @@
         APP_NAME = "marie's catgit: git with more meow";
       };
       server = {
-        PROTOCOL = "fcgi+unix";
+        PROTOCOL = "http";
+        HTTP_PORT = 8085;
         DOMAIN = "git.marie.cologne";
         ROOT_URL = "https://git.marie.cologne";
         STATIC_URL_PREFIX = "/_/static";
@@ -51,15 +52,17 @@
     };
   };
 
-  services.nginx.virtualHosts."git.marie.cologne" = {
+  services.nginx.virtualHosts."git.marie.cologne" = 
+  let
+    port = toString config.services.forgejo.settings.server.HTTP_PORT;
+  in {
     locations."/_/static/" = {
       alias = "${config.services.forgejo.package.data}/public/";
     };
     locations."/" = {
+      proxyPass = "http://localhost:${port}";
       extraConfig = ''
         client_max_body_size 512M;
-        include ${pkgs.nginx}/conf/fastcgi.conf;
-        fastcgi_pass unix:/run/forgejo/forgejo.sock;
       '';
     };
     locations."/robots.txt" = {
@@ -70,11 +73,10 @@
         '';
     };
     locations."/metrics" = {
+      proxyPass = "http://localhost:${port}";
       extraConfig = ''
         allow 127.0.0.0/24;
         deny all;
-        include ${pkgs.nginx}/conf/fastcgi.conf;
-        fastcgi_pass unix:/run/forgejo/forgejo.sock;
       '';
     };
   };
