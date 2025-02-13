@@ -182,6 +182,10 @@
             }
           ];
         }
+        (mkTarget {
+          job = "forgejo";
+          target = "127.0.0.1:${toString config.services.forgejo.port}";
+        })
       ];
   };
 
