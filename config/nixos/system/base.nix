@@ -25,10 +25,10 @@
     ];
     programs.trippy.enable = true;
     programs.nano.enable = false;
-    security.sudo-rs.enable = true;
+    security.sudo-rs.enable = lib.mkDefault true;
     programs.command-not-found.enable = false;
     documentation.nixos.enable = lib.mkDefault false;
-    boot.initrd.systemd.enable = true;
+    boot.initrd.systemd.enable = lib.mkDefault true;
     programs.traceroute.enable = true;
     systemd.network.enable = true;
   };

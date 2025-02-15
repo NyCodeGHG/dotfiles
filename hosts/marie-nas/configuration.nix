@@ -1,10 +1,10 @@
 { pkgs, ... }:
 {
   imports = [
-    ./disko.nix
     ./networking.nix
     ./state.nix
     ./zfs.nix
+    ./hardware.nix
   ];
   boot = {
     loader = {
@@ -16,4 +16,8 @@
     };
     kernelPackages = pkgs.linuxPackages_6_12;
   };
+
+  environment.systemPackages = with pkgs; [
+    fio
+  ];
 }

@@ -83,7 +83,9 @@
       packages = let
         stable = forEachSystem nixpkgs (pkgs: self.overlays.packages pkgs pkgs);
         unstable = forEachSystem nixpkgs-unstable (pkgs: nixpkgs.lib.mapAttrs' (n: v: nixpkgs.lib.nameValuePair "${n}-unstable" v) (self.overlays.packages pkgs pkgs));
-      in nixpkgs.lib.recursiveUpdate stable unstable;
+      in (with nixpkgs.lib; recursiveUpdate (recursiveUpdate stable unstable) {
+        x86_64-linux.installer-nas-iso = self.nixosConfigurations.installer-nas.config.system.build.isoImage;
+      });
 
       lib = {
         nixosSystem =
@@ -163,6 +165,18 @@
                 environment.etc."dotfiles".source = self;
               }
             )
+          ];
+        };
+        installer-nas = self.lib.nixosSystem nixpkgs {
+          modules = [
+            ./hosts/marie-nas/configuration.nix
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+            {
+              environment.etc."dotfiles".source = self;
+              security.sudo-rs.enable = false;
+              uwumarie.state.enable = false;
+              boot.initrd.systemd.enable = false;
+            }
           ];
         };
       };
