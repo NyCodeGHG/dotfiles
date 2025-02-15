@@ -25,7 +25,7 @@
       inputs.nix-darwin.follows = "";
     };
 
-    preservation.url = "github:WilliButz/preservation";
+    preservation.url = "github:nix-community/preservation/555e6ad35ac8f4f2879e09e41b0e4f397a0b74a0";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
