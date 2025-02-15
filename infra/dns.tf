@@ -160,6 +160,13 @@ module "paperless_record" {
   hostname = "artemis"
 }
 
+module "cdio_record" {
+  source   = "./tailscale-record"
+  zone_id  = data.cloudflare_zone.marie_cologne.id
+  name     = "cdio"
+  hostname = "artemis"
+}
+
 module "artemis_syncthing_record" {
   source   = "./tailscale-record"
   zone_id  = data.cloudflare_zone.marie_cologne.id
