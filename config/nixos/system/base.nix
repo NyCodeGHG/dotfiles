@@ -26,7 +26,6 @@
     programs.trippy.enable = true;
     programs.nano.enable = false;
     security.sudo-rs.enable = true;
-    services.lvm.enable = lib.mkDefault false;
     programs.command-not-found.enable = false;
     documentation.nixos.enable = lib.mkDefault false;
     boot.initrd.systemd.enable = true;
