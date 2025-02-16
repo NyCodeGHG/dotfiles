@@ -12,7 +12,6 @@
       enable = true;
       preserveAt."/state" = {
         directories = [
-          "/etc/NIXOS"
           { directory = "/home/marie"; user = "marie"; group = "users"; }
           "/var/db/sudo"
           { directory =  "/var/lib/nixos"; inInitrd = true; }
@@ -22,10 +21,11 @@
         ];
         files = [
           { file = "/etc/machine-id"; inInitrd = true; how = "symlink"; configureParent = true; }
-          { file = "/etc/ssh/ssh_host_ed25519_key"; mode = "0700"; inInitrd = true; }
-          { file = "/etc/ssh/ssh_host_ed25519_key.pub"; inInitrd = true; }
-          { file = "/etc/ssh/ssh_host_rsa_key"; mode = "0700"; inInitrd = true; }
-          { file = "/etc/ssh/ssh_host_rsa_key.pub"; inInitrd = true; }
+          { file = "/etc/NIXOS"; inInitrd = true; how = "symlink"; configureParent = true; }
+          { file = "/etc/ssh/ssh_host_ed25519_key"; mode = "0700"; inInitrd = true; configureParent = true; how = "symlink"; }
+          { file = "/etc/ssh/ssh_host_ed25519_key.pub"; inInitrd = true; configureParent = true; how = "symlink"; }
+          { file = "/etc/ssh/ssh_host_rsa_key"; mode = "0700"; inInitrd = true; configureParent = true; how = "symlink"; }
+          { file = "/etc/ssh/ssh_host_rsa_key.pub"; inInitrd = true; configureParent = true; how = "symlink"; }
         ];
       };
     };
