@@ -3,8 +3,7 @@
     disk = {
       root = {
         type = "disk";
-        # device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_500GB_S466NB0K428706Z";
-        device = "/dev/disk/by-id/"; # TODO: change device
+        device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_500GB_S466NB0K428706Z";
         content = {
           type = "gpt";
           partitions = {
