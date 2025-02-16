@@ -1,7 +1,7 @@
 {
   disko.devices = {
     disk = {
-      root = {
+      boot = {
         type = "disk";
         device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_500GB_S466NB0K428706Z";
         content = {
@@ -31,7 +31,7 @@
                 name = "root";
                 settings = {
                   allowDiscards = true;
-                  keyFile = "/mnt/encryption-keys/root.key";
+                  keyFile = "/encryption-keys/root.key";
                 };
                 content = {
                   type = "zfs";
@@ -44,13 +44,13 @@
       };
       wd-red-plus-a = {
         type = "disk";
-        device = "/dev/disk/by-id/"; # TODO: add disk
+        device = "/dev/disk/by-id/ata-WDC_WD120EFBX-68B0EN0_D7JPDSJN";
         content = {
           type = "luks";
           name = "wd-red-plus-a";
           settings = {
             allowDiscards = true;
-            keyFile = "/mnt/encryption-keys/wd-red-plus-a.key";
+            keyFile = "/encryption-keys/wd-red-plus-a.key";
           };
           content = {
             type = "zfs";
@@ -60,13 +60,13 @@
       };
       wd-red-plus-b = {
         type = "disk";
-        device = "/dev/disk/by-id/"; # TODO: add disk
+        device = "/dev/disk/by-id/ata-WDC_WD120EFBX-68B0EN0_D7JLAHXN";
         content = {
           type = "luks";
           name = "wd-red-plus-b";
           settings = {
             allowDiscards = true;
-            keyFile = "/mnt/encryption-keys/wd-red-plus-b.key";
+            keyFile = "/encryption-keys/wd-red-plus-b.key";
           };
           content = {
             type = "zfs";

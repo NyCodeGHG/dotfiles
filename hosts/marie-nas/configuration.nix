@@ -6,6 +6,8 @@
     ./zfs.nix
     ./hardware.nix
     ./powersave.nix
+    ./filesystems.nix
+    ./initrd-ssh.nix
   ];
   boot = {
     loader = {
@@ -24,7 +26,11 @@
 
   environment.systemPackages = with pkgs; [
     fio
+    efibootmgr
   ];
+
+  systemd.enableEmergencyMode = true;
+  security.sudo-rs.wheelNeedsPassword = false;
 
   system.stateVersion = "24.11";
 }

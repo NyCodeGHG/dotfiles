@@ -230,6 +230,17 @@
           nixpkgs.overlays = [ self.overlays.default ];
           nixpkgs.flake.source = nixpkgs;
         };
+        marie-nas = {
+          imports = [
+            ./hosts/marie-nas/configuration.nix
+            self.nixosModules.config
+          ];
+          deployment.targetHost = "marie-nas";
+          deployment.buildOnTarget = false;
+          deployment.targetUser = null;
+          nixpkgs.overlays = [ self.overlays.default ];
+          nixpkgs.flake.source = nixpkgs;
+        };
       };
     };
 }
