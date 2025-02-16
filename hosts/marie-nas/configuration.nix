@@ -5,6 +5,7 @@
     ./state.nix
     ./zfs.nix
     ./hardware.nix
+    ./powersave.nix
   ];
   boot = {
     loader = {

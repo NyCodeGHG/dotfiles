@@ -5,6 +5,6 @@
     fonts.fontconfig.enable = false;
     environment.stub-ld.enable = false;
     networking.firewall.logRefusedConnections = false;
-    powerManagement.enable = false;
+    powerManagement.enable = lib.mkDefault false;
   };
 }
