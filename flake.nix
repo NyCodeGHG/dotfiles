@@ -167,6 +167,9 @@
             )
           ];
         };
+        marie-nas = self.lib.nixosSystem nixpkgs {
+          modules = [ ./hosts/marie-nas/configuration.nix ];
+        };
         installer-nas = self.lib.nixosSystem nixpkgs {
           modules = [
             ./hosts/marie-nas/configuration.nix
