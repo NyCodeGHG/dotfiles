@@ -17,7 +17,13 @@
     kernelPackages = pkgs.linuxPackages_6_12;
   };
 
+  uwumarie.profiles = {
+    headless = true;
+  };
+
   environment.systemPackages = with pkgs; [
     fio
   ];
+
+  system.stateVersion = "24.11";
 }
