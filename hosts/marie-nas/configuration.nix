@@ -28,6 +28,7 @@
   environment.systemPackages = with pkgs; [
     fio
     efibootmgr
+    magic-wormhole
   ];
 
   systemd.enableEmergencyMode = true;
