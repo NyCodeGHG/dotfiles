@@ -19,6 +19,8 @@
           "/var/lib/tailscale"
           "/var/log"
           { directory = "/etc/secrets/initrd"; inInitrd = true; }
+          "/var/lib/samba"
+          "/var/cache/samba"
         ];
         files = [
           { file = "/etc/machine-id"; inInitrd = true; how = "symlink"; }

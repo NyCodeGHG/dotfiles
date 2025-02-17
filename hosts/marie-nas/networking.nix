@@ -26,4 +26,21 @@
     enable = true;
     useRoutingFeatures = "both";
   };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      userServices = true;
+    };
+  };
+
+  services.resolved = {
+    enable = true;
+    extraConfig = 
+    ''
+      MulticastDNS=false
+    '';
+  };
 }
