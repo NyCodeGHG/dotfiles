@@ -8,6 +8,7 @@
     ./powersave.nix
     ./filesystems.nix
     ./initrd-ssh.nix
+    ./samba.nix
   ];
   boot = {
     loader = {
