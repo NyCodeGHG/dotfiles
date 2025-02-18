@@ -30,6 +30,7 @@
     efibootmgr
     magic-wormhole
     rclone
+    tmux
   ];
 
   systemd.enableEmergencyMode = true;
