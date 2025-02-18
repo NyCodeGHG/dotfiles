@@ -7,8 +7,7 @@
       ntpd-rs = {
         enable = true;
         useNetworkingTimeServers = true;
-        metrics.enable = true;
-        settings.observability.log-level = "info";
+        settings.observability.log-level = "warn";
       };
     };
   };
