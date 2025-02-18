@@ -36,7 +36,7 @@
     "makemkv"
   ]);
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
 
   hardware.graphics = {
     enable = true;
