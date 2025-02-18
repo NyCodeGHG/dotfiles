@@ -29,6 +29,7 @@
     fio
     efibootmgr
     magic-wormhole
+    rclone
   ];
 
   systemd.enableEmergencyMode = true;
