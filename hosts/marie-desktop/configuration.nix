@@ -60,6 +60,7 @@
     useDHCP = false;
     firewall.logRefusedConnections = false;
   };
+  systemd.network.wait-online.enable = false;
   console = {
     font = "Lat2-Terminus16";
   };
