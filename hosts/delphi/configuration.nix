@@ -36,4 +36,19 @@
   #    hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3";
   #    masterIdentities = [ "/home/marie/.ssh/default.ed25519" ];
   #  };
+
+  users.users.builder = {
+    isSystemUser = true;
+    openssh.authorizedKeys.keys = [
+      # Marie desktop
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiS+tzh0R/nN5nqSwvLerCV4nBwI51zOKahFfiiINGp"
+      # root@marie-desktop
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKl1gOAizi410fKbP0wP6+XJMAk+JDx+mLp2amPKKQPY"
+    ];
+    group = "builder";
+    shell = pkgs.bashInteractive;
+  };
+  users.groups.builder = { };
+
+  nix.settings.trusted-users = [ "builder" ];
 }
