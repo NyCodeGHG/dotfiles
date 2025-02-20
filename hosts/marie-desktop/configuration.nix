@@ -80,10 +80,10 @@
         MulticastDNS=resolve
       '';
     };
-    mullvad-vpn = {
-      enable = true;
-      package = pkgs.mullvad-vpn;
-    };
+    # mullvad-vpn = {
+    #   enable = true;
+    #   package = pkgs.mullvad-vpn;
+    # };
   };
 
   systemd.services.cups-browsed.enable = false;
