@@ -34,8 +34,10 @@
     rclone
     tmux
   ];
-
-  systemd.enableEmergencyMode = true;
+  systemd = {
+    enableEmergencyMode = true;
+    watchdog.runtimeTime = "15s";
+  };
   security.sudo-rs.wheelNeedsPassword = false;
 
   system.stateVersion = "24.11";
