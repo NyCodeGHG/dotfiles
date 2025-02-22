@@ -33,6 +33,7 @@
     magic-wormhole
     rclone
     tmux
+    hd-idle
   ];
   systemd = {
     enableEmergencyMode = true;
