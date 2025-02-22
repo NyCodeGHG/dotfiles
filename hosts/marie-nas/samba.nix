@@ -45,6 +45,14 @@
     };
   };
 
+  systemd.services.samba-smbd.unitConfig = {
+    RequiresMountsFor = [
+      "/srv/shares"
+      "/srv/shares/marie"
+      "/srv/shares/media"
+    ];
+  };
+
   services.samba-wsdd = {
     enable = true;
     openFirewall = true;
