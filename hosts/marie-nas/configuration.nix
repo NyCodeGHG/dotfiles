@@ -11,6 +11,7 @@
     ./filesystems.nix
     ./initrd-ssh.nix
     ./samba.nix
+    ./monitoring.nix
   ];
   boot = {
     loader = {
