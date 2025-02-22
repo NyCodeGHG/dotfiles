@@ -39,14 +39,17 @@
     "/srv/shares" = {
       device = "tank/data/shares";
       fsType = "zfs";
+      options = [ "nofail" ];
     };
     "/srv/shares/marie" = {
       device = "tank/data/shares/marie";
       fsType = "zfs";
+      options = [ "nofail" ];
     };
     "/srv/shares/media" = {
       device = "tank/data/shares/media";
       fsType = "zfs";
+      options = [ "nofail" ];
     };
     "/state" = {
       device = "zroot/data/state";
