@@ -117,5 +117,8 @@ in
     enable = true;
     openFirewall = true;
   };
-  systemd.services.tailscaled.environment.TS_DEBUG_FIREWALL_MODE = "nftables";
+  systemd.services.tailscaled = {
+    after = [ "nftables.service" ];
+    environment.TS_DEBUG_FIREWALL_MODE = "nftables";
+  };
 }
