@@ -175,6 +175,7 @@
     zfs # to view manpages
     attic-client
     syncthingtray
+    quickemu
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
