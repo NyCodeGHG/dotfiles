@@ -33,6 +33,10 @@
       url = "https://codeberg.org/marie/cloudflare-prometheus-exporter/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zeit-btw-exporter = {
+      url = "git+ssh://forgejo@git.marie.cologne/marie/zeit-btw-exporter.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {

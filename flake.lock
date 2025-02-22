@@ -811,7 +811,8 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
-        "preservation": "preservation"
+        "preservation": "preservation",
+        "zeit-btw-exporter": "zeit-btw-exporter"
       }
     },
     "systems": {
@@ -893,6 +894,26 @@
         "owner": "numtide",
         "repo": "treefmt-nix",
         "type": "github"
+      }
+    },
+    "zeit-btw-exporter": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1740338158,
+        "narHash": "sha256-+MREfiejuVhmLUkmkJBC5TzXLHcykPY5KeAa3azMgj4=",
+        "ref": "refs/heads/main",
+        "rev": "686be0a2c064b57cf3dd17a0301511721c2f6e5f",
+        "revCount": 3,
+        "type": "git",
+        "url": "ssh://forgejo@git.marie.cologne/marie/zeit-btw-exporter.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://forgejo@git.marie.cologne/marie/zeit-btw-exporter.git"
       }
     }
   },
