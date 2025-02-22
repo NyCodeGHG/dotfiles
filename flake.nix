@@ -179,7 +179,7 @@
               environment.etc."dotfiles".source = self;
               security.sudo-rs.enable = false;
               uwumarie.state.enable = false;
-              boot.initrd.systemd.enable = false;
+              boot.initrd.systemd.enable = nixpkgs.lib.mkForce false;
             }
           ];
         };
