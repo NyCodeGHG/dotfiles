@@ -7,6 +7,7 @@
     ./suspend-fix.nix
     ./tailscale.nix
     ./syncthing.nix
+    ./wireshark.nix
   ];
 
   uwumarie.profiles = {
@@ -23,7 +24,7 @@
   programs.direnv.enable = true;
 
   virtualisation.libvirtd.enable = true;
-
+  
   nixpkgs.config.allowUnfreePredicate = pkg: (builtins.elem (lib.getName pkg) [
     "steam"
     "steam-original"
@@ -95,7 +96,7 @@
   users.users.marie = {
     shell = pkgs.fish;
     hashedPassword = "$y$j9T$sNg5DYGGsP1H6KIGjT1bZ1$uGpk3HwXHDTsOBT1Q/BpBbCe5Dxu4eKyqIx1RlWbkN1";
-    extraGroups = [ "cdrom" ];
+    extraGroups = [ "cdrom" "wireshark" ];
   };
 
   fileSystems = {
