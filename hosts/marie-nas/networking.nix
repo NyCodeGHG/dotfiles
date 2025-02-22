@@ -4,6 +4,7 @@
     hostName = "marie-nas";
     useDHCP = false;
     nftables.enable = true;
+    firewall.allowedTCPPorts = [ 80 443 ];
   };
   systemd.network = {
     enable = true;

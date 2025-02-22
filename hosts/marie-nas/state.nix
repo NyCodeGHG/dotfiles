@@ -21,6 +21,7 @@
           { directory = "/etc/secrets/initrd"; inInitrd = true; }
           "/var/lib/samba"
           "/var/cache/samba"
+          "/var/lib/acme"
         ];
         files = [
           { file = "/etc/machine-id"; inInitrd = true; how = "symlink"; }

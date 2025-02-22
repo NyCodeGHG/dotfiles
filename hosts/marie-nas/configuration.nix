@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
+    inputs.agenix.nixosModules.default
+    ../../config/nixos/system/acme.nix
     ./networking.nix
     ./state.nix
     ./zfs.nix
@@ -21,8 +23,12 @@
     kernelPackages = pkgs.linuxPackages_6_12;
   };
 
+  security.acme.certs."marie.cologne".extraDomainNames = [ "*.marie-nas.marie.cologne" ];
+
   uwumarie.profiles = {
     headless = true;
+    acme = true;
+    nginx = true;
   };
 
   users.users.marie.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAs0W2PBnnSG7LvyE0TnfnFjzaC4tbRludscIZM+SWci" ];

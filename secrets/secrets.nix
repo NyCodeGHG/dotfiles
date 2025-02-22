@@ -8,7 +8,8 @@ let
   delphi = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3 root@delphi"];
   wsl = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpKCSJGPFfckgr1/X1Rv7jeOe9E8tYmP1iqogzSXF+u"];
   gitlabber = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFxL7AqowWxKzJqrj8Mr2MDF3NDbyExAPwKjohoCx/t"];
-  allSystems = artemis ++ delphi ++ wsl;
+  marie-nas = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILwvQy3cK9gGwFEf5UGCxQ61j8Kv30JDAZ39FOtKkrCQ"];
+  allSystems = artemis ++ delphi ++ wsl ++ marie-nas;
   users = marie-desktop-wsl ++ marie-desktop;
 in
 {
