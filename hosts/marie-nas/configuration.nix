@@ -43,6 +43,7 @@
     rclone
     tmux
     hd-idle
+    bpftrace
   ];
   systemd = {
     enableEmergencyMode = true;
