@@ -21,6 +21,17 @@
         };
       };
     };
+    links = {
+      "50-wake-on-lan" = {
+        matchConfig = {
+          MACAddress = "2c:fd:a1:ba:fc:34";
+        };
+        linkConfig = {
+          MACAddressPolicy = "persistent";
+          WakeOnLan = "magic";
+        };
+      };
+    };
   };
 
   services.tailscale = {
