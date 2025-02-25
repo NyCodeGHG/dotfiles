@@ -2,7 +2,6 @@
 {
   imports = [
     inputs.cloudflare-exporter.nixosModules.default
-    inputs.zeit-btw-exporter.nixosModules.default
   ];
   services.prometheus = {
     enable = true;
@@ -95,10 +94,6 @@
         (mkTarget {
           job = "cloudflare-exporter";
           target = "127.0.0.1:27196";
-        })
-        (mkTarget {
-          job = "zeit-btw-exporter";
-          target = "127.0.0.1:39734";
         })
         (mkTarget {
           job = "blackbox-exporter";
@@ -212,6 +207,5 @@
     enable = true;
     tokenFile = config.age.secrets.r2-monitoring-token.path;
   };
-  services.zeit-btw-exporter.enable = true;
   age.secrets.r2-monitoring-token.file = ../../secrets/r2-monitoring-token.age;
 }
