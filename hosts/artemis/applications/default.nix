@@ -18,5 +18,6 @@
     ./atuin.nix
     ./attic.nix
     ./changedetection.nix
+    ./soju.nix
   ];
 }
