@@ -6,6 +6,7 @@
     ./peers/emma
     ./peers/kioubit
     ./peers/maraun
+    ./peers/adri
   ];
   systemd.network = {
     enable = true;

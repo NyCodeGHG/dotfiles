@@ -13,6 +13,13 @@ resource "cloudflare_record" "artemis_v4" {
   type    = "A"
 }
 
+resource "cloudflare_record" "dn42_endpoint" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "dn42-de.marie.cologne"
+  content = "artemis.marie.cologne"
+  type    = "CNAME"
+}
+
 resource "cloudflare_record" "artemis_v6" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "artemis.marie.cologne"
