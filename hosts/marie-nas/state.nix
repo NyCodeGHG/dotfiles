@@ -45,6 +45,7 @@
     boot.initrd.systemd = {
       storePaths = [ config.boot.zfs.package ];
       services.rollback-fs = {
+        enable = false;
         wantedBy = [ "initrd.target" ];
         after = [ "zfs-import-zroot.service" ];
         before = [ "initrd-root-fs.target" "sysroot.mount" ];
