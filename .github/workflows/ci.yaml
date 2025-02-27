@@ -39,3 +39,15 @@ jobs:
                   --skip-cached \
                   --no-nom \
                   --flake '.#${{ matrix.package }}'
+  eval:
+    name: Evaluate flake
+    runs-on: ubuntu-latest
+    needs: pre_ci
+    if: needs.pre_ci.outputs.continue
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Install Lix
+        uses: samueldr/lix-gha-installer-action@latest
+      - name: Cleanup disk space
+        uses: samueldr/more-space-action@97048bd0df83fb05b5257887bdbaffc848887673
+      - run: nix flake check
