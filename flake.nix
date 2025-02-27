@@ -121,7 +121,6 @@
       );
 
       overlays.packages = (final: prev: {
-        wgsl-analyzer = prev.callPackage ./pkgs/wgsl-analyzer/package.nix { };
         sandwine = prev.callPackage ./pkgs/sandwine { };
         plasma-aero-theme = prev.callPackage ./pkgs/plasma-aero-theme/package.nix { };
         btop = prev.btop.overrideAttrs (prev: {

@@ -14,8 +14,6 @@ jobs:
           - packages.x86_64-linux.plasma-aero-theme-unstable
           - packages.x86_64-linux.sandwine
           - packages.x86_64-linux.sandwine-unstable
-          - packages.x86_64-linux.wgsl-analyzer
-          - packages.x86_64-linux.wgsl-analyzer-unstable
           - nixosConfigurations.marie-desktop.config.system.build.kernel
           - nixosConfigurations.marie-desktop.config.system.build.initialRamdisk
     name: Build package ${{ matrix.package }}
