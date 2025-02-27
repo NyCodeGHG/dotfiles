@@ -14,8 +14,6 @@ jobs:
           - packages.x86_64-linux.wivrn-unstable
           - packages.x86_64-linux.plasma-aero-theme
           - packages.x86_64-linux.plasma-aero-theme-unstable
-          - packages.x86_64-linux.qpm-cli
-          - packages.x86_64-linux.qpm-cli-unstable
           - packages.x86_64-linux.sandwine
           - packages.x86_64-linux.sandwine-unstable
           - packages.x86_64-linux.wgsl-analyzer
