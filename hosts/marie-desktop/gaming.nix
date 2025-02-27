@@ -1,8 +1,5 @@
 { pkgs, config, lib, ... }:
 {
-  imports = [
-    # ./wivrn.nix
-  ];
   environment.systemPackages = with pkgs; [
     prismlauncher
     heroic
@@ -50,28 +47,6 @@
   };
 
   programs.corectrl.enable = true;
-
-  nixpkgs.overlays = [(final: prev: {
-    wivrn = final.qt6Packages.callPackage ../../pkgs/wivrn/package.nix { };
-  })];
-  services.wivrn = {
-    enable = false;
-    defaultRuntime = true;
-    openFirewall = true;
-    config = {
-      enable = true;
-      json = {
-        scale = 0.8;
-        bitrate = 40000000;
-        encoders = [
-          {
-            encoder = "x264";
-            codec = "h264";
-          }
-        ];
-      };
-    };
-  };
 
   networking.hosts = {
     # fuck you ea

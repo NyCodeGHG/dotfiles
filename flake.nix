@@ -123,7 +123,6 @@
       overlays.packages = (final: prev: {
         wgsl-analyzer = prev.callPackage ./pkgs/wgsl-analyzer/package.nix { };
         sandwine = prev.callPackage ./pkgs/sandwine { };
-        wivrn = prev.qt6Packages.callPackage ./pkgs/wivrn/package.nix { };
         plasma-aero-theme = prev.callPackage ./pkgs/plasma-aero-theme/package.nix { };
         btop = prev.btop.overrideAttrs (prev: {
           patches = (prev.patches or [ ]) ++ [ ./patches/btop_Fix-typo-Mhz-MHz.patch ];
@@ -174,6 +173,7 @@
               security.sudo-rs.enable = false;
               uwumarie.state.enable = false;
               boot.initrd.systemd.enable = nixpkgs.lib.mkForce false;
+              boot.initrd.services.resolved.enable = nixpkgs.lib.mkForce false;
             }
           ];
         };
