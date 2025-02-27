@@ -124,7 +124,6 @@
         wgsl-analyzer = prev.callPackage ./pkgs/wgsl-analyzer/package.nix { };
         sandwine = prev.callPackage ./pkgs/sandwine { };
         qpm-cli = prev.callPackage ./pkgs/qpm-cli/default.nix { };
-        alvr = prev.callPackage ./pkgs/alvr/package.nix { };
         wivrn = prev.qt6Packages.callPackage ./pkgs/wivrn/package.nix { };
         plasma-aero-theme = prev.callPackage ./pkgs/plasma-aero-theme/package.nix { };
         btop = prev.btop.overrideAttrs (prev: {

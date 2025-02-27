@@ -10,8 +10,6 @@ jobs:
       fail-fast: false
       matrix:
         package:
-          - packages.x86_64-linux.alvr-unstable
-          - packages.x86_64-linux.alvr
           - packages.x86_64-linux.wivrn
           - packages.x86_64-linux.wivrn-unstable
           - packages.x86_64-linux.plasma-aero-theme
