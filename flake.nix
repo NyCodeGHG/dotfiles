@@ -148,7 +148,7 @@
           modules = [ ./hosts/marie-desktop/configuration.nix ];
         };
         gitlabber = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/gitlabber/configuration.nix ]; };
-        installer = nixpkgs.lib.nixosSystem nixpkgs {
+        installer = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
