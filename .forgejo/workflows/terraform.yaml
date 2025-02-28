@@ -16,6 +16,8 @@ jobs:
       
       - name: tofu init
         run: nix shell --inputs-from . nixpkgs#opentofu --command tofu init
+        working-directory: infra
 
       - name: tofu validate
         run: nix shell --inputs-from . nixpkgs#opentofu --command tofu validate
+        working-directory: infra
