@@ -19,5 +19,6 @@
     ./attic.nix
     ./changedetection.nix
     ./soju.nix
+    ./kanidm.nix
   ];
 }
