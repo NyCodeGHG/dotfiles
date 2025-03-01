@@ -31,5 +31,6 @@
     boot.initrd.systemd.enable = lib.mkDefault true;
     programs.traceroute.enable = true;
     systemd.network.enable = true;
+    boot.tmp.useTmpfs = lib.mkDefault true;
   };
 }
