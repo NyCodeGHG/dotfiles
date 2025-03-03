@@ -35,6 +35,7 @@
     "discord"
     "hplip"
     "makemkv"
+    "anydesk"
   ]);
 
   boot.kernelPackages = pkgs.linuxPackages_6_12;
@@ -176,6 +177,7 @@
     attic-client
     syncthingtray
     quickemu
+    anydesk
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
