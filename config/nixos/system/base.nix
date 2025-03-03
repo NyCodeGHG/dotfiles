@@ -14,6 +14,7 @@
       usbutils
       wget2
       curl
+      wcurl
       vim
       tcpdump
       git
