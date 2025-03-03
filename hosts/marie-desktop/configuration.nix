@@ -178,6 +178,7 @@
     syncthingtray
     quickemu
     anydesk
+    ludusavi
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
