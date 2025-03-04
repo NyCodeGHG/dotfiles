@@ -14,7 +14,6 @@
       enableGitEmail = true;
     };
     jujutsu = true;
-    ripgrep = true;
     ssh = {
       enable = true;
       githubKeyFile = "~/.ssh/id_ed25519";
