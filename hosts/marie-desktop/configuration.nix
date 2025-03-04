@@ -8,7 +8,6 @@
     ./tailscale.nix
     ./syncthing.nix
     ./wireshark.nix
-    ./router.nix
   ];
 
   uwumarie.profiles = {
