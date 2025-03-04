@@ -39,17 +39,29 @@
     "/srv/shares" = {
       device = "tank/data/shares";
       fsType = "zfs";
-      options = [ "nofail" ];
+      options = [ 
+        "nofail"
+        "x-systemd.mount-timeout=15s"
+        "x-systemd.device-timeout=15s"
+      ];
     };
     "/srv/shares/marie" = {
       device = "tank/data/shares/marie";
       fsType = "zfs";
-      options = [ "nofail" ];
+      options = [ 
+        "nofail"
+        "x-systemd.mount-timeout=15s"
+        "x-systemd.device-timeout=15s"
+      ];
     };
     "/srv/shares/media" = {
       device = "tank/data/shares/media";
       fsType = "zfs";
-      options = [ "nofail" ];
+      options = [ 
+        "nofail"
+        "x-systemd.mount-timeout=15s"
+        "x-systemd.device-timeout=15s"
+      ];
     };
     "/state" = {
       device = "zroot/data/state";
