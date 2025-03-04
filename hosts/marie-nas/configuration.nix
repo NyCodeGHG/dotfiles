@@ -44,6 +44,8 @@
     tmux
     hd-idle
     bpftrace
+    smartmontools
+    hdparm
   ];
   systemd = {
     enableEmergencyMode = true;
