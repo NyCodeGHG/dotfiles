@@ -97,14 +97,23 @@
             "local/nix" = {
               type = "zfs_fs";
               mountpoint = "/nix";
+              options = {
+                mountpoint = "legacy";
+              };
             };
             "local/root" = {
               type = "zfs_fs";
               mountpoint = "/";
+              options = {
+                mountpoint = "legacy";
+              };
             };
             "data/state" = {
               type = "zfs_fs";
               mountpoint = "/state";
+              options = {
+                mountpoint = "legacy";
+              };
             };
           };
         };
@@ -118,17 +127,24 @@
             "data/shares" = {
               type = "zfs_fs";
               mountpoint = "/srv/shares";
+              options = {
+                mountpoint = "legacy";
+              };
             };
             "data/shares/media" = {
               type = "zfs_fs";
               mountpoint = "/srv/shares/media";
               options = {
                 recordsize = "1M";
+                mountpoint = "legacy";
               };
             };
             "data/shares/marie" = {
               type = "zfs_fs";
               mountpoint = "/srv/shares/marie";
+              options = {
+                mountpoint = "legacy";
+              };
             };
           };
         };
