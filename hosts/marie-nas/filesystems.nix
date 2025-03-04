@@ -8,6 +8,16 @@
         device = "/dev/disk/by-partlabel/disk-boot-luks";
         keyFile = "/encryption-keys/root.key";
       };
+      wd-red-plus-a = {
+        allowDiscards = true;
+        device = "/dev/disk/by-id/ata-WDC_WD120EFBX-68B0EN0_D7JPDSJN";
+        keyFile = "/encryption-keys/wd-red-plus-a.key";
+      };
+      wd-red-plus-b = {
+        allowDiscards = true;
+        device = "/dev/disk/by-id/ata-WDC_WD120EFBX-68B0EN0_D7JLAHXN";
+        keyFile = "/encryption-keys/wd-red-plus-b.key";
+      };
     };
   };
   fileSystems = {
