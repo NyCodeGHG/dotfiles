@@ -18,7 +18,6 @@
           "/var/lib/systemd"
           "/var/lib/tailscale"
           "/var/log"
-          { directory = "/etc/secrets/initrd"; inInitrd = true; }
           "/var/lib/samba"
           "/var/cache/samba"
           "/var/lib/acme"
@@ -31,8 +30,6 @@
           { file = "/etc/ssh/ssh_host_rsa_key"; mode = "0700"; inInitrd = true; configureParent = true; how = "symlink"; }
           { file = "/etc/ssh/ssh_host_rsa_key.pub"; inInitrd = true; configureParent = true; how = "symlink"; }
           { file = "/etc/zfs/zpool.cache"; inInitrd = true; configureParent = true; how = "symlink"; }
-          { file = "/etc/secrets/initrd/ssh_host_rsa_key"; inInitrd = true; configureParent = true; how = "symlink"; }
-          { file = "/etc/secrets/initrd/ssh_host_ed25519_key"; inInitrd = true; configureParent = true; how = "symlink"; }
         ];
       };
     };
