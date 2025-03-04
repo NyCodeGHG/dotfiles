@@ -47,7 +47,7 @@
     hdparm
   ];
   systemd = {
-    enableEmergencyMode = true;
+    enableEmergencyMode = false;
     watchdog.runtimeTime = "15s";
   };
   security.sudo-rs.wheelNeedsPassword = false;
