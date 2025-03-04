@@ -42,7 +42,6 @@
     magic-wormhole
     rclone
     tmux
-    hd-idle
     bpftrace
     smartmontools
     hdparm
