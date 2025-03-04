@@ -21,26 +21,21 @@
     };
   };
   fileSystems = {
-    # "/" = {
-    #   device = "zroot/local/root";
-    #   fsType = "zfs";
-    #   neededForBoot = true;
-    # };
     "/" = {
-      device = "/dev/mapper/root";
-      fsType = "ext4";
-      options = [ "defaults" ];
+      device = "zroot/local/root";
+      fsType = "zfs";
+      neededForBoot = true;
     };
     "/boot" = {
       device = "/dev/disk/by-partlabel/disk-boot-esp";
       fsType = "vfat";
       options = [ "umask=0077" ];
     };
-    # "/nix" = {
-    #   device = "zroot/local/nix";
-    #   fsType = "zfs";
-    #   neededForBoot = true;
-    # };
+    "/nix" = {
+      device = "zroot/local/nix";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
     "/srv/shares" = {
       device = "tank/data/shares";
       fsType = "zfs";
@@ -56,11 +51,11 @@
       fsType = "zfs";
       options = [ "nofail" ];
     };
-    # "/state" = {
-    #   device = "zroot/data/state";
-    #   fsType = "zfs";
-    #   neededForBoot = true;
-    # };
+    "/state" = {
+      device = "zroot/data/state";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
   };
   swapDevices = [
     {

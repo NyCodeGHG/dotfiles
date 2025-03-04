@@ -31,12 +31,11 @@
                 name = "root";
                 settings = {
                   allowDiscards = true;
-                  keyFile = "/mnt/encryption-keys/root.key";
+                  keyFile = "/encryption-keys/root.key";
                 };
                 content = {
-                  type = "filesystem";
-                  format = "ext4";
-                  mountpoint = "/";
+                  type = "zfs";
+                  pool = "zroot";
                 };
               };
             };
@@ -47,32 +46,32 @@
         type = "disk";
         device = "/dev/disk/by-id/ata-WDC_WD120EFBX-68B0EN0_D7JPDSJN";
         content = {
-          # type = "luks";
-          # name = "wd-red-plus-a";
-          # settings = {
-          #   allowDiscards = true;
-          #   keyFile = "/mnt/encryption-keys/wd-red-plus-a.key";
-          # };
-          # content = {
+          type = "luks";
+          name = "wd-red-plus-a";
+          settings = {
+            allowDiscards = true;
+            keyFile = "/encryption-keys/wd-red-plus-a.key";
+          };
+          content = {
             type = "zfs";
             pool = "tank";
-          # };
+          };
         };
       };
       wd-red-plus-b = {
         type = "disk";
         device = "/dev/disk/by-id/ata-WDC_WD120EFBX-68B0EN0_D7JLAHXN";
         content = {
-          # type = "luks";
-          # name = "wd-red-plus-b";
-          # settings = {
-          #   allowDiscards = true;
-          #   keyFile = "/mnt/encryption-keys/wd-red-plus-b.key";
-          # };
-          # content = {
+          type = "luks";
+          name = "wd-red-plus-b";
+          settings = {
+            allowDiscards = true;
+            keyFile = "/encryption-keys/wd-red-plus-b.key";
+          };
+          content = {
             type = "zfs";
             pool = "tank";
-          # };
+          };
         };
       };
     };
@@ -88,27 +87,27 @@
         };
       in
       {
-        # zroot = {
-        #   type = "zpool";
-        #   rootFsOptions = options;
-        #   options.ashift = "12";
-        #   postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/local/root@blank$' || zfs snapshot zroot/local/root@blank";
+        zroot = {
+          type = "zpool";
+          rootFsOptions = options;
+          options.ashift = "12";
+          postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/local/root@blank$' || zfs snapshot zroot/local/root@blank";
 
-        #   datasets = {
-        #     "local/nix" = {
-        #       type = "zfs_fs";
-        #       mountpoint = "/nix";
-        #     };
-        #     "local/root" = {
-        #       type = "zfs_fs";
-        #       mountpoint = "/";
-        #     };
-        #     "data/state" = {
-        #       type = "zfs_fs";
-        #       mountpoint = "/state";
-        #     };
-        #   };
-        # };
+          datasets = {
+            "local/nix" = {
+              type = "zfs_fs";
+              mountpoint = "/nix";
+            };
+            "local/root" = {
+              type = "zfs_fs";
+              mountpoint = "/";
+            };
+            "data/state" = {
+              type = "zfs_fs";
+              mountpoint = "/state";
+            };
+          };
+        };
         tank = {
           type = "zpool";
           mode = "mirror";
@@ -119,20 +118,17 @@
             "data/shares" = {
               type = "zfs_fs";
               mountpoint = "/srv/shares";
-              options.mountpoint = "legacy";
             };
             "data/shares/media" = {
               type = "zfs_fs";
               mountpoint = "/srv/shares/media";
               options = {
                 recordsize = "1M";
-                mountpoint = "legacy";
               };
             };
             "data/shares/marie" = {
               type = "zfs_fs";
               mountpoint = "/srv/shares/marie";
-              options.mountpoint = "legacy";
             };
           };
         };
