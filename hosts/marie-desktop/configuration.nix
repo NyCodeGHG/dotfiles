@@ -182,6 +182,7 @@
     quickemu
     anydesk
     ludusavi
+    iperf3
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
