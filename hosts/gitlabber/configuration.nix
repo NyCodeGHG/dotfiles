@@ -88,5 +88,7 @@
     rsync
     nix-output-monitor
     tmux
+    github-cli
+    nixpkgs-review
   ];
 }
