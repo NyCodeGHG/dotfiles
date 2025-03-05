@@ -35,4 +35,5 @@
       sync.records = true;
     };
   };
+  programs.zoxide.enable = true;
 }
