@@ -186,6 +186,8 @@
     anydesk
     ludusavi
     iperf3
+    sequoia-sq
+    sequoia-chameleon-gnupg
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
