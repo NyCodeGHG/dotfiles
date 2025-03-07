@@ -93,9 +93,6 @@
   programs.fish = {
     enable = true;
     useBabelfish = true;
-    interactiveShellInit = ''
-      ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
-    '';
   };
   users.users.marie = {
     shell = pkgs.fish;
