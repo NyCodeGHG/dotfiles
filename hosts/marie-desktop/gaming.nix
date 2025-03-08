@@ -12,6 +12,7 @@
     glxinfo
     mangohud
     dualsensectl
+    libray
   ];
 
   programs.gamemode.enable = true;

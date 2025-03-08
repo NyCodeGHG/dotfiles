@@ -45,18 +45,13 @@ python3Packages.buildPythonPackage {
     setuptools
   ];
 
-  nativeBuildInputs = [ python3Packages.pythonRelaxDepsHook ];
-
   preBuild = ''
     cp -r ${keys}/* tools
 
     python3 ./tools/keys2db.py
   '';
 
-  pythonRelaxDeps = [
-    "requests"
-    "setuptools"
-  ];
+  pythonRelaxDeps = true;
 
   meta = {
     changelog = "https://notabug.org/necklace/libray/src/${src.rev}/CHANGELOG.md";
