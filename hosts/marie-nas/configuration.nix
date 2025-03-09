@@ -29,7 +29,7 @@
   uwumarie.profiles = {
     headless = true;
     acme = true;
-    nginx = true;
+    nginx.enable = true;
   };
 
   services.iperf3 = {

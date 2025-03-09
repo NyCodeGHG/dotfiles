@@ -15,7 +15,7 @@
     fail2ban = true;
     openssh = true;
     acme = true;
-    nginx = true;
+    nginx.enable = true;
     nix = true;
     users.marie = true;
     headless = true;
