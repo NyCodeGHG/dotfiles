@@ -47,6 +47,11 @@ in
           name = "nginx";
           format = logFormat;
           source.files = ["/var/log/nginx/access.log"];
+          relabel_configs = [
+            { target_label = "host"; from = "host"; }
+            { target_label = "user_agent"; from = "http_user_agent"; }
+            { target_label = "remote_address"; from = "remote_addr"; }
+          ];
         }
       ];
     };
