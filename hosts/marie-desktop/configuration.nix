@@ -2,12 +2,14 @@
 {
   imports = with inputs; [
     home-manager-unstable.nixosModules.default
+    agenix.nixosModules.default
     ./hardware.nix
     ./gaming.nix
     ./suspend-fix.nix
     ./tailscale.nix
     ./syncthing.nix
     ./wireshark.nix
+    ./backup.nix
   ];
 
   uwumarie.profiles = {
