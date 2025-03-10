@@ -34,6 +34,8 @@
       };
     };
 
+    systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
+
     boot.initrd.systemd = {
       storePaths = [ config.boot.zfs.package ];
       services.rollback-fs = {
