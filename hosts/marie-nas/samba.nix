@@ -39,7 +39,7 @@
       "media" = {
         path = "/srv/shares/media";
         "create mask" = "0664";
-        "directory mask" = "0770";
+        "directory mask" = "2770";
         "valid users" = "@media";
       };
     };
