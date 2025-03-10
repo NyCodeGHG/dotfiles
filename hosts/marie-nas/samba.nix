@@ -11,6 +11,11 @@
       user = "root";
       mode = "2770";
     };
+    "/srv/restic/marie".d = {
+      group = "users";
+      user = "marie";
+      mode = "0700";
+    };
   };
   users = {
     groups.media = { };

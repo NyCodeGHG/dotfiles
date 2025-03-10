@@ -146,6 +146,13 @@
                 mountpoint = "legacy";
               };
             };
+            "data/restic/marie" = {
+              type = "zfs_fs";
+              mountpoint = "/srv/restic/marie";
+              options = {
+                mountpoint = "legacy";
+              };
+            };
           };
         };
       };

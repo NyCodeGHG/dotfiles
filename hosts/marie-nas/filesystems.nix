@@ -63,6 +63,11 @@
         "x-systemd.device-timeout=15s"
       ];
     };
+    "/srv/restic/marie" = {
+      device = "tank/data/restic/marie";
+      fsType = "zfs";
+      options = [ "nofail" ];
+    };
     "/state" = {
       device = "zroot/data/state";
       fsType = "zfs";
