@@ -12,7 +12,7 @@ jobs:
         uses: https://code.forgejo.org/actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Install Nix
-        uses: https://github.com/cachix/install-nix-action@08dcb3a5e62fa31e2da3d490afc4176ef55ecd72 # v30
+        uses: https://github.com/cachix/install-nix-action@91a071959513ca103b54280ac0bef5b825791d4d # v31
       
       - name: tofu init
         run: nix shell --inputs-from . nixpkgs#opentofu --command tofu init
