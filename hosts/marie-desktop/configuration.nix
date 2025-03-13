@@ -45,7 +45,7 @@
   boot = {
     plymouth.enable = true;
     consoleLogLevel = 3;
-    kernelParams = [ "quiet" ];
+    kernelParams = [ "quiet" "amdgpu.seamless=1" ];
   };
 
   hardware.graphics = {
