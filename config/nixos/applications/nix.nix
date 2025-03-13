@@ -4,6 +4,8 @@
     default = true;
   };
   config = lib.mkIf config.uwumarie.profiles.nix {
+    # Get rid of CppNix dependency
+    system.tools.nixos-option.enable = lib.mkDefault false;
     nix = {
       package = pkgs.lix;
       gc = {
