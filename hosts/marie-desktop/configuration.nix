@@ -199,6 +199,7 @@
     partitionmanager
     filelight
     konversation
+    sddm-kcm
   ]);
 
   hardware.sane = {
