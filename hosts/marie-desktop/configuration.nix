@@ -42,6 +42,12 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  boot = {
+    plymouth.enable = true;
+    consoleLogLevel = 3;
+    kernelParams = [ "quiet" ];
+  };
+
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
