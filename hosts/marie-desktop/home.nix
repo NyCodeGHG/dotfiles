@@ -19,7 +19,6 @@
       githubKeyFile = "~/.ssh/id_ed25519";
       defaultKeyFile = "~/.ssh/id_ed25519";
     };
-    fish = true;
     tmux = true;
   };
   age.identityPaths = [
