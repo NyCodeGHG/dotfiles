@@ -66,11 +66,9 @@
       '';
     };
     locations."/robots.txt" = {
-      return = 
-        ''
-          200 'User-Agent: *
-          Disallow: /'
-        '';
+      extraConfig = ''
+        return 200 "User-agent: *\nDisallow: /\n";
+      '';
     };
     locations."/metrics" = {
       proxyPass = "http://localhost:${port}";
