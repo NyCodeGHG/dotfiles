@@ -202,6 +202,8 @@
     sddm-kcm
   ]);
 
+  virtualisation.spiceUSBRedirection.enable = true;
+
   hardware.sane = {
     enable = true;
     extraBackends = with pkgs; [ hplipWithPlugin ];
