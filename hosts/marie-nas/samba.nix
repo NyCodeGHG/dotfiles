@@ -20,6 +20,12 @@
   users = {
     groups.media = { };
     users.marie.extraGroups = [ "media" ];
+    users.guest = {
+      isNormalUser = true;
+      home = "/var/empty/";
+      description = "smb guest account";
+      shell = "/run/current-system/sw/bin/nologin";
+    };
   };
 
   services.samba = {
