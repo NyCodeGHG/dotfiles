@@ -4,6 +4,7 @@
   ./applications/nix.nix
   ./applications/openssh.nix
   ./applications/tailscale.nix
+  ./applications/valkey.nix
   ./system/audio.nix
   ./system/base.nix
   ./system/dns.nix
