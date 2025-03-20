@@ -206,7 +206,7 @@
 
   hardware.sane = {
     enable = true;
-    extraBackends = with pkgs; [ hplipWithPlugin ];
+    extraBackends = with pkgs; [ hplip ];
   };
 
   environment.sessionVariables = {
