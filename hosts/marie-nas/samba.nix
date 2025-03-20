@@ -11,6 +11,11 @@
       user = "root";
       mode = "2770";
     };
+    "/srv/shares/public".d = {
+      group = "root";
+      user = "root";
+      mode = "2777";
+    };
     "/srv/restic/marie".d = {
       group = "users";
       user = "marie";
@@ -53,6 +58,11 @@
         "directory mask" = "2770";
         "valid users" = "@media";
       };
+      "public" = {
+        path = "/srv/shares/public";
+        "create mask" = "0666";
+        "directory mask" = "2777";
+      };
     };
   };
 
@@ -61,6 +71,7 @@
       "/srv/shares"
       "/srv/shares/marie"
       "/srv/shares/media"
+      "/srv/shares/public"
     ];
   };
 

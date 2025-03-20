@@ -39,29 +39,22 @@
     "/srv/shares" = {
       device = "tank/data/shares";
       fsType = "zfs";
-      options = [ 
-        "nofail"
-        "x-systemd.mount-timeout=15s"
-        "x-systemd.device-timeout=15s"
-      ];
+      options = [ "nofail" ];
     };
     "/srv/shares/marie" = {
       device = "tank/data/shares/marie";
       fsType = "zfs";
-      options = [ 
-        "nofail"
-        "x-systemd.mount-timeout=15s"
-        "x-systemd.device-timeout=15s"
-      ];
+      options = [ "nofail" ];
     };
     "/srv/shares/media" = {
       device = "tank/data/shares/media";
       fsType = "zfs";
-      options = [ 
-        "nofail"
-        "x-systemd.mount-timeout=15s"
-        "x-systemd.device-timeout=15s"
-      ];
+      options = [ "nofail" ];
+    };
+    "/srv/shares/public" = {
+      device = "tank/data/shares/public";
+      fsType = "zfs";
+      options = [ "nofail" ];
     };
     "/srv/restic/marie" = {
       device = "tank/data/restic/marie";

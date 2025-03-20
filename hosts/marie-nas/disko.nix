@@ -146,6 +146,14 @@
                 mountpoint = "legacy";
               };
             };
+            "data/shares/public" = {
+              type = "zfs_fs";
+              mountpoint = "/srv/shares/public";
+              options = {
+                mountpoint = "legacy";
+                quota = "200G";
+              };
+            };
             "data/restic/marie" = {
               type = "zfs_fs";
               mountpoint = "/srv/restic/marie";
