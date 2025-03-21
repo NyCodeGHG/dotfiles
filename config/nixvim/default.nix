@@ -140,7 +140,7 @@
             settings.diagnostics.enable = true;
           };
           ts_ls.enable = true;
-          denols.enable = true;
+          # denols.enable = true;
           # phpactor.enable = true;
           terraformls.enable = true;
           gopls.enable = true;
