@@ -25,6 +25,15 @@
         internal;
       }
     '';
+
+    locations."/" = {
+      extraConfig = ''
+        satisfy any;
+        allow 2a03:4000:5f:f5b::;
+        allow 127.0.0.1;
+        deny all;
+      '';
+    };
   };
   services.nginx.tailscaleAuth = {
     enable = true;
