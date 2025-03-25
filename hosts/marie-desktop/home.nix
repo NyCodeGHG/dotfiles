@@ -2,6 +2,7 @@
 {
   imports = [
     ../../modules/hm/switch-to-windows.nix
+    inputs.nix-index-database.hmModules.nix-index
   ];
   home.packages = [ inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim ];
   news.display = "silent";
@@ -36,4 +37,6 @@
     };
   };
   programs.zoxide.enable = true;
+
+  programs.nix-index.enable = true;
 }
