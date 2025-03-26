@@ -14,6 +14,11 @@
       enableGitEmail = true;
     };
     jujutsu = true;
+    ssh = {
+      enable = true;
+      githubKeyFile = "~/.ssh/id_ed25519";
+      defaultKeyFile = "~/.ssh/id_ed25519";
+    };
     fish = true;
     tmux = true;
   };
@@ -31,24 +36,4 @@
     };
   };
   programs.zoxide.enable = true;
-
-  uwumarie.profiles.ssh = {
-    enable = true;
-    defaultIdentityFile = "~/.ssh/id_ed25519";
-    hosts = {
-      "github.com".user = "git";
-      artemis.hostname = "artemis.marie.cologne";
-      delphi.hostname = "delphi.marie.cologne";
-      raspi = {
-        user = "pi";
-        hostname = "raspberrypi.fritz.box";
-      };
-      wg-nas.hostname = "192.168.178.30";
-      gitlabber-public = {
-        hostname = "warpgate.jemand771.net";
-        user = "marie:gitlabber";
-      };
-      gitlabber.hostname = "gitlabber.weasel-gentoo.ts.net";
-    };
-  };
 }
