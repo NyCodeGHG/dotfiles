@@ -193,6 +193,7 @@
     iperf3
     sequoia-sq
     sequoia-chameleon-gnupg
+    magic-wormhole
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
