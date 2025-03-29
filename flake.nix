@@ -38,6 +38,11 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    corsair-hs80-pipewire-thing = {
+      url = "https://codeberg.org/marie/corsair-hs80-pipewire-thing/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   nixConfig = {

@@ -10,6 +10,7 @@
     ./syncthing.nix
     ./wireshark.nix
     ./backup.nix
+    ./corsair-thing.nix
   ];
 
   uwumarie.profiles = {

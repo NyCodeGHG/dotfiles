@@ -74,6 +74,24 @@
         "url": "https://codeberg.org/marie/cloudflare-prometheus-exporter/archive/main.tar.gz"
       }
     },
+    "corsair-hs80-pipewire-thing": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1743288989,
+        "narHash": "sha256-TrEEtngzRFgQ4PJvGfg3vcKURnHtCjHUomkAzqwlcV0=",
+        "rev": "2753475bb4e76c85a16840a88221f02cda29ad9d",
+        "type": "tarball",
+        "url": "https://codeberg.org/api/v1/repos/marie/corsair-hs80-pipewire-thing/archive/2753475bb4e76c85a16840a88221f02cda29ad9d.tar.gz?rev=2753475bb4e76c85a16840a88221f02cda29ad9d"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://codeberg.org/marie/corsair-hs80-pipewire-thing/archive/main.tar.gz"
+      }
+    },
     "devenv": {
       "inputs": {
         "cachix": "cachix",
@@ -715,6 +733,7 @@
       "inputs": {
         "agenix": "agenix",
         "cloudflare-exporter": "cloudflare-exporter",
+        "corsair-hs80-pipewire-thing": "corsair-hs80-pipewire-thing",
         "home-manager-unstable": "home-manager-unstable",
         "ip-playground": "ip-playground",
         "nix-index-database": "nix-index-database",
