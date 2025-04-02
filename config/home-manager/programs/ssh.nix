@@ -37,7 +37,7 @@
           identitiesOnly = true;
         };
         wg-nas = {
-          hostname = "10.69.0.8";
+          hostname = "192.168.178.30";
           identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
           identitiesOnly = true;
         };
