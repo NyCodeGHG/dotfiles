@@ -120,15 +120,7 @@
           );
       };
 
-      overlays.default = (
-        final: prev:
-        let
-          inherit (final.stdenv.hostPlatform) system;
-        in
-        {
-          inherit (nixpkgs-unstable.legacyPackages.${system}) jujutsu;
-        } // self.overlays.packages final prev
-      );
+      overlays.default = self.overlays.packages;
 
       overlays.packages = (final: prev: {
         sandwine = prev.callPackage ./pkgs/sandwine { };
