@@ -14,6 +14,8 @@
     ./monitoring.nix
     ./media.nix
     ./services/postgres.nix
+    ./services/vpn.nix
+    ./services/transmission.nix
   ];
   boot = {
     loader = {
