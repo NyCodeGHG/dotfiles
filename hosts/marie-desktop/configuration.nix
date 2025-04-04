@@ -87,6 +87,7 @@
     };
     resolved = {
       enable = true;
+      dnsovertls = "opportunistic";
       extraConfig = ''
         MulticastDNS=resolve
       '';
