@@ -41,7 +41,7 @@
     "anydesk"
   ]);
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_13;
 
   boot = {
     plymouth.enable = true;
