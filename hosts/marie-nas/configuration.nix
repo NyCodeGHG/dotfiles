@@ -51,7 +51,15 @@
     bpftrace
     smartmontools
     hdparm
+    ffmpeg
   ];
+
+  environment.shellAliases = {
+    "ffmpeg" = "ffmpeg -hide_banner";
+    "ffprobe" = "ffprobe -hide_banner";
+    "ffplay" = "ffplay -hide_banner";
+  };
+
   systemd = {
     enableEmergencyMode = false;
     watchdog.runtimeTime = "15s";
