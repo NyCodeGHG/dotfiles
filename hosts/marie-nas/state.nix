@@ -21,6 +21,8 @@
           "/var/lib/samba"
           "/var/cache/samba"
           "/var/lib/acme"
+          { directory = "/var/lib/jellyfin"; user = "jellyfin"; group = "media"; }
+          { directory = "/var/lib/private/jellyseerr"; user = "jellyseerr"; group = "jellyseerr"; }
         ];
         files = [
           { file = "/etc/machine-id"; inInitrd = true; }

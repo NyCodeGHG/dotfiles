@@ -154,17 +154,31 @@ resource "cloudflare_record" "atuin_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "marie_nas_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "marie-nas"
+  content = "192.168.1.21"
+  type    = "A"
+}
+
+resource "cloudflare_record" "jellyfin_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "jellyfin"
+  content = "marie-nas.marie.cologne"
+  type    = "CNAME"
+}
+
+resource "cloudflare_record" "jellyseerr_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "jellyseerr"
+  content = "marie-nas.marie.cologne"
+  type    = "CNAME"
+}
+
 module "prometheus_record" {
   source   = "./tailscale-record"
   zone_id  = data.cloudflare_zone.marie_cologne.id
   name     = "prometheus"
-  hostname = "artemis"
-}
-
-module "jellyfin_record" {
-  source   = "./tailscale-record"
-  zone_id  = data.cloudflare_zone.marie_cologne.id
-  name     = "jellyfin"
   hostname = "artemis"
 }
 
