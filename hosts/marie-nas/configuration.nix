@@ -16,6 +16,7 @@
     ./services/postgres.nix
     ./services/vpn.nix
     ./services/transmission.nix
+    ./services/bitmagnet.nix
   ];
   boot = {
     loader = {

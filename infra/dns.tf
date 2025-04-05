@@ -182,6 +182,13 @@ resource "cloudflare_record" "bt_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "bitmagnet_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name = "bitmagnet"
+  content = "marie-nas.marie.cologne"
+  type    = "CNAME"
+}
+
 module "prometheus_record" {
   source   = "./tailscale-record"
   zone_id  = data.cloudflare_zone.marie_cologne.id
