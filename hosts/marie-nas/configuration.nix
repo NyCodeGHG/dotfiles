@@ -13,6 +13,7 @@
     ./samba.nix
     ./monitoring.nix
     ./media.nix
+    ./services/postgres.nix
   ];
   boot = {
     loader = {

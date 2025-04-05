@@ -115,6 +115,20 @@
                 mountpoint = "legacy";
               };
             };
+            "data/postgres/data" = {
+              type = "zfs_fs";
+              mountpoint = "/var/lib/postgresql";
+              options = {
+                mountpoint = "legacy";
+              };
+            };
+            "data/postgres/wal-17" = {
+              type = "zfs_fs";
+              mountpoint = "/var/lib/postgresql/17/pg_wal";
+              options = {
+                mountpoint = "legacy";
+              };
+            };
           };
         };
         tank = {
