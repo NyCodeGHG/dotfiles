@@ -43,4 +43,5 @@ in
   "../hosts/marie-desktop/secrets/restic-password.age".publicKeys = marie-desktop ++ marie-desktop-host;
 
   "../hosts/marie-nas/secrets/transmission.age".publicKeys = users ++ marie-nas;
+  "../hosts/marie-nas/secrets/vpn-wg.age".publicKeys = users ++ marie-nas;
 }

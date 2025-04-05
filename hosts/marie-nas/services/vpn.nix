@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 {
   systemd.services."netns@" = {
     description = "%I network namespace";
@@ -17,6 +17,7 @@
     serviceConfig = {
       RemainAfterExit = true;
       Type = "oneshot";
+      LoadCredential = "vpn-wg.conf:${config.age.secrets.vpn-wg.path}";
     };
     path = with pkgs; [
       iproute2
@@ -27,6 +28,17 @@
       set -euo pipefail
 
       ip -netns vpn link set lo up
+
+      # setup wireguard interface
+      ip link add vpn type wireguard
+      ip -n vpn link del vpn || :
+      ip link set vpn netns vpn
+      ip -n vpn addr add 10.2.0.2/32 dev vpn
+      ip netns exec vpn wg syncconf vpn <(wg-quick strip "$CREDENTIALS_DIRECTORY/vpn-wg.conf")
+      ip -n vpn link set vpn up
+      ip -n vpn route add default dev vpn
     '';
   };
+
+  age.secrets.vpn-wg.file = ../secrets/vpn-wg.age;
 }
