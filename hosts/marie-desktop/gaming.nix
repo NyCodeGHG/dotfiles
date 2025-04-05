@@ -26,9 +26,6 @@
 
   programs.steam = {
     enable = true;
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-    ];
     localNetworkGameTransfers.openFirewall = true;
     remotePlay.openFirewall = true;
   };
