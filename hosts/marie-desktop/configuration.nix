@@ -197,6 +197,7 @@
     magic-wormhole
     wireguard-tools
     chatterino7
+    config.boot.kernelPackages.cpupower
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
