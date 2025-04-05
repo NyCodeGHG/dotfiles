@@ -131,6 +131,7 @@
         nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule { module = import ./config/nixvim; };
         libray= prev.callPackage ./pkgs/libray/package.nix { };
         jellyfin-plugin-sso = prev.callPackage ./pkgs/jellyfin-plugin-sso/package.nix { };
+        bitmagnet = prev.callPackage ./pkgs/bitmagnet/package.nix { };
       });
 
       nixosModules = {
