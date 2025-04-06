@@ -56,6 +56,7 @@
     smartmontools
     hdparm
     ffmpeg
+    wireguard-tools
   ];
 
   environment.shellAliases = {
