@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 {
   systemd.services.transmission = {
     after = [ "setup-netns-vpn.service" ];
@@ -51,6 +51,8 @@
 
       rpc-host-whitelist-enabled = false;
       rpc-whitelist-enabled = false;
+
+      default-trackers = builtins.readFile "${inputs.trackerlist}/trackers_all.txt";
     };
   };
 }

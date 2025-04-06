@@ -741,7 +741,8 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
-        "preservation": "preservation"
+        "preservation": "preservation",
+        "trackerlist": "trackerlist"
       }
     },
     "systems": {
@@ -801,6 +802,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "trackerlist": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1743890855,
+        "narHash": "sha256-yJvM5SsJ/1t/wjiY8SHydnx2BavYrpNv2E97m9w9n6Y=",
+        "owner": "ngosang",
+        "repo": "trackerslist",
+        "rev": "039172392c3dc99f209ee24cba7c21a5d7137c77",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ngosang",
+        "repo": "trackerslist",
         "type": "github"
       }
     }

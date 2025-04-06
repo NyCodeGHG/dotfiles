@@ -43,6 +43,11 @@
       url = "https://codeberg.org/marie/corsair-hs80-pipewire-thing/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    trackerlist = {
+      url = "github:ngosang/trackerslist";
+      flake = false;
+    };
   };
 
   nixConfig = {
