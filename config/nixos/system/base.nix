@@ -6,6 +6,7 @@
   config = lib.mkIf config.uwumarie.profiles.base {
     environment.systemPackages = with pkgs; [
       htop
+      btop
       fastfetch
       pciutils
       file
