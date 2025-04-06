@@ -20,6 +20,7 @@
     bindsTo = [ "netns@vpn.service" ];
     serviceConfig = {
       NetworkNamespacePath = "/var/run/netns/vpn";
+      BindReadOnlyPaths = "${config.vpn.dns.resolvconf}:/etc/resolv.conf:norbind";
     };
   };
 
