@@ -4,8 +4,14 @@ let
     flush ruleset
 
     table inet filter {
+        set forwarded-ports {
+            typeof udp dport
+        }
         chain input {
             type filter hook input priority 0; policy drop;
+
+            tcp dport @forwarded-ports accept
+            udp dport @forwarded-ports accept
 
             # Allow traffic from established and related packets, drop invalid
             ct state vmap { established : accept, related : accept, invalid : drop }
@@ -92,6 +98,53 @@ in
         NetworkNamespacePath = "/var/run/netns/vpn";
       };
       path = with pkgs; [ nftables ];
+    };
+
+    systemd.services.vpn-portforward = {
+      after = [ "netns@vpn.service" "transmission.service" ];
+      description = "VPN Port forwarding";
+      wantedBy = [ "transmission.service" ];
+      bindsTo = [ "transmission.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        NetworkNamespacePath = "/var/run/netns/vpn";
+        LoadCredential = "transmission.json:${config.age.secrets.transmission.path}";
+        CapabilityBoundingSet = "CAP_NET_ADMIN";
+        AmbientCapabilities = "CAP_NET_ADMIN";
+        DynamicUser = true;
+      };
+      path = with pkgs; [ 
+        libnatpmp
+        config.services.transmission.package
+        nftables
+        ripgrep
+        jq
+      ];
+      script = ''
+        UDP_PORT="$(natpmpc -a 1 0 udp -g 10.2.0.1 | rg -o 'Mapped public port (\d+) protocol' -r '$1')"
+        TCP_PORT="$(natpmpc -a 1 0 tcp -g 10.2.0.1 | rg -o 'Mapped public port (\d+) protocol' -r '$1')"
+
+        nft flush set inet filter forwarded-ports
+        nft add element inet filter forwarded-ports { "$UDP_PORT" }
+
+        if [[ "$TCP_PORT" != "$UDP_PORT" ]]; then
+          echo "Got a different port for TCP: $TCP_PORT"
+          nft add element inet filter forwarded-ports { "$TCP_PORT" }
+        fi
+        
+        TR_AUTH="transmission:$(jq -r '."rpc-password"' "$CREDENTIALS_DIRECTORY/transmission.json")" \
+          transmission-remote --port "$UDP_PORT" --authenv
+      '';
+    };
+    systemd.timers.vpn-portforward = {
+      wantedBy = [ "transmission.service" ];
+      bindsTo = [ "transmission.service" ];
+      timerConfig = {
+        OnUnitActiveSec = "50s";
+      };
+      unitConfig = {
+        StopWhenUnneeded = true;
+      };
     };
   };
 }
