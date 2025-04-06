@@ -40,6 +40,7 @@
   environment.systemPackages = with pkgs; [
     yt-dlp
     rclone
+    magic-wormhole
   ];
 
   # age.rekey = {
