@@ -17,6 +17,7 @@
     ./services/vpn.nix
     ./services/transmission.nix
     ./services/bitmagnet.nix
+    ./services/prowlarr.nix
   ];
   boot = {
     loader = {

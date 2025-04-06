@@ -23,6 +23,7 @@
           "/var/lib/acme"
           { directory = "/var/lib/jellyfin"; user = "jellyfin"; group = "media"; }
           { directory = "/var/lib/transmission"; user = "transmission"; group = "media"; }
+          { directory = "/var/lib/private/prowlarr"; user = "prowlarr"; group = "prowlarr"; }
           { directory = "/var/lib/private/jellyseerr"; user = "jellyseerr"; group = "jellyseerr"; }
           { directory = "/var/lib/private/bitmagnet"; user = "bitmagnet"; group = "bitmagnet"; }
         ];
