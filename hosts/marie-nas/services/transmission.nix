@@ -1,9 +1,8 @@
 { pkgs, config, inputs, ... }:
 {
   systemd.services.transmission = {
-    after = [ "setup-netns-vpn.service" ];
-    wants = [ "setup-netns-vpn.service" ];
-    bindsTo = [ "netns@vpn.service" ];
+    after = [ "netns@vpn.target" ];
+    bindsTo = [ "netns@vpn.target" ];
     serviceConfig = {
       NetworkNamespacePath = "/var/run/netns/vpn";
       Type = "notify";
@@ -12,9 +11,9 @@
   };
 
   systemd.services.transmission-proxy = {
-    after = [ "transmission.service" ];
+    after = [ "transmission.service" "netns@vpn.target" ];
     requires = [ "transmission.service" ];
-    bindsTo = [ "netns@vpn.service" ];
+    bindsTo = [ "netns@vpn.target" ];
     serviceConfig = {
       Type = "notify";
       NetworkNamespacePath = "/var/run/netns/vpn";
@@ -54,6 +53,8 @@
       rpc-whitelist-enabled = false;
 
       default-trackers = builtins.readFile "${inputs.trackerlist}/trackers_all.txt";
+
+      port-forwarding-enabled = false;
     };
   };
 }

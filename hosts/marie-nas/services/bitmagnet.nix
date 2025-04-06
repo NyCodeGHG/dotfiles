@@ -15,9 +15,8 @@
   };
 
   systemd.services.bitmagnet = {
-    after = [ "setup-netns-vpn.service" ];
-    wants = [ "setup-netns-vpn.service" ];
-    bindsTo = [ "netns@vpn.service" ];
+    after = [ "netns@vpn.target" ];
+    bindsTo = [ "netns@vpn.target" ];
     serviceConfig = {
       NetworkNamespacePath = "/var/run/netns/vpn";
       BindReadOnlyPaths = "${config.vpn.dns.resolvconf}:/etc/resolv.conf:norbind";
@@ -27,7 +26,7 @@
   systemd.services.bitmagnet-proxy = {
     after = [ "bitmagnet.service" ];
     requires = [ "bitmagnet.service" ];
-    bindsTo = [ "netns@vpn.service" ];
+    bindsTo = [ "netns@vpn.target" ];
     serviceConfig = {
       Type = "notify";
       NetworkNamespacePath = "/var/run/netns/vpn";
