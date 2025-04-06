@@ -14,7 +14,6 @@
     ./paperless.nix
     ./iperf3.nix
     ./hedgedoc
-    ./jellyfin.nix
     ./atuin.nix
     ./attic.nix
     ./changedetection.nix
