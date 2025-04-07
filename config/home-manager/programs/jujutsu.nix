@@ -18,7 +18,7 @@ lib.mkIf config.uwumarie.profiles.jujutsu
       };
       revsets.log = "trunk() | reachable(@, trunk()..visible_heads())";
       core.fsmonitor = "watchman";
-      core.watchman.register_snapshot_trigger = true;
+      core.watchman.register-snapshot-trigger = true;
       git.subprocess = true;
     };
   };
