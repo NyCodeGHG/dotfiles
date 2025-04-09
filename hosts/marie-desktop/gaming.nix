@@ -13,6 +13,7 @@
     mangohud
     dualsensectl
     libray
+    cemu
   ];
 
   programs.gamemode.enable = true;
