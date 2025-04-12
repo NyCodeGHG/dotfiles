@@ -14,10 +14,4 @@
     "C+ /var/lib/jellyfin/plugins/sso 755 jellyfin media - ${pkgs.jellyfin-plugin-sso}"
     "z /var/lib/jellyfin/plugins/sso/meta.json 644 jellyfin media - -"
   ];
-
-  services.jellyseerr.enable = true;
-  services.nginx.virtualHosts."jellyseerr.marie.cologne".locations."/" = {
-    proxyPass = "http://127.0.0.1:5055";
-    proxyWebsockets = true;
-  };
 }
