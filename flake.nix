@@ -137,6 +137,7 @@
         libray= prev.callPackage ./pkgs/libray/package.nix { };
         jellyfin-plugin-sso = prev.callPackage ./pkgs/jellyfin-plugin-sso/package.nix { };
         bitmagnet = prev.callPackage ./pkgs/bitmagnet/package.nix { };
+        jellyseerr = prev.callPackage ./pkgs/jellyseerr/package.nix { };
       });
 
       nixosModules = {
