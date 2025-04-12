@@ -26,6 +26,7 @@
           { directory = "/var/lib/private/prowlarr"; user = "prowlarr"; group = "prowlarr"; }
           { directory = "/var/lib/private/jellyseerr"; user = "jellyseerr"; group = "jellyseerr"; }
           { directory = "/var/lib/private/bitmagnet"; user = "bitmagnet"; group = "bitmagnet"; }
+          { directory = "/var/lib/sonarr"; user = "sonarr"; group = "sonarr"; }
         ];
         files = [
           { file = "/etc/machine-id"; inInitrd = true; }

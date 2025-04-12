@@ -13,11 +13,12 @@
     ./samba.nix
     ./monitoring.nix
     ./media.nix
-    ./services/postgres.nix
-    ./services/vpn.nix
-    ./services/transmission.nix
     ./services/bitmagnet.nix
+    ./services/postgres.nix
     ./services/prowlarr.nix
+    ./services/sonarr.nix
+    ./services/transmission.nix
+    ./services/vpn.nix
   ];
   boot = {
     loader = {
