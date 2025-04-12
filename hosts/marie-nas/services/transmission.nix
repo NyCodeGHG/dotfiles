@@ -55,6 +55,16 @@
       default-trackers = builtins.readFile "${inputs.trackerlist}/trackers_all.txt";
 
       port-forwarding-enabled = false;
+
+      download-dir = "/srv/shares/media/Downloads";
+    };
+  };
+
+  systemd.tmpfiles.settings.transmission = {
+    "/srv/shares/media/Downloads".d = {
+      group = "media";
+      user = "transmission";
+      mode = "2770";
     };
   };
 }
