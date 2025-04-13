@@ -174,6 +174,10 @@ in
         # dn42
         "fd00::/8"
       ];
+      media_retention = {
+        remote_media_lifetime = "1h";
+        local_media_lifetime = null;
+      };
     };
     extraConfigFiles = [
       (pkgs.writeText
