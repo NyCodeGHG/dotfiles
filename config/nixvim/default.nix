@@ -129,7 +129,7 @@
         };
         servers = {
           hls = {
-            enable = true;
+            enable = false;
             rootDir = ''require("lspconfig/util").root_pattern(".git")'';
             installGhc = false;
           };
@@ -149,7 +149,7 @@
           svelte.enable = true;
           # nixd.enable = true;
           nil_ls.enable = true;
-          gleam.enable = true;
+          gleam.enable = false;
           jsonls.enable = true;
           clangd.enable = true;
           cssls.enable = true;
