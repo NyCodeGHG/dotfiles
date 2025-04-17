@@ -74,7 +74,10 @@
         nixpkgs.lib.genAttrs [
           "x86_64-linux"
           "aarch64-linux"
-        ] (system: f nixpkgs.legacyPackages.${system});
+        ] (system: f (import nixpkgs {
+          inherit system;
+          overlays = [ self.overlays.default ];
+        }));
     in
     {
       formatter = forEachSystem nixpkgs (pkgs: pkgs.nixfmt-rfc-style);
