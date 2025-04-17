@@ -138,6 +138,10 @@
         jellyfin-plugin-sso = prev.callPackage ./pkgs/jellyfin-plugin-sso/package.nix { };
         bitmagnet = prev.callPackage ./pkgs/bitmagnet/package.nix { };
         jellyseerr = prev.callPackage ./pkgs/jellyseerr/package.nix { };
+        go_1_24 = prev.callPackage ./pkgs/go_1_24/package.nix { };
+        buildGo124Module = prev.buildGoModule.override {
+          go = final.go_1_24;
+        };
       });
 
       nixosModules = {
