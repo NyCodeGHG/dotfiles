@@ -16,7 +16,6 @@ in
   "grafana-oauth-client-secret.age".publicKeys = users ++ artemis;
   "synapse-sso-config.age".publicKeys = users ++ artemis;
   "artemis-wg-privatekey.age".publicKeys = users ++ artemis;
-  "pgrok-client-secret.age".publicKeys = users ++ artemis;
   "paperless-env.age".publicKeys = users ++ artemis;
   "curseforge-api-key.age".publicKeys = users ++ delphi;
   "minio.age".publicKeys = users ++ delphi;

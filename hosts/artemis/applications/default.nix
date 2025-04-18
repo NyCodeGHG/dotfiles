@@ -7,7 +7,6 @@
     ./miniflux.nix
     ./matrix
     ./ip-playground.nix
-    ./pgrok.nix
     ./nginx-meta.nix
     ./renovate.nix
     ./syncthing.nix
