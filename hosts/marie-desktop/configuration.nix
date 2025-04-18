@@ -198,7 +198,18 @@
     sequoia-chameleon-gnupg
     magic-wormhole
     wireguard-tools
-    chatterino7
+    (chatterino7.overrideAttrs (prev: {
+      version = "7.5.3";
+      src = prev.src.override {
+        hash = "sha256-KrAr3DcQDjb+LP+vIf0qLSSgII0m5rNwhncLNHlLaC8=";
+      };
+
+      buildInputs = prev.buildInputs ++ (with pkgs; [
+        libnotify
+        kdePackages.qtwayland
+        kdePackages.qtimageformats
+      ]);
+    }))
     config.boot.kernelPackages.cpupower
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
