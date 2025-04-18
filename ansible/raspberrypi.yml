@@ -51,7 +51,7 @@
   roles:
     - role: caddy_ansible.caddy_ansible
       caddy_config: "{{ lookup('template', './Caddyfile') }}"
-      caddy_version: "2.9.1"
+      caddy_version: "2.10.0"
       caddy_systemd_capabilities_enabled: true
       caddy_packages:
         - "github.com/caddy-dns/cloudflare"
