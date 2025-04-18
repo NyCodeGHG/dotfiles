@@ -14,6 +14,7 @@
     dualsensectl
     libray
     cemu
+    ryubing
   ];
 
   programs.gamemode.enable = true;
