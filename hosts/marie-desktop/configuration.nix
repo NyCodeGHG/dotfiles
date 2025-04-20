@@ -117,12 +117,12 @@
     "/nix".options = [ "compress=zstd" "noatime" ];
     "/mnt/sata" = {
       device = "/dev/disk/by-id/ata-Samsung_SSD_870_EVO_2TB_S6PPNX0W301861L-part2";
-      fsType = "ntfs3";
+      fsType = "ntfs-3g";
       options = [ "rw" "uid=1000" "gid=100" "fmask=0077" "dmask=0077" "exec" "nofail" ];
     };
     "/mnt/other" = {
       device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S6P7NG0RA26626F-part2";
-      fsType = "ntfs3";
+      fsType = "ntfs-3g";
       options = [ "rw" "uid=1000" "gid=100" "fmask=0077" "dmask=0077" "exec" "nofail" ];
     };
   };
