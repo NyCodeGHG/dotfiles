@@ -121,9 +121,9 @@
       options = [ "rw" "uid=1000" "gid=100" "fmask=0077" "dmask=0077" "exec" "nofail" ];
     };
     "/mnt/other" = {
-      device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S6P7NG0RA26626F-part2";
-      fsType = "ntfs-3g";
-      options = [ "rw" "uid=1000" "gid=100" "fmask=0077" "dmask=0077" "exec" "nofail" ];
+      device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S6P7NG0RA26626F-part1";
+      fsType = "btrfs";
+      options = [ "nofail" "nosuid" "compress=zstd" ];
     };
   };
 
