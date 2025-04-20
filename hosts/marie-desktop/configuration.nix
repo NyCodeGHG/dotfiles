@@ -41,7 +41,15 @@
     "anydesk"
   ]);
 
-  boot.kernelPackages = pkgs.linuxPackages_6_14;
+  boot.kernelPackages = pkgs.linuxKernel.packagesFor (pkgs.linuxKernel.buildLinux rec {
+    version = "6.14.3";
+    modDirVersion = "6.14.3";
+
+    src = pkgs.fetchurl {
+      url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
+      hash = "sha256-kcbDIsMlaPCZIqAu019GNyyoUmcUxlVbMRW56cFWZSo=";
+    };
+  });
 
   boot = {
     plymouth.enable = true;
