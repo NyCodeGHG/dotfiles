@@ -11,6 +11,7 @@
     ./wireshark.nix
     ./backup.nix
     ./corsair-thing.nix
+    ./router.nix
   ];
 
   uwumarie.profiles = {
