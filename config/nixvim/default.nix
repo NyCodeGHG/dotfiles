@@ -130,7 +130,6 @@
         servers = {
           hls = {
             enable = false;
-            rootDir = ''require("lspconfig/util").root_pattern(".git")'';
             installGhc = false;
           };
           rust_analyzer = {
