@@ -22,7 +22,6 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.nix-darwin.follows = "";
     };
 
     preservation.url = "github:nix-community/preservation/555e6ad35ac8f4f2879e09e41b0e4f397a0b74a0";
