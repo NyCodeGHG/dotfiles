@@ -57,6 +57,17 @@
       port-forwarding-enabled = false;
 
       download-dir = "/srv/shares/media/Downloads";
+
+      speed-limit-up = "2500";
+      speed-limit-up-enabled = true;
+
+      idle-seeding-limit = "30";
+      idle-seeding-limit-enabled = true;
+
+      ratio-limit = "1.5";
+      ratio-limit-enabled = true;
+
+      preallocation = false;
     };
   };
 
