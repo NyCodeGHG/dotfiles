@@ -175,7 +175,7 @@
     easyeffects
     fend
     lm_sensors
-    gimp
+    gimp3
     man-pages
     unrar-wrapper
     smartmontools
