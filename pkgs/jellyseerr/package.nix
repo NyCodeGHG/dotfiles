@@ -9,11 +9,13 @@
   python3Packages,
   sqlite,
   nix-update-script,
+  callPackage,
 }:
 
 let
   nodejs = nodejs_22;
   pnpm = pnpm_9.override { inherit nodejs; };
+  inherit (callPackage ./pnpm.nix { inherit pnpm; }) fetchDeps configHook;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "jellyseerr";
@@ -26,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-EbBvgaTTMA4B7uBwiftIy54oo0K5hCvIAWhBHjeM5WU=";
   };
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchDeps {
     inherit (finalAttrs) pname version src;
     hash = "sha256-4odVuAhjc9lUxorWOqPd2ODgexk5PDSS2HtFyq0csU0=";
   };
@@ -38,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     python3Packages.distutils
     nodejs
     makeWrapper
-    pnpm.configHook
+    configHook
   ];
 
   preBuild = ''
