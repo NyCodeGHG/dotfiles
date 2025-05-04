@@ -144,10 +144,6 @@ in
       };
       turn_user_lifetime = "1h";
       turn_allow_guests = false;
-      turn_uris = [
-        "turn:turn.marie.cologne:3478?transport=udp"
-        "turn:turn.marie.cologne:3478?transport=tcp"
-      ];
       enable_authenticated_media = true;
       url_preview_ip_range_blacklist = [
         "10.0.0.0/8"
