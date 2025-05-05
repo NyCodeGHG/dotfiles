@@ -16,6 +16,10 @@
   };
   age.secrets.authentik-secrets.file = "${inputs.self}/secrets/authentik-secrets.age";
 
+  services.nginx.commonHttpConfig = ''
+    proxy_cache_path /var/cache/nginx/ keys_zone=cache:10m;
+  '';
+
   services.nginx.virtualHosts."sso.nycode.dev" = {
     extraConfig = ''
       error_page 401 /sso_unavailable.html;
@@ -25,6 +29,17 @@
         internal;
       }
     '';
+
+    locations."~* /application/o/[\\w\\-_]+/\\.well-known/openid-configuration$" = {
+      extraConfig = ''
+        proxy_cache cache;
+        proxy_cache_use_stale error timeout http_500 http_502 http_503 http_504;
+        proxy_cache_lock on;
+        proxy_cache_valid 200 10m;
+        add_header X-Cache-Status $upstream_cache_status;
+        proxy_pass http://authentik;
+      '';
+    };
 
     locations."/" = {
       extraConfig = ''
