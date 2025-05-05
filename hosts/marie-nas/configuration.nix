@@ -29,7 +29,6 @@
       };
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_6_12;
   };
 
   security.acme.certs."marie.cologne".extraDomainNames = [ "*.marie-nas.marie.cologne" ];

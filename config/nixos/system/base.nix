@@ -34,5 +34,7 @@
     programs.traceroute.enable = true;
     systemd.network.enable = true;
     boot.tmp.useTmpfs = lib.mkDefault true;
+
+    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_12;
   };
 }
