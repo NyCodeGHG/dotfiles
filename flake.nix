@@ -123,9 +123,6 @@
       overlays.packages = (final: prev: {
         sandwine = prev.callPackage ./pkgs/sandwine { };
         plasma-aero-theme = prev.callPackage ./pkgs/plasma-aero-theme/package.nix { };
-        btop = prev.btop.overrideAttrs (prev: {
-          patches = (prev.patches or [ ]) ++ [ ./patches/btop_Fix-typo-Mhz-MHz.patch ];
-        });
         nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule { module = import ./config/nixvim; };
         libray= prev.callPackage ./pkgs/libray/package.nix { };
         jellyfin-plugin-sso = prev.callPackage ./pkgs/jellyfin-plugin-sso/package.nix { };
