@@ -151,6 +151,11 @@
     tokei
     nix-output-monitor
     vlc
+    (pkgs.hiPrio (pkgs.runCommandNoCC "vlc-desktop-fix" { } ''
+      mkdir -p $out/share/applications
+      cp ${pkgs.vlc}/share/applications/vlc.desktop $out/share/applications
+      sed -i '/X-KDE-Protocols/ s/,smb//' $out/share/applications/vlc.desktop
+    ''))
     mpv
     ffmpeg
     nixpkgs-review
