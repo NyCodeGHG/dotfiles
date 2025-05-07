@@ -129,10 +129,10 @@
         bitmagnet = prev.callPackage ./pkgs/bitmagnet/package.nix { };
         jellyseerr = prev.callPackage ./pkgs/jellyseerr/package.nix { };
         forgejo = prev.callPackage ./pkgs/forgejo/package.nix { };
-        go_1_24 = if prev ? go_1_24 then prev.go_1_24 else prev.callPackage ./pkgs/go_1_24/package.nix { };
-        buildGo124Module = if prev ? buildGo124Module then prev.buildGo124Module else (prev.buildGoModule.override {
+        go_1_24 = prev.callPackage ./pkgs/go_1_24/package.nix { };
+        buildGo124Module = prev.buildGoModule.override {
           go = final.go_1_24;
-        });
+        };
       });
 
       nixosModules = {
