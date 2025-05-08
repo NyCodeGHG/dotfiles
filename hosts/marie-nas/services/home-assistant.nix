@@ -14,6 +14,9 @@
       "isal"
       "hue"
       "nanoleaf"
+      "cast"
+      "ipp"
+      "homekit_controller"
     ];
     config = {
       # Includes dependencies for a basic setup
