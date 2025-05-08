@@ -31,6 +31,11 @@
         use_x_forwarded_for = true;
       };
       homeassistant = {
+        name = "Home";
+        latitude = "!secret latitude";
+        longitude = "!secret longitude";
+        elevation = "!secret elevation";
+        radius = 15;
         unit_system = "metric";
         currency = "EUR";
         country = "DE";
