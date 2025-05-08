@@ -1,10 +1,5 @@
-{ inputs, ... }:
+{ ... }:
 {
-  disabledModules = [ "services/misc/prowlarr.nix" ];
-  # TODO: remove when upgrading to 25.05
-  imports = [
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/misc/servarr/prowlarr.nix"
-  ];
   services.prowlarr = {
     enable = true;
     settings = {

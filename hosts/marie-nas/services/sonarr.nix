@@ -1,10 +1,5 @@
-{ inputs, config, ... }:
+{ config, ... }:
 {
-  disabledModules = [ "services/misc/sonarr.nix" ];
-  # TODO: remove when upgrading to 25.05
-  imports = [
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/misc/servarr/sonarr.nix"
-  ];
   services.sonarr = {
     enable = true;
     group = "media";

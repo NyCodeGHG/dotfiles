@@ -159,7 +159,7 @@
             )
           ];
         };
-        marie-nas = self.lib.nixosSystem nixpkgs {
+        marie-nas = self.lib.nixosSystem nixpkgs-unstable {
           modules = [ ./hosts/marie-nas/configuration.nix ];
         };
         installer-nas = self.lib.nixosSystem nixpkgs {
@@ -184,6 +184,7 @@
             inherit inputs;
           };
           nodeNixpkgs.delphi = nixpkgs.legacyPackages.aarch64-linux;
+          nodeNixpkgs.marie-nas = nixpkgs-unstable.legacyPackages.x86_64-linux;
         };
         artemis =
           {
@@ -232,7 +233,7 @@
           deployment.buildOnTarget = false;
           deployment.targetUser = null;
           nixpkgs.overlays = [ self.overlays.default ];
-          nixpkgs.flake.source = nixpkgs;
+          nixpkgs.flake.source = nixpkgs-unstable;
         };
       };
     };
