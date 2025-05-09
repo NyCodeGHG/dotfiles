@@ -51,6 +51,6 @@
 
   networking.hosts = {
     # fuck you ea
-    "127.0.0.1" = [ "winter15.gosredirector.ea.com" ];
+    # "127.0.0.1" = [ "winter15.gosredirector.ea.com" ];
   };
 }
