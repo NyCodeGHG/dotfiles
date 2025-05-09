@@ -21,6 +21,7 @@
     ./services/transmission.nix
     ./services/vpn.nix
     ./services/home-assistant.nix
+    ./services/mosquitto.nix
   ];
   boot = {
     loader = {
