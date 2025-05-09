@@ -229,7 +229,7 @@
             ./hosts/marie-nas/configuration.nix
             self.nixosModules.config
           ];
-          deployment.targetHost = "marie-nas";
+          deployment.targetHost = "192.168.1.21";
           deployment.buildOnTarget = false;
           deployment.targetUser = null;
           nixpkgs.overlays = [ self.overlays.default ];
