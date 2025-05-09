@@ -210,6 +210,13 @@ resource "cloudflare_record" "hass_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "mqtt_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "mqtt.home"
+  content = "marie-nas.marie.cologne"
+  type    = "CNAME"
+}
+
 module "prometheus_record" {
   source   = "./tailscale-record"
   zone_id  = data.cloudflare_zone.marie_cologne.id
