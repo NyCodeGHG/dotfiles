@@ -50,9 +50,11 @@
         ];
         detect_non_ha_changes = true;
       };
+      mqtt = { };
     };
     customComponents = with pkgs.home-assistant-custom-components; [
       adaptive_lighting
+      sleep_as_android
     ];
   };
 
