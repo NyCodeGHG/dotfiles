@@ -43,7 +43,17 @@
         external_url = "https://hass.marie.cologne";
         internal_url = "https://hass.marie.cologne";
       };
+      adaptive_lighting = {
+        lights = [
+          "light.marie_deckenlampe"
+          "light.shapes_5e66"
+        ];
+        detect_non_ha_changes = true;
+      };
     };
+    customComponents = with pkgs.home-assistant-custom-components; [
+      adaptive_lighting
+    ];
   };
 
   services.nginx.virtualHosts."hass.marie.cologne".locations."/" = {
