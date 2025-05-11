@@ -120,14 +120,13 @@
 
       overlays.default = self.overlays.packages;
 
-      overlays.packages = (final: prev: {
-        sandwine = prev.callPackage ./pkgs/sandwine/package.nix { };
-        plasma-aero-theme = prev.callPackage ./pkgs/plasma-aero-theme/package.nix { };
+      overlays.packages = (final: prev: 
+      let 
+        inherit (prev) lib;
+        packages = lib.mapAttrs (name: _: prev.callPackage ./pkgs/${name}/package.nix { })
+          (lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./pkgs));
+      in packages // {
         nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule { module = import ./config/nixvim; };
-        libray= prev.callPackage ./pkgs/libray/package.nix { };
-        jellyfin-plugin-sso = prev.callPackage ./pkgs/jellyfin-plugin-sso/package.nix { };
-        bitmagnet = prev.callPackage ./pkgs/bitmagnet/package.nix { };
-        jellyseerr = prev.callPackage ./pkgs/jellyseerr/package.nix { };
       });
 
       nixosModules = {
