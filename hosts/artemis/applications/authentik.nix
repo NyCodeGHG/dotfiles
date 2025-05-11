@@ -40,21 +40,5 @@
         proxy_pass http://authentik;
       '';
     };
-
-    locations."/" = {
-      extraConfig = ''
-        satisfy any;
-        allow 2a03:4000:5f:f5b::;
-        allow 127.0.0.1;
-        allow 2a05:d014:386:202::/64;
-        allow 2a00:e67:5c6::/48;
-        allow 185.104.142.74;
-        deny all;
-      '';
-    };
-  };
-  services.nginx.tailscaleAuth = {
-    enable = true;
-    virtualHosts = [ "sso.nycode.dev" ];
   };
 }
