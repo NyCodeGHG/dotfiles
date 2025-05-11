@@ -28,6 +28,7 @@
           { directory = "/var/lib/private/bitmagnet"; user = "bitmagnet"; group = "bitmagnet"; }
           { directory = "/var/lib/sonarr"; user = "sonarr"; group = "sonarr"; }
           { directory = "/var/lib/hass"; user = "hass"; group = "hass"; }
+          { directory = "/var/lib/mosquitto"; user = "mosquitto"; group = "mosquitto"; }
         ];
         files = [
           { file = "/etc/machine-id"; inInitrd = true; }
