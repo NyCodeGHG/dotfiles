@@ -121,7 +121,7 @@
       overlays.default = self.overlays.packages;
 
       overlays.packages = (final: prev: {
-        sandwine = prev.callPackage ./pkgs/sandwine { };
+        sandwine = prev.callPackage ./pkgs/sandwine/package.nix { };
         plasma-aero-theme = prev.callPackage ./pkgs/plasma-aero-theme/package.nix { };
         nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule { module = import ./config/nixvim; };
         libray= prev.callPackage ./pkgs/libray/package.nix { };
