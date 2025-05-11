@@ -162,10 +162,10 @@
         marie-nas = self.lib.nixosSystem nixpkgs-unstable {
           modules = [ ./hosts/marie-nas/configuration.nix ];
         };
-        installer-nas = self.lib.nixosSystem nixpkgs {
+        installer-nas = self.lib.nixosSystem nixpkgs-unstable {
           modules = [
             ./hosts/marie-nas/configuration.nix
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+            "${nixpkgs-unstable}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
             {
               environment.etc."dotfiles".source = self;
               security.sudo-rs.enable = false;
