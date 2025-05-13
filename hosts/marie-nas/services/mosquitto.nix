@@ -9,6 +9,13 @@ let
       acl = [ "readwrite SleepAsAndroid/#" ];
       hashedPassword = "$7$101$cpOXOPwrgPxKAPYm$cSI0e3lyTBaWlkfDSaJJ1mjatNS+lPGIqnRIS8sIUe5KtR6/2SLTdDby/51Lx361h0b1cvf7hc2vMwIYppzMHg==";
     };
+    zigbee2mqtt = {
+      acl = [ 
+        "readwrite zigbee2mqtt/#"
+        "readwrite homeassistant/#"
+      ];
+      hashedPassword = "$7$101$hW4MJmidGzRz5kXA$8SAPdONZper0ftdTLp+8cVv039aHZp2GG2/SgpzksujT7LKnTkM80CiAjSlY1G/UifM5uncdg3gtTK0YChgSig==";
+    };
   };
 in
 {

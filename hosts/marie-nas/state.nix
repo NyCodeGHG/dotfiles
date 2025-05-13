@@ -29,6 +29,7 @@
           { directory = "/var/lib/sonarr"; user = "sonarr"; group = "sonarr"; }
           { directory = "/var/lib/hass"; user = "hass"; group = "hass"; }
           { directory = "/var/lib/mosquitto"; user = "mosquitto"; group = "mosquitto"; }
+          { directory = "/var/lib/zigbee2mqtt"; user = "zigbee2mqtt"; group = "zigbee2mqtt"; }
         ];
         files = [
           { file = "/etc/machine-id"; inInitrd = true; }

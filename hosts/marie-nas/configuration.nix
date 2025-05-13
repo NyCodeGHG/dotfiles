@@ -22,6 +22,7 @@
     ./services/vpn.nix
     ./services/home-assistant.nix
     ./services/mosquitto.nix
+    ./services/zigbee2mqtt.nix
   ];
   boot = {
     loader = {
