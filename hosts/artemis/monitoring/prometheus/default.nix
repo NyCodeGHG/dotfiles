@@ -78,7 +78,7 @@
               labels.instance = "delphi";
             }
             {
-              targets = [ "marie-nas:9100" "marie-nas-1:9100" ];
+              targets = [ "marie-nas:9100" ];
               labels.instance = "marie-nas";
             }
           ];
@@ -103,10 +103,6 @@
         (mkTarget {
           job = "bird";
           target = "127.0.0.1:${toString config.services.prometheus.exporters.bird.port}";
-        })
-        (mkTarget {
-          job = "cloudflare-exporter";
-          target = "127.0.0.1:27196";
         })
         (mkTarget {
           job = "blackbox-exporter";
@@ -138,7 +134,6 @@
                 "https://grafana.marie.cologne/"
                 "https://ip.marie.cologne"
                 "https://miniflux.marie.cologne/"
-                "https://immich.wg.techtoto.dev/"
               ];
             }
           ];
@@ -199,10 +194,6 @@
             }
           ];
         }
-        (mkTarget {
-          job = "forgejo";
-          target = "127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
-        })
       ];
   };
 

@@ -48,7 +48,6 @@
         REGISTER_EMAIL_CONFIRM = false;
         USERNAME = "nickname";
       };
-      metrics.ENABLED = true;
     };
   };
 
