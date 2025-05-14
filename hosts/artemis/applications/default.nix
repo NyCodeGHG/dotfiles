@@ -18,5 +18,6 @@
     ./changedetection.nix
     ./soju.nix
     ./kanidm.nix
+    ./anubis.nix
   ];
 }

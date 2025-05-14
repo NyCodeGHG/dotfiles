@@ -51,15 +51,12 @@
     };
   };
 
-  services.nginx.virtualHosts."git.marie.cologne" = 
-  let
-    port = toString config.services.forgejo.settings.server.HTTP_PORT;
-  in {
+  services.nginx.virtualHosts."git.marie.cologne" = {
     locations."/_/static/" = {
       alias = "${config.services.forgejo.package.data}/public/";
     };
     locations."/" = {
-      proxyPass = "http://localhost:${port}";
+      proxyPass = "http://unix:${config.services.anubis.instances.forgejo.settings.BIND}";
       extraConfig = ''
         client_max_body_size 512M;
       '';
@@ -70,7 +67,7 @@
       '';
     };
     locations."/metrics" = {
-      proxyPass = "http://localhost:${port}";
+      proxyPass = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
       extraConfig = ''
         allow 127.0.0.0/24;
         deny all;
@@ -80,4 +77,10 @@
   services.openssh.extraConfig = ''
     AcceptEnv GIT_PROTOCOL
   '';
+
+  services.anubis = {
+    instances.forgejo.settings = { 
+      TARGET = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+    };
+  };
 }
