@@ -12,6 +12,7 @@
     ./backup.nix
     ./corsair-thing.nix
     ./router.nix
+    ./krisp-patcher.nix
   ];
 
   uwumarie.profiles = {
