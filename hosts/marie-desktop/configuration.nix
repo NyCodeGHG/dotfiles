@@ -41,6 +41,7 @@
     "hplip"
     "makemkv"
     "anydesk"
+    "unrar"
   ]);
 
   boot.kernelPackages = pkgs.linuxPackages_6_14;
@@ -207,6 +208,7 @@
     wireguard-tools
     chatterino7
     config.boot.kernelPackages.cpupower
+    unrar
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
