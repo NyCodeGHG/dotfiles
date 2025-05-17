@@ -17,6 +17,7 @@
       "cast"
       "ipp"
       "homekit_controller"
+      "ping"
     ];
     config = {
       # Includes dependencies for a basic setup
