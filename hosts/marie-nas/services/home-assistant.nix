@@ -58,6 +58,10 @@
       sleep_as_android
       dwd
     ];
+    customLovelaceModules = [
+      pkgs.lovelace-horizon-card
+      pkgs.home-assistant-custom-lovelace-modules.mushroom
+    ];
   };
 
   services.nginx.virtualHosts."hass.marie.cologne".locations."/" = {
