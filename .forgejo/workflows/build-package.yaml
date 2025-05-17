@@ -1,0 +1,35 @@
+name: Build Nix Package
+on:
+  workflow_dispatch:
+    inputs:
+      flake-ref:
+        required: true
+        description: "Flake Reference to build. Example: nixpkgs#hello"
+        type: string
+      push-to-cache:
+        required: true
+        type: boolean
+        default: true
+        description: Push build results to cache
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Install Nix
+        uses: https://github.com/cachix/install-nix-action@754537aaedb35f72ab11a60cc162c49ef3016495 # v31
+      
+      - name: Configure attic
+        if: "${{ inputs.push-to-cache}} == true"
+        run: |
+          nix-env -iA nixpkgs.attic-client
+          attic login --set-default marie https://cache.marie.cologne "${{ secrets.ATTIC_TOKEN }}"
+      
+      - name: Build ${{ inputs.flake-ref }}
+        run: nix build ${{ inputs.flake-ref }}
+
+      - name: Push to cache
+        if: "${{ inputs.push-to-cache }} == true"
+        run: attic push marie ./result
