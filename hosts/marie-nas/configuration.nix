@@ -23,6 +23,7 @@
     ./services/home-assistant.nix
     ./services/mosquitto.nix
     ./services/zigbee2mqtt.nix
+    ./services/home-assistant-matter-hub.nix
   ];
   boot = {
     loader = {
