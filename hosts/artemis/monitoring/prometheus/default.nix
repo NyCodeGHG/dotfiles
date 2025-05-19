@@ -83,19 +83,6 @@
             }
           ];
         }
-        {
-          job_name = "nginx";
-          static_configs = [
-            {
-              targets = [ "localhost:9117" ];
-              labels.instance = config.networking.hostName;
-            }
-            {
-              targets = [ "delphi:9117" ];
-              labels.instance = "delphi";
-            }
-          ];
-        }
         (mkTarget {
           job = "ip-playground";
           target = "127.0.0.1:3032";
