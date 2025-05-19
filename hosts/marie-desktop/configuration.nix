@@ -168,7 +168,6 @@
     btop
     openssl
     yt-dlp
-    android-tools
     protontricks
     clang-tools
     nixfmt-rfc-style
@@ -241,6 +240,8 @@
   virtualisation.podman.enable = true;
 
   fonts.packages = with pkgs; [ corefonts ];
+
+  programs.adb.enable = true;
 
   home-manager.users.marie = { config, pkgs, ... }: {
     imports = [
