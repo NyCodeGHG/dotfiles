@@ -20,6 +20,7 @@
     serviceConfig = {
       NetworkNamespacePath = "/var/run/netns/vpn";
       BindReadOnlyPaths = "${config.vpn.dns.resolvconf}:/etc/resolv.conf:norbind";
+      InaccessiblePaths = "/run/nscd/socket";
     };
   };
 
