@@ -6,7 +6,7 @@
   config =
     let
       timezone = "Europe/Berlin";
-      locale = "de_DE.utf8";
+      locale = "de_DE.UTF-8";
     in
     lib.mkIf config.uwumarie.profiles.locale {
       time.timeZone = timezone;
