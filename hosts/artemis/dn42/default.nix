@@ -141,15 +141,15 @@
       '';
       path = with pkgs; [ curl config.services.bird.package ];
       serviceConfig = {
-        User = "bird2";
-        Group = "bird2";
+        User = "bird";
+        Group = "bird";
       };
     };
   };
   systemd.tmpfiles.settings."10-bird"."/etc/bird".d = {
-    group = "bird2";
+    group = "bird";
     mode = "0755";
-    user = "bird2";
+    user = "bird";
   };
 
   security.pki.certificateFiles = [ ./dn42-ca.pem ];
