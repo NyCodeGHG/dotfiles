@@ -14,7 +14,7 @@ jobs:
         uses: https://github.com/cachix/install-nix-action@754537aaedb35f72ab11a60cc162c49ef3016495 # v31
 
       - name: Join Tailnet
-        uses: https://github.com/tailscale/github-action@93605f7b8f223bf5f44e83275e64fb28f3e49d9e # v3
+        uses: https://github.com/tailscale/github-action@6986d2c82a91fbac2949fe01f5bab95cf21b5102 # v3
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
