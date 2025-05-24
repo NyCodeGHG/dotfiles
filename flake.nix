@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
     home-manager-unstable = {
@@ -24,7 +24,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    preservation.url = "github:nix-community/preservation/555e6ad35ac8f4f2879e09e41b0e4f397a0b74a0";
+    preservation.url = "github:nix-community/preservation";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 

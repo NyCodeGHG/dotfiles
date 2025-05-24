@@ -28,8 +28,9 @@
     };
   };
 
-  services.bird2 = {
+  services.bird = {
     enable = true;
+    package = pkgs.bird2;
     preCheckConfig = ''
       touch roa_dn42.conf roa_dn42_v6.conf
     '';
@@ -138,7 +139,7 @@
         birdc c
         birdc reload in all
       '';
-      path = with pkgs; [ curl bird ];
+      path = with pkgs; [ curl config.services.bird.package ];
       serviceConfig = {
         User = "bird2";
         Group = "bird2";
