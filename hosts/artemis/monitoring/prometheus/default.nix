@@ -1,8 +1,5 @@
 { pkgs, config, inputs, ... }:
 {
-  imports = [
-    inputs.cloudflare-exporter.nixosModules.default
-  ];
   services.prometheus = {
     enable = true;
     retentionTime = "30d";
@@ -194,9 +191,4 @@
     enable = true;
     virtualHosts = [ "prometheus.marie.cologne" ];
   };
-  services.cloudflare-prometheus-exporter = {
-    enable = true;
-    tokenFile = config.age.secrets.r2-monitoring-token.path;
-  };
-  age.secrets.r2-monitoring-token.file = ../../secrets/r2-monitoring-token.age;
 }

@@ -28,11 +28,6 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    cloudflare-exporter = {
-      url = "https://codeberg.org/marie/cloudflare-prometheus-exporter/archive/main.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
