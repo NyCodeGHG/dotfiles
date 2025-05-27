@@ -32,6 +32,11 @@
     };
   };
 
+  systemd.services.zigbee2mqtt = {
+    after = [ "mosquitto.service" ];
+    wants = [ "mosquitto.service" ];
+  };
+
   age.secrets.zigbee2mqtt = {
     file = ../secrets/zigbee2mqtt.age;
     owner = "zigbee2mqtt";
