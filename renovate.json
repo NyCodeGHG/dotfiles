@@ -27,6 +27,15 @@
       "datasourceTemplate": "github-releases",
       "extractVersionTemplate": "^v(?<version>.*)$",
       "depNameTemplate": "caddyserver/caddy"
+    },
+    {
+      "description": "Update trash-guides repository git sha",
+      "fileMatch": ["hosts/marie-nas/media-config/config/config.yml"],
+      "matchStrings": ["trashRevision: (?<currentDigest>.*?)\\n"],
+      "currentValueTemplate": "master",
+      "depNameTemplate": "TRaSH-Guides",
+      "packageNameTemplate": "https://github.com/TRaSH-Guides/Guides",
+      "datasourceTemplate": "git-refs"
     }
   ],
   "packageRules": [
@@ -61,6 +70,10 @@
         ".forgejo/workflows/*.yml"
       ],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["https://github.com/TRaSH-Guides/Guides"],
+      "schedule": "every weekend"
     }
   ],
   "enabledManagers": [
