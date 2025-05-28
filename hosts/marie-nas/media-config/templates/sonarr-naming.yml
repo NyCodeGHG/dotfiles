@@ -1,0 +1,8 @@
+media_naming:
+  series: jellyfin
+  season: default
+  episodes:
+    rename: true
+    standard: default
+    daily: default
+    anime: default

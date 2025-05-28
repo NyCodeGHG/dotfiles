@@ -1,0 +1,18 @@
+localConfigTemplatesPath: templates
+trashRevision: 21c554b403afe9ff5394e62ef9b2557003d847bb
+
+sonarr:
+  marie:
+    base_url: https://sonarr.marie.cologne
+    api_key: !env MARIE_SONARR_API_KEY
+    delete_unmanaged_custom_formats:
+      enabled: true
+    include:
+      - template: sonarr-custom-formats
+      - template: sonarr-quality
+      - template: sonarr-original-language
+      - template: sonarr-naming
+    media_management:
+      downloadPropersAndRepacks: doNotPrefer
+
+radarr: {} # no radarr instance

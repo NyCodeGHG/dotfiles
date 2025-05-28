@@ -1,0 +1,5 @@
+custom_formats:
+  - trash_ids:
+      - ae575f95ab639ba5d15f663bf019e3e8 # Language: Not Original
+    assign_scores_to:
+      - name: WEB-2160p
