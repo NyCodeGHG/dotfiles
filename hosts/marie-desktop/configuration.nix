@@ -44,7 +44,7 @@
     "unrar"
   ]);
 
-  boot.kernelPackages = pkgs.linuxPackages_6_14;
+  boot.kernelPackages = pkgs.linuxPackages_6_15;
 
   boot = {
     plymouth.enable = true;
