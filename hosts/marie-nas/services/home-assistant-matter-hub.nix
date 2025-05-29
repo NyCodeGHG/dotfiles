@@ -17,7 +17,10 @@
   };
   age.secrets.matter-hub-env.file = ../secrets/matter-bridge-env.age;
 
-  networking.firewall.allowedUDPPorts = [ 5540 ];
+  networking.firewall = {
+    allowedUDPPorts = [ 5540 ];
+    allowedTCPPorts = [ 5540 ];
+  };
 
   systemd.tmpfiles.settings."matter-hub" = {
     "/var/lib/home-assistant-matter-hub".d = {
