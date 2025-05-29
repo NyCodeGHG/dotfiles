@@ -231,6 +231,13 @@ resource "cloudflare_record" "matter-hub_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "auth_marie_nas_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "auth.marie-nas"
+  content = "marie-nas.marie.cologne"
+  type    = "CNAME"
+}
+
 module "prometheus_record" {
   source   = "./tailscale-record"
   zone_id  = data.cloudflare_zone.marie_cologne.id

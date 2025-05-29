@@ -30,6 +30,7 @@
           { directory = "/var/lib/hass"; user = "hass"; group = "hass"; }
           { directory = "/var/lib/mosquitto"; user = "mosquitto"; group = "mosquitto"; }
           { directory = "/var/lib/zigbee2mqtt"; user = "zigbee2mqtt"; group = "zigbee2mqtt"; }
+          { directory = "/var/lib/redis-oauth2-proxy"; user = "oauth2-proxy"; group = "oauth2-proxy"; }
         ];
         files = [
           { file = "/etc/machine-id"; inInitrd = true; }
