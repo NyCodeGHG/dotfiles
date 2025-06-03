@@ -45,9 +45,13 @@ in
     after = [ "postgres-user-backup.service" ];
     path = with pkgs; [ restic config.services.postgresql.package gnugrep gawk hostname-debian ];
     startAt = "03:00";
+    serviceConfig = {
+      PrivateTmp = true;
+    };
     script = ''
       set -euo pipefail
-      dir="$(mktemp -d /tmp/postgres-backup.XXXXXX)"
+      mkdir -p /tmp/postgres-backup
+      dir="/tmp/postgres-backup"
 
       for db in $(psql postgres -tc 'SELECT datname FROM pg_database WHERE datistemplate = false;' | grep '\S' | awk '{$1=$1};1'); do
         echo "Dumping schema for database $db"
@@ -76,8 +80,9 @@ in
         --retry-lock 30m \
         --tag postgres \
         --host "$(hostname)" \
+        --group-by host,tags \
         --keep-within 7d \
-        --keep-weekly 4 \
+        --keep-weekly 3 \
         --keep-monthly 12 \
         --keep-yearly 5
     '';
@@ -112,8 +117,9 @@ in
         --retry-lock 30m \
         --tag forgejo \
         --host "$(hostname)" \
+        --group-by host,tags \
         --keep-within 7d \
-        --keep-weekly 4 \
+        --keep-weekly 3 \
         --keep-monthly 12 \
         --keep-yearly 5
     '';
@@ -136,8 +142,9 @@ in
         --retry-lock 30m \
         --tag paperless \
         --host "$(hostname)" \
+        --group-by host,tags \
         --keep-within 7d \
-        --keep-weekly 4 \
+        --keep-weekly 3 \
         --keep-monthly 12 \
         --keep-yearly 5
     '';
@@ -160,8 +167,9 @@ in
         --retry-lock 30m \
         --tag synapse \
         --host "$(hostname)" \
+        --group-by host,tags \
         --keep-within 7d \
-        --keep-weekly 4 \
+        --keep-weekly 3 \
         --keep-monthly 12 \
         --keep-yearly 5
     '';
