@@ -8,7 +8,7 @@ lib.mkIf config.uwumarie.profiles.jujutsu
         name = "Marie Ramlow";
         email = "me@nycode.dev";
       };
-      ui.diff.tool = [ "${pkgs.difftastic}/bin/difft" "--color=always" "$left" "$right" ];
+      ui.diff-formatter = [ "${pkgs.difftastic}/bin/difft" "--color=always" "$left" "$right" ];
       aliases = {
         gc = [ "git" "clone" "--colocate" ];
         gf = [ "git" "fetch" ];
