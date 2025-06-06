@@ -21,5 +21,8 @@ lib.mkIf config.uwumarie.profiles.jujutsu
       core.watchman.register-snapshot-trigger = true;
     };
   };
-  home.packages = with pkgs; [ watchman ];
+  home.packages = with pkgs; [
+    watchman
+    difftastic
+  ];
 }
