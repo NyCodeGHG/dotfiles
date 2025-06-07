@@ -11,7 +11,7 @@
     ./wireshark.nix
     ./backup.nix
     ./corsair-thing.nix
-    ./router.nix
+    # ./router.nix
     ./krisp-patcher.nix
   ];
 
