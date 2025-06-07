@@ -18,6 +18,7 @@
       "ipp"
       "homekit_controller"
       "ping"
+      "jellyfin"
     ];
     config = {
       # Includes dependencies for a basic setup
