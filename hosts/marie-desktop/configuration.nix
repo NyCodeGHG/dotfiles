@@ -208,6 +208,7 @@
     chatterino7
     config.boot.kernelPackages.cpupower
     unrar
+    jellyfin-media-player
   ] ++ (with pkgs.kdePackages;[
     isoimagewriter
     kdenlive
