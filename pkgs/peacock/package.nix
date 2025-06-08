@@ -17,10 +17,20 @@ stdenv.mkDerivation (finalAttrs: {
   version = "8.1.0";
 
   patches = [
-    # See https://github.com/thepeacockproject/Peacock/pull/590
+    # fix: sort contracts for deterministic build
     (fetchpatch2 {
-      url = "https://github.com/thepeacockproject/Peacock/pull/590/commits/9ce9c82a74429a7811c538c232b3171d5368db24.patch";
+      url = "https://github.com/thepeacockproject/Peacock/commit/9ce9c82a74429a7811c538c232b3171d5368db24.patch";
       hash = "sha256-O8uL5ZQSNeTZmtmKyKJ50TO4BrBUcblz2SKUO1YGmHc=";
+    })
+    # fix: serve webui relative to the current module
+    (fetchpatch2 {
+      url = "https://github.com/thepeacockproject/Peacock/commit/95e3de4554206197621315d00e863c00bf079ed7.patch";
+      hash = "sha256-cwaspB1yJp7d9Wa8b/wQTpQ0EJhFbpRV2dxS69jFEOo=";
+    })
+    # fix: translate windows plugin paths on linux
+    (fetchpatch2 {
+      url = "https://github.com/thepeacockproject/Peacock/commit/073bdebea3c8fc7174d2b6865cc1c4e5c3568f79.patch";
+      hash = "sha256-gxAzTMm+dhgYu+rpG+haaksmZGRpwtEU4R/A0jOkJCY=";
     })
   ];
 
