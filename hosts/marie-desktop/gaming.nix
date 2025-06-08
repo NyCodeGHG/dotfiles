@@ -15,6 +15,7 @@
     libray
     cemu
     ryubing
+    nexusmods-app-unfree
   ];
 
   programs.gamemode.enable = true;

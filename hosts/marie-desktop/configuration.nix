@@ -42,6 +42,7 @@
     "makemkv"
     "anydesk"
     "unrar"
+    "7zz"
   ]);
 
   boot.kernelPackages = pkgs.linuxPackages_6_15;
