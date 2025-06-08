@@ -13,6 +13,7 @@
     ./corsair-thing.nix
     # ./router.nix
     ./krisp-patcher.nix
+    ./peacock.nix
   ];
 
   uwumarie.profiles = {
