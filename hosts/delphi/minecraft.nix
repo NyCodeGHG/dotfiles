@@ -1,18 +1,18 @@
 { lib, config, inputs, ... }:
 {
   virtualisation.oci-containers.containers.minecraft = {
-    image = "docker.io/itzg/minecraft-server:java21";
+    image = "docker.io/itzg/minecraft-server:java24";
     environment = {
       EULA = "true";
-      INIT_MEMORY = "4G";
-      MAX_MEMORY = "10G";
+      INIT_MEMORY = "5G";
+      MAX_MEMORY = "5G";
       ENABLE_ROLLING_LOGS = "true";
       TZ = "Europe/Berlin";
       ENABLE_WHITELIST = "true";
-      WHITELIST = "uwumarie,techtoto,emmabtw";
-      OPS = "uwumarie";
+      WHITELIST = "uwumarie,techtoto";
+      OPS = "uwumarie,techtoto";
       USE_NATIVE_TRANSPORT = "true";
-      VIEW_DISTANCE = "16";
+      VIEW_DISTANCE = "20";
       SPAWN_PROTECTION = "0";
       ALLOW_FLIGHT = "true";
       TYPE = "MODRINTH";
@@ -20,29 +20,27 @@
       UID = toString config.users.users.minecraft.uid;
       GID = toString config.users.groups.minecraft.gid;
       MODRINTH_MODPACK = "adrenaline";
-      VERSION = "1.21.4";
+      VERSION = "1.21.5";
       MODRINTH_PROJECTS = lib.concatStringsSep "," [
-        "datapack:terralith"
-        "datapack:halbcraft"
-        "datapack:halbcore"
+        "distanthorizons"
+        "shared-advancements"
+        "fastback"
+        "spark"
       ];
-      RESOURCE_PACK = "https://cdn.modrinth.com/data/K7Ih6CPH/versions/uIcp8Xa5/halbcraft_RP_04.zip";
-      RESOURCE_PACK_SHA1 = "559984e4b807594b0f8f87c153fd897d4fd6f2e5";
-      MODRINTH_DEFAULT_VERSION_TYPE = "beta";
+      MODRINTH_ALLOWED_VERSION_TYPE = "alpha";
+      MODRINTH_DEFAULT_VERSION_TYPE = "alpha";
+      MODRINTH_DOWNLOAD_DEPENDENCIES = "required";
     };
     environmentFiles = [ config.age.secrets.curseforge-api-key.path ];
-    volumes = [
-      "/var/lib/minecraft/halbcraft:/data"
-    ];
-    ports = [
-      "25565:25565"
-      "24454:24454/udp"
-    ];
     user = "${toString config.users.users.minecraft.uid}:${toString config.users.groups.minecraft.gid}";
+    volumes = [
+      "/var/lib/minecraft/all-advancements:/data"
+    ];
+    ports = [ "25565:25565" ];
   };
-  systemd.tmpfiles.settings."10-minecraft"."/var/lib/minecraft/halbcraft".d = {
+  systemd.tmpfiles.settings."10-minecraft"."/var/lib/minecraft/all-advancements".d = {
     group = "minecraft";
-    mode = "0775";
+    mode = "0770";
     user = "minecraft";
   };
   users = {
