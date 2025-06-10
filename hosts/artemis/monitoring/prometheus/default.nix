@@ -145,7 +145,6 @@
               targets = [
                 "vpn.wg.techtoto.dev"
                 "10.69.0.8"
-                "raspberrypi"
                 "delphi"
                 "gitlabber"
               ];
