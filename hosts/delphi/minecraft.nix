@@ -9,7 +9,7 @@
       ENABLE_ROLLING_LOGS = "true";
       TZ = "Europe/Berlin";
       ENABLE_WHITELIST = "true";
-      WHITELIST = "uwumarie,techtoto";
+      WHITELIST = "uwumarie,techtoto,emmabtw";
       OPS = "uwumarie,techtoto";
       USE_NATIVE_TRANSPORT = "true";
       VIEW_DISTANCE = "20";
