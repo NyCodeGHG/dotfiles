@@ -32,7 +32,7 @@
     documentation.nixos.enable = lib.mkDefault false;
     boot.initrd.systemd.enable = lib.mkDefault true;
     programs.traceroute.enable = true;
-    systemd.network.enable = true;
+    systemd.network.enable = lib.mkDefault true;
     boot.tmp.useTmpfs = lib.mkDefault true;
 
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_12;

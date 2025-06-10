@@ -40,5 +40,7 @@
       enableAskPassword = true;
       askPassword = lib.getExe pkgs.kdePackages.ksshaskpass;
     };
+
+    systemd.network.enable = lib.mkOverride 800 false;
   };
 }
