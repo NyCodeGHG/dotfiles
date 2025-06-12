@@ -26,6 +26,7 @@
         "shared-advancements"
         "fastback"
         "spark"
+        "tabtps"
       ];
       MODRINTH_ALLOWED_VERSION_TYPE = "alpha";
       MODRINTH_DEFAULT_VERSION_TYPE = "alpha";
