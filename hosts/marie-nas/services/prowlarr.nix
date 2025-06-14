@@ -22,9 +22,11 @@
       "prowlarr-main"
       "prowlarr-log"
     ];
-    ensureUsers = [{
-      name = "prowlarr";
-    }];
+    ensureUsers = [
+      {
+        name = "prowlarr";
+      }
+    ];
   };
 
   systemd.services.postgresql.postStart = ''

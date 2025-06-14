@@ -1,4 +1,10 @@
-{ pkgs, modulesPath, config, inputs, ... }:
+{
+  pkgs,
+  modulesPath,
+  config,
+  inputs,
+  ...
+}:
 {
   imports = with inputs; [
     agenix.nixosModules.default
@@ -84,7 +90,7 @@
 
   system.stateVersion = "24.11";
 
-  environment.systemPackages = with pkgs; [ 
+  environment.systemPackages = with pkgs; [
     rsync
     nix-output-monitor
     tmux

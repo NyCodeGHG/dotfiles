@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.uwumarie.profiles.ssh = {
     enable = lib.mkEnableOption (lib.mdDoc "ssh config");

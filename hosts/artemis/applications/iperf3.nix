@@ -5,5 +5,5 @@
     openFirewall = true;
   };
 
-  systemd.services.iperf3.wantedBy = lib.mkForce [];
+  systemd.services.iperf3.wantedBy = lib.mkForce [ ];
 }

@@ -12,7 +12,7 @@
     serviceConfig = {
       Type = "simple";
       ExecStart = lib.concatStringsSep " " [
-        (lib.getExe pkgs.hd-idle) 
+        (lib.getExe pkgs.hd-idle)
         "-i 0"
         "-c ata"
         "-a /dev/disk/by-id/ata-WDC_WD120EFBX-68B0EN0_D7JPDSJN"

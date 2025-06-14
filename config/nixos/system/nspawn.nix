@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.uwumarie.profiles.nspawn = lib.mkEnableOption (lib.mdDoc "nspawn container config");
   config = lib.mkIf config.uwumarie.profiles.nspawn {

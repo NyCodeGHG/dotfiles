@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   headers = ''
     add_header X-Frame-Options SAMEORIGIN;
@@ -50,37 +56,36 @@ in
         '';
       };
     };
-    "${frontendDomain}" =
-      {
-        locations."/" = {
-          root = pkgs.element-web.override {
-            conf = {
-              show_labs_settings = true;
-              default_server_config = clientConfig;
-              default_country_code = "DE";
-              default_theme = "dark";
-              default_device_display_name = "Element Web";
-              permalink_prefix = "https://chat.marie.cologne";
-              disable_guests = true;
-              logout_redirect_url = "https://sso.nycode.dev/application/o/synapse/end-session/";
-              integrations_ui_url = "https://scalar.vector.im/";
-              integrations_rest_url = "https://scalar.vector.im/api";
-              integrations_widgets_urls = [
-                "https://scalar.vector.im/_matrix/integrations/v1"
-                "https://scalar.vector.im/api"
-                "https://scalar-staging.vector.im/_matrix/integrations/v1"
-                "https://scalar-staging.vector.im/api"
-                "https://scalar-staging.riot.im/scalar/api"
-              ];
-              enable_presence_by_hs_url = {
-                "https://matrix.org" = false;
-                "https://matrix-client.matrix.org" = false;
-              };
+    "${frontendDomain}" = {
+      locations."/" = {
+        root = pkgs.element-web.override {
+          conf = {
+            show_labs_settings = true;
+            default_server_config = clientConfig;
+            default_country_code = "DE";
+            default_theme = "dark";
+            default_device_display_name = "Element Web";
+            permalink_prefix = "https://chat.marie.cologne";
+            disable_guests = true;
+            logout_redirect_url = "https://sso.nycode.dev/application/o/synapse/end-session/";
+            integrations_ui_url = "https://scalar.vector.im/";
+            integrations_rest_url = "https://scalar.vector.im/api";
+            integrations_widgets_urls = [
+              "https://scalar.vector.im/_matrix/integrations/v1"
+              "https://scalar.vector.im/api"
+              "https://scalar-staging.vector.im/_matrix/integrations/v1"
+              "https://scalar-staging.vector.im/api"
+              "https://scalar-staging.riot.im/scalar/api"
+            ];
+            enable_presence_by_hs_url = {
+              "https://matrix.org" = false;
+              "https://matrix-client.matrix.org" = false;
             };
           };
-          extraConfig = headers;
         };
+        extraConfig = headers;
       };
+    };
   };
 
   services.postgresql = {
@@ -119,7 +124,10 @@ in
           x_forwarded = true;
           resources = [
             {
-              names = [ "client" "federation" ];
+              names = [
+                "client"
+                "federation"
+              ];
               compress = false;
             }
           ];
@@ -176,16 +184,14 @@ in
       };
     };
     extraConfigFiles = [
-      (pkgs.writeText
-        "postgres.yaml"
-        ''
-          database:
-            name: psycopg2
-            args:
-              host: /run/postgresql
-              database: matrix-synapse
-              user: matrix-synapse
-        '')
+      (pkgs.writeText "postgres.yaml" ''
+        database:
+          name: psycopg2
+          args:
+            host: /run/postgresql
+            database: matrix-synapse
+            user: matrix-synapse
+      '')
       config.age.secrets.synapse-sso-config.path
       config.age.secrets.turn-secret-synapse-config.path
     ];
@@ -199,8 +205,16 @@ in
     # };
   };
   systemd.services.matrix-synapse = {
-    after = [ "network-online.target" "postgresql.service" "podman-authentik-server.service" ];
-    wants = [ "network-online.target" "postgresql.service" "podman-authentik-server.service" ];
+    after = [
+      "network-online.target"
+      "postgresql.service"
+      "podman-authentik-server.service"
+    ];
+    wants = [
+      "network-online.target"
+      "postgresql.service"
+      "podman-authentik-server.service"
+    ];
     startLimitIntervalSec = 500;
     startLimitBurst = 20;
     serviceConfig = {

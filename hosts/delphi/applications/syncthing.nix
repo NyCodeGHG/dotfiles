@@ -31,7 +31,10 @@
   # syncthing data + discovery ports
   networking.firewall.interfaces.wg0 = {
     allowedTCPPorts = [ 22000 ];
-    allowedUDPPorts = [ 21027 22000 ];
+    allowedUDPPorts = [
+      21027
+      22000
+    ];
   };
   users.users.syncthing.extraGroups = [ "minecraft" ];
 }

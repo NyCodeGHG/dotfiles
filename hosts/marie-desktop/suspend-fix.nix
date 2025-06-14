@@ -16,6 +16,9 @@
         (lib.escapeShellArg "echo GPP0 > /proc/acpi/wakeup && echo GPP8 > /proc/acpi/wakeup")
       ];
     };
-    wantedBy = [ "sleep.target" "multi-user.target" ];
+    wantedBy = [
+      "sleep.target"
+      "multi-user.target"
+    ];
   };
 }

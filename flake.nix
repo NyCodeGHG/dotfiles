@@ -56,13 +56,20 @@
     let
       forEachSystem =
         nixpkgs: f:
-        nixpkgs.lib.genAttrs [
-          "x86_64-linux"
-          "aarch64-linux"
-        ] (system: f (import nixpkgs {
-          inherit system;
-          overlays = [ self.overlays.default ];
-        }));
+        nixpkgs.lib.genAttrs
+          [
+            "x86_64-linux"
+            "aarch64-linux"
+          ]
+          (
+            system:
+            f (
+              import nixpkgs {
+                inherit system;
+                overlays = [ self.overlays.default ];
+              }
+            )
+          );
     in
     {
       formatter = forEachSystem nixpkgs (pkgs: pkgs.nixfmt-rfc-style);
@@ -80,15 +87,29 @@
           ];
         };
         ansible = pkgs.mkShellNoCC {
-          nativeBuildInputs = with pkgs; [ ansible ansible-lint ];
+          nativeBuildInputs = with pkgs; [
+            ansible
+            ansible-lint
+          ];
         };
       });
-      packages = let
-        stable = forEachSystem nixpkgs (pkgs: self.overlays.packages pkgs pkgs);
-        unstable = forEachSystem nixpkgs-unstable (pkgs: nixpkgs.lib.mapAttrs' (n: v: nixpkgs.lib.nameValuePair "${n}-unstable" v) (self.overlays.packages pkgs pkgs));
-      in (with nixpkgs.lib; recursiveUpdate (recursiveUpdate stable unstable) {
-        x86_64-linux.installer-nas-iso = self.nixosConfigurations.installer-nas.config.system.build.isoImage;
-      });
+      packages =
+        let
+          stable = forEachSystem nixpkgs (pkgs: self.overlays.packages pkgs pkgs);
+          unstable = forEachSystem nixpkgs-unstable (
+            pkgs:
+            nixpkgs.lib.mapAttrs' (n: v: nixpkgs.lib.nameValuePair "${n}-unstable" v) (
+              self.overlays.packages pkgs pkgs
+            )
+          );
+        in
+        (
+          with nixpkgs.lib;
+          recursiveUpdate (recursiveUpdate stable unstable) {
+            x86_64-linux.installer-nas-iso =
+              self.nixosConfigurations.installer-nas.config.system.build.isoImage;
+          }
+        );
 
       lib = {
         nixosSystem =
@@ -115,14 +136,21 @@
 
       overlays.default = self.overlays.packages;
 
-      overlays.packages = (final: prev: 
-      let 
-        inherit (prev) lib;
-        packages = lib.mapAttrs (name: _: prev.callPackage ./pkgs/${name}/package.nix { })
-          (lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./pkgs));
-      in packages // {
-        nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule { module = import ./config/nixvim; };
-      });
+      overlays.packages = (
+        final: prev:
+        let
+          inherit (prev) lib;
+          packages = lib.mapAttrs (name: _: prev.callPackage ./pkgs/${name}/package.nix { }) (
+            lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./pkgs)
+          );
+        in
+        packages
+        // {
+          nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
+            module = import ./config/nixvim;
+          };
+        }
+      );
 
       nixosModules = {
         config = import ./config/nixos;

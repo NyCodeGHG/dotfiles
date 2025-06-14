@@ -1,4 +1,9 @@
-{ pkgs, config, inputs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 {
   systemd.services.transmission = {
     after = [ "netns@vpn.target" ];
@@ -12,7 +17,10 @@
   };
 
   systemd.services.transmission-proxy = {
-    after = [ "transmission.service" "netns@vpn.target" ];
+    after = [
+      "transmission.service"
+      "netns@vpn.target"
+    ];
     requires = [ "transmission.service" ];
     bindsTo = [ "netns@vpn.target" ];
     serviceConfig = {

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.uwumarie.profiles.base = lib.mkEnableOption (lib.mdDoc "The base config") // {
     default = true;

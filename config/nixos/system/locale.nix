@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   options.uwumarie.profiles.locale = lib.mkEnableOption (lib.mdDoc "The locale config") // {
     default = true;

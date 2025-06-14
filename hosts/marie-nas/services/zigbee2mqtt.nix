@@ -20,7 +20,16 @@
         channel = 11;
         network_key = "!${config.age.secrets.zigbee2mqtt.path} network_key";
         pan_id = 34317;
-        ext_pan_id = [165 153 115 249 223 26 107 129];
+        ext_pan_id = [
+          165
+          153
+          115
+          249
+          223
+          26
+          107
+          129
+        ];
         log_level = "info";
         log_namespaced_levels."z2m:mqtt" = "warning";
       };

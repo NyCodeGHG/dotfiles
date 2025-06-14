@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.programs.switch-to-windows.enable = lib.mkEnableOption "Reboot into windows desktop entry";
   config = lib.mkIf config.programs.switch-to-windows.enable {

@@ -1,11 +1,19 @@
 let
-  marie-desktop = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILdNaJgKxA021pqrbkoMiP2a9buYZUXfG5q01y2h8YOa" ];
-  artemis = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8 root@artemis"];
-  delphi = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3 root@delphi"];
-  wsl = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpKCSJGPFfckgr1/X1Rv7jeOe9E8tYmP1iqogzSXF+u"];
-  gitlabber = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFxL7AqowWxKzJqrj8Mr2MDF3NDbyExAPwKjohoCx/t"];
-  marie-nas = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILwvQy3cK9gGwFEf5UGCxQ61j8Kv30JDAZ39FOtKkrCQ"];
-  marie-desktop-host = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPSpnu/du04AEB2LuwIHJU5CZwBFsMLWUhNgn0+9tlte root@marie-desktop"];
+  marie-desktop = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILdNaJgKxA021pqrbkoMiP2a9buYZUXfG5q01y2h8YOa"
+  ];
+  artemis = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8 root@artemis"
+  ];
+  delphi = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEuAOf1ZSr7L/IoaYmCC9R+QaXfKoC2F03N/Z0dfUT3 root@delphi"
+  ];
+  wsl = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpKCSJGPFfckgr1/X1Rv7jeOe9E8tYmP1iqogzSXF+u" ];
+  gitlabber = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFxL7AqowWxKzJqrj8Mr2MDF3NDbyExAPwKjohoCx/t" ];
+  marie-nas = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILwvQy3cK9gGwFEf5UGCxQ61j8Kv30JDAZ39FOtKkrCQ" ];
+  marie-desktop-host = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPSpnu/du04AEB2LuwIHJU5CZwBFsMLWUhNgn0+9tlte root@marie-desktop"
+  ];
   allSystems = artemis ++ delphi ++ wsl ++ marie-nas;
   users = marie-desktop;
 in
@@ -38,7 +46,8 @@ in
   "../hosts/gitlabber/forgejo-runner.age".publicKeys = users ++ gitlabber;
   "../hosts/artemis/applications/hedgedoc/env.age".publicKeys = users ++ artemis;
 
-  "../hosts/marie-desktop/secrets/restic-password.age".publicKeys = marie-desktop ++ marie-desktop-host;
+  "../hosts/marie-desktop/secrets/restic-password.age".publicKeys =
+    marie-desktop ++ marie-desktop-host;
 
   "../hosts/marie-nas/secrets/transmission.age".publicKeys = users ++ marie-nas;
   "../hosts/marie-nas/secrets/vpn-wg.age".publicKeys = users ++ marie-nas;

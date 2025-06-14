@@ -1,4 +1,9 @@
-{ config, inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   frontendPackage = inputs.ip-playground.packages.${pkgs.system}.ip-playground-frontend;
   backendPackage = inputs.ip-playground.packages.${pkgs.system}.ip-playground-backend;
@@ -72,7 +77,10 @@ in
         ProtectProc = "invisible";
         ProtectSystem = "full";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -80,7 +88,10 @@ in
         User = "ip-playground";
         Group = "ip-playground";
       };
-      path = with pkgs; [ curl gzip ];
+      path = with pkgs; [
+        curl
+        gzip
+      ];
       script = ''
         set -eo pipefail
         curl -fsSL \
@@ -100,8 +111,14 @@ in
     };
     ip-playground = {
       description = "IP Playground";
-      wants = [ "network.target" "download-iptoasn-db.service" ];
-      after = [ "network.target" "download-iptoasn-db.service" ];
+      wants = [
+        "network.target"
+        "download-iptoasn-db.service"
+      ];
+      after = [
+        "network.target"
+        "download-iptoasn-db.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       environment = {
         ALLOWED_ORIGINS = "https://ip.marie.cologne,https://v4.ip.marie.cologne,https://v6.ip.marie.cologne";
@@ -130,12 +147,20 @@ in
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@resources" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@resources"
+          "~@privileged"
+        ];
         User = "ip-playground";
         Group = "ip-playground";
       };

@@ -1,4 +1,9 @@
-{ config, inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   port = 3000;
 in
@@ -61,10 +66,12 @@ in
   services.postgresql = {
     enable = true;
     ensureDatabases = [ "grafana" ];
-    ensureUsers = [{
-      name = "grafana";
-      ensureDBOwnership = true;
-    }];
+    ensureUsers = [
+      {
+        name = "grafana";
+        ensureDBOwnership = true;
+      }
+    ];
   };
 
   age.secrets.grafana-oauth-client-secret = {

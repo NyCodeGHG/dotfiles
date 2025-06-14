@@ -23,9 +23,11 @@
       "sonarr-main"
       "sonarr-log"
     ];
-    ensureUsers = [{
-      name = "sonarr";
-    }];
+    ensureUsers = [
+      {
+        name = "sonarr";
+      }
+    ];
   };
 
   systemd.services.postgresql.postStart = ''

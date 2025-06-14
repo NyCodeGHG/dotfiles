@@ -4,7 +4,10 @@
     hostName = "marie-nas";
     useDHCP = false;
     nftables.enable = true;
-    firewall.allowedTCPPorts = [ 80 443 ];
+    firewall.allowedTCPPorts = [
+      80
+      443
+    ];
   };
   systemd.network = {
     enable = true;
@@ -53,8 +56,7 @@
 
   services.resolved = {
     enable = true;
-    extraConfig = 
-    ''
+    extraConfig = ''
       MulticastDNS=false
     '';
   };

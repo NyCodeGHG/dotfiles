@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   theme = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "minimal";

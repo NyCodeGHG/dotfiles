@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   makeTarball = pkgs.callPackage (pkgs.path + "/nixos/lib/make-system-tarball.nix");
@@ -14,7 +19,6 @@ in
       rm /nix-path-registration
     fi
   '';
-
 
   system.build.tarball = makeTarball {
     extraArgs = "--owner=0";

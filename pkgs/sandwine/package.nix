@@ -1,8 +1,9 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-, bubblewrap
-, util-linux
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  bubblewrap,
+  util-linux,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -25,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace sandwine/_main.py \
       --replace-fail "'script'" "'${lib.getExe' util-linux "script"}'"
   '';
-  
+
   build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [ coloredlogs ];

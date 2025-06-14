@@ -1,7 +1,17 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.uwumarie.cachix-upload;
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
 
   upload-to-cachix = pkgs.writeScript "upload-to-cachix" ''
     #!${pkgs.runtimeShell}
@@ -43,7 +53,7 @@ in
     enable = mkEnableOption "Nix post build hook cachix upload";
     packages = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
     };
     cachixTokenFile = mkOption {
       type = types.path;

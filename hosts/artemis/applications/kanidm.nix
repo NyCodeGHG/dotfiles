@@ -10,7 +10,7 @@ in
     };
 
     package = pkgs.kanidm_1_5;
-    
+
     enableServer = true;
     serverSettings = {
       inherit domain;

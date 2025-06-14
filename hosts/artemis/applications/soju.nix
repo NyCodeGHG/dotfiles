@@ -1,4 +1,4 @@
-{ 
+{
   lib,
   pkgs,
   ...
@@ -20,10 +20,12 @@ in
   services.postgresql = {
     enable = true;
     ensureDatabases = [ "soju" ];
-    ensureUsers = [{
-      name = "soju";
-      ensureDBOwnership = true;
-    }];
+    ensureUsers = [
+      {
+        name = "soju";
+        ensureDBOwnership = true;
+      }
+    ];
   };
 
   environment.systemPackages = [ sojuctl ];

@@ -1,7 +1,10 @@
 { config, ... }:
 {
   boot = {
-    initrd.kernelModules = [ "usb_storage" "e1000e" ]; 
+    initrd.kernelModules = [
+      "usb_storage"
+      "e1000e"
+    ];
     initrd.luks.devices = {
       root = {
         allowDiscards = true;

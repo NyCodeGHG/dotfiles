@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   options.uwumarie.profiles.graphical = lib.mkEnableOption "graphical profile";
   config = lib.mkIf config.uwumarie.profiles.graphical {

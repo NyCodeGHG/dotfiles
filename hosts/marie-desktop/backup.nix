@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   age.secrets.restic-password = {
     file = ./secrets/restic-password.age;
@@ -10,7 +15,10 @@
     wants = [ "network-online.target" ];
     serviceConfig = {
       PrivateMounts = true;
-      SystemCallFilter = [ "@system-service" "@mount" ];
+      SystemCallFilter = [
+        "@system-service"
+        "@mount"
+      ];
     };
     environment = {
       RESTIC_REPOSITORY = "sftp:marie@marie-nas.fritz.box:/srv/restic/marie";
@@ -18,7 +26,13 @@
       SSH_AUTH_SOCK = "/run/user/1000/ssh-agent";
       HOME = "/home/marie";
     };
-    path = with pkgs; [ restic util-linux btrfs-progs config.programs.ssh.package config.security.sudo.package ];
+    path = with pkgs; [
+      restic
+      util-linux
+      btrfs-progs
+      config.programs.ssh.package
+      config.security.sudo.package
+    ];
     script = ''
       set -euo pipefail
       SNAPSHOT_NAME="@restic-$(date "+%F_%k-%M-%S")"

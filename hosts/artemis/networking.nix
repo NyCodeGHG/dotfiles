@@ -11,7 +11,11 @@ in
     hostName = "artemis";
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 80 443 1234 ];
+      allowedTCPPorts = [
+        80
+        443
+        1234
+      ];
       logRefusedConnections = false;
       pingLimit = "2/minute burst 5 packets";
 
@@ -21,11 +25,17 @@ in
       interfaces.dn42.allowedTCPPorts = [ 53 ];
 
       # bgp, dns from dn42
-      interfaces."dn42n*".allowedTCPPorts = [ 179 53 ];
+      interfaces."dn42n*".allowedTCPPorts = [
+        179
+        53
+      ];
       interfaces."dn42n*".allowedUDPPorts = [ 53 ];
 
       trustedInterfaces = [ "dn42" ];
-      allowedUDPPorts = [ port (port + 200) ];
+      allowedUDPPorts = [
+        port
+        (port + 200)
+      ];
       checkReversePath = "loose";
       extraInputRules = ''
         # make traceroute work
@@ -85,7 +95,10 @@ in
           {
             # tobi nas
             PublicKey = "aFMhUNLlj6oF3iDqUdlcJR1sxVjjRSDJ1S8bcH+fwhA=";
-            AllowedIPs = [ "10.69.0.8/32" "192.168.178.0/24" ];
+            AllowedIPs = [
+              "10.69.0.8/32"
+              "192.168.178.0/24"
+            ];
             PersistentKeepalive = 25;
           }
         ];

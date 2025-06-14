@@ -1,4 +1,10 @@
-{ config, pkgs, inputs, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 lib.mkIf config.uwumarie.profiles.zsh {
   programs.zsh = {
     enable = true;

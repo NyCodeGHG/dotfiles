@@ -105,4 +105,3 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "peacock";
   };
 })
-

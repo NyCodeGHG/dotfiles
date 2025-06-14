@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   firewall = pkgs.writeText "rules.nft" ''
     flush ruleset
@@ -101,7 +106,10 @@ in
     };
 
     systemd.services.vpn-portforward = {
-      after = [ "netns@vpn.service" "transmission.service" ];
+      after = [
+        "netns@vpn.service"
+        "transmission.service"
+      ];
       description = "VPN Port forwarding";
       wantedBy = [ "transmission.service" ];
       bindsTo = [ "transmission.service" ];
@@ -113,7 +121,7 @@ in
         AmbientCapabilities = "CAP_NET_ADMIN";
         DynamicUser = true;
       };
-      path = with pkgs; [ 
+      path = with pkgs; [
         libnatpmp
         config.services.transmission.package
         nftables
@@ -131,7 +139,7 @@ in
           echo "Got a different port for TCP: $TCP_PORT"
           nft add element inet filter forwarded-ports { "$TCP_PORT" }
         fi
-        
+
         TR_AUTH="transmission:$(jq -r '."rpc-password"' "$CREDENTIALS_DIRECTORY/transmission.json")" \
           transmission-remote --port "$UDP_PORT" --authenv
       '';

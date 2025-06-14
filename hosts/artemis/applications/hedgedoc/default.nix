@@ -21,10 +21,12 @@
     ensureDatabases = [
       "hedgedoc"
     ];
-    ensureUsers = [{
-      name = "hedgedoc";
-      ensureDBOwnership = true;
-    }];
+    ensureUsers = [
+      {
+        name = "hedgedoc";
+        ensureDBOwnership = true;
+      }
+    ];
   };
   services.nginx = {
     enable = true;

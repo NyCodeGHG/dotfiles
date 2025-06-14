@@ -10,7 +10,7 @@ let
       hashedPassword = "$7$101$cpOXOPwrgPxKAPYm$cSI0e3lyTBaWlkfDSaJJ1mjatNS+lPGIqnRIS8sIUe5KtR6/2SLTdDby/51Lx361h0b1cvf7hc2vMwIYppzMHg==";
     };
     zigbee2mqtt = {
-      acl = [ 
+      acl = [
         "readwrite zigbee2mqtt/#"
         "readwrite homeassistant/#"
       ];
@@ -53,5 +53,8 @@ in
       }
     ];
   };
-  networking.firewall.allowedTCPPorts = [ 1883 8883 ];
+  networking.firewall.allowedTCPPorts = [
+    1883
+    8883
+  ];
 }

@@ -10,7 +10,9 @@
 
   systemd.user.services.corsair-hs80-pipewire-thing = {
     serviceConfig = {
-      ExecStart = "${inputs.corsair-hs80-pipewire-thing.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/corsair-hs80-pipewire-thing";
+      ExecStart = "${
+        inputs.corsair-hs80-pipewire-thing.packages.${pkgs.stdenv.hostPlatform.system}.default
+      }/bin/corsair-hs80-pipewire-thing";
     };
     wantedBy = [ "graphical-session.target" ];
   };

@@ -1,19 +1,25 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
-  mkResticService = service: lib.recursiveUpdate {
-    serviceConfig = {
-      EnvironmentFile = config.age.secrets.restic.path;
-      User = "backup";
-      Group = "backup";
-      PrivateTmp = true;
-    };
-  } service;
-  resticWrapper = pkgs.writeScriptBin "restic-wrapper"
-    ''
-      set -aeuo pipefail
-      source ${config.age.secrets.restic.path}
-      exec ${lib.getExe pkgs.restic} "$@"
-    '';
+  mkResticService =
+    service:
+    lib.recursiveUpdate {
+      serviceConfig = {
+        EnvironmentFile = config.age.secrets.restic.path;
+        User = "backup";
+        Group = "backup";
+        PrivateTmp = true;
+      };
+    } service;
+  resticWrapper = pkgs.writeScriptBin "restic-wrapper" ''
+    set -aeuo pipefail
+    source ${config.age.secrets.restic.path}
+    exec ${lib.getExe pkgs.restic} "$@"
+  '';
 in
 {
   environment.systemPackages = [ resticWrapper ];
@@ -22,7 +28,7 @@ in
     isSystemUser = true;
     group = "backup";
   };
-  users.groups.backup = {};
+  users.groups.backup = { };
 
   systemd.services."postgres-user-backup" = {
     after = [ "postgresql.service" ];
@@ -43,7 +49,13 @@ in
   systemd.services."restic-postgres" = mkResticService {
     requires = [ "postgres-user-backup.service" ];
     after = [ "postgres-user-backup.service" ];
-    path = with pkgs; [ restic config.services.postgresql.package gnugrep gawk hostname-debian ];
+    path = with pkgs; [
+      restic
+      config.services.postgresql.package
+      gnugrep
+      gawk
+      hostname-debian
+    ];
     startAt = "03:00";
     serviceConfig = {
       PrivateTmp = true;
@@ -89,16 +101,21 @@ in
   };
 
   systemd.services."restic-forgejo" = mkResticService {
-    environment = 
-    let
-      cfg = config.services.forgejo;
-    in {
-      USER = cfg.user;
-      HOME = cfg.stateDir;
-      FORGEJO_WORK_DIR = cfg.stateDir;
-      FORGEJO_CUSTOM = cfg.customDir;
-    };
-    path = with pkgs; [ config.services.forgejo.package restic hostname-debian ];
+    environment =
+      let
+        cfg = config.services.forgejo;
+      in
+      {
+        USER = cfg.user;
+        HOME = cfg.stateDir;
+        FORGEJO_WORK_DIR = cfg.stateDir;
+        FORGEJO_CUSTOM = cfg.customDir;
+      };
+    path = with pkgs; [
+      config.services.forgejo.package
+      restic
+      hostname-debian
+    ];
     serviceConfig = {
       User = "forgejo";
       Group = "forgejo";
@@ -125,7 +142,10 @@ in
     '';
   };
   systemd.services."restic-paperless" = mkResticService {
-    path = with pkgs; [ restic hostname-debian ];
+    path = with pkgs; [
+      restic
+      hostname-debian
+    ];
     serviceConfig = {
       User = "paperless";
       Group = "paperless";
@@ -150,7 +170,10 @@ in
     '';
   };
   systemd.services."restic-synapse" = mkResticService {
-    path = with pkgs; [ restic hostname-debian ];
+    path = with pkgs; [
+      restic
+      hostname-debian
+    ];
     serviceConfig = {
       User = "matrix-synapse";
       Group = "matrix-synapse";

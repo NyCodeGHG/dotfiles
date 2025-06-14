@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   imports = [
     ./nginx.nix
@@ -111,11 +116,13 @@
               import limit 1000 action block; 
           };
       }
-      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: conf: ''
-        protocol bgp ${name}_v6 from dnpeers {
-            neighbor ${conf.peer.wireguard.linkLocalAddress}%${conf.self.wireguard.interface} as ${toString conf.peer.asn};
-        }
-      '') config.dn42.peers)}
+      ${lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (name: conf: ''
+          protocol bgp ${name}_v6 from dnpeers {
+              neighbor ${conf.peer.wireguard.linkLocalAddress}%${conf.self.wireguard.interface} as ${toString conf.peer.asn};
+          }
+        '') config.dn42.peers
+      )}
     '';
   };
 
@@ -139,7 +146,10 @@
         birdc c
         birdc reload in all
       '';
-      path = with pkgs; [ curl config.services.bird.package ];
+      path = with pkgs; [
+        curl
+        config.services.bird.package
+      ];
       serviceConfig = {
         User = "bird";
         Group = "bird";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.uwumarie.profiles.dns = lib.mkEnableOption ("dns config") // {
     default = true;

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -104,17 +109,18 @@ in
     services.nginx = mkIf cfg.nginx.enable {
       enable = true;
       upstreams.coder = {
-        servers = { "127.0.0.1:${builtins.toString cfg.port}" = { }; };
-      };
-      virtualHosts.${
-      lib.strings.removePrefix "http://" (lib.strings.removePrefix "https://" cfg.accessUrl)
-      } = cfg.nginx.extraConfig // {
-        serverAliases = [ cfg.wildcardUrl ];
-        locations."/" = {
-          proxyPass = "http://coder";
-          proxyWebsockets = true;
+        servers = {
+          "127.0.0.1:${builtins.toString cfg.port}" = { };
         };
       };
+      virtualHosts.${lib.strings.removePrefix "http://" (lib.strings.removePrefix "https://" cfg.accessUrl)} =
+        cfg.nginx.extraConfig // {
+          serverAliases = [ cfg.wildcardUrl ];
+          locations."/" = {
+            proxyPass = "http://coder";
+            proxyWebsockets = true;
+          };
+        };
     };
   };
 }

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -142,22 +147,28 @@ in
       image = "ghcr.io/goauthentik/server:2025.6.1";
       ldapImage = "ghcr.io/goauthentik/ldap:2025.6.1";
       mkAuthentikContainer =
-        { cmd ? [ ]
-        , dependsOn ? [ ]
-        , mountPostgres ? true
-        , image
-        , environmentFiles ? cfg.environmentFiles
-        , env ? {
+        {
+          cmd ? [ ],
+          dependsOn ? [ ],
+          mountPostgres ? true,
+          image,
+          environmentFiles ? cfg.environmentFiles,
+          env ? {
             AUTHENTIK_REDIS__HOST = cfg.redis.host;
             AUTHENTIK_REDIS__PORT = builtins.toString cfg.redis.port;
             AUTHENTIK_REDIS__DB = builtins.toString cfg.redis.database;
             AUTHENTIK_POSTGRESQL__HOST = cfg.postgres.host;
             AUTHENTIK_POSTGRESQL__PORT = builtins.toString cfg.postgres.port;
             AUTHENTIK_POSTGRESQL__NAME = cfg.postgres.database;
-          }
-        ,
-        }: {
-          inherit cmd dependsOn image environmentFiles;
+          },
+        }:
+        {
+          inherit
+            cmd
+            dependsOn
+            image
+            environmentFiles
+            ;
           environment = env // cfg.extraEnv;
           extraOptions = [
             "--network=host"
@@ -169,97 +180,110 @@ in
           user = "${builtins.toString cfg.id}:${builtins.toString cfg.id}";
         };
     in
-    mkIf cfg.enable
-      {
-        assertions = [
+    mkIf cfg.enable {
+      assertions = [
+        {
+          assertion = config.virtualisation.podman.enable;
+          message = "Authentik Service is only supported on podman.";
+        }
+      ];
+
+      virtualisation.oci-containers.containers = {
+        authentik-server = mkAuthentikContainer {
+          cmd = [ "server" ];
+          inherit image;
+        };
+        authentik-worker = mkAuthentikContainer {
+          cmd = [ "worker" ];
+          dependsOn = [ "authentik-server" ];
+          inherit image;
+        };
+        authentik-ldap = mkIf cfg.ldap.enable (mkAuthentikContainer {
+          mountPostgres = false;
+          dependsOn = [ "authentik-server" ];
+          image = ldapImage;
+          environmentFiles = cfg.ldap.environmentFiles;
+          env = {
+            AUTHENTIK_HOST = "http://127.0.0.1:9000";
+            AUTHENTIK_INSECURE = "false";
+          };
+        });
+      };
+
+      systemd.services.podman-authentik-server = {
+        after = [
+          "network-online.target"
+          "postgresql.service"
+        ];
+        wants = [
+          "network-online.target"
+          "postgresql.service"
+        ];
+        requires = [ "postgresql.service" ];
+      };
+
+      systemd.services.podman-authentik-worker = {
+        after = [
+          "network-online.target"
+          "postgresql.service"
+        ];
+        wants = [
+          "network-online.target"
+          "postgresql.service"
+        ];
+        requires = [ "postgresql.service" ];
+      };
+
+      services.postgresql = mkIf cfg.postgres.enable {
+        enable = true;
+        ensureDatabases = [
+          "authentik"
+        ];
+        ensureUsers = [
           {
-            assertion = config.virtualisation.podman.enable;
-            message = "Authentik Service is only supported on podman.";
+            name = "authentik";
+            ensureDBOwnership = true;
           }
         ];
+      };
 
-        virtualisation.oci-containers.containers = {
-          authentik-server = mkAuthentikContainer {
-            cmd = [ "server" ];
-            inherit image;
+      services.redis.servers."" = mkIf cfg.redis.enable {
+        enable = true;
+      };
+
+      users = {
+        users.authentik = {
+          isSystemUser = true;
+          group = "authentik";
+          uid = cfg.id;
+          home = "/var/lib/authentik";
+          createHome = true;
+        };
+        groups.authentik = {
+          gid = cfg.id;
+        };
+      };
+
+      systemd.tmpfiles.rules = [
+        "d /var/lib/authentik/media 0740 authentik authentik -"
+      ];
+
+      services.nginx = mkIf cfg.nginx.enable {
+        enable = true;
+        upstreams.authentik = {
+          servers = {
+            "127.0.0.1:9000" = { };
           };
-          authentik-worker = mkAuthentikContainer {
-            cmd = [ "worker" ];
-            dependsOn = [ "authentik-server" ];
-            inherit image;
-          };
-          authentik-ldap = mkIf cfg.ldap.enable (mkAuthentikContainer {
-            mountPostgres = false;
-            dependsOn = [ "authentik-server" ];
-            image = ldapImage;
-            environmentFiles = cfg.ldap.environmentFiles;
-            env = {
-              AUTHENTIK_HOST = "http://127.0.0.1:9000";
-              AUTHENTIK_INSECURE = "false";
-            };
-          });
+          extraConfig = ''
+            keepalive 10;
+          '';
         };
-
-        systemd.services.podman-authentik-server = {
-          after = [ "network-online.target" "postgresql.service" ];
-          wants = [ "network-online.target" "postgresql.service" ];
-          requires = [ "postgresql.service" ];
-        };
-
-        systemd.services.podman-authentik-worker = {
-          after = [ "network-online.target" "postgresql.service" ];
-          wants = [ "network-online.target" "postgresql.service" ];
-          requires = [ "postgresql.service" ];
-        };
-
-        services.postgresql = mkIf cfg.postgres.enable {
-          enable = true;
-          ensureDatabases = [
-            "authentik"
-          ];
-          ensureUsers = [
-            {
-              name = "authentik";
-              ensureDBOwnership = true;
-            }
-          ];
-        };
-
-        services.redis.servers."" = mkIf cfg.redis.enable {
-          enable = true;
-        };
-
-        users = {
-          users.authentik = {
-            isSystemUser = true;
-            group = "authentik";
-            uid = cfg.id;
-            home = "/var/lib/authentik";
-            createHome = true;
-          };
-          groups.authentik = {
-            gid = cfg.id;
-          };
-        };
-
-        systemd.tmpfiles.rules = [
-          "d /var/lib/authentik/media 0740 authentik authentik -"
-        ];
-
-        services.nginx = mkIf cfg.nginx.enable {
-          enable = true;
-          upstreams.authentik = {
-            servers = { "127.0.0.1:9000" = { }; };
-            extraConfig = ''
-              keepalive 10;
-            '';
-          };
-          virtualHosts.${cfg.nginx.domain} = cfg.nginx.extraConfig // {
-            locations."/" = {
-              proxyPass = "http://authentik";
-              proxyWebsockets = true;
-            };
+        virtualHosts.${cfg.nginx.domain} = cfg.nginx.extraConfig // {
+          locations."/" = {
+            proxyPass = "http://authentik";
+            proxyWebsockets = true;
           };
         };
       };
+    };
 }

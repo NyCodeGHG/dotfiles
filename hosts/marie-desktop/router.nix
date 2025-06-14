@@ -44,7 +44,7 @@
   };
   networking = {
     networkmanager.unmanaged = [ "enp14s0" ];
-    firewall.allowedUDPPorts = [ 
+    firewall.allowedUDPPorts = [
       # allow dhcp
       67
     ];

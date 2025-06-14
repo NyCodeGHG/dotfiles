@@ -20,7 +20,10 @@ let
     inherit src version;
 
     sourceRoot = "${finalAttrs.src.name}/kwin/decoration/breeze-v5.93.0";
-    nativeBuildInputs = [ cmake kdePackages.extra-cmake-modules ];
+    nativeBuildInputs = [
+      cmake
+      kdePackages.extra-cmake-modules
+    ];
     # CoreAddons ColorScheme Config GuiAddons I18n IconThemes WindowSystem
     buildInputs = with kdePackages; [
       qtbase
@@ -41,7 +44,15 @@ let
     inherit version src;
 
     sourceRoot = "${finalAttrs.src.name}/plasma/plasmoids/src/sevenstart_src";
-    nativeBuildInputs = [ cmake pkg-config ] ++ (with kdePackages; [ extra-cmake-modules wrapQtAppsHook ]);
+    nativeBuildInputs =
+      [
+        cmake
+        pkg-config
+      ]
+      ++ (with kdePackages; [
+        extra-cmake-modules
+        wrapQtAppsHook
+      ]);
 
     postPatch = ''
       substituteInPlace "src/CMakeLists.txt" \
@@ -68,8 +79,16 @@ let
 
     sourceRoot = "${finalAttrs.src.name}/kwin/effects_cpp/kde-effects-aeroglassblur";
 
-    nativeBuildInputs = [ cmake ] ++ (with kdePackages; [ extra-cmake-modules wrapQtAppsHook ]);
-    buildInputs = with kdePackages; [ kwin qttools ];
+    nativeBuildInputs =
+      [ cmake ]
+      ++ (with kdePackages; [
+        extra-cmake-modules
+        wrapQtAppsHook
+      ]);
+    buildInputs = with kdePackages; [
+      kwin
+      qttools
+    ];
   });
   kwin-effect-smodsnap-v2 = stdenv.mkDerivation (finalAttrs: {
     pname = "kwin-effect-smodsnap-v2";
@@ -77,8 +96,18 @@ let
 
     sourceRoot = "${finalAttrs.src.name}/kwin/effects_cpp/kwin-effect-smodsnap-v2";
 
-    nativeBuildInputs = [ cmake ] ++ (with kdePackages; [ extra-cmake-modules wrapQtAppsHook ]);
-    buildInputs = with kdePackages; [ qtbase kconfigwidgets kdecoration kwin ];
+    nativeBuildInputs =
+      [ cmake ]
+      ++ (with kdePackages; [
+        extra-cmake-modules
+        wrapQtAppsHook
+      ]);
+    buildInputs = with kdePackages; [
+      qtbase
+      kconfigwidgets
+      kdecoration
+      kwin
+    ];
     cmakeFlags = [
       (lib.cmakeBool "BUILD_KF6" true)
     ];
@@ -88,8 +117,23 @@ let
     inherit src version;
 
     sourceRoot = "${finalAttrs.src.name}/kwin/effects_cpp/smodglow";
-    nativeBuildInputs = [ cmake pkg-config ] ++ (with kdePackages; [ extra-cmake-modules wrapQtAppsHook ]);
-    buildInputs = [ breeze ] ++ (with kdePackages; [ qtbase kconfigwidgets kdecoration kwin ]);
+    nativeBuildInputs =
+      [
+        cmake
+        pkg-config
+      ]
+      ++ (with kdePackages; [
+        extra-cmake-modules
+        wrapQtAppsHook
+      ]);
+    buildInputs =
+      [ breeze ]
+      ++ (with kdePackages; [
+        qtbase
+        kconfigwidgets
+        kdecoration
+        kwin
+      ]);
     cmakeFlags = [
       (lib.cmakeBool "BUILD_KF6" true)
     ];

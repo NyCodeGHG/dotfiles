@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   options.uwumarie.profiles.acme = lib.mkEnableOption (lib.mdDoc "acme config");
   config = lib.mkIf config.uwumarie.profiles.acme {
