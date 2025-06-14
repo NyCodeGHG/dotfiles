@@ -30,8 +30,12 @@
     },
     {
       "description": "Update trash-guides repository git sha",
-      "fileMatch": ["hosts/marie-nas/media-config/config/config.yml"],
-      "matchStrings": ["trashRevision: (?<currentDigest>.*?)\\n"],
+      "fileMatch": [
+        "hosts/marie-nas/media-config/config/config.yml"
+      ],
+      "matchStrings": [
+        "trashRevision: (?<currentDigest>.*?)\\n"
+      ],
       "currentValueTemplate": "master",
       "depNameTemplate": "TRaSH-Guides",
       "packageNameTemplate": "https://github.com/TRaSH-Guides/Guides",
@@ -48,18 +52,6 @@
     },
     {
       "matchPackageNames": [
-        "ghcr.io/coder/coder"
-      ],
-      "enabled": false
-    },
-    {
-      "matchManagers": ["nix"],
-      "lockFileMaintenance": {
-        "enabled": false
-      }
-    },
-    {
-      "matchPackageNames": [
         "ubuntu"
       ],
       "matchDatasources": [
@@ -72,15 +64,25 @@
       "enabled": false
     },
     {
-      "matchPackageNames": ["https://github.com/TRaSH-Guides/Guides"],
+      "matchPackageNames": [
+        "https://github.com/TRaSH-Guides/Guides"
+      ],
       "schedule": "every weekend"
+    },
+    {
+      "matchDatasources": [
+        "terraform-provider",
+        "terraform-module"
+      ],
+      "registryUrls": [
+        "https://registry.opentofu.org"
+      ]
     }
   ],
   "enabledManagers": [
     "regex",
     "terraform",
     "github-actions",
-    "nix",
     "ansible-galaxy"
   ]
 }
