@@ -1,4 +1,9 @@
-{ lib, config, inputs, ... }:
+{
+  lib,
+  config,
+  inputs,
+  ...
+}:
 {
   virtualisation.oci-containers.containers.minecraft = {
     image = "docker.io/itzg/minecraft-server:java24";
@@ -32,7 +37,6 @@
       MODRINTH_DEFAULT_VERSION_TYPE = "alpha";
       MODRINTH_DOWNLOAD_DEPENDENCIES = "required";
     };
-    environmentFiles = [ config.age.secrets.curseforge-api-key.path ];
     user = "${toString config.users.users.minecraft.uid}:${toString config.users.groups.minecraft.gid}";
     volumes = [
       "/var/lib/minecraft/all-advancements:/data"
@@ -60,7 +64,6 @@
     allowedTCPPorts = [ 25565 ];
     allowedUDPPorts = [ 24454 ];
   };
-  age.secrets.curseforge-api-key.file = "${inputs.self}/secrets/curseforge-api-key.age";
   virtualisation.oci-containers.backend = "podman";
   virtualisation.podman = {
     enable = true;

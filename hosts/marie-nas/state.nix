@@ -32,6 +32,7 @@
           { directory = "/var/lib/zigbee2mqtt"; user = "zigbee2mqtt"; group = "zigbee2mqtt"; }
           { directory = "/var/lib/redis-oauth2-proxy"; user = "oauth2-proxy"; group = "oauth2-proxy"; }
           "/var/lib/home-assistant-matter-hub"
+          "/var/lib/minecraft"
         ];
         files = [
           { file = "/etc/machine-id"; inInitrd = true; }

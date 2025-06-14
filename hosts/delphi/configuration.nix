@@ -1,4 +1,9 @@
-{ modulesPath, inputs, pkgs, ... }:
+{
+  modulesPath,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = with inputs; [
     agenix.nixosModules.default
@@ -8,7 +13,6 @@
     ./networking.nix
     ./monitoring.nix
     ./applications
-    ./minecraft.nix
     ./hardware.nix
   ];
   uwumarie.profiles = {

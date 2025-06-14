@@ -25,6 +25,7 @@
     ./services/zigbee2mqtt.nix
     ./services/home-assistant-matter-hub.nix
     ./services/oauth2-proxy.nix
+    ./services/minecraft.nix
   ];
   boot = {
     loader = {
@@ -51,7 +52,9 @@
 
   services.fwupd.enable = true;
 
-  users.users.marie.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAs0W2PBnnSG7LvyE0TnfnFjzaC4tbRludscIZM+SWci" ];
+  users.users.marie.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAs0W2PBnnSG7LvyE0TnfnFjzaC4tbRludscIZM+SWci"
+  ];
 
   environment.systemPackages = with pkgs; [
     fio
