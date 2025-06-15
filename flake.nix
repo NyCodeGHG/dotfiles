@@ -134,7 +134,18 @@
           );
       };
 
-      overlays.default = self.overlays.packages;
+      overlays.default = (
+        final: prev:
+        {
+          discord = (
+            prev.discord.override {
+              withOpenASAR = true;
+              withVencord = true;
+            }
+          );
+        }
+        // (self.overlays.packages final prev)
+      );
 
       overlays.packages = (
         final: prev:

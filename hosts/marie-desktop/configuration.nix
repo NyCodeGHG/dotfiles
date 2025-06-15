@@ -171,10 +171,7 @@
       firefox
       thunderbird
       chromium
-      (discord.override {
-        withOpenASAR = true;
-        withVencord = true;
-      })
+      discord
       spotify
       qpwgraph
       vscodium
