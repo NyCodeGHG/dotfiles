@@ -9,7 +9,6 @@
     with inputs;
     [
       self.nixosModules.authentik
-      self.nixosModules.coder
       self.nixosModules.cachixUpload
       #inputs.self.nixosModules.scanservjs
     ]

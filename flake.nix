@@ -155,7 +155,6 @@
       nixosModules = {
         config = import ./config/nixos;
         authentik = ./modules/nixos/applications/authentik.nix;
-        coder = ./modules/nixos/applications/coder.nix;
         nspawnTarball = ./modules/nixos/nspawn-tarball.nix;
         cachixUpload = ./modules/nixos/cachix-upload.nix;
       };
