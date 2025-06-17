@@ -514,6 +514,21 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/5daf0514482af3f97abaefc78a6606365c9108e2.tar.gz"
       }
     },
+    "nixpkgs-patcher": {
+      "locked": {
+        "lastModified": 1750099685,
+        "narHash": "sha256-V9yCrLgjeXtfwJTFqqYvETrG3ewk07BX5JFW/a9ww5k=",
+        "owner": "gepbird",
+        "repo": "nixpkgs-patcher",
+        "rev": "31face0dbde1b38ddf33d1ae425ddfaf7958465d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gepbird",
+        "repo": "nixpkgs-patcher",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -720,6 +735,7 @@
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-patcher": "nixpkgs-patcher",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "preservation": "preservation",
