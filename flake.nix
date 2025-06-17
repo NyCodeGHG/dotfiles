@@ -171,7 +171,16 @@
         artemis = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/artemis/configuration.nix ]; };
         delphi = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/delphi/configuration.nix ]; };
         marie-desktop = self.lib.nixosSystem nixpkgs-unstable {
-          modules = [ ./hosts/marie-desktop/configuration.nix ];
+          modules = [
+            ./hosts/marie-desktop/configuration.nix
+          ];
+          patches = pkgs: [
+            # Plasma 6.4 beta
+            (pkgs.fetchpatch2 {
+              url = "https://github.com/NixOS/nixpkgs/pull/407400.patch";
+              hash = "sha256-ZgoWbKDKqMC6wURVCfS2tdtGJeC/cbZXRp/RETGl0j8=";
+            })
+          ];
         };
         gitlabber = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/gitlabber/configuration.nix ]; };
         installer = nixpkgs.lib.nixosSystem {
