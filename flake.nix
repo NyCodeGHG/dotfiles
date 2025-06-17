@@ -116,24 +116,18 @@
       lib = {
         nixosSystem =
           nixpkgs:
-          nixpkgs.lib.makeOverridable (
-            {
-              modules ? [ ],
-              baseModules ? [ ],
-            }:
-            nixpkgs.lib.nixosSystem {
-              specialArgs = {
-                inherit inputs;
-              };
-              modules =
-                baseModules
-                ++ [
-                  { nixpkgs.overlays = [ self.overlays.default ]; }
-                  self.nixosModules.config
-                ]
-                ++ modules;
-            }
-          );
+          {
+            modules ? [ ],
+          }:
+          nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit inputs;
+            };
+            modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
+              self.nixosModules.config
+            ] ++ modules;
+          };
       };
 
       overlays.default = (
