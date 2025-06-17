@@ -113,6 +113,7 @@
           nixpkgs:
           {
             modules ? [ ],
+            patches ? _: [ ],
           }:
           nixpkgs-patcher.lib.nixosSystem {
             specialArgs = {
@@ -124,7 +125,7 @@
             ] ++ modules;
 
             nixpkgsPatcher = {
-              inherit nixpkgs inputs;
+              inherit nixpkgs inputs patches;
             };
           };
       };
