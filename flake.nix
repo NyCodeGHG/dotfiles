@@ -51,6 +51,7 @@
       agenix,
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-patcher,
       nixvim,
       self,
       ...
@@ -119,7 +120,7 @@
           {
             modules ? [ ],
           }:
-          nixpkgs.lib.nixosSystem {
+          nixpkgs-patcher.lib.nixosSystem {
             specialArgs = {
               inherit inputs;
             };
@@ -127,6 +128,10 @@
               { nixpkgs.overlays = [ self.overlays.default ]; }
               self.nixosModules.config
             ] ++ modules;
+
+            nixpkgsPatcher = {
+              inherit nixpkgs inputs;
+            };
           };
       };
 
