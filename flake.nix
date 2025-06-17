@@ -106,13 +106,7 @@
             )
           );
         in
-        (
-          with nixpkgs.lib;
-          recursiveUpdate (recursiveUpdate stable unstable) {
-            x86_64-linux.installer-nas-iso =
-              self.nixosConfigurations.installer-nas.config.system.build.isoImage;
-          }
-        );
+        nixpkgs.lib.recursiveUpdate stable unstable;
 
       lib = {
         nixosSystem =
@@ -194,19 +188,6 @@
         };
         marie-nas = self.lib.nixosSystem nixpkgs-unstable {
           modules = [ ./hosts/marie-nas/configuration.nix ];
-        };
-        installer-nas = self.lib.nixosSystem nixpkgs-unstable {
-          modules = [
-            ./hosts/marie-nas/configuration.nix
-            "${nixpkgs-unstable}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-            {
-              environment.etc."dotfiles".source = self;
-              security.sudo-rs.enable = false;
-              uwumarie.state.enable = false;
-              boot.initrd.systemd.enable = nixpkgs.lib.mkForce false;
-              boot.initrd.services.resolved.enable = nixpkgs.lib.mkForce false;
-            }
-          ];
         };
       };
 
