@@ -26,6 +26,12 @@
     graphical = true;
   };
 
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    elisa
+    plasma-browser-integration
+    kwin-x11
+  ];
+
   programs.nh = {
     enable = true;
     flake = "/home/marie/dotfiles";
