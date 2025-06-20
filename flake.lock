@@ -342,6 +342,26 @@
         "url": "ssh://forgejo@git.marie.cologne/marie/ip-playground.git"
       }
     },
+    "iplookupd": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1750448366,
+        "narHash": "sha256-GlxKDP3bUI/ZJ2MqDkiBa2QOA7HEb4mrLd1apS/vozM=",
+        "ref": "refs/heads/main",
+        "rev": "271373b75a49296ddf2bbe62481f42cbd0c575f7",
+        "revCount": 24,
+        "type": "git",
+        "url": "ssh://forgejo@git.marie.cologne/marie/iplookupd.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://forgejo@git.marie.cologne/marie/iplookupd.git"
+      }
+    },
     "ixx": {
       "inputs": {
         "flake-utils": [
@@ -732,6 +752,7 @@
         "corsair-hs80-pipewire-thing": "corsair-hs80-pipewire-thing",
         "home-manager-unstable": "home-manager-unstable",
         "ip-playground": "ip-playground",
+        "iplookupd": "iplookupd",
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",

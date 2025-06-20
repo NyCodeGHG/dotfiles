@@ -44,6 +44,11 @@
       url = "github:ngosang/trackerslist";
       flake = false;
     };
+
+    iplookupd = {
+      url = "git+ssh://forgejo@git.marie.cologne/marie/iplookupd.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
