@@ -48,6 +48,13 @@ resource "cloudflare_record" "cache_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "iplookupd_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "iplookupd"
+  content = "artemis.marie.cologne"
+  type    = "CNAME"
+}
+
 resource "cloudflare_record" "kanidm" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "idm.marie.cologne"

@@ -19,5 +19,6 @@
     ./soju.nix
     ./kanidm.nix
     ./anubis.nix
+    ./iplookupd.nix
   ];
 }
