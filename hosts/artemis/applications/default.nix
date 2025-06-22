@@ -20,5 +20,6 @@
     ./kanidm.nix
     ./anubis.nix
     ./iplookupd.nix
+    ./traewelldroid-webhook.nix
   ];
 }
