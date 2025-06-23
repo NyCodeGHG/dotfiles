@@ -179,13 +179,7 @@
           modules = [
             ./hosts/marie-desktop/configuration.nix
           ];
-          patches = pkgs: [
-            # Plasma 6.4 beta
-            (pkgs.fetchpatch2 {
-              url = "https://github.com/NixOS/nixpkgs/pull/407400.patch";
-              hash = "sha256-ZgoWbKDKqMC6wURVCfS2tdtGJeC/cbZXRp/RETGl0j8=";
-            })
-          ];
+          patches = pkgs: [ ];
         };
         gitlabber = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/gitlabber/configuration.nix ]; };
         installer = nixpkgs.lib.nixosSystem {
