@@ -243,6 +243,7 @@
       config.boot.kernelPackages.cpupower
       unrar
       jellyfin-media-player
+      distrobox
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
