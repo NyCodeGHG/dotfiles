@@ -226,7 +226,6 @@
       jq
       wl-clipboard-rs
       trashy
-      jetbrains.idea-community
       makemkv
       scrcpy
       zfs # to view manpages
