@@ -1,11 +1,13 @@
-{ modulesPath, ... }:
+{ modulesPath, inputs, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
+    inputs.agenix.nixosModules.default
     ./networking.nix
     ./webhook-relay.nix
     ./nginx.nix
     ./acme.nix
+    ./fcm-proxy.nix
   ];
 
   uwumarie.profiles = {
