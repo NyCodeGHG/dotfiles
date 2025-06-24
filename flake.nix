@@ -203,6 +203,9 @@
         marie-nas = self.lib.nixosSystem nixpkgs-unstable {
           modules = [ ./hosts/marie-nas/configuration.nix ];
         };
+        traewelldroid-prod = self.lib.nixosSystem nixpkgs {
+          modules = [ ./hosts/traewelldroid-prod/configuration.nix ];
+        };
       };
 
       colmena = {
@@ -258,6 +261,17 @@
             self.nixosModules.config
           ];
           deployment.targetHost = "192.168.1.21";
+          deployment.buildOnTarget = false;
+          deployment.targetUser = null;
+          nixpkgs.overlays = [ self.overlays.default ];
+          nixpkgs.flake.source = nixpkgs-unstable;
+        };
+        traewelldroid-prod = {
+          imports = [
+            ./hosts/traewelldroid-prod/configuration.nix
+            self.nixosModules.config
+          ];
+          deployment.targetHost = "traewelldroid-prod.marie.cologne";
           deployment.buildOnTarget = false;
           deployment.targetUser = null;
           nixpkgs.overlays = [ self.overlays.default ];
