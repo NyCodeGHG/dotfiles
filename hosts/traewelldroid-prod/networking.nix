@@ -24,6 +24,9 @@
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
         ipv6AcceptRAConfig.UseDNS = false;
+
+        address = [ "2a01:4f8:c2c:1997::1/64" ];
+        gateway = [ "fe80::1" ];
       };
     };
   };
