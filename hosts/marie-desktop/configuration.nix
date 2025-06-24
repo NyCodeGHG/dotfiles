@@ -28,7 +28,6 @@
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa
-    plasma-browser-integration
     kwin-x11
   ];
 
@@ -171,11 +170,13 @@
     ];
   };
 
+  programs.firefox.enable = true;
+  programs.chromium.enable = true;
+  programs.thunderbird.enable = true;
+
   environment.systemPackages =
     with pkgs;
     [
-      firefox
-      thunderbird
       chromium
       discord
       spotify
