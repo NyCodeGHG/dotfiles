@@ -12,6 +12,8 @@
   # Disable "experimental" default stuff
   security.sudo-rs.enable = false;
 
+  security.sudo.wheelNeedsPassword = false;
+
   uwumarie.profiles = {
     locale = false;
     ntp = false;
