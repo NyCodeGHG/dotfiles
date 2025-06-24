@@ -244,6 +244,7 @@
       unrar
       jellyfin-media-player
       distrobox
+      docker-compose # for podman-compose
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
@@ -275,6 +276,7 @@
   };
 
   virtualisation.podman.enable = true;
+  virtualisation.containers.containersConf.settings.engine.compose_warning_logs = false;
 
   fonts.packages = with pkgs; [ corefonts ];
 
