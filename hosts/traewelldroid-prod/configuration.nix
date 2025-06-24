@@ -3,6 +3,9 @@
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     ./networking.nix
+    ./webhook-relay.nix
+    ./nginx.nix
+    ./acme.nix
   ];
 
   uwumarie.profiles = {
