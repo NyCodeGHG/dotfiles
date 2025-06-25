@@ -25,6 +25,6 @@
       dns_enabled = true;
     };
   };
-  networking.firewall.trustedInterfaces = [ "podman+" ];
+  networking.firewall.trustedInterfaces = [ "podman*" ];
   age.secrets.forgejo-runner.file = ./forgejo-runner.age;
 }
