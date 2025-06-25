@@ -14,6 +14,7 @@
         settings = {
           # Required for podman-in-podman
           container.privileged = true;
+          cache.enabled = true;
         };
       };
     };
