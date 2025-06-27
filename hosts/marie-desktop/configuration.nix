@@ -246,6 +246,7 @@
       jellyfin-media-player
       distrobox
       docker-compose # for podman-compose
+      nix-tree
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
