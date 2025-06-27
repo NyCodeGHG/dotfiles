@@ -10,6 +10,10 @@ in
 {
   services.grafana = {
     enable = true;
+    declarativePlugins = with pkgs.grafanaPlugins; [
+      victoriametrics-logs-datasource
+      victoriametrics-metrics-datasource
+    ];
     settings = {
       server = {
         http_addr = "127.0.0.1";
