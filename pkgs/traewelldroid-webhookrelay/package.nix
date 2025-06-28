@@ -4,6 +4,7 @@
   fetchFromGitea,
   dotnet-sdk_9,
   dotnet-aspnetcore_9,
+  fetchpatch2,
 }:
 
 buildDotnetModule {
@@ -17,6 +18,13 @@ buildDotnetModule {
     rev = "6ec2e15f8b6101ff653e9f36f66f771bbfc49dcc";
     hash = "sha256-jVWPgfXP5Xn/7vYKjHE5e+vYEbMxjyDwibiHNtSOcvg=";
   };
+
+  patches = [
+    (fetchpatch2 {
+      url = "https://git.marie.cologne/traewelldroid/WebhookRelayService/commit/76ce6b96eac7f01bf9121b9a9c5cc8e5130cc8ca.patch";
+      hash = "sha256-+VaLf3lnn3hEtOt1xn/YuTrARb1mMywbkDPHwWN89sU=";
+    })
+  ];
 
   projectFile = "WebhookRelayService/WebhookRelayService.csproj";
   nugetDeps = ./deps.json;
