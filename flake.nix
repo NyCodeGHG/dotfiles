@@ -144,6 +144,15 @@
               withVencord = true;
             }
           );
+          lix = prev.lix.overrideAttrs (prev: {
+            patches = prev.patches ++ [
+              (final.fetchpatch {
+                url = "https://gerrit.lix.systems/changes/lix~3502/revisions/4/patch?download";
+                hash = "sha256-VoW0wTlk6cUC51soe554x2lCnR0/ZXMukPz3zFTGVS4=";
+                decode = "base64 -d";
+              })
+            ];
+          });
         }
         // (self.overlays.packages final prev)
       );
