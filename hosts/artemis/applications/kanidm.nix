@@ -9,7 +9,7 @@ in
       uri = "https://${domain}";
     };
 
-    package = pkgs.kanidm_1_5;
+    package = pkgs.kanidm_1_6;
 
     enableServer = true;
     serverSettings = {
