@@ -61,6 +61,10 @@
 
   boot.kernelPackages = pkgs.linuxPackages_6_15;
 
+  specialisation."LTS-Kernel".configuration = {
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
+  };
+
   boot = {
     plymouth.enable = true;
     consoleLogLevel = 3;
