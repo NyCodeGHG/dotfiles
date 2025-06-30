@@ -49,6 +49,11 @@
       url = "git+ssh://forgejo@git.marie.cologne/marie/iplookupd.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -59,6 +64,7 @@
       nixpkgs-patcher,
       nixvim,
       self,
+      lix-module,
       ...
     }:
     let
@@ -127,6 +133,7 @@
             modules = [
               { nixpkgs.overlays = [ self.overlays.default ]; }
               self.nixosModules.config
+              lix-module.nixosModules.default
             ] ++ modules;
 
             nixpkgsPatcher = {
@@ -144,15 +151,6 @@
               withVencord = true;
             }
           );
-          lix = prev.lix.overrideAttrs (prev: {
-            patches = prev.patches ++ [
-              (final.fetchpatch {
-                url = "https://gerrit.lix.systems/changes/lix~3502/revisions/4/patch?download";
-                hash = "sha256-VoW0wTlk6cUC51soe554x2lCnR0/ZXMukPz3zFTGVS4=";
-                decode = "base64 -d";
-              })
-            ];
-          });
         }
         // (self.overlays.packages final prev)
       );
@@ -235,7 +233,10 @@
             ];
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
-            nixpkgs.overlays = [ self.overlays.default ];
+            nixpkgs.overlays = [
+              self.overlays.default
+              lix-module.overlays.default
+            ];
             nixpkgs.flake.source = nixpkgs;
           };
         delphi = {
@@ -245,7 +246,10 @@
           ];
           deployment.buildOnTarget = true;
           deployment.targetUser = null;
-          nixpkgs.overlays = [ self.overlays.default ];
+          nixpkgs.overlays = [
+            self.overlays.default
+            lix-module.overlays.default
+          ];
           nixpkgs.flake.source = nixpkgs;
         };
         gitlabber = {
@@ -256,7 +260,10 @@
           deployment.targetHost = "root@gitlabber.weasel-gentoo.ts.net";
           deployment.buildOnTarget = true;
           deployment.targetUser = null;
-          nixpkgs.overlays = [ self.overlays.default ];
+          nixpkgs.overlays = [
+            self.overlays.default
+            lix-module.overlays.default
+          ];
           nixpkgs.flake.source = nixpkgs;
         };
         marie-nas = {
@@ -267,7 +274,10 @@
           deployment.targetHost = "192.168.1.21";
           deployment.buildOnTarget = false;
           deployment.targetUser = null;
-          nixpkgs.overlays = [ self.overlays.default ];
+          nixpkgs.overlays = [
+            self.overlays.default
+            lix-module.overlays.default
+          ];
           nixpkgs.flake.source = nixpkgs-unstable;
         };
         traewelldroid-prod = {
@@ -278,7 +288,10 @@
           deployment.targetHost = "traewelldroid-prod.marie.cologne";
           deployment.buildOnTarget = false;
           deployment.targetUser = null;
-          nixpkgs.overlays = [ self.overlays.default ];
+          nixpkgs.overlays = [
+            self.overlays.default
+            lix-module.overlays.default
+          ];
           nixpkgs.flake.source = nixpkgs-unstable;
         };
       };
