@@ -199,7 +199,7 @@
         ''
       ))
       mpv
-      ffmpeg
+      ffmpeg-full
       nixpkgs-review
       restic
       rclone
