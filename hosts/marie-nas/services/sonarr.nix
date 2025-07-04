@@ -30,10 +30,30 @@
     ];
   };
 
-  systemd.services.postgresql.postStart = ''
-    $PSQL -tAc 'ALTER DATABASE "sonarr-log" OWNER TO "sonarr";'
-    $PSQL -tAc 'ALTER DATABASE "sonarr-main" OWNER TO "sonarr";'
-  '';
+  systemd.services.sonarr = {
+    wants = [
+      "postgresql.target"
+      "sonarr-postgresql-setup.service"
+    ];
+    after = [
+      "postgresql.target"
+      "sonarr-postgresql-setup.service"
+    ];
+  };
+
+  systemd.services.sonarr-postgresql-setup = {
+    description = "Sonarr PostgreSQL setup";
+    after = [ "postgresql.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "postgres";
+      Group = "postgres";
+      ExecStart = [
+        "${config.services.postgresql.package}/bin/psql -c 'ALTER DATABASE \"sonarr-log\" OWNER TO \"sonarr\";'"
+        "${config.services.postgresql.package}/bin/psql -c 'ALTER DATABASE \"sonarr-main\" OWNER TO \"sonarr\";'"
+      ];
+    };
+  };
 
   services.nginx.virtualHosts."sonarr.marie.cologne".locations."/" = {
     proxyPass = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
