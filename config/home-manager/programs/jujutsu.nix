@@ -56,5 +56,6 @@ lib.mkIf config.uwumarie.profiles.jujutsu {
   home.packages = with pkgs; [
     watchman
     difftastic
+    mergiraf
   ];
 }

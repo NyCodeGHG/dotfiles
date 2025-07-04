@@ -251,7 +251,6 @@
       distrobox
       docker-compose # for podman-compose
       nix-tree
-      mergiraf
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
