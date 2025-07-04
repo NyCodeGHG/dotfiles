@@ -21,6 +21,8 @@
     cemu
     ryubing
     nexusmods-app-unfree
+    wlx-overlay-s
+    xrgears
   ];
 
   programs.gamemode.enable = true;
@@ -41,22 +43,19 @@
   # Fixes Hogwarts Legacy to not crash
   boot.kernel.sysctl."vm.max_map_count" = 2146483642;
 
-  programs.alvr = {
-    enable = false;
-    openFirewall = true;
-  };
-
-  services.sunshine = {
-    enable = false;
-    autoStart = false;
-    openFirewall = true;
-    capSysAdmin = true;
-  };
-
   programs.corectrl.enable = true;
 
   networking.hosts = {
     # fuck you ea
     # "127.0.0.1" = [ "winter15.gosredirector.ea.com" ];
+  };
+
+  # VR
+  services.wivrn = {
+    enable = true;
+    openFirewall = true;
+    defaultRuntime = true;
+
+    autoStart = true;
   };
 }
