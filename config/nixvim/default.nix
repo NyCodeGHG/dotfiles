@@ -8,6 +8,7 @@
       background.dark = "dragon";
     };
   };
+
   globals.mapleader = " ";
   opts = {
     # Line Numbers
@@ -73,6 +74,9 @@
     lualine.enable = true;
     web-devicons.enable = true;
     trouble.enable = true;
+    guess-indent.enable = true;
+    highlight-colors.enable = true;
+    hmts.enable = true;
 
     lsp-format.enable = true;
     none-ls = {
@@ -87,6 +91,14 @@
         };
       };
     };
+    snacks = {
+      enable = true;
+      settings = {
+        bigfile.enabled = true;
+      };
+    };
+
+    auto-session.enable = true;
 
     # Treesitter
     treesitter = {
@@ -109,12 +121,7 @@
 
     # Languages
     nix.enable = true;
-    crates = {
-      enable = true;
-      settings = {
-        completion.cmp.enabled = true;
-      };
-    };
+    crates.enable = true;
 
     # LSP
     lsp = {
@@ -157,41 +164,45 @@
       };
     };
     fidget.enable = true;
-
-    # Completion
-    cmp = {
+    auto-save.enable = true;
+    blink-cmp = {
       enable = true;
       settings = {
-        autoEnableSources = true;
-        snippet.expand = ''
-          function(args)
-            require('luasnip').lsp_expand(args.body)
-          end
-        '';
-        mappingPresets = [ "insert" ];
-        mapping = {
-          __raw = ''
-            cmp.mapping.preset.insert({
-              ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-              ['<C-f>'] = cmp.mapping.scroll_docs(4),
-              ['<C-Space>'] = cmp.mapping.complete(),
-              ['<C-e>'] = cmp.mapping.abort(),
-              ['<CR>'] = cmp.mapping.confirm({ select = true }),
-            })
-          '';
-        };
-        preselect = "cmp.PreselectMode.None";
-        sources = [
-          { name = "nvim_lsp"; }
-          { name = "luasnip"; }
-          { name = "path"; }
-          { name = "buffer"; }
-          { name = "crates"; }
-          { name = "emoji"; }
+        keymap.preset = "enter";
+        sources.default = [
+          "lsp"
+          "path"
+          "snippets"
+          "buffer"
+          "git"
+          "emoji"
         ];
-        extraOptions.autocomplete = false;
+        sources.providers = {
+          git = {
+            module = "blink-cmp-git";
+            name = "git";
+            score_offset = 100;
+            opts = {
+              commit = { };
+              git_centers = {
+                git_hub = { };
+              };
+            };
+          };
+          emoji = {
+            module = "blink-emoji";
+            name = "Emoji";
+            score_offset = 15;
+            # Optional configurations
+            opts = {
+              insert = true;
+            };
+          };
+        };
       };
     };
+    blink-cmp-git.enable = true;
+    blink-emoji.enable = true;
     luasnip = {
       enable = true;
       settings = {
@@ -199,9 +210,6 @@
       };
     };
     lspsaga.enable = true;
-
-    neogit.enable = true;
-
     leap.enable = true;
   };
 
@@ -324,4 +332,9 @@
       fg = "#e30202";
     };
   };
+
+  diagnostic.settings = {
+    virtual_lines = true;
+  };
+
 }
