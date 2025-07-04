@@ -186,7 +186,20 @@
           modules = [
             ./hosts/marie-desktop/configuration.nix
           ];
-          patches = pkgs: [ ];
+          patches =
+            pkgs:
+            let
+              npr =
+                pr: hash:
+                (pkgs.fetchpatch2 {
+                  url = "https://github.com/NixOS/nixpkgs/pull/${toString pr}.patch";
+                  inherit hash;
+                });
+            in
+            [
+              # nexusmods-app: 0.12.3 -> 0.13.4
+              (npr 421761 "sha256-AOF7lxbgnyuRIxL5APU+oUGT+dOQZNjjlTyAJVIrtio=")
+            ];
         };
         gitlabber = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/gitlabber/configuration.nix ]; };
         installer = nixpkgs.lib.nixosSystem {
