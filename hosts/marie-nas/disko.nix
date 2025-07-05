@@ -160,6 +160,13 @@
                 mountpoint = "legacy";
               };
             };
+            "data/shares/lena" = {
+              type = "zfs_fs";
+              mountpoint = "/srv/shares/lena";
+              options = {
+                mountpoint = "legacy";
+              };
+            };
             "data/shares/public" = {
               type = "zfs_fs";
               mountpoint = "/srv/shares/public";

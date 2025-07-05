@@ -49,6 +49,11 @@
       fsType = "zfs";
       options = [ "nofail" ];
     };
+    "/srv/shares/lena" = {
+      device = "tank/data/shares/lena";
+      fsType = "zfs";
+      options = [ "nofail" ];
+    };
     "/srv/shares/media" = {
       device = "tank/data/shares/media";
       fsType = "zfs";

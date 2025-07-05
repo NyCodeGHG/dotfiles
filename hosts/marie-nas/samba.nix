@@ -6,6 +6,11 @@
       user = "marie";
       mode = "0700";
     };
+    "/srv/shares/lena".d = {
+      group = "users";
+      user = "lena";
+      mode = "0700";
+    };
     "/srv/shares/media".d = {
       group = "media";
       user = "root";
@@ -31,6 +36,9 @@
       description = "smb guest account";
       shell = "/run/current-system/sw/bin/nologin";
     };
+    users.lena = {
+      isNormalUser = true;
+    };
   };
 
   services.samba = {
@@ -52,6 +60,12 @@
         "directory mask" = "0700";
         "valid users" = "marie";
       };
+      "lena" = {
+        path = "/srv/shares/lena";
+        "create mask" = "0644";
+        "directory mask" = "0700";
+        "valid users" = "lena";
+      };
       "media" = {
         path = "/srv/shares/media";
         "create mask" = "0664";
@@ -70,6 +84,7 @@
     RequiresMountsFor = [
       "/srv/shares"
       "/srv/shares/marie"
+      "/srv/shares/lena"
       "/srv/shares/media"
       "/srv/shares/public"
     ];
