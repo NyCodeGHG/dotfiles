@@ -197,6 +197,7 @@
                 });
             in
             [
+              (npr 422168 "sha256-cBEc2sKsMTLUl5Gec1uy1huZZNlGJHvOgqfvOPlXHIc=")
             ];
         };
         gitlabber = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/gitlabber/configuration.nix ]; };
