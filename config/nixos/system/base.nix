@@ -9,27 +9,29 @@
     default = true;
   };
   config = lib.mkIf config.uwumarie.profiles.base {
-    environment.systemPackages = with pkgs; [
-      htop
-      btop
-      fastfetch
-      pciutils
-      file
-      iputils
-      dnsutils
-      usbutils
-      wget2
-      curl
-      wcurl
-      vim
-      tcpdump
-      git
-      fd
-      bat
-      ripgrep
-      inxi
-      pv
-    ];
+    environment.systemPackages =
+      with pkgs;
+      [
+        htop
+        btop
+        fastfetch
+        pciutils
+        file
+        iputils
+        dnsutils
+        usbutils
+        wget2
+        curl
+        vim
+        tcpdump
+        git
+        fd
+        bat
+        ripgrep
+        inxi
+        pv
+      ]
+      ++ lib.optionals (!(lib.versionOlder "25.05" lib.trivial.release)) (with pkgs; [ wcurl ]);
     programs.trippy.enable = true;
     programs.nano.enable = false;
     security.sudo-rs.enable = lib.mkDefault true;
