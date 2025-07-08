@@ -54,6 +54,11 @@
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixpkgs-xr = {
+      url = "github:nix-community/nixpkgs-xr";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -62,6 +67,7 @@
       nixpkgs,
       nixpkgs-unstable,
       nixpkgs-patcher,
+      nixpkgs-xr,
       nixvim,
       self,
       lix-module,
@@ -185,6 +191,7 @@
         marie-desktop = self.lib.nixosSystem nixpkgs-unstable {
           modules = [
             ./hosts/marie-desktop/configuration.nix
+            nixpkgs-xr.nixosModules.nixpkgs-xr
           ];
           patches =
             pkgs:
