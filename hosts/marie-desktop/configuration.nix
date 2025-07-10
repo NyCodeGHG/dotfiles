@@ -20,6 +20,7 @@
     # ./router.nix
     ./krisp-patcher.nix
     ./peacock.nix
+    ./amdgpu/default.nix
   ];
 
   uwumarie.profiles = {
