@@ -196,7 +196,6 @@
           git = {
             module = "blink-cmp-git";
             name = "git";
-            score_offset = 100;
             opts = {
               commit = { };
               git_centers = {
@@ -207,7 +206,6 @@
           emoji = {
             module = "blink-emoji";
             name = "Emoji";
-            score_offset = 15;
             # Optional configurations
             opts = {
               insert = true;
