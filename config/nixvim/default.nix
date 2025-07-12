@@ -1,5 +1,8 @@
 { pkgs, lib, ... }:
 {
+  imports = [
+    ./dap.nix
+  ];
   # colorschemes.oxocarbon.enable = true;
   # colorschemes.melange.enable = true;
   colorschemes.kanagawa = {
