@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   # colorschemes.oxocarbon.enable = true;
   # colorschemes.melange.enable = true;
@@ -202,6 +202,14 @@
                 git_hub = { };
               };
             };
+            should_show_items = lib.nixvim.mkRaw ''
+              function()
+                return vim.tbl_contains(
+                  { "gitcommit", "markdown", "jjdescription" },
+                  vim.o.filetype
+                )
+              end
+            '';
           };
           emoji = {
             module = "blink-emoji";
@@ -210,6 +218,14 @@
             opts = {
               insert = true;
             };
+            should_show_items = lib.nixvim.mkRaw ''
+              function()
+                return vim.tbl_contains(
+                  { "gitcommit", "markdown", "jjdescription" },
+                  vim.o.filetype
+                )
+              end
+            '';
           };
         };
       };
