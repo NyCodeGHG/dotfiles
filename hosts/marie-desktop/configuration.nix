@@ -260,6 +260,7 @@
       filelight
       konversation
       sddm-kcm
+      krdc
     ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
