@@ -3,8 +3,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
-    nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
-
     home-manager-unstable = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -59,6 +57,11 @@
       url = "github:nix-community/nixpkgs-xr";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -66,11 +69,11 @@
       agenix,
       nixpkgs,
       nixpkgs-unstable,
-      nixpkgs-patcher,
       nixpkgs-xr,
       nixvim,
       self,
       lix-module,
+      colmena,
       ...
     }:
     let
@@ -90,6 +93,7 @@
               }
             )
           );
+
     in
     {
       formatter = forEachSystem nixpkgs (pkgs: pkgs.nixfmt-rfc-style);
@@ -100,7 +104,7 @@
             nurl
             nixos-rebuild
             inputs.agenix.packages.${system}.default
-            colmena
+            inputs.colmena.packages.${system}.colmena
             nix-update
             ansible
             ansible-lint
@@ -124,29 +128,6 @@
           );
         in
         nixpkgs.lib.recursiveUpdate stable unstable;
-
-      lib = {
-        nixosSystem =
-          nixpkgs:
-          {
-            modules ? [ ],
-            patches ? _: [ ],
-          }:
-          nixpkgs-patcher.lib.nixosSystem {
-            specialArgs = {
-              inherit inputs;
-            };
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
-              self.nixosModules.config
-              lix-module.nixosModules.default
-            ] ++ modules;
-
-            nixpkgsPatcher = {
-              inherit nixpkgs inputs patches;
-            };
-          };
-      };
 
       overlays.default = (
         final: prev:
@@ -185,120 +166,114 @@
       };
       homeManagerModules.config = import ./config/home-manager;
 
-      nixosConfigurations = {
-        artemis = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/artemis/configuration.nix ]; };
-        delphi = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/delphi/configuration.nix ]; };
-        marie-desktop = self.lib.nixosSystem nixpkgs-unstable {
-          modules = [
-            ./hosts/marie-desktop/configuration.nix
-            nixpkgs-xr.nixosModules.nixpkgs-xr
-          ];
-          patches =
-            pkgs:
-            let
-              npr =
-                pr: hash:
-                (pkgs.fetchpatch2 {
-                  url = "https://github.com/NixOS/nixpkgs/pull/${toString pr}.patch";
-                  inherit hash;
-                });
-            in
-            [
-              (npr 422168 "sha256-cBEc2sKsMTLUl5Gec1uy1huZZNlGJHvOgqfvOPlXHIc=")
-            ];
-        };
-        gitlabber = self.lib.nixosSystem nixpkgs { modules = [ ./hosts/gitlabber/configuration.nix ]; };
-        installer = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-            (
-              { pkgs, ... }:
-              {
-                environment.systemPackages = [ pkgs.neovim ];
-                environment.etc."dotfiles".source = self;
-              }
-            )
-          ];
-        };
-        marie-nas = self.lib.nixosSystem nixpkgs-unstable {
-          modules = [ ./hosts/marie-nas/configuration.nix ];
-        };
-        traewelldroid-prod = self.lib.nixosSystem nixpkgs {
-          modules = [ ./hosts/traewelldroid-prod/configuration.nix ];
-        };
-      };
+      nixosConfigurations = self.colmenaHive.nodes;
 
-      colmena = {
-        meta = {
-          nixpkgs = nixpkgs.legacyPackages.x86_64-linux;
-          specialArgs = {
+      colmenaHive =
+        let
+          patchInputs = import ./utils/patch-inputs.nix;
+          importNixpkgs =
+            {
+              nixpkgs,
+              system ? "x86_64-linux",
+            }:
+            import nixpkgs {
+              inherit system;
+              overlays = [
+                self.overlays.default
+                lix-module.overlays.default
+              ];
+            };
+          patchedInputs = patchInputs {
             inherit inputs;
+            hostSystem = "x86_64-linux";
+            patches =
+              { npr, ... }:
+              {
+                nixpkgs-unstable = [
+                  (npr 422168 "sha256-CPMs35tj89+1VHPFNO72XqzcShzee+Dd5mNg3GrJVxw=")
+                ];
+                nixpkgs = [
+                  (npr 424847 "sha256-q7ikoxI+2FJ2aX6TeDfetaz6EkACCvO/gkFfzjkfdAA=")
+                ];
+              };
           };
-          nodeNixpkgs.delphi = nixpkgs.legacyPackages.aarch64-linux;
-          nodeNixpkgs.marie-nas = nixpkgs-unstable.legacyPackages.x86_64-linux;
-        };
-        artemis =
-          {
-            name,
-            nodes,
-            pkgs,
-            ...
-          }:
-          {
+          inherit (patchedInputs)
+            nixpkgs
+            nixpkgs-unstable
+            ;
+        in
+        colmena.lib.makeHive {
+          meta = {
+            nixpkgs = importNixpkgs { inherit nixpkgs; };
+            specialArgs = {
+              inputs = patchedInputs;
+            };
+            nodeNixpkgs = {
+              delphi = importNixpkgs {
+                inherit nixpkgs;
+                system = "aarch64-linux";
+              };
+              marie-nas = importNixpkgs { nixpkgs = nixpkgs-unstable; };
+              marie-desktop = importNixpkgs {
+                nixpkgs = nixpkgs-unstable;
+              };
+            };
+          };
+          artemis =
+            {
+              name,
+              nodes,
+              pkgs,
+              ...
+            }:
+            {
+              imports = [
+                ./hosts/artemis/configuration.nix
+                self.nixosModules.config
+              ];
+              deployment.buildOnTarget = true;
+              deployment.targetUser = null;
+              nixpkgs.flake.source = nixpkgs;
+            };
+          delphi = {
             imports = [
-              ./hosts/artemis/configuration.nix
+              ./hosts/delphi/configuration.nix
               self.nixosModules.config
             ];
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
-            nixpkgs.overlays = [
-              self.overlays.default
-              lix-module.overlays.default
-            ];
             nixpkgs.flake.source = nixpkgs;
           };
-        delphi = {
-          imports = [
-            ./hosts/delphi/configuration.nix
-            self.nixosModules.config
-          ];
-          deployment.buildOnTarget = true;
-          deployment.targetUser = null;
-          nixpkgs.overlays = [
-            self.overlays.default
-            lix-module.overlays.default
-          ];
-          nixpkgs.flake.source = nixpkgs;
+          gitlabber = {
+            imports = [
+              ./hosts/gitlabber/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.targetHost = "root@gitlabber.weasel-gentoo.ts.net";
+            deployment.buildOnTarget = true;
+            deployment.targetUser = null;
+            nixpkgs.flake.source = nixpkgs;
+          };
+          marie-nas = {
+            imports = [
+              ./hosts/marie-nas/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.targetHost = "192.168.1.21";
+            deployment.buildOnTarget = false;
+            deployment.targetUser = null;
+            nixpkgs.flake.source = nixpkgs-unstable;
+          };
+          marie-desktop = {
+            imports = [
+              ./hosts/marie-desktop/configuration.nix
+              self.nixosModules.config
+              nixpkgs-xr.nixosModules.nixpkgs-xr
+            ];
+            deployment.allowLocalDeployment = true;
+            deployment.targetHost = null;
+            nixpkgs.flake.source = nixpkgs-unstable;
+          };
         };
-        gitlabber = {
-          imports = [
-            ./hosts/gitlabber/configuration.nix
-            self.nixosModules.config
-          ];
-          deployment.targetHost = "root@gitlabber.weasel-gentoo.ts.net";
-          deployment.buildOnTarget = true;
-          deployment.targetUser = null;
-          nixpkgs.overlays = [
-            self.overlays.default
-            lix-module.overlays.default
-          ];
-          nixpkgs.flake.source = nixpkgs;
-        };
-        marie-nas = {
-          imports = [
-            ./hosts/marie-nas/configuration.nix
-            self.nixosModules.config
-          ];
-          deployment.targetHost = "192.168.1.21";
-          deployment.buildOnTarget = false;
-          deployment.targetUser = null;
-          nixpkgs.overlays = [
-            self.overlays.default
-            lix-module.overlays.default
-          ];
-          nixpkgs.flake.source = nixpkgs-unstable;
-        };
-      };
     };
 }

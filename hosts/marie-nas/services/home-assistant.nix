@@ -58,6 +58,7 @@
       adaptive_lighting
       sleep_as_android
       dwd
+      waste_collection_schedule
     ];
     customLovelaceModules = [
       pkgs.lovelace-horizon-card

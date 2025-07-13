@@ -7,7 +7,7 @@
 {
   imports = [
     ../../modules/hm/switch-to-windows.nix
-    inputs.nix-index-database.hmModules.nix-index
+    inputs.nix-index-database.homeModules.nix-index
   ];
   home.packages = [ inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim ];
   news.display = "silent";
