@@ -299,20 +299,6 @@
           ];
           nixpkgs.flake.source = nixpkgs-unstable;
         };
-        traewelldroid-prod = {
-          imports = [
-            ./hosts/traewelldroid-prod/configuration.nix
-            self.nixosModules.config
-          ];
-          deployment.targetHost = "traewelldroid-prod.marie.cologne";
-          deployment.buildOnTarget = false;
-          deployment.targetUser = null;
-          nixpkgs.overlays = [
-            self.overlays.default
-            lix-module.overlays.default
-          ];
-          nixpkgs.flake.source = nixpkgs-unstable;
-        };
       };
     };
 }
