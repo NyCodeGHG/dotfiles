@@ -252,6 +252,7 @@
       distrobox
       docker-compose # for podman-compose
       nix-tree
+      signal-desktop
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
