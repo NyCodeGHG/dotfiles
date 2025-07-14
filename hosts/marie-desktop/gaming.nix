@@ -6,7 +6,9 @@
 }:
 {
   environment.systemPackages = with pkgs; [
-    prismlauncher
+    (prismlauncher.override {
+      jdks = [ pkgs.jdk21 ];
+    })
     heroic
     winetricks
     wineWowPackages.unstable
