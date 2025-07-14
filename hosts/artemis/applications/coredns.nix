@@ -25,8 +25,8 @@
         import base
 
 
-        forward . tls://1.1.1.1 tls://1.0.0.1 tls://2606:4700:4700::1111 tls://2606:4700:4700::1001 {
-          tls_servername cloudflare-dns.com
+        forward . tls://2620:fe::fe tls://2620:fe::9 tls://9.9.9.9 tls://149.112.112.112 {
+          tls_servername dns.quad9.net
           health_check 5s
           except dn42 d.f.ip6.arpa ts.net
         }
