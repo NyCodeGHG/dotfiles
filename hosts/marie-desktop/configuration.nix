@@ -253,6 +253,7 @@
       docker-compose # for podman-compose
       nix-tree
       signal-desktop
+      sshfs
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
