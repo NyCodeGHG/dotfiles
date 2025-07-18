@@ -188,7 +188,6 @@
       qpwgraph
       vscodium
       nvtopPackages.amd
-      whois
       tokei
       nix-output-monitor
       vlc
@@ -283,6 +282,7 @@
     "ffmpeg" = "ffmpeg -hide_banner";
     "ffprobe" = "ffprobe -hide_banner";
     "ffplay" = "ffplay -hide_banner";
+    "whois" = "rdap";
   };
 
   virtualisation.podman.enable = true;
