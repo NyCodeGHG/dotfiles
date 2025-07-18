@@ -67,6 +67,7 @@
     hdparm
     ffmpeg
     wireguard-tools
+    yt-dlp
   ];
 
   environment.shellAliases = {
