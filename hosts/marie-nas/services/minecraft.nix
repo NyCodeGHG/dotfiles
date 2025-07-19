@@ -7,6 +7,7 @@
 {
   virtualisation.oci-containers.containers.minecraft = {
     image = "docker.io/itzg/minecraft-server:java24";
+    autoStart = false;
     environment = {
       EULA = "true";
       INIT_MEMORY = "5G";
