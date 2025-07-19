@@ -26,6 +26,7 @@
     ./services/home-assistant-matter-hub.nix
     ./services/oauth2-proxy.nix
     ./services/minecraft.nix
+    ./services/proxy.nix
   ];
   boot = {
     loader = {
