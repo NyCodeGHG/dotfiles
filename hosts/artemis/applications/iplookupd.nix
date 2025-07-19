@@ -13,6 +13,10 @@
   services.iplookupd = {
     enable = true;
     listen = "http+tcp://localhost:7805";
+    extraArgs = [
+      "--user-agent"
+      "iplookupd - me@nycode.dev"
+    ];
   };
 
   services.nginx.virtualHosts."iplookupd.marie.cologne" = {
