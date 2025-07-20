@@ -20,7 +20,7 @@
   };
 
   systemd.services.iplookupd.environment = {
-    ALL_PROXY = "socks5://marie-nas:8888";
+    HTTPS_PROXY = "socks5://marie-nas:8888";
   };
 
   services.nginx.virtualHosts."iplookupd.marie.cologne" = {
