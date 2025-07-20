@@ -23,7 +23,6 @@
     cemu
     ryubing
     nexusmods-app-unfree
-    wlx-overlay-s
     xrgears
   ];
 
@@ -54,7 +53,7 @@
 
   # VR
   services.wivrn = {
-    enable = true;
+    enable = false;
     openFirewall = true;
     defaultRuntime = true;
 
@@ -62,7 +61,7 @@
   };
 
   programs.alvr = {
-    enable = true;
+    enable = false;
     openFirewall = true;
   };
 }
