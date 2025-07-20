@@ -244,7 +244,9 @@
       sequoia-chameleon-gnupg
       magic-wormhole
       wireguard-tools
-      chatterino7
+      (chatterino7.overrideAttrs (prev: {
+        buildInputs = lib.remove pkgs.libavif prev.buildInputs;
+      }))
       config.boot.kernelPackages.cpupower
       unrar
       jellyfin-media-player
