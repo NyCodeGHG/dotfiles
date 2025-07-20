@@ -64,4 +64,6 @@
     enable = false;
     openFirewall = true;
   };
+
+  services.hardware.openrgb.enable = true;
 }
