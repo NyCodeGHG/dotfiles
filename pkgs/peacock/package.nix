@@ -5,7 +5,7 @@
   nodejs,
   yarn-berry_4,
   makeWrapper,
-  fetchpatch2,
+  fetchpatch,
 }:
 
 let
@@ -18,19 +18,19 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     # fix: sort contracts for deterministic build
-    (fetchpatch2 {
+    (fetchpatch {
       url = "https://github.com/thepeacockproject/Peacock/commit/9ce9c82a74429a7811c538c232b3171d5368db24.patch";
-      hash = "sha256-O8uL5ZQSNeTZmtmKyKJ50TO4BrBUcblz2SKUO1YGmHc=";
+      hash = "sha256-KhUGZ7BsHj+udGl8qdASsAnDgu72KjvryhMfwX8rL/w=";
     })
     # fix: serve webui relative to the current module
-    (fetchpatch2 {
+    (fetchpatch {
       url = "https://github.com/thepeacockproject/Peacock/commit/95e3de4554206197621315d00e863c00bf079ed7.patch";
-      hash = "sha256-cwaspB1yJp7d9Wa8b/wQTpQ0EJhFbpRV2dxS69jFEOo=";
+      hash = "sha256-9pdMs+SsHvSwTzVKjgLZCq12w8NuTx1Y5wQeR7y0iyY=";
     })
     # fix: translate windows plugin paths on linux
-    (fetchpatch2 {
+    (fetchpatch {
       url = "https://github.com/thepeacockproject/Peacock/commit/073bdebea3c8fc7174d2b6865cc1c4e5c3568f79.patch";
-      hash = "sha256-gxAzTMm+dhgYu+rpG+haaksmZGRpwtEU4R/A0jOkJCY=";
+      hash = "sha256-XLU7V17/gBE8gyKTCCkpvAYxatM4ZB3K+QoLXIIjjdA=";
     })
   ];
 
