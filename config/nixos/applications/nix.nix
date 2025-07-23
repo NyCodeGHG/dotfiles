@@ -10,7 +10,6 @@
   };
   config = lib.mkIf config.uwumarie.profiles.nix {
     nix = {
-      package = pkgs.lixPackageSets.latest.lix;
       gc = {
         automatic = true;
         dates = "weekly";

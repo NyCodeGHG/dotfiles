@@ -180,7 +180,7 @@
               inherit system;
               overlays = [
                 self.overlays.default
-                # lix-module.overlays.default
+                lix-module.overlays.default
               ];
             };
           patchedInputs = patchInputs {
