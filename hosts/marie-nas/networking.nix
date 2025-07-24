@@ -21,6 +21,7 @@
           DHCP = "ipv4";
           IPv6AcceptRA = true;
           KeepConfiguration = "yes";
+          MulticastDNS = "resolve";
         };
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
@@ -57,7 +58,7 @@
   services.resolved = {
     enable = true;
     extraConfig = ''
-      MulticastDNS=false
+      MulticastDNS=resolve
     '';
   };
 }
