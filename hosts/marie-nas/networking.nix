@@ -39,6 +39,11 @@
         };
       };
     };
+    config = {
+      networkConfig = {
+        SpeedMeter = true;
+      };
+    };
   };
 
   services.tailscale = {
