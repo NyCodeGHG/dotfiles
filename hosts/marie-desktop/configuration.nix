@@ -12,7 +12,6 @@
     ./hardware.nix
     ./gaming.nix
     ./suspend-fix.nix
-    ./tailscale.nix
     ./syncthing.nix
     ./wireshark.nix
     ./backup.nix
@@ -21,6 +20,7 @@
     ./krisp-patcher.nix
     ./peacock.nix
     ./amdgpu/default.nix
+    ./networking.nix
   ];
 
   uwumarie.profiles = {
@@ -85,41 +85,9 @@
     };
     efi.canTouchEfiVariables = true;
   };
-  networking = {
-    hostName = "marie-desktop";
-    networkmanager = {
-      enable = true;
-      wifi.backend = "iwd";
-    };
-    useDHCP = false;
-    firewall.logRefusedConnections = false;
-  };
-  systemd.network.wait-online.enable = false;
   console = {
     font = "Lat2-Terminus16";
     earlySetup = true;
-  };
-  services = {
-    avahi = {
-      enable = true;
-      openFirewall = true;
-      nssmdns4 = true;
-    };
-    printing = {
-      enable = true;
-      drivers = with pkgs; [ hplip ];
-    };
-    resolved = {
-      enable = true;
-      dnsovertls = "opportunistic";
-      extraConfig = ''
-        MulticastDNS=resolve
-      '';
-    };
-    # mullvad-vpn = {
-    #   enable = true;
-    #   package = pkgs.mullvad-vpn;
-    # };
   };
 
   systemd.services.cups-browsed.enable = false;
