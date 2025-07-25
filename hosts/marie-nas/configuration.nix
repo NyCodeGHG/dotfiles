@@ -27,6 +27,7 @@
     ./services/oauth2-proxy.nix
     ./services/minecraft.nix
     ./services/proxy.nix
+    ./services/factorio.nix
   ];
   boot = {
     loader = {
