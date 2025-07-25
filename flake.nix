@@ -189,7 +189,9 @@
             patches =
               { npr, ... }:
               {
-                nixpkgs-unstable = [ ];
+                nixpkgs-unstable = [
+                  (npr 428046 "sha256-suAEGdYkRyq0PgayuIC4oVjLVCRwqf7aNOX7EelgSOU=")
+                ];
                 nixpkgs = [
                   (npr 424847 "sha256-q7ikoxI+2FJ2aX6TeDfetaz6EkACCvO/gkFfzjkfdAA=")
                 ];
