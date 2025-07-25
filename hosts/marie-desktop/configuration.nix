@@ -223,6 +223,7 @@
       nix-tree
       signal-desktop
       sshfs
+      obs-cmd
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
