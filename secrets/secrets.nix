@@ -57,6 +57,7 @@ in
   "../hosts/marie-nas/secrets/zigbee2mqtt.age".publicKeys = users ++ marie-nas;
   "../hosts/marie-nas/secrets/matter-bridge-env.age".publicKeys = users ++ marie-nas;
   "../hosts/marie-nas/secrets/oauth2-proxy.age".publicKeys = users ++ marie-nas;
+  "../hosts/marie-nas/secrets/cloudflare-token.age".publicKeys = users ++ marie-nas;
 
   "../hosts/traewelldroid-prod/secrets/fcm-credentials.age".publicKeys = users ++ traewelldroid-prod;
 }

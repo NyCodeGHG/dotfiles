@@ -3,6 +3,7 @@
   imports = [
     inputs.agenix.nixosModules.default
     ../../config/nixos/system/acme.nix
+    ../../modules/nixos/cloudflare-dyndns/cloudflare-dyndns.nix
     ./networking.nix
     ./state.nix
     ./zfs.nix
@@ -28,6 +29,7 @@
     ./services/minecraft.nix
     ./services/proxy.nix
     ./services/factorio.nix
+    ./services/dyndns.nix
   ];
   boot = {
     loader = {
