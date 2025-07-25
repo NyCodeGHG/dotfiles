@@ -32,6 +32,7 @@
         pv
         cyme
         rdap
+        jq
       ]
       ++ lib.optionals (!(lib.versionOlder "25.05" lib.trivial.release)) (with pkgs; [ wcurl ]);
     programs.trippy.enable = true;
