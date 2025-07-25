@@ -60,10 +60,10 @@
       "7zz"
     ]);
 
-  boot.kernelPackages = pkgs.linuxPackages_6_15;
+  boot.kernelPackages = pkgs.linuxPackages;
 
-  specialisation."LTS-Kernel".configuration = {
-    boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
+  specialisation."Latest-Kernel".configuration = {
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
   };
 
   boot = {
