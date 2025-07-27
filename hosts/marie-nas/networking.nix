@@ -66,4 +66,5 @@
       MulticastDNS=resolve
     '';
   };
+  networking.firewall.trustedInterfaces = [ "podman*" ];
 }
