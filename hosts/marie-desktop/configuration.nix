@@ -75,8 +75,8 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = [ pkgs.mesa.opencl ];
   };
-  # hardware.amdgpu.opencl.enable = true;
 
   boot.loader = {
     systemd-boot = {
@@ -242,10 +242,11 @@
     extraBackends = with pkgs; [ hplip ];
   };
 
-  environment.sessionVariables = {
+  environment.variables = {
     "SSH_ASKPASS_REQUIRE" = "prefer";
     "PAGER" = "${pkgs.less}/bin/less -FRX";
     "EDITOR" = "nvim";
+    "RUSTICL_ENABLE" = "radeonsi";
   };
 
   environment.shellAliases = {
