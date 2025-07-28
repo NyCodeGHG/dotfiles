@@ -191,7 +191,6 @@
               {
                 nixpkgs-unstable = [
                   (npr 428046 "sha256-suAEGdYkRyq0PgayuIC4oVjLVCRwqf7aNOX7EelgSOU=")
-                  (npr 426094 "sha256-qnrKVQPmzXftG5uwH6miVsfYcxwfRuF9lussGR9e0ts=")
                 ];
                 nixpkgs = [
                   (npr 424847 "sha256-q7ikoxI+2FJ2aX6TeDfetaz6EkACCvO/gkFfzjkfdAA=")
