@@ -21,6 +21,7 @@
             directory = "/home/marie";
             user = "marie";
             group = "users";
+            mode = "0700";
           }
           "/var/db/sudo"
           {
@@ -28,7 +29,10 @@
             inInitrd = true;
           }
           "/var/lib/systemd"
-          "/var/lib/tailscale"
+          {
+            directory = "/var/lib/tailscale";
+            mode = "0700";
+          }
           "/var/log"
           "/var/lib/samba"
           "/var/cache/samba"
@@ -37,11 +41,13 @@
             directory = "/var/lib/jellyfin";
             user = "jellyfin";
             group = "media";
+            mode = "0700";
           }
           {
             directory = "/var/lib/transmission";
             user = "transmission";
             group = "media";
+            mode = "0750";
           }
           {
             directory = "/var/lib/private/prowlarr";
@@ -83,12 +89,16 @@
             user = "oauth2-proxy";
             group = "oauth2-proxy";
           }
-          "/var/lib/home-assistant-matter-hub"
+          {
+            directory = "/var/lib/home-assistant-matter-hub";
+            mode = "0700";
+          }
           "/var/lib/minecraft"
           {
             directory = "/var/lib/private/factorio";
             user = "factorio";
             group = "factorio";
+            mode = "0770";
           }
         ];
         files = [
@@ -104,36 +114,35 @@
             file = "/etc/ssh/ssh_host_ed25519_key";
             mode = "0700";
             inInitrd = true;
-            configureParent = true;
             how = "symlink";
           }
           {
             file = "/etc/ssh/ssh_host_ed25519_key.pub";
             inInitrd = true;
-            configureParent = true;
             how = "symlink";
           }
           {
             file = "/etc/ssh/ssh_host_rsa_key";
             mode = "0700";
             inInitrd = true;
-            configureParent = true;
             how = "symlink";
           }
           {
             file = "/etc/ssh/ssh_host_rsa_key.pub";
             inInitrd = true;
-            configureParent = true;
             how = "symlink";
           }
           {
             file = "/etc/zfs/zpool.cache";
             inInitrd = true;
-            configureParent = true;
             how = "symlink";
           }
         ];
       };
+    };
+
+    systemd.tmpfiles.settings.preservation = {
+      "/state/var/lib/private".d.mode = "0700";
     };
 
     systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
