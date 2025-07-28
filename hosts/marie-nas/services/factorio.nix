@@ -28,6 +28,7 @@
     ];
     allowedPlayers = [
       "uwumarie"
+      "roberto806"
     ];
     game-name = "meow";
     description = "factoworio server";
