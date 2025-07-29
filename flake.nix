@@ -181,6 +181,17 @@
               overlays = [
                 self.overlays.default
                 lix-module.overlays.default
+                (final: prev: {
+                  lix = prev.lix.overrideAttrs (prevLix: {
+                    patches = prevLix.patches or [ ] ++ [
+                      (prev.fetchpatch {
+                        url = "https://gerrit.lix.systems/plugins/gitiles/lix/+/9987a3c7db0fc88c5721d0aad846953622b85277%5E%21/?format=TEXT";
+                        hash = "sha256-Ma9SpMkfhrY3TZeN4jD3GmrVwmOy2plgNbgF6sS9i7I=";
+                        decode = "base64 -d";
+                      })
+                    ];
+                  });
+                })
               ];
             };
           patchedInputs = patchInputs {
