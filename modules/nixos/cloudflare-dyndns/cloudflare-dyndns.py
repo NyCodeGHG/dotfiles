@@ -60,4 +60,4 @@ else:
 
     for record in to_be_deleted:
         print(f"Deleting record {record.name}: {record.content}")
-        client.dns.records.delete(record.id)
+        client.dns.records.delete(record.id, zone_id=zone_id)
