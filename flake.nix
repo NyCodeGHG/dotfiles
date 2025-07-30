@@ -244,7 +244,7 @@
               ];
               deployment.buildOnTarget = true;
               deployment.targetUser = null;
-              nixpkgs.flake.source = nixpkgs;
+              nix.registry.nixpkgs.flake = nixpkgs;
             };
           delphi = {
             imports = [
@@ -253,7 +253,7 @@
             ];
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
-            nixpkgs.flake.source = nixpkgs;
+            nix.registry.nixpkgs.flake = nixpkgs;
           };
           gitlabber = {
             imports = [
@@ -263,7 +263,7 @@
             deployment.targetHost = "root@gitlabber.weasel-gentoo.ts.net";
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
-            nixpkgs.flake.source = nixpkgs;
+            nix.registry.nixpkgs.flake = nixpkgs;
           };
           marie-nas = {
             imports = [
@@ -273,7 +273,7 @@
             deployment.targetHost = "192.168.1.21";
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
-            nixpkgs.flake.source = nixpkgs-unstable;
+            nix.registry.nixpkgs.flake = nixpkgs-unstable;
           };
           marie-desktop = {
             imports = [
@@ -283,7 +283,7 @@
             ];
             deployment.allowLocalDeployment = true;
             deployment.targetHost = null;
-            nixpkgs.flake.source = nixpkgs-unstable;
+            nix.registry.nixpkgs.flake = nixpkgs-unstable;
           };
         };
     };
