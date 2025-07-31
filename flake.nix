@@ -57,14 +57,6 @@
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    lix = {
-      url = "git+https://gerrit.lix.systems/lix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nix_2_18.inputs.nixpkgs.follows = "nixpkgs";
-      };
-    };
   };
 
   outputs =
