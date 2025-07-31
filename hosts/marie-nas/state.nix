@@ -96,8 +96,6 @@
           "/var/lib/minecraft"
           {
             directory = "/var/lib/private/factorio";
-            user = "factorio";
-            group = "factorio";
             mode = "0770";
           }
         ];
