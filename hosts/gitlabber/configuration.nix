@@ -95,6 +95,6 @@
     nix-output-monitor
     tmux
     github-cli
-    nixpkgs-review
+    lixPackageSets.latest.nixpkgs-review
   ];
 }

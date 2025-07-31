@@ -48,11 +48,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -61,6 +56,14 @@
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    lix = {
+      url = "git+https://gerrit.lix.systems/lix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix_2_18.inputs.nixpkgs.follows = "nixpkgs";
+      };
     };
   };
 
@@ -72,7 +75,6 @@
       nixpkgs-xr,
       nixvim,
       self,
-      lix-module,
       colmena,
       ...
     }:
@@ -89,7 +91,9 @@
             f (
               import nixpkgs {
                 inherit system;
-                overlays = [ self.overlays.default ];
+                overlays = [
+                  self.overlays.default
+                ];
               }
             )
           );
@@ -104,7 +108,9 @@
             nurl
             nixos-rebuild
             inputs.agenix.packages.${system}.default
-            inputs.colmena.packages.${system}.colmena
+            (inputs.colmena.packages.${system}.colmena.override {
+              inherit (lixPackageSets.latest) nix-eval-jobs;
+            })
             nix-update
             ansible
             ansible-lint
@@ -180,18 +186,6 @@
               inherit system;
               overlays = [
                 self.overlays.default
-                lix-module.overlays.default
-                (final: prev: {
-                  lix = prev.lix.overrideAttrs (prevLix: {
-                    patches = prevLix.patches or [ ] ++ [
-                      (prev.fetchpatch {
-                        url = "https://gerrit.lix.systems/plugins/gitiles/lix/+/9987a3c7db0fc88c5721d0aad846953622b85277%5E%21/?format=TEXT";
-                        hash = "sha256-Ma9SpMkfhrY3TZeN4jD3GmrVwmOy2plgNbgF6sS9i7I=";
-                        decode = "base64 -d";
-                      })
-                    ];
-                  });
-                })
               ];
             };
           patchedInputs = patchInputs {
@@ -201,10 +195,8 @@
               { npr, ... }:
               {
                 nixpkgs-unstable = [
-                  (npr 428046 "sha256-suAEGdYkRyq0PgayuIC4oVjLVCRwqf7aNOX7EelgSOU=")
                 ];
                 nixpkgs = [
-                  (npr 424847 "sha256-q7ikoxI+2FJ2aX6TeDfetaz6EkACCvO/gkFfzjkfdAA=")
                 ];
               };
           };

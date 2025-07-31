@@ -25,19 +25,20 @@
       useXkbConfig = true;
     };
 
-    services.displayManager.sddm = {
-      enable = true;
-      wayland = {
+    services = {
+      displayManager.sddm = {
         enable = true;
-        compositor = "kwin";
+        wayland = {
+          enable = true;
+          compositor = "kwin";
+        };
       };
+
+      orca.enable = false;
+      speechd.enable = false;
+      xserver.xkb.layout = "de";
+      desktopManager.plasma6.enable = true;
     };
-
-    services.libinput.enable = true;
-
-    services.xserver.xkb.layout = "de";
-
-    services.desktopManager.plasma6.enable = true;
 
     programs.kdeconnect.enable = true;
 

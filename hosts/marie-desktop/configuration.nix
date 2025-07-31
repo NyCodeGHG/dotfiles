@@ -39,7 +39,10 @@
 
   services.fwupd.enable = true;
 
-  programs.direnv.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.package = pkgs.lixPackageSets.latest.nix-direnv;
+  };
 
   virtualisation.libvirtd.enable = true;
 
@@ -168,7 +171,7 @@
       ))
       mpv
       ffmpeg-full
-      nixpkgs-review
+      lixPackageSets.latest.nixpkgs-review
       restic
       rclone
       fastfetch

@@ -48,5 +48,24 @@
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_12;
 
     networking.nftables.enable = lib.mkDefault true;
+
+    users.mutableUsers = false;
+
+    systemd = {
+      oomd = {
+        enableRootSlice = true;
+        enableUserSlices = true;
+      };
+      services.sshd.serviceConfig.MemoryMin = "100M";
+      tmpfiles.rules = [ "d /var/tmp/nix 1777 root root 1d" ];
+    };
+
+    system.tools = {
+      nixos-build-vms.enable = false;
+      nixos-enter.enable = false;
+      nixos-generate-config.enable = false;
+      nixos-install.enable = false;
+      nixos-option.enable = false;
+    };
   };
 }
