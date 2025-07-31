@@ -253,7 +253,6 @@
             ];
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = nixpkgs;
           };
           gitlabber = {
             imports = [
