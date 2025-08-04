@@ -187,7 +187,7 @@
               { npr, ... }:
               {
                 nixpkgs-unstable = [
-                  (npr 429170 "sha256-/mDH786Xy03l0qQqgHh0QDdEM8HpqCQQtRzdf/zR1PE=")
+                  (npr 429170 "sha256-JVQJmXkNdQL8YEg5ZWddORa4+8DyrZu3IxuYqdz9AuU=")
                 ];
                 nixpkgs = [
                 ];
