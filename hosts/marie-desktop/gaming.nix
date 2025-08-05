@@ -53,7 +53,7 @@
 
   # VR
   services.wivrn = {
-    enable = false;
+    enable = true;
     openFirewall = true;
     defaultRuntime = true;
 
