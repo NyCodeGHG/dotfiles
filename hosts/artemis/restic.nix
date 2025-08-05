@@ -66,15 +66,8 @@ in
       dir="/tmp/postgres-backup"
 
       for db in $(psql postgres -tc 'SELECT datname FROM pg_database WHERE datistemplate = false;' | grep '\S' | awk '{$1=$1};1'); do
-        echo "Dumping schema for database $db"
         pg_dump "$db" \
-          --schema-only \
-          --file "$dir/$db-schema.psql"
-
-        echo "Dumping data for database $db"
-        pg_dump "$db" \
-          --data-only \
-          --file "$dir/$db-data.psql"
+          --file "$dir/$db.psql"
       done
 
       echo "Backing up using restic"
