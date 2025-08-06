@@ -34,6 +34,9 @@ let
   '';
 in
 {
+  imports = [
+    ../../../modules/nixos/netns.nix
+  ];
   options.vpn.dns.resolvconf = lib.mkOption {
     type = lib.types.path;
     description = "resolv.conf file used for services in the vpn.";
@@ -42,22 +45,6 @@ in
     '';
   };
   config = {
-    systemd.services."netns@" = {
-      description = "%I network namespace";
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStart = "${lib.getExe' pkgs.iproute2 "ip"} netns add %I";
-        ExecStop = "${lib.getExe' pkgs.iproute2 "ip"} netns delete %I";
-      };
-    };
-
-    systemd.targets."netns@" = {
-      description = "%I network namespace target";
-      after = [ "netns@%I.service" ];
-      wants = [ "netns@%I.service" ];
-    };
-
     systemd.services.setup-netns-vpn = {
       after = [ "netns@vpn.service" ];
       bindsTo = [ "netns@vpn.service" ];
