@@ -3,4 +3,4 @@
 .direnv
 .terraform
 *.tfstate*
-/result
+result*
