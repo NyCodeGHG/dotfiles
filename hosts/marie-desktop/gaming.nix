@@ -24,6 +24,7 @@
     ryubing
     nexusmods-app-unfree
     xrgears
+    oversteer
   ];
 
   programs.gamemode.enable = true;
