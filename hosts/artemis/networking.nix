@@ -104,6 +104,7 @@ in
         ];
       };
     };
+    config.networkConfig.IPv6PrivacyExtensions = false;
   };
 
   age.secrets.wg-private = {

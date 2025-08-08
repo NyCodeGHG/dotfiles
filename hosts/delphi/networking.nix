@@ -28,6 +28,7 @@
         };
       };
     };
+    config.networkConfig.IPv6PrivacyExtensions = false;
   };
 
   services.tailscale = {

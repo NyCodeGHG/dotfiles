@@ -42,6 +42,7 @@
     config = {
       networkConfig = {
         SpeedMeter = true;
+        IPv6PrivacyExtensions = false;
       };
     };
   };
