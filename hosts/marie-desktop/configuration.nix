@@ -172,6 +172,10 @@
       mpv
       ffmpeg-full
       lixPackageSets.latest.nixpkgs-review
+      (nix-update.override {
+        nix = config.nix.package;
+        inherit (lixPackageSets.latest) nixpkgs-review;
+      })
       restic
       rclone
       fastfetch
