@@ -97,5 +97,6 @@
     tmux
     github-cli
     lixPackageSets.latest.nixpkgs-review
+    zellij
   ];
 }
