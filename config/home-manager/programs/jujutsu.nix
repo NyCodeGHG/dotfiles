@@ -49,8 +49,8 @@ lib.mkIf config.uwumarie.profiles.jujutsu {
         ];
       };
       revsets.log = "trunk() | reachable(@, trunk()..visible_heads())";
-      core.fsmonitor = "watchman";
-      core.watchman.register-snapshot-trigger = true;
+      fsmonitor.backend = "watchman";
+      fsmonitor.watchman.register-snapshot-trigger = true;
     };
   };
   home.packages = with pkgs; [
