@@ -463,6 +463,7 @@
         "nixpkgs-xr": "nixpkgs-xr",
         "nixvim": "nixvim",
         "preservation": "preservation",
+        "systemd-impersonate": "systemd-impersonate",
         "trackerlist": "trackerlist"
       }
     },
@@ -480,6 +481,25 @@
         "ref": "nixos-25.05",
         "repo": "nixpkgs",
         "type": "github"
+      }
+    },
+    "systemd-impersonate": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "treefmt-nix": "treefmt-nix_2"
+      },
+      "locked": {
+        "lastModified": 1754852306,
+        "narHash": "sha256-wDxZQ5rt7sjVvN6xAe50pywvORR7D1egT+3YdPMQW0U=",
+        "rev": "ad6ee54c05933c89d456c27b105d0f2389769889",
+        "type": "tarball",
+        "url": "https://codeberg.org/api/v1/repos/marie/systemd-impersonate/archive/ad6ee54c05933c89d456c27b105d0f2389769889.tar.gz?rev=ad6ee54c05933c89d456c27b105d0f2389769889"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://codeberg.org/marie/systemd-impersonate/archive/main.tar.gz"
       }
     },
     "systems": {
@@ -571,6 +591,27 @@
         "owner": "numtide",
         "repo": "treefmt-nix",
         "rev": "1298185c05a56bff66383a20be0b41a307f52228",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "treefmt-nix_2": {
+      "inputs": {
+        "nixpkgs": [
+          "systemd-impersonate",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747912973,
+        "narHash": "sha256-XgxghfND8TDypxsMTPU2GQdtBEsHTEc3qWE6RVEk8O0=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "020cb423808365fa3f10ff4cb8c0a25df35065a3",
         "type": "github"
       },
       "original": {

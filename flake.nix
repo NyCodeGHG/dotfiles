@@ -57,6 +57,11 @@
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    systemd-impersonate = {
+      url = "https://codeberg.org/marie/systemd-impersonate/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -68,6 +73,7 @@
       nixvim,
       self,
       colmena,
+      systemd-impersonate,
       ...
     }:
     let
@@ -85,6 +91,7 @@
                 inherit system;
                 overlays = [
                   self.overlays.default
+                  systemd-impersonate.overlays.default
                 ];
               }
             )
@@ -178,6 +185,7 @@
               inherit system;
               overlays = [
                 self.overlays.default
+                systemd-impersonate.overlays.default
               ];
             };
           patchedInputs = patchInputs {
