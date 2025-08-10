@@ -491,11 +491,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1754852306,
-        "narHash": "sha256-wDxZQ5rt7sjVvN6xAe50pywvORR7D1egT+3YdPMQW0U=",
-        "rev": "ad6ee54c05933c89d456c27b105d0f2389769889",
+        "lastModified": 1754860574,
+        "narHash": "sha256-LKmRkBEiEmI0lP5ptoticJdNa7KCYaOA4gnIwQAbRgU=",
+        "rev": "24d72f88d792fd76d72b6e69a74a286c121c74be",
         "type": "tarball",
-        "url": "https://codeberg.org/api/v1/repos/marie/systemd-impersonate/archive/ad6ee54c05933c89d456c27b105d0f2389769889.tar.gz?rev=ad6ee54c05933c89d456c27b105d0f2389769889"
+        "url": "https://codeberg.org/api/v1/repos/marie/systemd-impersonate/archive/24d72f88d792fd76d72b6e69a74a286c121c74be.tar.gz?rev=24d72f88d792fd76d72b6e69a74a286c121c74be"
       },
       "original": {
         "type": "tarball",
