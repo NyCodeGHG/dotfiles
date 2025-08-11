@@ -56,6 +56,7 @@
       oomd = {
         enableRootSlice = true;
         enableUserSlices = true;
+        enableSystemSlice = true;
       };
       services.sshd.serviceConfig.MemoryMin = "100M";
       tmpfiles.rules = [ "d /var/tmp/nix 1777 root root 1d" ];
