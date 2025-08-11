@@ -143,6 +143,16 @@
           #     withVencord = true;
           #   }
           # );
+          matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs rec {
+            version = "1.135.2";
+
+            src = prev.fetchFromGitHub {
+              owner = "element-hq";
+              repo = "synapse";
+              tag = "v${version}";
+              hash = "sha256-4HAA9Xq4C3DHxz0BgqBitfM4wZwPSEu+IO/OPfHzLVw=";
+            };
+          };
         }
         // (self.overlays.packages final prev)
       );
