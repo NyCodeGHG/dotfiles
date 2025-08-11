@@ -244,6 +244,15 @@
 
   virtualisation.spiceUSBRedirection.enable = true;
 
+  systemd.oomd.enable = false;
+
+  services.earlyoom = {
+    enable = true;
+    enableNotifications = true;
+    freeMemThreshold = 5;
+    reportInterval = 0;
+  };
+
   hardware.sane = {
     enable = true;
     extraBackends = with pkgs; [ hplip ];
