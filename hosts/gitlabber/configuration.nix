@@ -52,6 +52,9 @@
           IPv6AcceptRA = true;
           KeepConfiguration = "yes";
         };
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
+        ipv6AcceptRAConfig.UseDNS = false;
       };
     };
     config.networkConfig.IPv6PrivacyExtensions = false;
