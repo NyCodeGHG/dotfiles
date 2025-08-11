@@ -48,5 +48,7 @@
     };
 
     systemd.network.enable = lib.mkOverride 800 false;
+
+    boot.kernel.sysctl."vm.swappiness" = 10;
   };
 }
