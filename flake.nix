@@ -227,6 +227,7 @@
                 system = "aarch64-linux";
               };
               marie-nas = importNixpkgs { nixpkgs = nixpkgs-unstable; };
+              gitlabber = importNixpkgs { nixpkgs = nixpkgs-unstable; };
               marie-desktop = importNixpkgs {
                 nixpkgs = nixpkgs-unstable;
               };
@@ -264,7 +265,7 @@
             deployment.targetHost = "root@gitlabber.weasel-gentoo.ts.net";
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = nixpkgs;
+            nix.registry.nixpkgs.flake = nixpkgs-unstable;
           };
           marie-nas = {
             imports = [
