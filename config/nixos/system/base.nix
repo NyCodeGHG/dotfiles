@@ -69,5 +69,7 @@
       nixos-install.enable = false;
       nixos-option.enable = false;
     };
+
+    services.userborn.enable = true;
   };
 }
