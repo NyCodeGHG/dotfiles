@@ -98,6 +98,7 @@
             directory = "/var/lib/private/factorio";
             mode = "0770";
           }
+          "/var/lib/power-profiles-daemon"
         ];
         files = [
           {
