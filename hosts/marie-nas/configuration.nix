@@ -83,7 +83,7 @@
 
   systemd = {
     enableEmergencyMode = false;
-    watchdog.runtimeTime = "15s";
+    settings.Manager.RuntimeWatchdogSec = "15s";
   };
   security.sudo-rs.wheelNeedsPassword = false;
 
