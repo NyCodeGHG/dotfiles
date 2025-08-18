@@ -12,7 +12,6 @@
     ./syncthing.nix
     ./paperless.nix
     ./iperf3.nix
-    ./hedgedoc
     ./atuin.nix
     ./attic.nix
     ./changedetection.nix

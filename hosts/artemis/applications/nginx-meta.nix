@@ -35,5 +35,19 @@
         '';
       };
     };
+    "hedgedoc.marie.cologne" = {
+      extraConfig = ''
+        error_page 410 @gone;
+      '';
+      locations."/" = {
+        return = "410";
+      };
+      locations."@gone" = {
+        root = "${../website}";
+        extraConfig = ''
+          rewrite ^(.*)$ /discontinued.html break;
+        '';
+      };
+    };
   };
 }
