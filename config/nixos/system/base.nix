@@ -34,6 +34,7 @@
         rdap
         jq
         systemd-impersonate
+        b3sum
       ]
       ++ lib.optionals (!(lib.versionOlder "25.05" lib.trivial.release)) (with pkgs; [ wcurl ]);
     programs.trippy.enable = true;
