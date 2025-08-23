@@ -7,7 +7,8 @@
       ignoreIP = [
         "10.69.0.0/24"
         "127.0.0.1/8"
-      ] ++ lib.optional config.services.tailscale.enable "100.64.0.0/10";
+      ]
+      ++ lib.optional config.services.tailscale.enable "100.64.0.0/10";
       bantime-increment = {
         enable = true;
         maxtime = "48h";

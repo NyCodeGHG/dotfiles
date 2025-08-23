@@ -44,15 +44,14 @@ let
     inherit version src;
 
     sourceRoot = "${finalAttrs.src.name}/plasma/plasmoids/src/sevenstart_src";
-    nativeBuildInputs =
-      [
-        cmake
-        pkg-config
-      ]
-      ++ (with kdePackages; [
-        extra-cmake-modules
-        wrapQtAppsHook
-      ]);
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ]
+    ++ (with kdePackages; [
+      extra-cmake-modules
+      wrapQtAppsHook
+    ]);
 
     postPatch = ''
       substituteInPlace "src/CMakeLists.txt" \
@@ -79,12 +78,13 @@ let
 
     sourceRoot = "${finalAttrs.src.name}/kwin/effects_cpp/kde-effects-aeroglassblur";
 
-    nativeBuildInputs =
-      [ cmake ]
-      ++ (with kdePackages; [
-        extra-cmake-modules
-        wrapQtAppsHook
-      ]);
+    nativeBuildInputs = [
+      cmake
+    ]
+    ++ (with kdePackages; [
+      extra-cmake-modules
+      wrapQtAppsHook
+    ]);
     buildInputs = with kdePackages; [
       kwin
       qttools
@@ -96,12 +96,13 @@ let
 
     sourceRoot = "${finalAttrs.src.name}/kwin/effects_cpp/kwin-effect-smodsnap-v2";
 
-    nativeBuildInputs =
-      [ cmake ]
-      ++ (with kdePackages; [
-        extra-cmake-modules
-        wrapQtAppsHook
-      ]);
+    nativeBuildInputs = [
+      cmake
+    ]
+    ++ (with kdePackages; [
+      extra-cmake-modules
+      wrapQtAppsHook
+    ]);
     buildInputs = with kdePackages; [
       qtbase
       kconfigwidgets
@@ -117,23 +118,23 @@ let
     inherit src version;
 
     sourceRoot = "${finalAttrs.src.name}/kwin/effects_cpp/smodglow";
-    nativeBuildInputs =
-      [
-        cmake
-        pkg-config
-      ]
-      ++ (with kdePackages; [
-        extra-cmake-modules
-        wrapQtAppsHook
-      ]);
-    buildInputs =
-      [ breeze ]
-      ++ (with kdePackages; [
-        qtbase
-        kconfigwidgets
-        kdecoration
-        kwin
-      ]);
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ]
+    ++ (with kdePackages; [
+      extra-cmake-modules
+      wrapQtAppsHook
+    ]);
+    buildInputs = [
+      breeze
+    ]
+    ++ (with kdePackages; [
+      qtbase
+      kconfigwidgets
+      kdecoration
+      kwin
+    ]);
     cmakeFlags = [
       (lib.cmakeBool "BUILD_KF6" true)
     ];

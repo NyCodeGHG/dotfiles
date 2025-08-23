@@ -6,7 +6,12 @@
 }:
 let
   cfg = config.uwumarie.cloudflare-dyndns;
-  python = pkgs.python3.withPackages (ps: with ps; [ netifaces cloudflare ]);
+  python = pkgs.python3.withPackages (
+    ps: with ps; [
+      netifaces
+      cloudflare
+    ]
+  );
 in
 {
   options.uwumarie.cloudflare-dyndns = {

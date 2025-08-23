@@ -7,7 +7,8 @@
 {
   imports = [
     inputs.agenix.homeManagerModules.default
-  ] ++ import ./module-list.nix;
+  ]
+  ++ import ./module-list.nix;
 
   options.uwumarie.profiles = {
     eza = lib.mkEnableOption (lib.mdDoc "eza config");
