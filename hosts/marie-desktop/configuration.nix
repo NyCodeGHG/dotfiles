@@ -231,6 +231,7 @@
       signal-desktop
       sshfs
       obs-cmd
+      comma
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
