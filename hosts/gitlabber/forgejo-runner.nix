@@ -22,9 +22,7 @@
   virtualisation.podman = {
     enable = true;
     dockerSocket.enable = true;
-    package = pkgs.podman.override {
-      extraPackages = [ pkgs.nftables ];
-    };
+    extraPackages = [ pkgs.nftables ];
     defaultNetwork.settings = {
       dns_enabled = true;
     };
