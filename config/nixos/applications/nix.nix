@@ -10,15 +10,7 @@
   };
   config = lib.mkIf config.uwumarie.profiles.nix {
     nix = {
-      package = pkgs.lixPackageSets.latest.lix.overrideAttrs (prev: {
-        patches = prev.patches or [ ] ++ [
-          (pkgs.fetchpatch {
-            url = "https://gerrit.lix.systems/plugins/gitiles/lix/+/9987a3c7db0fc88c5721d0aad846953622b85277%5E%21/?format=TEXT";
-            hash = "sha256-Ma9SpMkfhrY3TZeN4jD3GmrVwmOy2plgNbgF6sS9i7I=";
-            decode = "base64 -d";
-          })
-        ];
-      });
+      package = pkgs.lixPackageSets.latest.lix;
       nixPath = [ "nixpkgs=flake:nixpkgs" ];
       gc = {
         automatic = true;
