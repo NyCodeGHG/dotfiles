@@ -25,7 +25,7 @@ let
     if (fetchedPatches.${name} or [ ]) != [ ] then
       let
         patchedSrc = pkgsForPatching.applyPatches {
-          name = "source-patched";
+          name = "source";
           src = value;
           patches = fetchedPatches.${name};
         };
