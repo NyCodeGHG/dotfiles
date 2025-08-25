@@ -192,49 +192,9 @@
           "path"
           "snippets"
           "buffer"
-          "git"
-          "emoji"
         ];
-        sources.providers = {
-          git = {
-            module = "blink-cmp-git";
-            name = "git";
-            opts = {
-              commit = { };
-              git_centers = {
-                git_hub = { };
-              };
-            };
-            should_show_items = lib.nixvim.mkRaw ''
-              function()
-                return vim.tbl_contains(
-                  { "gitcommit", "markdown", "jjdescription" },
-                  vim.o.filetype
-                )
-              end
-            '';
-          };
-          emoji = {
-            module = "blink-emoji";
-            name = "Emoji";
-            # Optional configurations
-            opts = {
-              insert = true;
-            };
-            should_show_items = lib.nixvim.mkRaw ''
-              function()
-                return vim.tbl_contains(
-                  { "gitcommit", "markdown", "jjdescription" },
-                  vim.o.filetype
-                )
-              end
-            '';
-          };
-        };
       };
     };
-    blink-cmp-git.enable = true;
-    blink-emoji.enable = true;
     luasnip = {
       enable = true;
       settings = {
