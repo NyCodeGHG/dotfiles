@@ -50,5 +50,10 @@
     systemd.network.enable = lib.mkOverride 800 false;
 
     boot.kernel.sysctl."vm.swappiness" = 10;
+
+    environment.plasma6.excludePackages = with pkgs.kdePackages; [
+      elisa
+      kwin-x11
+    ];
   };
 }

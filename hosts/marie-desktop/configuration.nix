@@ -27,11 +27,6 @@
     graphical = true;
   };
 
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    elisa
-    kwin-x11
-  ];
-
   programs.nh = {
     enable = true;
     flake = "/home/marie/dotfiles";
