@@ -94,6 +94,9 @@
 
   system.stateVersion = "24.11";
 
+  boot.binfmt.emulatedSystems = [ "powerpc-linux" ];
+  boot.binfmt.preferStaticEmulators = true;
+
   environment.systemPackages = with pkgs; [
     rsync
     nix-output-monitor
