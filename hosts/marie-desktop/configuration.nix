@@ -27,6 +27,9 @@
     graphical = true;
   };
 
+  boot.binfmt.emulatedSystems = [ "powerpc-linux" ];
+  boot.binfmt.preferStaticEmulators = true;
+
   programs.nh = {
     enable = true;
     flake = "/home/marie/dotfiles";
