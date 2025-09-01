@@ -222,7 +222,7 @@
       }))
       config.boot.kernelPackages.cpupower
       unrar
-      jellyfin-media-player
+      # jellyfin-media-player
       distrobox
       docker-compose # for podman-compose
       nix-tree
