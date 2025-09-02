@@ -19,6 +19,7 @@
   config = lib.mkIf config.uwumarie.profiles.ssh.enable {
     programs.ssh = {
       enable = true;
+      enableDefaultConfig = false;
       package = pkgs.openssh;
       matchBlocks = {
         "github.com" = {
@@ -52,9 +53,7 @@
           identitiesOnly = true;
         };
         "*" = {
-          extraOptions = {
-            AddKeysToAgent = "yes";
-          };
+          addKeysToAgent = "yes";
         };
       };
     };
