@@ -185,6 +185,7 @@
         clojure_lsp.enable = true;
       };
     };
+    conjure.enable = true;
     fidget.enable = true;
     auto-save.enable = true;
     blink-cmp = {
