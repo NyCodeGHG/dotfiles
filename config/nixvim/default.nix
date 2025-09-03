@@ -329,7 +329,8 @@
   };
 
   diagnostic.settings = {
-    virtual_lines = true;
+    virtual_lines = false;
+    virtual_text = true;
   };
 
 }
