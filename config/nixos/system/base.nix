@@ -76,8 +76,6 @@
       nixos-option.enable = false;
     };
 
-    services.userborn.enable = true;
-
     security.polkit.enable = lib.mkDefault true;
   };
 }
