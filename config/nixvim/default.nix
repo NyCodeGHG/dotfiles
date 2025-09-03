@@ -12,7 +12,10 @@
     };
   };
 
-  globals.mapleader = " ";
+  globals = {
+    mapleader = " ";
+    maplocalleader = ",";
+  };
   opts = {
     # Line Numbers
     number = true;
