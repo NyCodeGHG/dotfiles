@@ -19,7 +19,6 @@
     # ./router.nix
     ./krisp-patcher.nix
     ./peacock.nix
-    ./amdgpu/default.nix
     ./networking.nix
   ];
 
