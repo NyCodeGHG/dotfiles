@@ -27,7 +27,10 @@
     graphical = true;
   };
 
-  boot.binfmt.emulatedSystems = [ "powerpc-linux" ];
+  boot.binfmt.emulatedSystems = [
+    "powerpc-linux"
+    "aarch64-linux"
+  ];
   boot.binfmt.preferStaticEmulators = true;
 
   programs.nh = {
