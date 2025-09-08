@@ -22,7 +22,6 @@
         usbutils
         wget2
         curl
-        vim
         tcpdump
         git
         fd
