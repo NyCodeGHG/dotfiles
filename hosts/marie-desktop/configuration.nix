@@ -233,6 +233,7 @@
       sshfs
       obs-cmd
       comma
+      kdiff3
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
