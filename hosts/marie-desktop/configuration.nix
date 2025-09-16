@@ -234,6 +234,7 @@
       obs-cmd
       comma
       kdiff3
+      emacs-pgtk
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
