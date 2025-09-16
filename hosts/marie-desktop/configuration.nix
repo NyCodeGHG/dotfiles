@@ -24,6 +24,7 @@
 
   uwumarie.profiles = {
     graphical = true;
+    tools = true;
   };
 
   boot.binfmt.emulatedSystems = [
