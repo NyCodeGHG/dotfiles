@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.uwumarie.profiles.tools = lib.mkEnableOption "tools";
   config = lib.mkIf config.uwumarie.profiles.tools {
@@ -8,7 +13,7 @@
       gopls
       vscode-langservers-extracted
       python3
-      python3Packages.editorconfig
+      editorconfig-core-c
       clojure-lsp
       nixd
     ];
