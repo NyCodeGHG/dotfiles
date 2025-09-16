@@ -6,4 +6,5 @@
   ./programs/ssh.nix
   ./programs/tmux.nix
   ./programs/zsh.nix
+  ./programs/emacs.nix
 ]
