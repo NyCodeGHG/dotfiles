@@ -62,6 +62,9 @@
       "anydesk"
       "unrar"
       "7zz"
+      "chromium"
+      "chromium-unwrapped"
+      "widevine-cdm"
     ]);
 
   boot.kernelPackages = pkgs.linuxPackages;
@@ -154,7 +157,7 @@
   environment.systemPackages =
     with pkgs;
     [
-      chromium
+      (chromium.override { enableWideVine = true; })
       discord
       spotify
       qpwgraph
