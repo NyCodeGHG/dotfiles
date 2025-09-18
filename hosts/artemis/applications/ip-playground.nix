@@ -7,7 +7,6 @@
 let
   frontendPackage = inputs.ip-playground.packages.${pkgs.system}.ip-playground-frontend;
   backendPackage = inputs.ip-playground.packages.${pkgs.system}.ip-playground-backend;
-  asnDbPath = "/var/lib/ip-playground/ip2asn-combined.tsv";
 in
 {
   services.nginx.virtualHosts = {
@@ -51,11 +50,11 @@ in
         ALLOWED_ORIGINS = "https://ip.marie.cologne,https://v4.ip.marie.cologne,https://v6.ip.marie.cologne";
         PORT = "3032";
         LOG_FORMAT = "json";
-        ASN_DB_PATH = asnDbPath;
         REDIS_URL = "redis+unix://${config.services.redis.servers.ip-playground.unixSocket}";
         RUST_LOG = "info";
         IPLOOKUPD_URL = "http://localhost:7805";
         IP_BACKEND = "iplookupd";
+        USER_AGENT = "ip-playground +https://chaos.social/@marie";
       };
       serviceConfig = {
         ExecStart = "${backendPackage}/bin/ip-playground";
