@@ -200,6 +200,7 @@
               { npr, ... }:
               {
                 nixpkgs-unstable = [
+                  (npr 446346 "sha256-O6kyizpZrtZ7juNIjJ9vedYjcKCcx7AMfj87GXJRjZk=")
                 ];
                 nixpkgs = [
                 ];
