@@ -335,18 +335,34 @@
         "type": "github"
       }
     },
+    "nixos-wii-u": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1758376786,
+        "narHash": "sha256-3NECxvCJjVHF7zkYpoGdQ6J3zSwjnP8cw6JtRuWmSHc=",
+        "rev": "3809b2f15858e0c872177ad6a7baf0bc196c7b2a",
+        "type": "tarball",
+        "url": "https://codeberg.org/api/v1/repos/marie/nixos-wii-u/archive/3809b2f15858e0c872177ad6a7baf0bc196c7b2a.tar.gz?rev=3809b2f15858e0c872177ad6a7baf0bc196c7b2a"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://codeberg.org/marie/nixos-wii-u/archive/main.tar.gz"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1757810152,
-        "narHash": "sha256-Vp9K5ol6h0J90jG7Rm4RWZsCB3x7v5VPx588TQ1dkfs=",
+        "lastModified": 1758371471,
+        "narHash": "sha256-zreB1PmeuJf5wXDwKcWkUvAcba/bWdnUwR/KcYHe7YA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9a094440e02a699be5c57453a092a8baf569bdad",
+        "rev": "9e95e5b23a7a43fa9756a1758e74bdda1558bbad",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-25.05",
+        "ref": "9e95e5b2",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -388,6 +404,22 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixpkgs-xr",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1757810152,
+        "narHash": "sha256-Vp9K5ol6h0J90jG7Rm4RWZsCB3x7v5VPx588TQ1dkfs=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9a094440e02a699be5c57453a092a8baf569bdad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-25.05",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -462,7 +494,8 @@
         "iplookupd": "iplookupd",
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs",
+        "nixos-wii-u": "nixos-wii-u",
+        "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixpkgs-xr": "nixpkgs-xr",
         "nixvim": "nixvim",

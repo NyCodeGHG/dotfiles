@@ -62,6 +62,10 @@
       url = "https://codeberg.org/marie/systemd-impersonate/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    nixos-wii-u = {
+      url = "https://codeberg.org/marie/nixos-wii-u/archive/main.tar.gz";
+    };
   };
 
   outputs =
@@ -74,6 +78,7 @@
       self,
       colmena,
       systemd-impersonate,
+      nixos-wii-u,
       ...
     }:
     let
@@ -221,6 +226,9 @@
               marie-desktop = importNixpkgs {
                 nixpkgs = nixpkgs-unstable;
               };
+              wii-u = importNixpkgs {
+                nixpkgs = nixos-wii-u.inputs.nixpkgs;
+              };
             };
           };
           artemis =
@@ -276,6 +284,18 @@
             deployment.allowLocalDeployment = true;
             deployment.targetHost = null;
             nix.registry.nixpkgs.flake = nixpkgs-unstable;
+          };
+          wii-u = {
+            imports = [
+              ./hosts/wii-u/configuration.nix
+              self.nixosModules.config
+              nixos-wii-u.nixosModules.default
+            ];
+            deployment.targetHost = "192.168.1.62";
+            deployment.buildOnTarget = false;
+            deployment.targetUser = null;
+            nix.registry.nixpkgs.flake = nixos-wii-u.inputs.nixpkgs;
+            nixpkgs.buildPlatform = "x86_64-linux";
           };
         };
     };
