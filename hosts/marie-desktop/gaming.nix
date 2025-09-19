@@ -7,7 +7,10 @@
 {
   environment.systemPackages = with pkgs; [
     (prismlauncher.override {
-      jdks = [ pkgs.jdk21 ];
+      jdks = [
+        pkgs.jdk21
+        pkgs.jdk25
+      ];
     })
     heroic
     winetricks
