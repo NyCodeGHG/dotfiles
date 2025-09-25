@@ -5,7 +5,6 @@
   nodejs,
   yarn-berry_4,
   makeWrapper,
-  fetchpatch,
 }:
 
 let
@@ -14,31 +13,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "peacock";
-  version = "8.1.0";
-
-  patches = [
-    # fix: sort contracts for deterministic build
-    (fetchpatch {
-      url = "https://github.com/thepeacockproject/Peacock/commit/9ce9c82a74429a7811c538c232b3171d5368db24.patch";
-      hash = "sha256-KhUGZ7BsHj+udGl8qdASsAnDgu72KjvryhMfwX8rL/w=";
-    })
-    # fix: serve webui relative to the current module
-    (fetchpatch {
-      url = "https://github.com/thepeacockproject/Peacock/commit/95e3de4554206197621315d00e863c00bf079ed7.patch";
-      hash = "sha256-9pdMs+SsHvSwTzVKjgLZCq12w8NuTx1Y5wQeR7y0iyY=";
-    })
-    # fix: translate windows plugin paths on linux
-    (fetchpatch {
-      url = "https://github.com/thepeacockproject/Peacock/commit/073bdebea3c8fc7174d2b6865cc1c4e5c3568f79.patch";
-      hash = "sha256-XLU7V17/gBE8gyKTCCkpvAYxatM4ZB3K+QoLXIIjjdA=";
-    })
-  ];
+  version = "8.3.0";
 
   src = fetchFromGitHub {
     owner = "thepeacockproject";
     repo = "Peacock";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-oCUA8BU6FDDL85xk+l97RgWolShyJZGtQZWXskSCdPU=";
+    hash = "sha256-AegJ5h2sxs8iheBLbIBwZXjjZLk5GdcDVLbF4ldcmZ0=";
   };
 
   nativeBuildInputs = [
@@ -62,11 +43,13 @@ stdenv.mkDerivation (finalAttrs: {
 
     node chunk0.js noop
 
+    # Keep more or less in sync with https://github.com/thepeacockproject/Peacock/blob/master/packaging/ciAssemble.sh
+    # Not all output files are required.
+
     OUT_DIR="$out/share/peacock"
     mkdir -p "$OUT_DIR" "$out/bin"
 
     cp packaging/HOW_TO_USE.html "$OUT_DIR"
-    cp PeacockPatcher.exe "$OUT_DIR"
     cp chunk*.js "$OUT_DIR"
 
     mkdir "$OUT_DIR"/resources
@@ -103,5 +86,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ marie ];
     mainProgram = "peacock";
+    platforms = lib.platforms.linux;
   };
 })
