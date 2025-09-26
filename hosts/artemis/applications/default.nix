@@ -14,7 +14,6 @@
     ./iperf3.nix
     ./atuin.nix
     ./attic.nix
-    ./changedetection.nix
     ./soju.nix
     ./kanidm.nix
     ./anubis.nix
