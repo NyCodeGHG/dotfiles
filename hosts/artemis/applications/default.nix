@@ -18,5 +18,6 @@
     ./kanidm.nix
     ./anubis.nix
     ./iplookupd.nix
+    ./hydra.nix
   ];
 }

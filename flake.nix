@@ -66,6 +66,11 @@
     nixos-wii-u = {
       url = "https://codeberg.org/marie/nixos-wii-u/archive/main.tar.gz";
     };
+
+    hydra = {
+      url = "https://git.lix.systems/lix-project/hydra/archive/lix-2.93.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

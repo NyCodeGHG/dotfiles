@@ -10,7 +10,7 @@
   };
   config = lib.mkIf config.uwumarie.profiles.nix {
     nix = {
-      package = pkgs.lixPackageSets.latest.lix;
+      package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
       nixPath = [ "nixpkgs=flake:nixpkgs" ];
       gc = {
         automatic = true;
