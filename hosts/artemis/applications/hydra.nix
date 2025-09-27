@@ -16,7 +16,7 @@
     notificationSender = "hydra@marie.cologne";
     buildMachinesFiles = [
       (pkgs.writeText "machines" ''
-        ssh-ng://root@gitlabber.weasel-gentoo.ts.net i686-linux,x86_64-linux - 4 2 kvm,nixos-test,big-parallel,benchmark -
+        ssh://root@gitlabber.weasel-gentoo.ts.net i686-linux,x86_64-linux - 4 2 kvm,nixos-test,big-parallel,benchmark -
       '')
     ];
     useSubstitutes = true;
