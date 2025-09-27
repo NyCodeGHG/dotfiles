@@ -18,7 +18,7 @@
         DNS=149.112.112.112#dns.quad9.net
         LLMNR=no
       '';
-      dnsovertls = lib.mkDefault "true";
+      # dnsovertls = lib.mkDefault "true";
     };
   };
 }
