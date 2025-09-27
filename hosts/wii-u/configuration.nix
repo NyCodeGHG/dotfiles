@@ -62,5 +62,7 @@
     nixos-option.enable = false;
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
   hardware.graphics.enable = true;
 }
