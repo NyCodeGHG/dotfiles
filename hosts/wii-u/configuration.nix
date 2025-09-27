@@ -25,6 +25,7 @@
     libinput
     iperf
     btop
+    westonLite
   ];
 
   networking = {
