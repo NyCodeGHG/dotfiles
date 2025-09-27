@@ -19,17 +19,16 @@
       };
       compression = {
         type = "zstd";
-        level = 8;
       };
       garbage-collection = {
         interval = "1 day";
         default-retention-period = "3 months";
       };
       chunking = {
-        nar-size-threshold = 64 * 1024;
-        min-size = 16 * 1024;
-        avg-size = 64 * 1024;
-        max-size = 256 * 1024;
+        nar-size-threshold = 1;
+        min-size = 128 * 1024;
+        avg-size = 256 * 1024;
+        max-size = 512 * 1024;
       };
     };
   };
