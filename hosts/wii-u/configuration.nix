@@ -60,4 +60,6 @@
     nixos-install.enable = false;
     nixos-option.enable = false;
   };
+
+  hardware.graphics.enable = true;
 }
