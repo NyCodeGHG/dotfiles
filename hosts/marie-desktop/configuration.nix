@@ -67,11 +67,7 @@
       "widevine-cdm"
     ]);
 
-  boot.kernelPackages = pkgs.linuxPackages;
-
-  specialisation."Latest-Kernel".configuration = {
-    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
-  };
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot = {
     plymouth.enable = true;
