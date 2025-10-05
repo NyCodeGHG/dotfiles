@@ -29,7 +29,6 @@ in
   "artemis-wg-privatekey.age".publicKeys = users ++ artemis;
   "paperless-env.age".publicKeys = users ++ artemis;
   "curseforge-api-key.age".publicKeys = users ++ delphi;
-  "minio.age".publicKeys = users ++ delphi;
   "turn-secret.age".publicKeys = users ++ delphi;
   "turn-secret-synapse-config.age".publicKeys = users ++ artemis;
 
