@@ -6,9 +6,9 @@ terraform {
     }
   }
   backend "s3" {
-    endpoint                    = "https://minio.marie.cologne"
+    endpoint                    = "https://s3.marie.cologne"
     key                         = "terraform.tfstate"
-    region                      = "eu-frankfurt"
+    region                      = "garage"
     bucket                      = "terraform"
     use_path_style              = true
     skip_region_validation      = true
