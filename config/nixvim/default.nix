@@ -176,8 +176,8 @@
         lua_ls.enable = true;
         pylsp.enable = true;
         svelte.enable = true;
-        # nixd.enable = true;
-        nil_ls.enable = true;
+        nixd.enable = true;
+        # nil_ls.enable = true;
         gleam.enable = false;
         jsonls.enable = true;
         clangd.enable = true;
