@@ -71,6 +71,11 @@
       url = "https://git.lix.systems/lix-project/hydra/archive/lix-2.93.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
