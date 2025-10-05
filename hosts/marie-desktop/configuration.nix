@@ -265,6 +265,8 @@
     extraBackends = with pkgs; [ hplip ];
   };
 
+  services.nixseparatedebuginfod2.enable = true;
+
   environment.variables = {
     "SSH_ASKPASS_REQUIRE" = "prefer";
     "PAGER" = "${pkgs.less}/bin/less -FRX";
