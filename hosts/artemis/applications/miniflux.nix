@@ -14,7 +14,7 @@ in
     config = {
       OAUTH2_PROVIDER = "oidc";
       OAUTH2_REDIRECT_URL = "https://miniflux.marie.cologne/oauth2/oidc/callback";
-      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://sso.nycode.dev/application/o/miniflux/";
+      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://idm.marie.cologne/oauth2/openid/miniflux";
       OAUTH2_USER_CREATION = "1";
       PORT = port;
       BASE_URL = "https://miniflux.marie.cologne";
