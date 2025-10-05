@@ -233,6 +233,7 @@
               };
               marie-nas = importNixpkgs { nixpkgs = nixpkgs-unstable; };
               gitlabber = importNixpkgs { nixpkgs = nixpkgs-unstable; };
+              hydra2 = importNixpkgs { nixpkgs = nixpkgs-unstable; };
               marie-desktop = importNixpkgs {
                 nixpkgs = nixpkgs-unstable;
               };
@@ -294,6 +295,17 @@
             deployment.allowLocalDeployment = true;
             deployment.targetHost = null;
             nix.registry.nixpkgs.flake = nixpkgs-unstable;
+          };
+          hydra2 = {
+            imports = [
+              ./hosts/hydra2/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.targetHost = "91.99.205.130";
+            deployment.buildOnTarget = false;
+            deployment.targetUser = null;
+            nix.registry.nixpkgs.flake = nixpkgs-unstable;
+            nixpkgs.buildPlatform = "x86_64-linux";
           };
           wii-u = {
             imports = [

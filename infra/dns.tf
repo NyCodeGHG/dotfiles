@@ -175,6 +175,20 @@ resource "cloudflare_record" "s3_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "hydra2_marie_cologne_v4" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "hydra2"
+  content = "91.99.205.130"
+  type    = "A"
+}
+
+resource "cloudflare_record" "hydra2_marie_cologne_v6" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "hydra2"
+  content = "2a01:4f8:c0c:7e48::1"
+  type    = "AAAA"
+}
+
 resource "cloudflare_record" "marie_nas_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "marie-nas"
