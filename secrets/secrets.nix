@@ -45,6 +45,7 @@ in
   "../hosts/artemis/secrets/attic.age".publicKeys = users ++ artemis;
   "../hosts/artemis/secrets/restic.age".publicKeys = users ++ artemis;
   "../hosts/artemis/secrets/r2-monitoring-token.age".publicKeys = users ++ artemis;
+  "../hosts/artemis/secrets/garage-rpc-secret.age".publicKeys = users ++ artemis;
   "../hosts/gitlabber/cachix-auth-token.age".publicKeys = users ++ gitlabber;
   "../hosts/gitlabber/forgejo-runner.age".publicKeys = users ++ gitlabber;
   "../hosts/artemis/applications/hedgedoc/env.age".publicKeys = users ++ artemis;

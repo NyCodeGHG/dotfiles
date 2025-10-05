@@ -19,5 +19,6 @@
     ./anubis.nix
     ./iplookupd.nix
     ./hydra.nix
+    ./garage.nix
   ];
 }
