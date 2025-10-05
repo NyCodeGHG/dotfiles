@@ -5,13 +5,16 @@
   ...
 }:
 {
-  environment.systemPackages = with pkgs; [
-    (prismlauncher.override {
+  uwumarie.prismlauncher = {
+    enable = true;
+    package = pkgs.prismlauncher.override {
       jdks = [
         pkgs.jdk21
         pkgs.jdk25
       ];
-    })
+    };
+  };
+  environment.systemPackages = with pkgs; [
     heroic
     winetricks
     wineWowPackages.unstable

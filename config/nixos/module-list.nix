@@ -3,6 +3,7 @@
   ./applications/nginx.nix
   ./applications/nix.nix
   ./applications/openssh.nix
+  ./applications/prismlauncher.nix
   ./applications/tailscale.nix
   ./applications/valkey.nix
   ./applications/tools.nix
