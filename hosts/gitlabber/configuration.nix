@@ -88,9 +88,19 @@
   };
   users.groups.builder = { };
 
-  nix.settings.trusted-users = [ "builder" ];
-
   services.openssh.settings.PermitRootLogin = "prohibit-password";
+
+  nix = {
+    settings = {
+      trusted-users = [
+        "@wheel"
+        "builder"
+      ];
+      builders-use-substitutes = true;
+      build-dir = "/var/tmp/nix";
+      cores = 4;
+    };
+  };
 
   system.stateVersion = "24.11";
 
