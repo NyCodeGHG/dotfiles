@@ -48,8 +48,8 @@
           identitiesOnly = true;
         };
         gitlabber = {
-          hostname = "warpgate.jemand771.net";
-          user = "marie:gitlabber";
+          hostname = "gitlabber.weasel-gentoo.ts.net";
+          user = "root";
           identitiesOnly = true;
         };
         "*" = {
