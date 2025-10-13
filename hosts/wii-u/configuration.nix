@@ -28,6 +28,12 @@
     westonLite
   ];
 
+  nix.package = pkgs.lix.overrideAttrs (prev: {
+    patches = prev.patches ++ [
+      ../../patches/lix-powerpc-system.patch
+    ];
+  });
+
   networking = {
     hostName = "wiiu";
     useDHCP = false;

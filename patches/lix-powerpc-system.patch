@@ -1,0 +1,48 @@
+Commit ID: 6bccac266c40d0bc151fa997684cfc9c228b9ad9
+Change ID: uwvyxkmyznuslptlwtmzqkqnyvrxworl
+Author   : OPNA2608 <opna2608@protonmail.com> (2025-07-29 15:59:22)
+Committer: Marie Ramlow <me@nycode.dev> (2025-10-13 19:16:12)
+
+    meson: Actually use host_cpu in host_system, expand fixups
+
+    Otherwise we'll get system names like `x86-linux`, which is nonesense.
+
+    Also add fixups for 32-bit ARM, and MIPS.
+
+    Change-Id: I6bd773bec82dcc54b40bbc018641cd614b272a28
+
+    (cherry picked from commit 8c2891ae14736db08ecbbbbb65302e84abc695cd)
+
+diff --git a/meson.build b/meson.build
+index 52aa60725f..061d9da679 100644
+--- a/meson.build
++++ b/meson.build
+@@ -207,9 +207,27 @@
+   host_cpu = 'x86_64'
+ elif host_cpu in ['armv6', 'armv7']
+   host_cpu += 'l'
++elif host_cpu == 'arm'
++  # Too generic, we use more specific ones
++  host_cpu = host_machine.cpu()
++elif host_cpu in ['mips', 'mips64']
++  # LE is suffixed with 'el'
++  if host_machine.endian() == 'little'
++    host_cpu += 'el'
++  endif
++elif host_cpu == 'ppc'
++  host_cpu = 'powerpc'
++  if host_machine.endian() == 'little'
++    host_cpu += 'le'
++  endif
++elif host_cpu == 'ppc64'
++  host_cpu = 'powerpc64'
++  if host_machine.endian() == 'little'
++    host_cpu += 'le'
++  endif
+ endif
+ 
+-host_system = host_machine.cpu_family() + '-' + host_machine.system()
++host_system = host_cpu + '-' + host_machine.system()
+ message('canonical Nix system name:', host_system)
+ 
+ is_linux = host_machine.system() == 'linux'
