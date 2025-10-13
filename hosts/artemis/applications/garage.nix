@@ -1,5 +1,8 @@
 { pkgs, config, ... }:
 {
+  security.acme.certs."s3.marie.cologne" = {
+    extraDomainNames = [ "*.s3.marie.cologne" ];
+  };
   services.garage = {
     enable = true;
     package = pkgs.garage_2;
@@ -10,6 +13,10 @@
       s3_api = {
         s3_region = "garage";
         api_bind_addr = "[::]:3900";
+      };
+      s3_web = {
+        bind_addr = "/run/garage/web.sock";
+        root_domain = "s3.marie.cologne";
       };
       admin = {
         api_bind_addr = "[::]:3903";
@@ -22,6 +29,7 @@
       LoadCredential = [
         "rpc-secret:${config.age.secrets.garage-rpc-secret.path}"
       ];
+      RuntimeDirectory = "garage";
     };
     environment = {
       # Not enabled on 25.05
@@ -41,5 +49,20 @@
       proxy_request_buffering off;
       proxy_read_timeout 600s;
     '';
+    useACMEHost = "s3.marie.cologne";
+  };
+  services.nginx.virtualHosts."s3-web.marie.cologne" = {
+    serverAliases = [
+      "~^([^.]*)[.]s3[.]marie[.]cologne$"
+    ];
+    locations."/" = {
+      proxyPass = "http://unix:/run/garage/web.sock";
+    };
+    extraConfig = ''
+      client_max_body_size 8000M;
+      proxy_request_buffering off;
+      proxy_read_timeout 600s;
+    '';
+    useACMEHost = "s3.marie.cologne";
   };
 }
