@@ -26,6 +26,7 @@
     iperf
     btop
     westonLite
+    tmux
   ];
 
   nix.package = pkgs.lix.overrideAttrs (prev: {
