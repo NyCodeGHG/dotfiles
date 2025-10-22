@@ -52,6 +52,10 @@
           user = "root";
           identitiesOnly = true;
         };
+        wiiu = {
+          hostname = "192.168.1.62";
+          identitiesOnly = true;
+        };
         "*" = {
           addKeysToAgent = "yes";
         };
