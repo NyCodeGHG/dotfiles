@@ -13,7 +13,7 @@
       package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
       nixPath = [ "nixpkgs=flake:nixpkgs" ];
       gc = {
-        automatic = true;
+        automatic = lib.mkDefault true;
         dates = "weekly";
         options = "--delete-older-than 14d";
       };
