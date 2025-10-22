@@ -71,5 +71,7 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  nix.gc.automatic = false;
+
   hardware.graphics.enable = true;
 }
