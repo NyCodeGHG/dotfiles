@@ -15,8 +15,6 @@
     eza = true;
     git = {
       enable = true;
-      # signingKey = "id_ed25519";
-      signingKey = null;
       enableGitEmail = true;
     };
     jujutsu = true;
