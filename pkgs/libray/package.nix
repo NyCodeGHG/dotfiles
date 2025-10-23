@@ -9,8 +9,8 @@
 let
   version = "0.0.10";
   src = fetchFromGitea {
-    domain = "notabug.org";
-    owner = "necklace";
+    domain = "git.marie.cologne";
+    owner = "mirrors";
     repo = "libray";
     tag = version;
     hash = "sha256-J71b7B//I23Crnlx/0OA3tRPDgVV0KGdikZ+1N8Jgvo=";
@@ -29,7 +29,7 @@ python3Packages.buildPythonPackage {
 
   patches = [
     (fetchpatch2 {
-      url = "https://notabug.org/necklace/libray/commit/185edde30dd59a442fa6237096b8abbf5a902e9c.patch";
+      url = "https://git.marie.cologne/mirrors/libray/commit/185edde30dd59a442fa6237096b8abbf5a902e9c.patch";
       hash = "sha256-vTcbOTlZAYwmazMUZJU0ZnMp624qTHA12SNfr7cu3zU=";
     })
   ];
