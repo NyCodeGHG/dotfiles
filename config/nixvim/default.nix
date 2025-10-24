@@ -98,6 +98,7 @@
     guess-indent.enable = true;
     highlight-colors.enable = true;
     hmts.enable = true;
+    vim-surround.enable = true;
 
     lsp-format.enable = true;
     none-ls = {
