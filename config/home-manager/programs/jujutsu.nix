@@ -28,12 +28,6 @@ lib.mkIf config.uwumarie.profiles.jujutsu {
           "git"
           "fetch"
         ];
-        f-master = [
-          "git"
-          "fetch"
-          "--branch=master"
-          "--remote=upstream"
-        ];
         bump = [
           "bookmark"
           "move"
@@ -46,6 +40,14 @@ lib.mkIf config.uwumarie.profiles.jujutsu {
           "log"
           "-r"
           "mine() & visible_heads()"
+        ];
+        nt = [
+          "new"
+          "trunk()"
+        ];
+        cat = [
+          "file"
+          "show"
         ];
       };
       revsets.log = "trunk() | reachable(@, trunk()..visible_heads())";
