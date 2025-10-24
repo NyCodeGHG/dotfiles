@@ -45,6 +45,9 @@
     vim-nftables
     vim-caddyfile
     vim-glsl
+    vim-sexp
+    vim-sexp-mappings-for-regular-people
+    vim-repeat
   ];
   extraConfigLuaPre = ''
     require("neoconf").setup()
