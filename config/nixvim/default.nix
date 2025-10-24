@@ -71,6 +71,22 @@
           action = "live_grep";
           options.desc = "Live grep";
         };
+        "<leader>fr" = {
+          action = "resume";
+          options.desc = "Resume search";
+        };
+        "<leader>fb" = {
+          action = "buffers";
+          options.desc = "Find buffers";
+        };
+        "<leader>fm" = {
+          action = "man_pages";
+          options.desc = "Find man pages";
+        };
+        "<leader>fz" = {
+          action = "current_buffer_fuzzy_find";
+          options.desc = "Fuzzy search in buffer";
+        };
       };
       extensions.fzf-native.enable = true;
       enabledExtensions = [
