@@ -89,10 +89,6 @@
         };
       };
       extensions.fzf-native.enable = true;
-      enabledExtensions = [
-        "hoogle"
-        "ui-select"
-      ];
     };
     which-key.enable = true;
     illuminate.enable = true;
