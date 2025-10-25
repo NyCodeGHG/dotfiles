@@ -42,7 +42,7 @@ in
         api_url = "https://idm.marie.cologne/oauth2/openid/grafana/userinfo";
         use_pkce = true;
         allow_assign_grafana_admin = true;
-        role_attribute_path = "contains(grafana_roles[*], 'grafana-server-admin') && 'GrafanaAdmin' || contains(grafana_roles[*], 'grafana-admin') && 'Admin' || contains(grafana_roles[*], 'grafana-edit') && 'Editor' || 'Viewer'";
+        role_attribute_path = "contains(grafana_role[*], 'GrafanaAdmin') && 'GrafanaAdmin' || contains(grafana_role[*], 'Admin') && 'Admin' || contains(grafana_role[*], 'Editor') && 'Editor' || 'Viewer'";
         login_attribute_path = "preferred_username";
         name_attribute_path = "nickname";
         id_token_attribute_name = "sub";
