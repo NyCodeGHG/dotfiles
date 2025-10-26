@@ -41,7 +41,8 @@ in
     type = lib.types.path;
     description = "resolv.conf file used for services in the vpn.";
     default = pkgs.writeText "resolv.conf" ''
-      nameserver 9.9.9.9
+      nameserver 9.9.9.10
+      nameserver 149.112.112.10
     '';
   };
   config = {
