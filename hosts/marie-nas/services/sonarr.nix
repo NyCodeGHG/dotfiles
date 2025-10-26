@@ -55,8 +55,18 @@
     };
   };
 
-  services.nginx.virtualHosts."sonarr.marie.cologne".locations."/" = {
-    proxyPass = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
-    proxyWebsockets = true;
+  services.nginx.virtualHosts."sonarr.marie.cologne" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
+      proxyWebsockets = true;
+    };
+    locations."/api" = {
+      # extra entry to bypass oauth2-proxy
+      proxyPass = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
+      proxyWebsockets = true;
+      extraConfig = ''
+        auth_request off;
+      '';
+    };
   };
 }
