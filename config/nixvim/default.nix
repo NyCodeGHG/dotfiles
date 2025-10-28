@@ -100,6 +100,8 @@
     hmts.enable = true;
     vim-surround.enable = true;
 
+    lazydev.enable = true;
+
     lsp-format.enable = true;
     none-ls = {
       enable = true;
@@ -214,6 +216,16 @@
           "snippets"
           "buffer"
         ];
+        blink-cmp.settings = {
+          sources.providers = {
+            lazydev = {
+              name = "LazyDev";
+              module = "lazydev.integrations.blink";
+              # make lazydev completions top priority (see `:h blink.cmp`)
+              score_offset = 100;
+            };
+          };
+        };
       };
     };
     luasnip = {
