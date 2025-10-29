@@ -127,6 +127,7 @@
                 "https://grafana.marie.cologne/"
                 "https://ip.marie.cologne"
                 "https://miniflux.marie.cologne/"
+                "https://libraries.minecraft.net"
               ];
             }
           ];
