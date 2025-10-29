@@ -97,6 +97,10 @@
           job = "blackbox-exporter";
           target = "127.0.0.1:${toString config.services.prometheus.exporters.blackbox.port}";
         })
+        (mkTarget {
+          job = "garage";
+          target = "127.0.0.1:3903";
+        })
         {
           job_name = "blackbox-http";
           metrics_path = "/probe";
