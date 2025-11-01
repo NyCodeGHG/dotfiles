@@ -177,7 +177,7 @@
       };
       servers = {
         hls = {
-          enable = false;
+          enable = true;
           installGhc = false;
         };
         rust_analyzer = {
