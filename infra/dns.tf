@@ -343,13 +343,6 @@ resource "cloudflare_record" "cdn_marie_cologne" {
   type    = "CNAME"
 }
 
-resource "cloudflare_record" "turn_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "turn"
-  content = "delphi.marie.cologne"
-  type    = "CNAME"
-}
-
 resource "cloudflare_record" "syncthing_delphi_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "syncthing.delphi"
