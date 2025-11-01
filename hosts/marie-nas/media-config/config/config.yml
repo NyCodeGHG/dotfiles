@@ -40,3 +40,15 @@ radarr:
       - template: radarr-naming
     media_management:
       downloadPropersAndRepacks: doNotPrefer
+  tobi:
+    base_url: https://radarr.wg.techtoto.dev
+    api_key: !env TOBI_RADARR_API_KEY
+    delete_unmanaged_custom_formats:
+      enabled: true
+    include:
+      - template: radarr-custom-formats
+      - template: radarr-quality
+      - template: radarr-original-language
+      - template: radarr-naming
+    media_management:
+      downloadPropersAndRepacks: doNotPrefer
