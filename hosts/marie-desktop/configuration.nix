@@ -162,8 +162,8 @@
       tokei
       nix-output-monitor
       vlc
-      (pkgs.hiPrio (
-        pkgs.runCommandNoCC "vlc-desktop-fix" { } ''
+      (lib.hiPrio (
+        pkgs.runCommand "vlc-desktop-fix" { } ''
           mkdir -p $out/share/applications
           cp ${pkgs.vlc}/share/applications/vlc.desktop $out/share/applications
           sed -i '/X-KDE-Protocols/ s/,smb//' $out/share/applications/vlc.desktop
@@ -191,7 +191,7 @@
       dogdns
       qbittorrent
       # cemu
-      bitwarden
+      bitwarden-desktop
       p7zip
       easyeffects
       fend

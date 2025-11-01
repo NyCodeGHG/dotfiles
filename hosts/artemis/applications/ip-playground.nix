@@ -5,8 +5,10 @@
   ...
 }:
 let
-  frontendPackage = inputs.ip-playground.packages.${pkgs.system}.ip-playground-frontend;
-  backendPackage = inputs.ip-playground.packages.${pkgs.system}.ip-playground-backend;
+  frontendPackage =
+    inputs.ip-playground.packages.${pkgs.stdenv.hostPlatform.system}.ip-playground-frontend;
+  backendPackage =
+    inputs.ip-playground.packages.${pkgs.stdenv.hostPlatform.system}.ip-playground-backend;
 in
 {
   services.nginx.virtualHosts = {

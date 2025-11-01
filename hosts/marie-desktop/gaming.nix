@@ -22,7 +22,7 @@
     protonup-qt
     bubblewrap
     vulkan-tools
-    glxinfo
+    mesa-demos
     mangohud
     dualsensectl
     libray
