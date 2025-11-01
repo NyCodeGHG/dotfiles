@@ -19,6 +19,7 @@
     ./services/postgres.nix
     ./services/prowlarr.nix
     ./services/sonarr.nix
+    ./services/radarr.nix
     ./services/transmission.nix
     ./services/vpn.nix
     ./services/home-assistant.nix

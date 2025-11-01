@@ -32,6 +32,7 @@
         "bt.marie.cologne".allowed_groups = [ "pirates@idm.marie.cologne" ];
         "prowlarr.marie.cologne".allowed_groups = [ "pirates@idm.marie.cologne" ];
         "sonarr.marie.cologne".allowed_groups = [ "pirates@idm.marie.cologne" ];
+        "radarr.marie.cologne".allowed_groups = [ "pirates@idm.marie.cologne" ];
         "bitmagnet.marie.cologne".allowed_groups = [ "pirates@idm.marie.cologne" ];
       };
     };
