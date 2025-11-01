@@ -1,0 +1,5 @@
+media_naming:
+  folder: default
+  movies:
+    rename: true
+    standard: default

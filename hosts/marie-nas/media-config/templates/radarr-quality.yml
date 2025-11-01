@@ -22,4 +22,4 @@ quality_profiles:
           - Bluray-1080p
 
 quality_definition:
-  type: series
+  type: movie
