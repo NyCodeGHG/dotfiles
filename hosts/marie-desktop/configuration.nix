@@ -185,7 +185,7 @@
       yt-dlp
       protontricks
       clang-tools
-      nixfmt-rfc-style
+      nixfmt
       bashInteractive
       dysk
       dogdns
@@ -219,9 +219,7 @@
       sequoia-chameleon-gnupg
       magic-wormhole
       wireguard-tools
-      (chatterino7.overrideAttrs (prev: {
-        buildInputs = lib.remove pkgs.libavif prev.buildInputs;
-      }))
+      chatterino7
       config.boot.kernelPackages.cpupower
       unrar
       # jellyfin-media-player
