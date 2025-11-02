@@ -231,6 +231,8 @@
       obs-cmd
       comma
       kdiff3
+      age
+      rage
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
