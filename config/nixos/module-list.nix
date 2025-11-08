@@ -7,6 +7,7 @@
   ./applications/tailscale.nix
   ./applications/valkey.nix
   ./applications/tools.nix
+  ./applications/podman.nix
   ./system/audio.nix
   ./system/base.nix
   ./system/dns.nix
