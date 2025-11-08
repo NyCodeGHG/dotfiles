@@ -13,6 +13,7 @@ lib.mkIf config.uwumarie.profiles.users.marie {
     ]
     ++ lib.optional config.programs.gamemode.enable "gamemode"
     ++ lib.optional config.virtualisation.libvirtd.enable "libvirtd"
+    ++ lib.optional config.virtualisation.podman.enable "podman"
     ++ lib.optional config.services.pipewire.enable "pipewire"
     ++ lib.optional config.programs.adb.enable "adbusers";
     openssh.authorizedKeys.keys = lib.mkIf config.services.openssh.enable [
