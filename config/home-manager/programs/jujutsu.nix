@@ -53,6 +53,19 @@ lib.mkIf config.uwumarie.profiles.jujutsu {
       revsets.log = "trunk() | reachable(@, trunk()..visible_heads())";
       fsmonitor.backend = "watchman";
       fsmonitor.watchman.register-snapshot-trigger = true;
+      templates = {
+        draft_commit_description = ''
+          concat(
+            coalesce(description, default_commit_description, "\n"),
+            surround(
+              "\nJJ: This commit contains the following changes:\n", "",
+              indent("JJ:     ", diff.stat(72)),
+            ),
+            "\nJJ: ignore-rest\n",
+            diff.git(),
+          )
+        '';
+      };
     };
   };
   home.packages = with pkgs; [
