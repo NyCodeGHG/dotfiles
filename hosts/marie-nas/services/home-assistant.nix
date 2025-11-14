@@ -19,6 +19,7 @@
       "homekit_controller"
       "ping"
       "jellyfin"
+      "fritz"
     ];
     config = {
       # Includes dependencies for a basic setup
