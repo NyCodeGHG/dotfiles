@@ -57,7 +57,6 @@
     customComponents = with pkgs.home-assistant-custom-components; [
       adaptive_lighting
       dwd
-      waste_collection_schedule
     ];
     customLovelaceModules = [
       pkgs.lovelace-horizon-card
