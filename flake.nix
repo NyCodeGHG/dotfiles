@@ -119,21 +119,11 @@
         default = pkgs.mkShellNoCC {
           nativeBuildInputs = with pkgs; [
             opentofu
-            nurl
-            nixos-rebuild
             inputs.agenix.packages.${system}.default
             (inputs.colmena.packages.${system}.colmena.override {
               inherit (lixPackageSets.latest) nix-eval-jobs;
             })
             nix-update
-            ansible
-            ansible-lint
-          ];
-        };
-        ansible = pkgs.mkShellNoCC {
-          nativeBuildInputs = with pkgs; [
-            ansible
-            ansible-lint
           ];
         };
       });
