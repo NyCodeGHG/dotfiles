@@ -56,7 +56,6 @@
     };
     customComponents = with pkgs.home-assistant-custom-components; [
       adaptive_lighting
-      sleep_as_android
       dwd
       waste_collection_schedule
     ];
