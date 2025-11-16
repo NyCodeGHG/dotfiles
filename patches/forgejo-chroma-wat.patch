@@ -1,0 +1,30 @@
+Commit ID: 4f90973a4586e84256efd388aab8778b6542255b
+Change ID: urpylwptnymnwyxuumkxoqwxqupmmtpx
+Author   : Marie Ramlow <me@nycode.dev> (2025-11-16 13:55:24)
+Committer: Marie Ramlow <me@nycode.dev> (2025-11-16 14:28:14)
+
+    Use chroma version with WAT support
+
+diff --git a/go.mod b/go.mod
+index 3d67cc9f86..ba2b723d06 100644
+--- a/go.mod
++++ b/go.mod
+@@ -273,3 +273,5 @@
+ replace git.sr.ht/~mariusor/go-xsd-duration => code.forgejo.org/forgejo/go-xsd-duration v0.0.0-20220703122237-02e73435a078
+ 
+ replace xorm.io/xorm v1.3.9 => code.forgejo.org/xorm/xorm v1.3.9-forgejo.1
++
++replace github.com/alecthomas/chroma/v2 v2.20.0 => github.com/NyCodeGHG/chroma/v2 v2.20.1-0.20251116123744-d3f828e0d3e6
+diff --git a/go.sum b/go.sum
+index 4e026aeb8c..8f03fa87c0 100644
+--- a/go.sum
++++ b/go.sum
+@@ -76,6 +76,8 @@
+ github.com/Microsoft/go-winio v0.5.2/go.mod h1:WpS1mjBmmwHBEWmogvA2mj8546UReBk4v8QkMxJ6pZY=
+ github.com/Microsoft/go-winio v0.6.2 h1:F2VQgta7ecxGYO8k3ZZz3RS8fVIXVxONVUPlNERoyfY=
+ github.com/Microsoft/go-winio v0.6.2/go.mod h1:yd8OoFMLzJbo9gZq8j5qaps8bJ9aShtEA8Ipt1oGCvU=
++github.com/NyCodeGHG/chroma/v2 v2.20.1-0.20251116123744-d3f828e0d3e6 h1:NQnHsakkvePYhh+0oAreAcUHUYoq/G9HJWflvYy8LhY=
++github.com/NyCodeGHG/chroma/v2 v2.20.1-0.20251116123744-d3f828e0d3e6/go.mod h1:NqVhfBR0lte5Ouh3DcthuUCTUpDC9cxBOfyMbMQPs3o=
+ github.com/ProtonMail/go-crypto v1.3.0 h1:ILq8+Sf5If5DCpHQp4PbZdS1J7HDFRXz/+xKBiRGFrw=
+ github.com/ProtonMail/go-crypto v1.3.0/go.mod h1:9whxjD8Rbs29b4XWbB8irEcE8KHMqaR2e7GWU1R+/PE=
+ github.com/PuerkitoBio/goquery v1.10.3 h1:pFYcNSqHxBD06Fpj/KsbStFRsgRATgnf3LeXiUkhzPo=
