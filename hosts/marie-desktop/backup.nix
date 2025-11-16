@@ -25,6 +25,7 @@
       RESTIC_PASSWORD_FILE = config.age.secrets.restic-password.path;
       SSH_AUTH_SOCK = "/run/user/1000/ssh-agent";
       HOME = "/home/marie";
+      RESTIC_PROGRESS_FPS = "0.03333";
     };
     path = with pkgs; [
       restic
