@@ -48,11 +48,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-xr = {
-      url = "github:nix-community/nixpkgs-xr";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -83,7 +78,6 @@
       agenix,
       nixpkgs,
       nixpkgs-unstable,
-      nixpkgs-xr,
       nixvim,
       self,
       colmena,
@@ -280,7 +274,6 @@
             imports = [
               ./hosts/marie-desktop/configuration.nix
               self.nixosModules.config
-              nixpkgs-xr.nixosModules.nixpkgs-xr
             ];
             deployment.allowLocalDeployment = true;
             deployment.targetHost = null;
