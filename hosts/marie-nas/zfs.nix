@@ -24,4 +24,26 @@
       ProtectHome = true;
     };
   };
+
+  services.sanoid = {
+    enable = true;
+    datasets = {
+      "zroot/data" = {
+        recursive = "zfs";
+        hourly = 36;
+        daily = 30;
+        monthly = 3;
+      };
+    };
+  };
+
+  services.syncoid = {
+    enable = true;
+    interval = "weekly";
+    commands.zroot = {
+      target = "tank/zroot-data";
+      source = "zroot/data";
+      recursive = true;
+    };
+  };
 }
