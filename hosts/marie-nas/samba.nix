@@ -43,6 +43,7 @@
 
   services.samba = {
     enable = true;
+    package = pkgs.samba.override { enableMDNS = true; };
     openFirewall = true;
     nsswins = true;
     settings = {
@@ -93,12 +94,4 @@
     enable = true;
     openFirewall = true;
   };
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      samba = prev.samba.override {
-        enableMDNS = true;
-      };
-    })
-  ];
 }
