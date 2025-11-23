@@ -20,6 +20,7 @@
       "ping"
       "jellyfin"
       "fritz"
+      "google_drive"
     ];
     config = {
       # Includes dependencies for a basic setup
