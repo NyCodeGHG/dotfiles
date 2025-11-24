@@ -77,6 +77,12 @@
       "registryUrls": [
         "https://registry.opentofu.org"
       ]
+    },
+    {
+      "matchDatasources": "docker",
+      "matchPackageNames": "ghcr.io/t0bst4r/home-assistant-matter-hub",
+      "versioning": "loose",
+      "sourceUrl": "https://github.com/t0bst4r/home-assistant-matter-hub"
     }
   ],
   "enabledManagers": [
