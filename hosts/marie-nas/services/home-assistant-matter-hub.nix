@@ -1,7 +1,7 @@
 { config, ... }:
 {
   virtualisation.oci-containers.containers.matter-hub = {
-    image = "ghcr.io/t0bst4r/home-assistant-matter-hub:3.0.0-alpha.84";
+    image = "ghcr.io/t0bst4r/home-assistant-matter-hub:3.0.2";
     extraOptions = [
       "--network=host"
     ];
