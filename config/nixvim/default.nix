@@ -48,6 +48,9 @@
     vim-sexp
     vim-sexp-mappings-for-regular-people
     vim-repeat
+    vim-jack-in
+    vim-dispatch
+    vim-dispatch-neovim
   ];
   extraConfigLuaPre = ''
     require("neoconf").setup()
