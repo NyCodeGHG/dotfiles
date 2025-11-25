@@ -13,7 +13,7 @@
 
       doCheck = false;
 
-      vendorHash = "sha256-8sxHjbdCcPPssQYvsgCuGC5O3M1OjZWo4ex+TBJkUUE=";
+      vendorHash = "sha256-TVWJZBBDPnQoWVvCSPEhxo7Urj3eH4P1aMFPogL20fs=";
     });
     user = "forgejo";
     group = "forgejo";
