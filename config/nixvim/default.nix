@@ -15,6 +15,9 @@
   globals = {
     mapleader = " ";
     maplocalleader = ",";
+    "conjure#mapping#doc_word" = false;
+    "conjure#completion#omnifunc" = false;
+    "conjure#highlight#enabled" = true;
   };
   opts = {
     # Line Numbers
