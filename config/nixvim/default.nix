@@ -367,6 +367,22 @@
       key = "<C-l>";
       action.__raw = "function() require('luasnip').jump(-1) end";
     }
+    {
+      mode = [
+        "n"
+        "x"
+        "o"
+      ];
+      options.silent = true;
+      key = "s";
+      action = "<Plug>(leap)";
+    }
+    {
+      mode = "n";
+      options.silent = true;
+      key = "S";
+      action = "<Plug>(leap-from-window)";
+    }
   ];
 
   highlight = {
