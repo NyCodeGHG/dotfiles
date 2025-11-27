@@ -104,7 +104,21 @@
     guess-indent.enable = true;
     highlight-colors.enable = true;
     hmts.enable = true;
-    vim-surround.enable = true;
+
+    mini-surround = {
+      enable = true;
+      settings = {
+        mappings = {
+          add = "gza";
+          delete = "gzd";
+          find = "gzf";
+          find_left = "gzF";
+          highlight = "gzh";
+          replace = "gzr";
+          update_n_lines = "gzn";
+        };
+      };
+    };
 
     lazydev.enable = true;
 
