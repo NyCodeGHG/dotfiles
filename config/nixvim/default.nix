@@ -120,6 +120,8 @@
       };
     };
 
+    nvim-autopairs.enable = true;
+
     lazydev.enable = true;
 
     lsp-format.enable = true;
