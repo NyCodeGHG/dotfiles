@@ -48,15 +48,15 @@
     vim-nftables
     vim-caddyfile
     vim-glsl
-    vim-sexp
-    vim-sexp-mappings-for-regular-people
     vim-repeat
     vim-jack-in
     vim-dispatch
     vim-dispatch-neovim
+    nvim-paredit
   ];
   extraConfigLuaPre = ''
     require("neoconf").setup()
+    require("nvim-paredit").setup()
   '';
 
   plugins = {
