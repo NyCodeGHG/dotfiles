@@ -63,7 +63,7 @@
     };
 
     hydra = {
-      url = "https://git.lix.systems/lix-project/hydra/archive/lix-2.93.tar.gz";
+      url = "https://git.lix.systems/lix-project/hydra/archive/lix-2.94.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
