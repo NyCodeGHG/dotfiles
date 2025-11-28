@@ -18,7 +18,7 @@ in
       OAUTH2_USER_CREATION = "1";
       PORT = port;
       BASE_URL = "https://miniflux.marie.cologne";
-      CREATE_ADMIN = lib.mkForce "0";
+      CREATE_ADMIN = false;
     };
     adminCredentialsFile = config.age.secrets.miniflux-credentials.path;
   };

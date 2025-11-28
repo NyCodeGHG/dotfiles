@@ -90,6 +90,8 @@
   services.anubis = {
     instances.forgejo.settings = {
       TARGET = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+      BIND = "/run/anubis/anubis-forgejo/anubis.sock";
+      METRICS_BIND = "/run/anubis/anubis-forgejo/anubis-metrics.sock";
     };
   };
 

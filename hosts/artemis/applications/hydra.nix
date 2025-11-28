@@ -10,6 +10,13 @@
   imports = [
     inputs.hydra.nixosModules.overlayNixpkgsForThisHydra
   ];
+  nixpkgs.overlays = [
+    (self: super: {
+      hydra = super.hydra.override {
+        postgresql_13 = config.services.postgresql.package;
+      };
+    })
+  ];
   services.hydra = {
     enable = true;
     hydraURL = "https://hydra.marie.cologne";

@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager-unstable = {
@@ -113,8 +113,8 @@
         default = pkgs.mkShellNoCC {
           nativeBuildInputs = with pkgs; [
             opentofu
-            inputs.agenix.packages.${system}.default
-            (inputs.colmena.packages.${system}.colmena.override {
+            inputs.agenix.packages.${stdenv.hostPlatform.system}.default
+            (inputs.colmena.packages.${stdenv.hostPlatform.system}.colmena.override {
               inherit (lixPackageSets.latest) nix-eval-jobs;
             })
             nix-update
