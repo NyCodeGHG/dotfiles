@@ -9,12 +9,12 @@ let
       { import = "(data)/meta/default-config.yaml"; }
       {
         name = "forgejo-runner";
-        path_regex = "^/api/actions/(?:runner.v1.RunnerService|ping.v1.PingService)/.*$";
+        path_regex = "^/api/actions/(?:runner\\.v1\\.RunnerService|ping\\.v1\\.PingService)/.*$";
         action = "ALLOW";
       }
       {
         name = "blackbox-exporter";
-        user_agent_regex = "^Blackbox Exporter\/\d+\.\d+\.\d+$";
+        user_agent_regex = "^Blackbox Exporter\\/\\d+\\.\\d+\\.\\d+$";
         action = "ALLOW";
       }
     ];
