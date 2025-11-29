@@ -9,9 +9,13 @@
   options.services.nginx.virtualHosts = lib.mkOption {
     type = lib.types.attrsOf (
       lib.types.submodule {
-        config.forceSSL = lib.mkDefault true;
-        config.http2 = lib.mkDefault true;
-        config.useACMEHost = lib.mkDefault "marie.cologne";
+        config = {
+          forceSSL = lib.mkDefault true;
+          http2 = lib.mkDefault true;
+          useACMEHost = lib.mkDefault "marie.cologne";
+          http3 = lib.mkDefault true;
+          quic = lib.mkDefault true;
+        };
       }
     );
   };
@@ -27,6 +31,8 @@
       virtualHosts.localhost = {
         forceSSL = false;
         http2 = false;
+        http3 = false;
+        quic = false;
         useACMEHost = null;
       };
       recommendedTlsSettings = true;
@@ -34,6 +40,10 @@
       recommendedGzipSettings = true;
       recommendedBrotliSettings = true;
       recommendedProxySettings = true;
+      enableQuicBPF = true;
+      appendHttpConfig = ''
+        add_header alt-svc 'h3=":443"; ma=604800';
+      '';
     };
   };
 }

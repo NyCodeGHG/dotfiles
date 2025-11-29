@@ -35,6 +35,7 @@ in
       allowedUDPPorts = [
         port
         (port + 200)
+        443
       ];
       checkReversePath = "loose";
       extraInputRules = ''

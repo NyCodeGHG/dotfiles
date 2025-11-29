@@ -9,6 +9,9 @@
         80
         443
       ];
+      allowedUDPPorts = [
+        443
+      ];
     };
     useNetworkd = true;
     useDHCP = false;

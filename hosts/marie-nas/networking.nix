@@ -8,6 +8,9 @@
       80
       443
     ];
+    firewall.allowedUDPPorts = [
+      443
+    ];
   };
   systemd.network = {
     enable = true;
