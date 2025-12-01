@@ -188,12 +188,9 @@
       nixfmt
       bashInteractive
       dysk
-      dogdns
       qbittorrent
-      # cemu
       bitwarden-desktop
       p7zip
-      easyeffects
       fend
       lm_sensors
       gimp3
@@ -205,7 +202,6 @@
       nushell
       jq
       wl-clipboard-rs
-      trashy
       makemkv
       scrcpy
       zfs # to view manpages
@@ -222,7 +218,7 @@
       chatterino7
       config.boot.kernelPackages.cpupower
       unrar
-      # jellyfin-media-player
+      switchfin
       distrobox
       docker-compose # for podman-compose
       nix-tree
@@ -232,7 +228,8 @@
       comma
       kdiff3
       age
-      rage
+      evcxr
+      gemini-cli
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
