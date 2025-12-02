@@ -1,33 +1,32 @@
-{ config, ... }:
 {
-  virtualisation.oci-containers.containers.matter-hub = {
-    image = "ghcr.io/t0bst4r/home-assistant-matter-hub:3.0.2";
-    extraOptions = [
-      "--network=host"
-    ];
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  systemd.services.home-assistant-matter-hub = {
+    serviceConfig = {
+      ExecStart = "${lib.getExe pkgs.home-assistant-matter-hub} start";
+      DynamicUser = true;
+      User = "home-assistant-matter-hub";
+      Group = "home-assistant-matter-hub";
+      StateDirectory = "home-assistant-matter-hub";
+      EnvironmentFile = config.age.secrets.matter-hub-env.path;
+    };
     environment = {
       HAMH_HOME_ASSISTANT_URL = "https://hass.marie.cologne";
       HAMH_LOG_LEVEL = "info";
       HAMH_HTTP_PORT = "8482";
+      HAMH_STORAGE_LOCATION = "/var/lib/home-assistant-matter-hub";
     };
-    environmentFiles = [ config.age.secrets.matter-hub-env.path ];
-    volumes = [
-      "/var/lib/home-assistant-matter-hub:/data"
-    ];
+    wantedBy = [ "multi-user.target" ];
   };
   age.secrets.matter-hub-env.file = ../secrets/matter-bridge-env.age;
 
   networking.firewall = {
     allowedUDPPorts = [ 5540 ];
     allowedTCPPorts = [ 5540 ];
-  };
-
-  systemd.tmpfiles.settings."matter-hub" = {
-    "/var/lib/home-assistant-matter-hub".d = {
-      user = "root";
-      group = "root";
-      mode = "0700";
-    };
   };
 
   services.nginx.virtualHosts."matter-hub.home.marie.cologne" = {

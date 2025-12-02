@@ -90,7 +90,7 @@
             group = "oauth2-proxy";
           }
           {
-            directory = "/var/lib/home-assistant-matter-hub";
+            directory = "/var/lib/private/home-assistant-matter-hub";
             mode = "0700";
           }
           "/var/lib/minecraft"
