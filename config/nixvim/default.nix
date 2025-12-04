@@ -53,6 +53,7 @@
     vim-dispatch
     vim-dispatch-neovim
     nvim-paredit
+    nvim-parinfer
   ];
   extraConfigLuaPre = ''
     require("neoconf").setup()
@@ -120,7 +121,16 @@
       };
     };
 
-    nvim-autopairs.enable = true;
+    nvim-autopairs = {
+      enable = true;
+      settings.disable_filetype = [
+        "TelescopePrompt"
+        "spectre_panel"
+        "snacks_picker_input"
+        "clojure"
+        "lisp"
+      ];
+    };
 
     lazydev.enable = true;
 
