@@ -22,6 +22,8 @@
     ./networking.nix
   ];
 
+  virtualisation.waydroid.enable = true;
+
   uwumarie.profiles = {
     graphical = true;
     tools = true;
