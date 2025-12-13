@@ -55,15 +55,5 @@ custom_formats:
       - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
       - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
       - 06d66ab109d4d2eddb2794d21526d140 # Retags
-
-      # Misc UHD
-      - 9b64dff695c2115facf1b6ea59c9bd07 # x265 (no HDR/DV)
     assign_scores_to:
       - name: WEB-2160p
-
-  - trash_ids:
-      # Allow x265 with HDR/DV
-      - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
-    assign_scores_to:
-      - name: WEB-2160p
-        score: 0

@@ -55,7 +55,6 @@ custom_formats:
       - f537cf427b64c38c8e36298f657e4828 # Scene
 
       - 25c12f78430a3a23413652cbd1d48d77 # SDR (no WEBDL)
-      - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
 
       - 570bc9ebecd92723d2d21500f4be314c # Remaster
       - eca37840c13c6ef2dd0262b141a5482f # 4K Remaster
@@ -68,9 +67,3 @@ custom_formats:
 
     assign_scores_to:
       - name: WEB-2160p
-
-  - trash_ids:
-      - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
-    assign_scores_to:
-      - name: WEB-2160p
-        score: 0

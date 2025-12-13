@@ -1,0 +1,10 @@
+custom_formats:
+  - trash_ids:
+      - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
+    assign_scores_to:
+      - name: WEB-2160p
+        score: 0
+  - trash_ids:
+      - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
+    assign_scores_to:
+      - name: WEB-2160p
