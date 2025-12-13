@@ -241,6 +241,7 @@
       konversation
       sddm-kcm
       krdc
+      kcolorchooser
     ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
