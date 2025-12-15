@@ -1,4 +1,7 @@
 { pkgs, inputs, ... }:
+let
+  package = inputs.corsair-hs80-pipewire-thing.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in
 {
   users.groups.corsair = { };
   users.users.marie.extraGroups = [ "corsair" ];
@@ -10,10 +13,10 @@
 
   systemd.user.services.corsair-hs80-pipewire-thing = {
     serviceConfig = {
-      ExecStart = "${
-        inputs.corsair-hs80-pipewire-thing.packages.${pkgs.stdenv.hostPlatform.system}.default
-      }/bin/corsair-hs80-pipewire-thing";
+      ExecStart = "${package}/bin/corsair-hs80-pipewire-thing";
     };
     wantedBy = [ "graphical-session.target" ];
   };
+
+  environment.systemPackages = [ package ];
 }
