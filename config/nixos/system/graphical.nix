@@ -8,13 +8,24 @@
   options.uwumarie.profiles.graphical = lib.mkEnableOption "graphical profile";
   config = lib.mkIf config.uwumarie.profiles.graphical {
     uwumarie.profiles.audio = true;
-    fonts.packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.symbols-only
-    ];
+    fonts = {
+      packages = with pkgs; [
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-color-emoji
+        nerd-fonts.jetbrains-mono
+        nerd-fonts.fira-mono
+        nerd-fonts.symbols-only
+      ];
+      enableDefaultPackages = true;
+      fontconfig.defaultFonts = {
+        emoji = [ "Noto Color Emoji" ];
+        monospace = [ "FiraMono Nerd Font" ];
+        sansSerif = [ "Noto Sans" ];
+        serif = [ "Noto Serif" ];
+      };
+      fontconfig.useEmbeddedBitmaps = true;
+    };
 
     environment.sessionVariables = {
       "SSH_ASKPASS_REQUIRE" = "prefer";
