@@ -7,4 +7,5 @@
   ./programs/tmux.nix
   ./programs/zsh.nix
   ./programs/emacs.nix
+  ./programs/bat.nix
 ]
