@@ -136,12 +136,12 @@
       overlays.default = (
         final: prev:
         {
-          # discord = (
-          #   prev.discord.override {
-          #     withOpenASAR = true;
-          #     withVencord = true;
-          #   }
-          # );
+          discord = (
+            prev.discord.override {
+              withOpenASAR = true;
+              withVencord = true;
+            }
+          );
         }
         // (self.overlays.packages final prev)
       );
