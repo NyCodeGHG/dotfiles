@@ -5,7 +5,7 @@
 }:
 {
   services.factorio = {
-    enable = true;
+    enable = false;
     bind = "[::]";
     package = pkgs.factorio-headless.overrideAttrs (prev: rec {
       version = "2.0.60";
