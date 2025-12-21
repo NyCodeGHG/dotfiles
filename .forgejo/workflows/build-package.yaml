@@ -24,7 +24,7 @@ jobs:
       - name: Configure attic
         if: "${{ inputs.push-to-cache}} == true"
         run: |
-          nix profile install nixpkgs#attic-client
+          nix profile install nixpkgs#attic-client nixpkgs#jq
           attic login --set-default marie https://cache.marie.cologne "${{ secrets.ATTIC_TOKEN }}"
       
       - name: Build ${{ inputs.flake-ref }}
@@ -32,4 +32,4 @@ jobs:
 
       - name: Push to cache
         if: "${{ inputs.push-to-cache }} == true"
-        run: attic push marie ./result
+        run: nix derivation show ./result | jq '.[].outputs.[].path' -r | xargs attic push marie 
