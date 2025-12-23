@@ -233,6 +233,8 @@
         clangd.enable = true;
         cssls.enable = true;
         clojure_lsp.enable = true;
+
+        emmet_language_server.enable = true;
       };
     };
     conjure.enable = true;
