@@ -36,6 +36,7 @@
         b3sum
         bpftrace
         lix-diff
+        neovim-unwrapped
       ]
       ++ lib.optionals (!(lib.versionOlder "25.05" lib.trivial.release)) (with pkgs; [ wcurl ]);
     programs.trippy.enable = true;
@@ -73,6 +74,12 @@
       nixos-generate-config.enable = false;
       nixos-install.enable = false;
       nixos-option.enable = false;
+    };
+
+    environment.variables = {
+      "PAGER" = "less";
+      "LESS" = "-FRXi -x4 --use-color -Dd+r\\$Du+b";
+      "EDITOR" = "nvim";
     };
 
     security.polkit.enable = lib.mkDefault true;

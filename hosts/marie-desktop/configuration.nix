@@ -264,8 +264,6 @@
 
   environment.variables = {
     "SSH_ASKPASS_REQUIRE" = "prefer";
-    "PAGER" = "${pkgs.less}/bin/less -FRX";
-    "EDITOR" = "nvim";
     "RUSTICL_ENABLE" = "radeonsi";
   };
 
