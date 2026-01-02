@@ -142,6 +142,14 @@
               withVencord = true;
             }
           );
+          gemini-cli =
+            assert (prev.gemini-cli.version == "0.22.4");
+            prev.gemini-cli.override {
+              nodejs = final.nodejs_22;
+              buildNpmPackage = final.buildNpmPackage.override {
+                nodejs = final.nodejs_22;
+              };
+            };
         }
         // (self.overlays.packages final prev)
       );
