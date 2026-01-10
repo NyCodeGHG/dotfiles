@@ -34,6 +34,7 @@
   ];
 
   programs.gamemode.enable = true;
+  services.flatpak.enable = true;
 
   boot.kernelParams = [
     "clearcpuid=514"
