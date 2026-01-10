@@ -14,8 +14,7 @@ lib.mkIf config.uwumarie.profiles.users.marie {
     ++ lib.optional config.programs.gamemode.enable "gamemode"
     ++ lib.optional config.virtualisation.libvirtd.enable "libvirtd"
     ++ lib.optional config.virtualisation.podman.enable "podman"
-    ++ lib.optional config.services.pipewire.enable "pipewire"
-    ++ lib.optional config.programs.adb.enable "adbusers";
+    ++ lib.optional config.services.pipewire.enable "pipewire";
     openssh.authorizedKeys.keys = lib.mkIf config.services.openssh.enable [
       # Desktop old
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiS+tzh0R/nN5nqSwvLerCV4nBwI51zOKahFfiiINGp"

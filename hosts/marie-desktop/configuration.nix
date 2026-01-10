@@ -232,6 +232,7 @@
       age
       evcxr
       gemini-cli
+      android-tools
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
@@ -279,8 +280,6 @@
   virtualisation.containers.containersConf.settings.engine.compose_warning_logs = false;
 
   fonts.packages = with pkgs; [ corefonts ];
-
-  programs.adb.enable = true;
 
   home-manager.users.marie =
     { config, pkgs, ... }:
