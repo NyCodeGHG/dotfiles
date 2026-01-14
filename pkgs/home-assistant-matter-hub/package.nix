@@ -4,38 +4,54 @@
   fetchFromGitHub,
   nodejs,
   pnpm_10,
+  pnpmConfigHook,
+  fetchPnpmDeps,
   makeWrapper,
+  moreutils,
+  jq,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "home-assistant-matter-hub";
-  version = "3.0.2";
+  version = "3.0.3";
 
   src = fetchFromGitHub {
     owner = "t0bst4r";
     repo = "home-assistant-matter-hub";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Y7iqPidnvJf9/yJgrzTBmDj0m0NgHpQY9En7yTzI8Wo=";
+    hash = "sha256-VfhE+rf3pFtAjKpTTLPmHjByuZuigoT3s3S9muLXtnI=";
   };
 
-  pnpmDeps = pnpm_10.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
+    nativeBuildInputs = [
+      moreutils
+      jq
+    ];
     inherit (finalAttrs)
       pname
       version
       src
+      prePatch
       ;
-    fetcherVersion = 2;
-    hash = "sha256-Z87FmOf+9odMNC886IFHLfg0fyC37kafchHbvXOasQg=";
+    fetcherVersion = 3;
+    hash = "sha256-stIS9Nef2ZWEDKnrCbdA5UwSMvyulLO/mEpQgGldkc4=";
   };
 
   nativeBuildInputs = [
     nodejs
-    pnpm_10.configHook
+    pnpm_10
+    pnpmConfigHook
     makeWrapper
+    moreutils
+    jq
   ];
 
   # Required to bypass pnpm tty checks
   env.CI = "true";
+
+  prePatch = ''
+    jq 'del(.engines.node)' package.json | sponge package.json
+  '';
 
   buildPhase = ''
     runHook preBuild
