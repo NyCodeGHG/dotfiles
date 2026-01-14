@@ -33,12 +33,7 @@
     oversteer
   ];
 
-  programs.gamemode.enable = true;
   services.flatpak.enable = true;
-
-  boot.kernelParams = [
-    "clearcpuid=514"
-  ];
 
   programs.gamescope.enable = true;
 
@@ -49,7 +44,7 @@
     remotePlay.openFirewall = true;
   };
   # Fixes Hogwarts Legacy to not crash
-  boot.kernel.sysctl."vm.max_map_count" = 2146483642;
+  # boot.kernel.sysctl."vm.max_map_count" = 2146483642;
 
   programs.corectrl.enable = true;
 

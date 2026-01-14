@@ -300,7 +300,7 @@
     extraSpecialArgs = { inherit inputs; };
   };
 
-  programs.nix-ld.enable = true;
+  # programs.nix-ld.enable = true;
 
   hardware.bluetooth.enable = true;
 
