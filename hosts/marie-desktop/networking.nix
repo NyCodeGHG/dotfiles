@@ -22,10 +22,7 @@
     };
     resolved = {
       enable = true;
-      dnsovertls = "opportunistic";
-      extraConfig = ''
-        MulticastDNS=resolve
-      '';
+      settings.Resolve.MulticastDNS = "resolve";
     };
     tailscale = {
       enable = true;
