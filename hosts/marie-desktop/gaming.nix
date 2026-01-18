@@ -28,7 +28,6 @@
     libray
     cemu
     ryubing
-    nexusmods-app-unfree
     xrgears
     oversteer
   ];
