@@ -16,10 +16,15 @@ $HOME/.config/VSCodium/CachedData
 $HOME/.config/VSCodium/CachedExtensions
 $HOME/.config/VSCodium/logs
 
+$HOME/.config/Code/CachedData
+$HOME/.config/Code/CachedExtensions
+$HOME/.config/Code/logs
+
 $HOME/.local/share/Steam
 $HOME/.local/share/pnpm
 $HOME/.local/share/containers
 $HOME/.local/share/umu
+$HOME/.local/share/gem
 
 $HOME/.rustup
 $HOME/.yarn
@@ -32,3 +37,6 @@ $HOME/.android
 $HOME/.gradle
 
 $HOME/.var/app/com.usebottles.bottles
+
+$HOME/Android
+$HOME/go
