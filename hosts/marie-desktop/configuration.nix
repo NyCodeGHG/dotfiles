@@ -77,12 +77,6 @@
     kernelParams = [ "quiet" ];
   };
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = [ pkgs.mesa.opencl ];
-  };
-
   boot.loader = {
     systemd-boot = {
       enable = true;
