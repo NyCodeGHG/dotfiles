@@ -15,7 +15,6 @@
   ./system/headless.nix
   ./system/locale.nix
   ./system/nspawn.nix
-  ./system/ntp.nix
   ./system/upgrade-diff.nix
   ./system/zram.nix
   ./users/marie.nix
