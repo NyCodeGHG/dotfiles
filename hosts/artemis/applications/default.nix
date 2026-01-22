@@ -20,5 +20,6 @@
     ./iplookupd.nix
     ./hydra.nix
     ./garage.nix
+    ./untis-caldav-sync/staging.nix
   ];
 }

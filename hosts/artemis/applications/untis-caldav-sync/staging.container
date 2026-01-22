@@ -1,0 +1,20 @@
+[Unit]
+Description=Untis CalDav Sync Staging Instance
+After=postgresql.service
+Requires=postgresql.service
+
+[Container]
+Image=git.marie.cologne/marie/untis-caldav-sync:staging
+AutoUpdate=registry
+PublishPort=3002:3000
+User=964
+Group=958
+Volume=/run/postgresql:/run/postgresql
+Environment=DATABASE_URL=postgres://untis-caldav-sync-staging@localhost/untis-caldav-sync-staging?host=/run/postgresql
+EnvironmentFile=/run/agenix/untis-caldav-sync-staging-env
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

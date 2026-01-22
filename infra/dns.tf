@@ -182,6 +182,21 @@ resource "cloudflare_record" "s3_wildcard_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "staging_untis_caldav_sync_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "staging.untis-caldav-sync"
+  content = "artemis.marie.cologne"
+  type    = "CNAME"
+}
+
+resource "cloudflare_record" "prod_untis_caldav_sync_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "untis-caldav-sync"
+  content = "artemis.marie.cologne"
+  type    = "CNAME"
+}
+
+
 resource "cloudflare_record" "hydra2_marie_cologne_v4" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "hydra2"
