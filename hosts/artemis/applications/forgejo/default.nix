@@ -6,15 +6,7 @@
 {
   services.forgejo = {
     enable = true;
-    package = pkgs.forgejo.overrideAttrs (prev: {
-      patches = (prev.patches or [ ]) ++ [
-        ../../../../patches/forgejo-chroma-wat.patch
-      ];
-
-      doCheck = false;
-
-      vendorHash = "sha256-TVWJZBBDPnQoWVvCSPEhxo7Urj3eH4P1aMFPogL20fs=";
-    });
+    package = pkgs.forgejo;
     user = "forgejo";
     group = "forgejo";
     database = {
