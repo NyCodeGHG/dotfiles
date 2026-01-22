@@ -70,4 +70,6 @@
     openrgb.enable = true;
     openrgb.package = pkgs.openrgb-with-all-plugins;
   };
+
+  security.rtkit.enable = true;
 }
