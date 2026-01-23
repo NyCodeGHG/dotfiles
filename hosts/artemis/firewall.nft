@@ -43,21 +43,16 @@ counter dn42_invalid {
 }
 
 chain filter {
-  type filter hook forward priority 0; policy drop;
+  type filter hook forward priority 0;
 
   # reject dn42 ipv4, as my network is v6 only.
   ip daddr @dn42v4 reject;
-
-  ct state { established, related } accept;
-  icmpv6 type != { nd-redirect, 139 } accept;
 
   iifname wg1 oifname "dn42n*" accept;
   oifname wg1 iifname "dn42n*" accept;
 
   iifname "dn42n*" jump dn42;
 
-  iifname "tailscale0" accept;
-  
   iifname wg0 jump vpn;
 }
 
