@@ -66,9 +66,7 @@
 
   services.resolved = {
     enable = true;
-    extraConfig = ''
-      MulticastDNS=resolve
-    '';
+    settings.Resolve.MulticastDNS = "resolve";
   };
   networking.firewall.trustedInterfaces = [ "podman*" ];
 }
