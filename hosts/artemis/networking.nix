@@ -132,4 +132,13 @@ in
     enable = true;
     openFirewall = true;
   };
+
+  virtualisation.podman = {
+    enable = true;
+    extraPackages = [ pkgs.nftables ];
+    defaultNetwork.settings = {
+      dns_enabled = true;
+      ipv6_enabled = true;
+    };
+  };
 }
