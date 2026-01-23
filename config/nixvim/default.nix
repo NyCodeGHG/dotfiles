@@ -26,7 +26,7 @@
 
     termguicolors = true;
 
-    tabstop = 8;
+    tabstop = 4;
     shiftwidth = 2;
     expandtab = true;
 
@@ -54,10 +54,29 @@
     vim-dispatch-neovim
     nvim-paredit
     nvim-parinfer
+    (pkgs.vimUtils.buildVimPlugin {
+      pname = "wildfire.nvim";
+      version = "0-unstable-2025-10-14";
+      src = pkgs.fetchFromGitHub {
+        owner = "SUSTech-data";
+        repo = "wildfire.nvim";
+        rev = "918a1873c2b8010baa034f373cf28c53ce4f038f";
+        hash = "sha256-HGNBUuUFtZU9ozFsM0X5QadfnK+cEiosQfnnrI6bdtI=";
+      };
+      meta.homepage = "https://github.com/SUSTech-data/wildfire.nvim/";
+      meta.hydraPlatforms = [ ];
+    })
   ];
   extraConfigLuaPre = ''
     require("neoconf").setup()
     require("nvim-paredit").setup()
+    require("wildfire").setup({
+      keymaps = {
+        init_selection = "<C-Space>";
+        node_incremental = "<C-Space>";
+        node_decremental = "<BS>";
+      }
+    })
   '';
 
   plugins = {
@@ -160,18 +179,9 @@
     treesitter = {
       enable = true;
       folding.enable = true;
-      settings = {
-        indent.enable = false;
-        highlight.enable = true;
-        incremental_selection = {
-          enable = true;
-          keymaps = {
-            init_selection = "<C-Space>";
-            node_incremental = "<C-Space>";
-            node_decremental = "<C-B>";
-          };
-        };
-      };
+      indent.enable = true;
+      highlight.enable = true;
+      settings = { };
       nixvimInjections = true;
     };
 
