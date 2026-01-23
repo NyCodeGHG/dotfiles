@@ -318,7 +318,7 @@ module "artemis_logs_record" {
 resource "cloudflare_record" "delphi_v4" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "delphi"
-  content = module.oracle.delphi-ipv4
+  content = "141.144.240.28"
   type    = "A"
 }
 

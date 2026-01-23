@@ -27,7 +27,3 @@ terraform {
   }
 }
 
-module "oracle" {
-  source = "./oracle"
-}
-
