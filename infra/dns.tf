@@ -330,6 +330,13 @@ module "artemis_logs_record" {
   hostname = "artemis"
 }
 
+module "artemis_metrics_record" {
+  source   = "./tailscale-record"
+  zone_id  = data.cloudflare_zone.marie_cologne.id
+  name     = "metrics.artemis"
+  hostname = "artemis"
+}
+
 resource "cloudflare_record" "delphi_v4" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "delphi"
