@@ -3,14 +3,14 @@
   imports = [
     ./dap.nix
   ];
-  # colorschemes.oxocarbon.enable = true;
+  colorschemes.oxocarbon.enable = true;
   # colorschemes.melange.enable = true;
-  colorschemes.kanagawa = {
-    enable = true;
-    settings = {
-      background.dark = "dragon";
-    };
-  };
+  # colorschemes.kanagawa = {
+  #   enable = true;
+  #   settings = {
+  #     background.dark = "dragon";
+  #   };
+  # };
 
   globals = {
     mapleader = " ";
@@ -181,7 +181,6 @@
       folding.enable = true;
       indent.enable = true;
       highlight.enable = true;
-      settings = { };
       nixvimInjections = true;
     };
 
@@ -253,21 +252,19 @@
     blink-cmp = {
       enable = true;
       settings = {
-        keymap.preset = "enter";
+        keymap.preset = "super-tab";
         sources.default = [
           "lsp"
           "path"
           "snippets"
           "buffer"
         ];
-        blink-cmp.settings = {
-          sources.providers = {
-            lazydev = {
-              name = "LazyDev";
-              module = "lazydev.integrations.blink";
-              # make lazydev completions top priority (see `:h blink.cmp`)
-              score_offset = 100;
-            };
+        sources.providers = {
+          lazydev = {
+            name = "LazyDev";
+            module = "lazydev.integrations.blink";
+            # make lazydev completions top priority (see `:h blink.cmp`)
+            score_offset = 100;
           };
         };
       };
