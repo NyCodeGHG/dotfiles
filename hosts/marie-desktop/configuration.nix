@@ -24,6 +24,8 @@
 
   virtualisation.waydroid.enable = true;
 
+  services.dbus.implementation = "broker";
+
   uwumarie.profiles = {
     graphical = true;
     tools = true;
