@@ -15,7 +15,6 @@
     ./syncthing.nix
     ./wireshark.nix
     ./backup.nix
-    ./corsair-thing.nix
     # ./router.nix
     ./krisp-patcher.nix
     ./peacock.nix

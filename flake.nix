@@ -83,6 +83,7 @@
       colmena,
       systemd-impersonate,
       nixos-wii-u,
+      corsair-hs80-pipewire-thing,
       ...
     }:
     let
@@ -101,6 +102,7 @@
                 overlays = [
                   self.overlays.default
                   systemd-impersonate.overlays.default
+                  corsair-hs80-pipewire-thing.overlays.default
                 ];
               }
             )
@@ -185,6 +187,7 @@
               overlays = [
                 self.overlays.default
                 systemd-impersonate.overlays.default
+                corsair-hs80-pipewire-thing.overlays.default
               ];
             };
           patchedInputs = patchInputs {

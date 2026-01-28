@@ -7,7 +7,10 @@
 {
   options.uwumarie.profiles.graphical = lib.mkEnableOption "graphical profile";
   config = lib.mkIf config.uwumarie.profiles.graphical {
-    uwumarie.profiles.audio = true;
+    uwumarie.profiles = {
+      audio = true;
+      corsair = true;
+    };
     fonts = {
       packages = with pkgs; [
         noto-fonts

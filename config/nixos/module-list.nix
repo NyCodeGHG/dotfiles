@@ -8,6 +8,7 @@
   ./applications/valkey.nix
   ./applications/tools.nix
   ./applications/podman.nix
+  ./applications/corsair.nix
   ./system/audio.nix
   ./system/base.nix
   ./system/dns.nix

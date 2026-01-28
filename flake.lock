@@ -54,11 +54,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765973801,
-        "narHash": "sha256-RguqYHXinRJul2VBWzQMuI1yTmk3qMTsOSvjymrbWF8=",
-        "rev": "658c02dbca554af5538fcca9e4aa73466c73a294",
+        "lastModified": 1769596734,
+        "narHash": "sha256-Ay8fcWF87A19i1akQdDq6LU/5tgOurSYIL4cdet4ipY=",
+        "rev": "2c017a2d0d950afbb89ae7382cebc66ece7cdde3",
         "type": "tarball",
-        "url": "https://codeberg.org/api/v1/repos/marie/corsair-hs80-pipewire-thing/archive/658c02dbca554af5538fcca9e4aa73466c73a294.tar.gz?rev=658c02dbca554af5538fcca9e4aa73466c73a294"
+        "url": "https://codeberg.org/api/v1/repos/marie/corsair-hs80-pipewire-thing/archive/2c017a2d0d950afbb89ae7382cebc66ece7cdde3.tar.gz?rev=2c017a2d0d950afbb89ae7382cebc66ece7cdde3"
       },
       "original": {
         "type": "tarball",
