@@ -68,6 +68,22 @@
     })
   '';
 
+  extraConfigLua = ''
+    local autopairs = require('nvim-autopairs')
+    local Rule = require('nvim-autopairs.rule')
+    local cond = require('nvim-autopairs.conds')
+
+    for _, rule in ipairs(autopairs.get_rules("'")) do
+      rule.not_filetypes = rule.not_filetypes or {}
+      table.insert(rule.not_filetypes, "clojure")
+    end
+
+    autopairs.add_rules({
+      Rule('"', '"', "clojure")
+        :with_pair(cond.not_after_text('"')),
+    })
+  '';
+
   plugins = {
     # UI
     neo-tree.enable = true;
@@ -131,13 +147,20 @@
 
     nvim-autopairs = {
       enable = true;
-      settings.disable_filetype = [
-        "TelescopePrompt"
-        "spectre_panel"
-        "snacks_picker_input"
-        "clojure"
-        "lisp"
-      ];
+      settings = {
+        disable_filetype = [
+          "TelescopePrompt"
+          "spectre_panel"
+          "snacks_picker_input"
+        ];
+        check_ts = true;
+        ts_config = {
+          clojure = [
+            "str_lit"
+            "comment"
+          ];
+        };
+      };
     };
 
     lazydev.enable = true;
