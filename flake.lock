@@ -54,11 +54,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769596734,
-        "narHash": "sha256-Ay8fcWF87A19i1akQdDq6LU/5tgOurSYIL4cdet4ipY=",
-        "rev": "2c017a2d0d950afbb89ae7382cebc66ece7cdde3",
+        "lastModified": 1769709989,
+        "narHash": "sha256-JwPry7jLYL4sx+kru0elYohZbpT3mDH8LKJQL3SytdE=",
+        "rev": "4dccb6db9475eb0c2441c14c9c5fdaf5894db173",
         "type": "tarball",
-        "url": "https://codeberg.org/api/v1/repos/marie/corsair-hs80-pipewire-thing/archive/2c017a2d0d950afbb89ae7382cebc66ece7cdde3.tar.gz?rev=2c017a2d0d950afbb89ae7382cebc66ece7cdde3"
+        "url": "https://codeberg.org/api/v1/repos/marie/corsair-hs80-pipewire-thing/archive/4dccb6db9475eb0c2441c14c9c5fdaf5894db173.tar.gz?rev=4dccb6db9475eb0c2441c14c9c5fdaf5894db173"
       },
       "original": {
         "type": "tarball",
@@ -206,11 +206,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769638001,
-        "narHash": "sha256-hGwdJ/+oo+IRo2TiWV/V8BWWptQihcdFV/olTONaHqg=",
+        "lastModified": 1769699427,
+        "narHash": "sha256-dAQt3qXugGhg92A+jqaUcmH0elbgEN/mV4vy1+ohLZk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "bd9f031efc634be4b80c5090b9171cc3a9f8e49c",
+        "rev": "2a08ab21abc8b482f41c521b5f9b0df5b18a67eb",
         "type": "github"
       },
       "original": {
