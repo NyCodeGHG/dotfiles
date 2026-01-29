@@ -35,9 +35,67 @@
     wantedBy = [ "sockets.target" ];
   };
 
+  systemd.services.transmission-nginx-credentials = {
+    before = [ "nginx.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "rm /run/nginx-transmission-auth.conf";
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      ReadOnlyPaths = "/run/agenix";
+      ReadWritePaths = "/run";
+      CapabilityBoundingSet = [
+        "CAP_CHOWN"
+        "CAP_FOWNER"
+        "CAP_DAC_OVERRIDE"
+      ];
+      NoNewPrivileges = true;
+      RestrictAddressFamilies = "none";
+      ProtectKernelTunables = true;
+      ProtectControlGroups = true;
+      PrivateDevices = true;
+      ProtectClock = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      SystemCallArchitectures = "native";
+      MemoryDenyWriteExecute = true;
+      RestrictNamespaces = true;
+      RestrictSUIDSGID = true;
+      ProtectHostname = true;
+      LockPersonality = true;
+      RestrictRealtime = true;
+      ProtectProc = "invisible";
+      ProcSubset = "pid";
+      PrivateNetwork = true;
+      PrivateTmp = true;
+      SystemCallFilter = [ "@system-service" ];
+      UMask = "177";
+    };
+    path = with pkgs; [
+      jq
+      coreutils
+    ];
+    script = ''
+      PASSWORD=$(jq -r '."rpc-password"' /run/agenix/transmission)
+      BASE64=$(echo -n "transmission:$PASSWORD" | base64 | tr -d '\n')
+      TARGET_FILE="/run/nginx-transmission-auth.conf"
+
+      touch "$TARGET_FILE"
+      chmod 600 "$TARGET_FILE"
+      chown nginx:nginx "$TARGET_FILE"
+
+      echo "proxy_set_header Authorization \"Basic $BASE64\";" > "$TARGET_FILE"
+    '';
+  };
+
   services.nginx.virtualHosts."bt.marie.cologne".locations."/" = {
     proxyPass = "http://127.0.0.1:9091";
     proxyWebsockets = true;
+    extraConfig = ''
+      include /run/nginx-transmission-auth.conf;
+    '';
   };
 
   age.secrets.transmission = {
