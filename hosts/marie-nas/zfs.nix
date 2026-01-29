@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  options,
+  ...
+}:
 {
   networking.hostId = "5b001dfe";
   boot = {
@@ -30,8 +35,8 @@
     datasets = {
       "zroot/data" = {
         recursive = "zfs";
-        hourly = 36;
-        daily = 30;
+        hourly = 6;
+        daily = 14;
         monthly = 3;
       };
     };
@@ -45,5 +50,11 @@
       source = "zroot/data";
       recursive = true;
     };
+    localSourceAllow = options.services.syncoid.localSourceAllow.default ++ [
+      "mount"
+    ];
+    localTargetAllow = options.services.syncoid.localTargetAllow.default ++ [
+      "destroy"
+    ];
   };
 }
