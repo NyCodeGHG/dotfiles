@@ -16,6 +16,7 @@
       editorconfig-core-c
       clojure-lsp
       nixd
+      nix-diff
     ];
   };
 }
