@@ -51,6 +51,7 @@ let
             (sloth.concat' sloth.runtimeDir "/gvfsd")
             (sloth.concat' sloth.runtimeDir "/dconf")
             (sloth.concat' sloth.runtimeDir "/doc")
+            (sloth.concat' sloth.runtimeDir "/discord-ipc-0")
           ];
           bind.ro = [
             (sloth.concat' sloth.xdgConfigHome "/gtk-2.0")
