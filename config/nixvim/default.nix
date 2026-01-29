@@ -441,7 +441,9 @@
         __raw = ''
           function()
             vim.bo.indentexpr = ""
-            vim.opt.smartindent = true
+            vim.bo.smartindent = false
+            vim.bo.autoindent = true
+            vim.bo.lisp = true
           end
         '';
       };
