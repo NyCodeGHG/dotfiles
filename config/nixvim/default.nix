@@ -432,4 +432,21 @@
     virtual_text = true;
   };
 
+  autoCmd = [
+    {
+      event = "FileType";
+      pattern = "clojure";
+      group = "clojure-filetype-indentexpr";
+      callback = {
+        __raw = ''
+          function()
+            vim.bo.indentexpr = ""
+            vim.opt.smartindent = true
+          end
+        '';
+      };
+    }
+  ];
+
+  autoGroups.clojure-filetype-indentexpr.clear = true;
 }
