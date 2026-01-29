@@ -231,7 +231,7 @@
     ]
     ++ (with pkgs.kdePackages; [
       isoimagewriter
-      kdenlive
+      # kdenlive
       partitionmanager
       filelight
       konversation
