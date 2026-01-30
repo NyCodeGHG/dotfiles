@@ -55,6 +55,7 @@
     nvim-paredit
     nvim-parinfer
     wildfire-nvim
+    nvim-vtsls
   ];
   extraConfigLuaPre = ''
     require("neoconf").setup()
@@ -239,7 +240,12 @@
           installCargo = false;
           settings.diagnostics.enable = true;
         };
-        ts_ls.enable = true;
+        vtsls = {
+          enable = true;
+          settings.vtsls = {
+            autoUseWorkspaceTsdk = true;
+          };
+        };
         # denols.enable = true;
         # phpactor.enable = true;
         terraformls.enable = true;
