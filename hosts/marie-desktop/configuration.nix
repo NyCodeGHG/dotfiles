@@ -27,7 +27,7 @@
 
   uwumarie.profiles = {
     graphical = true;
-    tools = true;
+    apps = true;
   };
 
   boot.binfmt.emulatedSystems = [
@@ -42,11 +42,6 @@
   };
 
   services.fwupd.enable = true;
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv.package = pkgs.lixPackageSets.latest.nix-direnv;
-  };
 
   virtualisation.libvirtd.enable = true;
 
@@ -136,69 +131,23 @@
     };
   };
 
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs.obs-studio-plugins; [
-      obs-pipewire-audio-capture
-    ];
-  };
-
-  programs.firefox.enable = true;
-  programs.chromium.enable = true;
-  programs.thunderbird.enable = true;
-
   environment.systemPackages =
     with pkgs;
     [
-      (chromium.override { enableWideVine = true; })
       discord
       spotify
-      qpwgraph
-      vscodium
       nvtopPackages.amd
-      tokei
-      nix-output-monitor
-      vlc
-      (lib.hiPrio (
-        pkgs.runCommand "vlc-desktop-fix" { } ''
-          mkdir -p $out/share/applications
-          cp ${pkgs.vlc}/share/applications/vlc.desktop $out/share/applications
-          sed -i '/X-KDE-Protocols/ s/,smb//' $out/share/applications/vlc.desktop
-        ''
-      ))
-      mpv
-      ffmpeg-full
-      lixPackageSets.latest.nixpkgs-review
       (nix-update.override {
         nix = config.nix.package;
         inherit (lixPackageSets.latest) nixpkgs-review;
       })
-      restic
-      rclone
-      fastfetch
-      python3
-      btop
-      openssl
-      yt-dlp
       protontricks
-      clang-tools
-      nixfmt
-      bashInteractive
       dysk
       qbittorrent
       bitwarden-desktop
       p7zip
-      fend
-      lm_sensors
-      gimp3
-      man-pages
       unrar-wrapper
-      smartmontools
-      libreoffice-qt6-fresh
-      yq-go
       nushell
-      jq
-      wl-clipboard-rs
       makemkv
       scrcpy
       zfs # to view manpages
@@ -207,37 +156,21 @@
       quickemu
       anydesk
       ludusavi
-      iperf3
       sequoia-sq
       sequoia-chameleon-gnupg
-      magic-wormhole
-      wireguard-tools
       chatterino7
-      config.boot.kernelPackages.cpupower
       unrar
       switchfin
       distrobox
       docker-compose # for podman-compose
-      nix-tree
-      signal-desktop
-      sshfs
       obs-cmd
-      comma
       kdiff3
-      age
       evcxr
       gemini-cli
-      android-tools
     ]
     ++ (with pkgs.kdePackages; [
-      isoimagewriter
       # kdenlive
-      partitionmanager
-      filelight
       konversation
-      sddm-kcm
-      krdc
-      kcolorchooser
     ]);
 
   virtualisation.spiceUSBRedirection.enable = true;
@@ -298,10 +231,6 @@
   # programs.nix-ld.enable = true;
 
   hardware.bluetooth.enable = true;
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "jitsi-meet-1.0.8043"
-  ];
 
   users.users.marie.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILCcImzZop8RaAlrAy9HBy6LZz3iOaq9V5tThwIB8Ar4"
