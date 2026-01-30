@@ -31,6 +31,7 @@
     ./services/proxy.nix
     ./services/factorio.nix
     ./services/dyndns.nix
+    ./services/bazarr.nix
   ];
   boot = {
     loader = {

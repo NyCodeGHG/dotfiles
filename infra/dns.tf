@@ -260,6 +260,14 @@ resource "cloudflare_record" "sonarr_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "bazarr_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name = "bazarr"
+  content = "marie-nas.marie.cologne"
+  type    = "CNAME"
+}
+
+
 resource "cloudflare_record" "hass_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "hass"
