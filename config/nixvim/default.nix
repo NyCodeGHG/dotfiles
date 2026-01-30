@@ -262,6 +262,10 @@
         clojure_lsp.enable = true;
 
         emmet_language_server.enable = true;
+        biome = {
+          enable = true;
+          packageFallback = true;
+        };
       };
     };
     conjure.enable = true;
