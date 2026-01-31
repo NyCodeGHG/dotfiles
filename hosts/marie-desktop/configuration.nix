@@ -63,6 +63,8 @@
       "chromium"
       "chromium-unwrapped"
       "widevine-cdm"
+      "idea"
+      "rust-rover"
     ]);
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -167,6 +169,8 @@
       kdiff3
       evcxr
       gemini-cli
+      jetbrains.idea
+      jetbrains.rust-rover
     ]
     ++ (with pkgs.kdePackages; [
       # kdenlive
