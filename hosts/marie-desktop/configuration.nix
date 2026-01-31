@@ -160,7 +160,7 @@
       sequoia-chameleon-gnupg
       chatterino7
       unrar
-      switchfin
+      jellyfin-desktop
       distrobox
       docker-compose # for podman-compose
       obs-cmd
