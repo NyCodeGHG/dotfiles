@@ -8,7 +8,6 @@
   imports = [
     ./nginx.nix
     ./peers
-    ./peers/emma
     ./peers/kioubit
     ./peers/maraun
   ];
