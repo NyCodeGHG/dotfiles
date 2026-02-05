@@ -99,6 +99,12 @@
             mode = "0770";
           }
           "/var/lib/power-profiles-daemon"
+          {
+            directory = "/var/lib/bazarr";
+            mode = "0700";
+            user = "bazarr";
+            group = "bazarr";
+          }
         ];
         files = [
           {
