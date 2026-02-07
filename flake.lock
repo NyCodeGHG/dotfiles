@@ -246,11 +246,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761495594,
-        "narHash": "sha256-5IPN6n90kBqSlT5KqGHojGHUdKIl5BDn2NXLWUQQsJk=",
+        "lastModified": 1770485408,
+        "narHash": "sha256-WyGwhKegbufhZNWCGFecwBQKfePfKJEba/QYnZoWHks=",
         "ref": "refs/heads/main",
-        "rev": "a8325d181ec8b4a7f07e81c9cb295666935fed38",
-        "revCount": 165,
+        "rev": "f95881b0cf8bbb032f8809ec93da7ea07b421836",
+        "revCount": 175,
         "type": "git",
         "url": "ssh://forgejo@git.marie.cologne/marie/ip-playground.git"
       },
