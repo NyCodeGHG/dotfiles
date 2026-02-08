@@ -5,25 +5,18 @@
   ...
 }:
 let
-  frontendPackage =
-    inputs.ip-playground.packages.${pkgs.stdenv.hostPlatform.system}.ip-playground-frontend;
-  backendPackage =
-    inputs.ip-playground.packages.${pkgs.stdenv.hostPlatform.system}.ip-playground-backend;
+  package = inputs.ip-playground.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   services.nginx.virtualHosts = {
     "ip.marie.cologne" = {
       locations."/" = {
-        root = "${frontendPackage}";
-        index = "index.html";
+        proxyPass = "http://127.0.0.1:3032";
         extraConfig = ''
           if ($http_user_agent ~* "^curl\/.+") {
             rewrite ^ /api/info last;
           }
         '';
-      };
-      locations."/api" = {
-        proxyPass = "http://127.0.0.1:3032";
       };
       serverAliases = [
         "v4.ip.marie.cologne"
@@ -49,7 +42,9 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       environment = {
-        ALLOWED_ORIGINS = "https://ip.marie.cologne,https://v4.ip.marie.cologne,https://v6.ip.marie.cologne";
+        DEFAULT_PAGE = "https://ip.marie.cologne";
+        V4_PAGE = "https://v4.ip.marie.cologne";
+        V6_PAGE = "https://v6.ip.marie.cologne";
         PORT = "3032";
         LOG_FORMAT = "json";
         REDIS_URL = "redis+unix://${config.services.redis.servers.ip-playground.unixSocket}";
@@ -59,7 +54,7 @@ in
         USER_AGENT = "ip-playground +https://chaos.social/@marie";
       };
       serviceConfig = {
-        ExecStart = "${backendPackage}/bin/ip-playground";
+        ExecStart = "${package}/bin/ip-playground";
         Restart = "always";
         CapabilityBoundingSet = [ "" ];
         LockPersonality = true;
