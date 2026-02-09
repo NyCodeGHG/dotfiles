@@ -12,10 +12,12 @@ in
     "ip.marie.cologne" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:3032";
+      };
+      locations."/metrics" = {
+        proxyPass = "http://127.0.0.1:3032";
         extraConfig = ''
-          if ($http_user_agent ~* "^curl\/.+") {
-            rewrite ^ /api/info last;
-          }
+          allow 127.0.0.0/8;
+          deny all;
         '';
       };
       serverAliases = [
