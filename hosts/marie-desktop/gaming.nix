@@ -17,7 +17,7 @@
   environment.systemPackages = with pkgs; [
     heroic
     winetricks
-    wineWowPackages.unstable
+    wineWow64Packages.stable
     sandwine
     protonup-qt
     bubblewrap
