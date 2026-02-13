@@ -1,0 +1,87 @@
+Commit ID: de73d40e453b0fa9ec82da44c596f032a32a8751
+Change ID: kmnwvrwlrsrookxynymvvquwpoxpunym
+Bookmarks: kapsule kapsule@git kapsule@origin
+Author   : Marie Ramlow <me@nycode.dev> (2026-02-13 11:39:53)
+Committer: Marie Ramlow <me@nycode.dev> (2026-02-13 17:16:29)
+
+    nixos/kapsule: init
+
+diff --git a/nixos/modules/module-list.nix b/nixos/modules/module-list.nix
+index 9d81f8a6b6..c6aeae3bad 100644
+--- a/nixos/modules/module-list.nix
++++ b/nixos/modules/module-list.nix
+@@ -247,6 +247,7 @@
+   ./programs/joycond-cemuhook.nix
+   ./programs/k3b.nix
+   ./programs/k40-whisperer.nix
++  ./programs/kapsule.nix
+   ./programs/kbdlight.nix
+   ./programs/kclock.nix
+   ./programs/kde-pim.nix
+diff --git a/nixos/modules/programs/kapsule.nix b/nixos/modules/programs/kapsule.nix
+new file mode 100644
+index 0000000000..54d3c47741
+--- /dev/null
++++ b/nixos/modules/programs/kapsule.nix
+@@ -0,0 +1,49 @@
++{
++  lib,
++  config,
++  pkgs,
++  ...
++}:
++let
++  cfg = config.programs.kapsule;
++in
++{
++  options.programs.kapsule = {
++    enable = lib.mkEnableOption "kapsule";
++    package = lib.mkPackageOption pkgs [
++      "kdePackages"
++      "kapsule"
++    ] { };
++    settings = lib.mkOption {
++
++    };
++  };
++  config = lib.mkIf cfg.enable {
++    systemd.packages = [ cfg.package ];
++    services.dbus.packages = [ cfg.package ];
++    environment.systemPackages = [ cfg.package ];
++
++    virtualisation.incus = {
++      enable = true;
++      socketActivation = lib.mkDefault true;
++    };
++
++    systemd.services.incus = {
++      # See https://invent.kde.org/kde-linux/kapsule/-/blob/d311acfdef187433568e32fada90a0f6dcfaac9b/data/systemd/system/incus.service.d/kapsule-log-dir.conf
++      serviceConfig = {
++        ExecStart = lib.mkAfter [
++          ""
++          "${config.virtualisation.incus.package}/bin/incusd --group=wheel --logfile=/var/log/incus/incusd.log"
++        ];
++      };
++    };
++
++    systemd.services.kapsule-daemon = {
++      path = [ config.virtualisation.incus.package ];
++    };
++
++    systemd.tmpfiles.rules = [
++      "d /var/log/incus 0750 root root - -"
++    ];
++  };
++}
+diff --git a/pkgs/kde/plasma/kapsule/default.nix b/pkgs/kde/plasma/kapsule/default.nix
+index f8cc5c4d39..fe6caae2fa 100644
+--- a/pkgs/kde/plasma/kapsule/default.nix
++++ b/pkgs/kde/plasma/kapsule/default.nix
+@@ -32,6 +32,7 @@
+   version = "0-unstable-2026-02-10";
+ 
+   patches = [
++    # https://invent.kde.org/kde-linux/kapsule/-/merge_requests/2
+     ./path-fix.patch
+   ];
+ 
