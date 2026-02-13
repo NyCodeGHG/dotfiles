@@ -1,13 +1,5 @@
-Commit ID: de73d40e453b0fa9ec82da44c596f032a32a8751
-Change ID: kmnwvrwlrsrookxynymvvquwpoxpunym
-Bookmarks: kapsule kapsule@git kapsule@origin
-Author   : Marie Ramlow <me@nycode.dev> (2026-02-13 11:39:53)
-Committer: Marie Ramlow <me@nycode.dev> (2026-02-13 17:16:29)
-
-    nixos/kapsule: init
-
 diff --git a/nixos/modules/module-list.nix b/nixos/modules/module-list.nix
-index 9d81f8a6b6..c6aeae3bad 100644
+index 9d81f8a6b674..c6aeae3badd1 100644
 --- a/nixos/modules/module-list.nix
 +++ b/nixos/modules/module-list.nix
 @@ -247,6 +247,7 @@
@@ -20,7 +12,7 @@ index 9d81f8a6b6..c6aeae3bad 100644
    ./programs/kde-pim.nix
 diff --git a/nixos/modules/programs/kapsule.nix b/nixos/modules/programs/kapsule.nix
 new file mode 100644
-index 0000000000..54d3c47741
+index 000000000000..54d3c47741c1
 --- /dev/null
 +++ b/nixos/modules/programs/kapsule.nix
 @@ -0,0 +1,49 @@
@@ -73,15 +65,161 @@ index 0000000000..54d3c47741
 +    ];
 +  };
 +}
+diff --git a/pkgs/development/python-modules/dbus-fast/default.nix b/pkgs/development/python-modules/dbus-fast/default.nix
+index 2a8d4809092c..0ac6c194c0db 100644
+--- a/pkgs/development/python-modules/dbus-fast/default.nix
++++ b/pkgs/development/python-modules/dbus-fast/default.nix
+@@ -16,14 +16,14 @@
+ 
+ buildPythonPackage rec {
+   pname = "dbus-fast";
+-  version = "3.1.2";
++  version = "4.0.0";
+   pyproject = true;
+ 
+   src = fetchFromGitHub {
+     owner = "Bluetooth-Devices";
+     repo = "dbus-fast";
+     tag = "v${version}";
+-    hash = "sha256-WmVtJ/hTFTohsbxwXpBbOvDE8/pdPHX2rBurxtW+ct0=";
++    hash = "sha256-XLtLRIbiB+4AKKq5ekEeBv92qmBPKEJihh0b3lHMnsg=";
+   };
+ 
+   postPatch = ''
+diff --git a/pkgs/kde/plasma/default.nix b/pkgs/kde/plasma/default.nix
+index b51adab7631f..153159cbc355 100644
+--- a/pkgs/kde/plasma/default.nix
++++ b/pkgs/kde/plasma/default.nix
+@@ -10,6 +10,7 @@
+   drkonqi = callPackage ./drkonqi { };
+   flatpak-kcm = callPackage ./flatpak-kcm { };
+   kactivitymanagerd = callPackage ./kactivitymanagerd { };
++  kapsule = callPackage ./kapsule { };
+   kde-cli-tools = callPackage ./kde-cli-tools { };
+   kde-gtk-config = callPackage ./kde-gtk-config { };
+   kdecoration = callPackage ./kdecoration { };
 diff --git a/pkgs/kde/plasma/kapsule/default.nix b/pkgs/kde/plasma/kapsule/default.nix
-index f8cc5c4d39..fe6caae2fa 100644
---- a/pkgs/kde/plasma/kapsule/default.nix
+new file mode 100644
+index 000000000000..fe6caae2fac6
+--- /dev/null
 +++ b/pkgs/kde/plasma/kapsule/default.nix
-@@ -32,6 +32,7 @@
-   version = "0-unstable-2026-02-10";
- 
-   patches = [
+@@ -0,0 +1,87 @@
++{
++  lib,
++  stdenv,
++  fetchFromGitLab,
++  cmake,
++  extra-cmake-modules,
++  kcmutils,
++  kconfig,
++  kcoreaddons,
++  ki18n,
++  kio,
++  qcoro,
++  qtbase,
++  python3,
++}:
++
++let
++  python = python3.withPackages (
++    p: with p; [
++      httpx
++      dbus-fast
++      typer
++      rich
++      pyyaml
++      pydantic
++    ]
++  );
++in
++
++stdenv.mkDerivation (finalAttrs: {
++  pname = "kapsule";
++  version = "0-unstable-2026-02-10";
++
++  patches = [
 +    # https://invent.kde.org/kde-linux/kapsule/-/merge_requests/2
-     ./path-fix.patch
-   ];
- 
++    ./path-fix.patch
++  ];
++
++  src = fetchFromGitLab {
++    domain = "invent.kde.org";
++    owner = "kde-linux";
++    repo = "kapsule";
++    rev = "d311acfdef187433568e32fada90a0f6dcfaac9b";
++    hash = "sha256-cnk6J6DF1tjxfhjvgu99yWv1f0y2q3VBEXjVDvOYFTM=";
++  };
++
++  postPatch = ''
++    substituteInPlace data/systemd/system/kapsule-daemon.service \
++      --replace-fail \
++      "Environment=PYTHONPATH=@KAPSULE_VENDOR_DIR@:@KAPSULE_PYTHON_DIR@" \
++      "Environment=PYTHONPATH=${python}/${python.sitePackages}:$out/share/kapsule/python"
++    substituteInPlace src/daemon/config.py \
++      --replace-fail "/usr/" "$out/"
++  '';
++
++  # Let the NixOS module handle this.
++  postInstall = ''
++    rm $out/lib/systemd/system/incus.service.d/kapsule-log-dir.conf
++  '';
++
++  dontWrapQtApps = true;
++
++  cmakeFlags = [
++    (lib.cmakeBool "VENDOR_PYTHON_DEPS" false)
++  ];
++
++  nativeBuildInputs = [
++    cmake
++    extra-cmake-modules
++  ];
++
++  buildInputs = [
++    kcmutils
++    kconfig
++    kcoreaddons
++    ki18n
++    kio
++    qcoro
++    qtbase
++    python3
++  ];
++
++  outputs = [
++    "out"
++    "dev"
++  ];
++})
+diff --git a/pkgs/kde/plasma/kapsule/path-fix.patch b/pkgs/kde/plasma/kapsule/path-fix.patch
+new file mode 100644
+index 000000000000..ed9e02f362b7
+--- /dev/null
++++ b/pkgs/kde/plasma/kapsule/path-fix.patch
+@@ -0,0 +1,26 @@
++diff --git a/src/daemon/container_service.py b/src/daemon/container_service.py
++index 72e1b969a1..88a43810d8 100644
++--- a/src/daemon/container_service.py
+++++ b/src/daemon/container_service.py
++@@ -49,6 +49,7 @@
++     "LS_COLORS",      # Often huge and causes issues
++     "LESS_TERMCAP_mb", "LESS_TERMCAP_md", "LESS_TERMCAP_me",  # Less colors
++     "LESS_TERMCAP_se", "LESS_TERMCAP_so", "LESS_TERMCAP_ue", "LESS_TERMCAP_us",
+++    "PATH",           # Only used to look up su, set by shell afterwards.
++ })
++ 
++ 
++@@ -672,6 +673,13 @@
++             env_args.extend(["--env", f"{key}={value}"])
++             whitelist_keys.append(key)
++ 
+++            
+++        # Set fixed PATH for su lookup.
+++        # Our host system PATH might not have the right PATH to find su inside the container.
+++        # e.g. NixOS on the host, Arch as the guest.
+++        # NixOS does not have /usr/bin in PATH, so finding su in the guest would fail.
+++        env_args.extend(["--env", "PATH=/usr/bin:/bin"])
+++
++         # Build the command to run inside the container.
++         #
++         # Always use su -l for consistent behavior whether entering a
