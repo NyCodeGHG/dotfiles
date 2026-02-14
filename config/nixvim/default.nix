@@ -56,6 +56,7 @@
     nvim-parinfer
     wildfire-nvim
     nvim-vtsls
+    jj-nvim
   ];
   extraConfigLuaPre = ''
     require("neoconf").setup()
@@ -67,6 +68,8 @@
         node_decremental = "<BS>";
       }
     })
+
+    require("jj").setup({})
   '';
 
   extraConfigLua = ''
