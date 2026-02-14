@@ -86,6 +86,8 @@
       Rule('"', '"', "clojure")
         :with_pair(cond.not_after_text('"')),
     })
+
+    dofile("${./keymaps.lua}")
   '';
 
   plugins = {
@@ -93,36 +95,6 @@
     neo-tree.enable = true;
     telescope = {
       enable = true;
-      keymaps = {
-        "<leader><space>" = {
-          action = "find_files";
-          options.desc = "Find files";
-        };
-        "<leader>ff" = {
-          action = "find_files";
-          options.desc = "Find files";
-        };
-        "<leader>/" = {
-          action = "live_grep";
-          options.desc = "Live grep";
-        };
-        "<leader>fr" = {
-          action = "resume";
-          options.desc = "Resume search";
-        };
-        "<leader>fb" = {
-          action = "buffers";
-          options.desc = "Find buffers";
-        };
-        "<leader>fm" = {
-          action = "man_pages";
-          options.desc = "Find man pages";
-        };
-        "<leader>fz" = {
-          action = "current_buffer_fuzzy_find";
-          options.desc = "Fuzzy search in buffer";
-        };
-      };
       extensions.fzf-native.enable = true;
     };
     which-key.enable = true;
@@ -302,133 +274,6 @@
     lspsaga.enable = true;
     leap.enable = true;
   };
-
-  keymaps = [
-    {
-      mode = "n";
-      key = "<C-h>";
-      action = "<C-w>h";
-      options.silent = true;
-    }
-    {
-      mode = "n";
-      key = "<C-j>";
-      action = "<C-w>j";
-      options.silent = true;
-    }
-    {
-      mode = "n";
-      key = "<C-k>";
-      action = "<C-w>k";
-      options.silent = true;
-    }
-    {
-      mode = "n";
-      key = "<C-l>";
-      action = "<C-w>l";
-      options.silent = true;
-    }
-    {
-      mode = "n";
-      key = "<leader>e";
-      action = "<cmd>Neotree toggle<cr>";
-      options = {
-        desc = "Toggle Neotree";
-        silent = true;
-      };
-    }
-    {
-      mode = [
-        "n"
-        "v"
-      ];
-      key = "j";
-      action = "gj";
-      options.silent = true;
-    }
-    {
-      mode = [
-        "n"
-        "v"
-      ];
-      key = "k";
-      action = "gk";
-      options.silent = true;
-    }
-    {
-      mode = [
-        "n"
-        "v"
-      ];
-      key = "<leader>cd";
-      options.silent = true;
-      action.__raw = "vim.diagnostic.open_float";
-    }
-    {
-      mode = "t";
-      options.silent = true;
-      key = "<ESC>";
-      action = "<C-\\><C-n>";
-    }
-    {
-      mode = "n";
-      options.silent = true;
-      key = "<leader>fb";
-      action = "<cmd>Telescope buffers<cr>";
-    }
-    {
-      mode = "n";
-      options.silent = true;
-      key = "<leader>t";
-      action = "<cmd>terminal<cr>";
-    }
-    {
-      mode = "n";
-      options.silent = true;
-      key = "<leader>cr";
-      action = "<cmd>Lspsaga rename<cr>";
-    }
-    {
-      mode = "n";
-      options.silent = true;
-      key = "<leader>ca";
-      action = "<cmd>Lspsaga code_action<cr>";
-    }
-    {
-      mode = "i";
-      options.silent = true;
-      key = "<C-k>";
-      action.__raw = "function() require('luasnip').expand() end";
-    }
-    {
-      mode = "i";
-      options.silent = true;
-      key = "<C-j>";
-      action.__raw = "function() require('luasnip').jump(1) end";
-    }
-    {
-      mode = "i";
-      options.silent = true;
-      key = "<C-l>";
-      action.__raw = "function() require('luasnip').jump(-1) end";
-    }
-    {
-      mode = [
-        "n"
-        "x"
-        "o"
-      ];
-      options.silent = true;
-      key = "s";
-      action = "<Plug>(leap)";
-    }
-    {
-      mode = "n";
-      options.silent = true;
-      key = "S";
-      action = "<Plug>(leap-from-window)";
-    }
-  ];
 
   highlight = {
     "@text.diff.add.diff" = {
