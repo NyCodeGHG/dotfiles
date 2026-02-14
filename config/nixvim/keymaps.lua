@@ -3,8 +3,10 @@ local map = vim.keymap.set
 -- Window and visual navigation
 for _, letter in ipairs({ "h", "j", "k", "l" }) do
   map("n", string.format("<C-%s>", letter), string.format("<C-w>%s", letter))
-  map({ "n", "v" }, letter, "g" .. letter)
 end
+
+map({ "n", "v" }, "j", "gj")
+map({ "n", "v" }, "k", "gk")
 
 -- UI
 map("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neotree" })
