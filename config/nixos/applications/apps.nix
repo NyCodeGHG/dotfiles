@@ -33,6 +33,7 @@
         sddm-kcm
         krdc
         kcolorchooser
+        kcalc
       ])
 
       ++ (with pkgs; [
