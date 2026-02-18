@@ -41,14 +41,7 @@
     };
 
     services = {
-      displayManager.sddm = {
-        enable = true;
-        wayland = {
-          enable = true;
-          compositor = "kwin";
-        };
-      };
-
+      displayManager.plasma-login-manager.enable = true;
       orca.enable = false;
       speechd.enable = false;
       xserver.xkb.layout = "de";
