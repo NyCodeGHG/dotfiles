@@ -197,7 +197,7 @@
               { npr, ... }:
               {
                 nixpkgs-unstable = [
-                  ./patches/nixpkgs-kapsule.patch
+                  # ./patches/nixpkgs-kapsule.patch
                 ];
                 nixpkgs = [
                 ];

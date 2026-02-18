@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-  programs.kapsule.enable = true;
+  # programs.kapsule.enable = true;
 }
