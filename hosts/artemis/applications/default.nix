@@ -14,7 +14,6 @@
     ./iperf3.nix
     ./atuin.nix
     ./attic.nix
-    ./soju.nix
     ./kanidm.nix
     ./anubis.nix
     ./iplookupd.nix
