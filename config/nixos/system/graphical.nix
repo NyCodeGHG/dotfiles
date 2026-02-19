@@ -41,7 +41,15 @@
     };
 
     services = {
-      displayManager.plasma-login-manager.enable = true;
+      displayManager =
+        if (lib.versionAtLeast (lib.removeSuffix "pre-git" lib.version) "26.05") then
+          {
+            plasma-login-manager.enable = true;
+          }
+        else
+          {
+            sddm.enable = true;
+          };
       orca.enable = false;
       speechd.enable = false;
       xserver.xkb.layout = "de";
