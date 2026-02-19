@@ -66,6 +66,7 @@
       "widevine-cdm"
       "idea"
       "rust-rover"
+      "clion"
     ]);
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -172,6 +173,7 @@
       gemini-cli
       jetbrains.idea
       jetbrains.rust-rover
+      jetbrains.clion
     ]
     ++ (with pkgs.kdePackages; [
       # kdenlive
