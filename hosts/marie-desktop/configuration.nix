@@ -174,6 +174,7 @@
       jetbrains.idea
       jetbrains.rust-rover
       jetbrains.clion
+      anki
     ]
     ++ (with pkgs.kdePackages; [
       # kdenlive
