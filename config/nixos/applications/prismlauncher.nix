@@ -29,6 +29,10 @@ let
           enable = true;
           provider = "nixos";
         };
+        timeZone = {
+          enable = true;
+          provider = "host";
+        };
         app.package = config'.uwumarie.prismlauncher.package;
         flatpak.appId = "org.prismlauncher.PrismLauncher";
         bubblewrap = {
@@ -68,6 +72,11 @@ let
           };
           network = true;
           bind.dev = [ "/dev/input" ];
+          env = {
+            PATH = lib.makeBinPath [
+              pkgs.flatpak-xdg-utils
+            ];
+          };
         };
       };
   };
