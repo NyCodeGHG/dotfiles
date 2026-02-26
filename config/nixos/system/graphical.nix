@@ -77,5 +77,7 @@
       enable32Bit = true;
       extraPackages = [ pkgs.mesa.opencl ];
     };
+
+    xdg.portal.xdgOpenUsePortal = true;
   };
 }
