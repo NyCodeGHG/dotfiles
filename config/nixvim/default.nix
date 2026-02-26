@@ -41,8 +41,6 @@
 
   extraPlugins = with pkgs.vimPlugins; [
     zen-mode-nvim
-    telescope_hoogle
-    telescope-ui-select-nvim
     guard-nvim
     neoconf-nvim
     vim-nftables
@@ -105,21 +103,24 @@
         };
         event_handlers.__raw = ''
           {
-            { event = require("neo-tree.events").events.FILE_MOVED, handler = on_move },
-            { event = require("neo-tree.events").events.FILE_RENAMED, handler = on_move },
+            { event = require("neo-tree.events").FILE_MOVED, handler = on_move },
+            { event = require("neo-tree.events").FILE_RENAMED, handler = on_move },
           }
         '';
       };
-    };
-    telescope = {
-      enable = true;
-      extensions.fzf-native.enable = true;
     };
     which-key.enable = true;
     illuminate.enable = true;
     lualine.enable = true;
     web-devicons.enable = true;
-    trouble.enable = true;
+    trouble = {
+      enable = true;
+      settings = {
+        picker = {
+          actions.__raw = ''require("trouble.sources.snacks").actions'';
+        };
+      };
+    };
     guess-indent.enable = true;
     highlight-colors.enable = true;
     hmts.enable = true;
@@ -176,6 +177,8 @@
       enable = true;
       settings = {
         bigfile.enabled = true;
+        picker.enabled = true;
+        input.enabled = true;
       };
     };
 

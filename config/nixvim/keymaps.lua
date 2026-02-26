@@ -21,13 +21,14 @@ map("t", "<ESC>", [[<C-\><C-n>]])
 map("n", "<leader>t", "<cmd>terminal<cr>")
 
 -- Search
-map("n", "<leader><space>", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
-map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
-map("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Find keymaps" })
-map("n", "<leader>/", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
-map("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "Resume search" })
-map("n", "<leader>fm", "<cmd>Telescope man_pages<cr>", { desc = "Find man pages" })
-map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Fuzzy search in buffer" })
+map("n", "<leader><space>", function() Snacks.picker.smart() end, { desc = "Find files" })
+map("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Find buffers" })
+map("n", "<leader>fk", function() Snacks.picker.keymaps() end, { desc = "Find keymaps" })
+map("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Live grep" })
+map("n", "<leader>fr", function() Snacks.picker.resume() end, { desc = "Resume search" })
+map("n", "<leader>fm", function() Snacks.picker.man() end, { desc = "Find man pages" })
+map("n", "<leader>fz", function() Snacks.picker.grep_buffers() end, { desc = "Fuzzy search in buffer" })
+map("n", "<leader>fd", function() Snacks.picker.diagnostics() end, { desc = "Find diagnostics" })
 
 map("n", "<leader>?", "<cmd>WhichKey<cr>")
 
@@ -50,3 +51,19 @@ map("n", "<leader>ja", annotate.file, { desc = "JJ annotate file" })
 map("n", "<leader>jA", annotate.line, { desc = "JJ annotate line" })
 map("n", "<leader>jd", cmd.describe, { desc = "JJ describe" })
 map("n", "<leader>jn", cmd.describe, { desc = "JJ new" })
+
+-- Buffers
+map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
+
+-- LSP
+map("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Goto Definition" })
+map("n", "gD", function() Snacks.picker.lsp_declarations() end, { desc = "Goto Declaration" })
+map("n", "gr", function() Snacks.picker.lsp_references() end, { desc = "References", nowait = true })
+map("n", "gI", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation" })
+map("n", "gy", function() Snacks.picker.lsp_implementations() end, { desc = "Goto T[y]pe Definition" })
+map("n", "gai", function() Snacks.picker.lsp_incoming_calls() end, { desc = "C[a]lls Incoming" })
+map("n", "gao", function() Snacks.picker.lsp_incoming_calls() end, { desc = "C[a]lls Outgoing" })
+map("n", "<leader>fs", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
+map("n", "<leader>fS", function() Snacks.picker.lsp_workspace_symbols() end, { desc = "LSP Workspace Symbols" })
+
+map({ "n", "i" }, "<c-t>", function() require("trouble").toggle() end, { desc = "Toggle Trouble" })
