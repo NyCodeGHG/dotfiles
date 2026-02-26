@@ -160,7 +160,6 @@
 
     lazydev.enable = true;
 
-    lsp-format.enable = true;
     none-ls = {
       enable = true;
       sources = {
