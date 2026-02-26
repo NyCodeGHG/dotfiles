@@ -70,6 +70,10 @@
     })
 
     require("jj").setup({})
+
+    local function on_move(data)
+      Snacks.rename.on_rename_file(data.source, data.destination)
+    end
   '';
 
   extraConfigLua = ''
@@ -92,7 +96,21 @@
 
   plugins = {
     # UI
-    neo-tree.enable = true;
+    neo-tree = {
+      enable = true;
+      settings = {
+        close_if_last_window = true;
+        filesystem = {
+          follow_current_file.enabled = true;
+        };
+        event_handlers.__raw = ''
+          {
+            { event = require("neo-tree.events").events.FILE_MOVED, handler = on_move },
+            { event = require("neo-tree.events").events.FILE_RENAMED, handler = on_move },
+          }
+        '';
+      };
+    };
     telescope = {
       enable = true;
       extensions.fzf-native.enable = true;
