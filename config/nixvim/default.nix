@@ -181,6 +181,13 @@
       };
     };
 
+    actions-preview = {
+      enable = true;
+      settings = {
+        backend = "snacks";
+      };
+    };
+
     auto-session.enable = true;
 
     # Treesitter
