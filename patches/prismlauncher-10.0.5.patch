@@ -1,0 +1,32 @@
+Commit ID: b1c8e1d079a77c26bc85264badb827a613700fc5
+Change ID: pwkzzlnrtulvymoumxtvpywmtvwlluql
+Bookmarks: push-pwkzzlnrtulv push-pwkzzlnrtulv@git push-pwkzzlnrtulv@origin
+Author   : Marie Ramlow <me@nycode.dev> (2026-03-01 16:25:50)
+Committer: Marie Ramlow <me@nycode.dev> (2026-03-01 16:25:50)
+
+    prismlauncher-unwrapped: 10.0.2 -> 10.0.5
+
+    Diff: https://github.com/PrismLauncher/PrismLauncher/compare/10.0.2...10.0.5
+
+    Changelog: https://github.com/PrismLauncher/PrismLauncher/releases/tag/10.0.5
+
+diff --git a/pkgs/by-name/pr/prismlauncher-unwrapped/package.nix b/pkgs/by-name/pr/prismlauncher-unwrapped/package.nix
+index ca8046697d..668201afc5 100644
+--- a/pkgs/by-name/pr/prismlauncher-unwrapped/package.nix
++++ b/pkgs/by-name/pr/prismlauncher-unwrapped/package.nix
+@@ -27,13 +27,13 @@
+ in
+ stdenv.mkDerivation (finalAttrs: {
+   pname = "prismlauncher-unwrapped";
+-  version = "10.0.2";
++  version = "10.0.5";
+ 
+   src = fetchFromGitHub {
+     owner = "PrismLauncher";
+     repo = "PrismLauncher";
+     tag = finalAttrs.version;
+-    hash = "sha256-Nfo0IaN7kdvaY7ER/BOTfAz2YQL2Jjfiu8vzcKz3n0s=";
++    hash = "sha256-cQBOdF3HP4CFOSfWyVXGQBs42V/A4w6R2UwelQTE3dQ=";
+   };
+ 
+   postUnpack = ''

@@ -198,6 +198,7 @@
               {
                 nixpkgs-unstable = [
                   # ./patches/nixpkgs-kapsule.patch
+                  ./patches/prismlauncher-10.0.5.patch
                 ];
                 nixpkgs = [
                 ];
