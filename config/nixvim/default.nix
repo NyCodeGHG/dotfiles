@@ -214,16 +214,6 @@
     # LSP
     lsp = {
       enable = true;
-      keymaps = {
-        lspBuf = {
-          "K" = "hover";
-          "gD" = "references";
-          "gd" = "definition";
-          "gi" = "implementation";
-          "gt" = "type_definition";
-          "<leader>cf" = "format";
-        };
-      };
       servers = {
         hls = {
           # enable = true;
@@ -292,7 +282,6 @@
         enable_autosnippets = true;
       };
     };
-    lspsaga.enable = true;
     leap.enable = true;
   };
 

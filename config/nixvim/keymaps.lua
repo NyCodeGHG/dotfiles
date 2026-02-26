@@ -13,8 +13,6 @@ map("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neotree" })
 
 -- LSP
 map({ "n", "v" }, "<leader>cd", vim.diagnostic.open_float)
-map("n", "<leader>cr", "<cmd>Lspsaga rename<cr>")
-map("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>")
 
 -- Terminal
 map("t", "<ESC>", [[<C-\><C-n>]])
@@ -61,9 +59,17 @@ map("n", "gD", function() Snacks.picker.lsp_declarations() end, { desc = "Goto D
 map("n", "gr", function() Snacks.picker.lsp_references() end, { desc = "References", nowait = true })
 map("n", "gI", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation" })
 map("n", "gy", function() Snacks.picker.lsp_implementations() end, { desc = "Goto T[y]pe Definition" })
+map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 map("n", "gai", function() Snacks.picker.lsp_incoming_calls() end, { desc = "C[a]lls Incoming" })
 map("n", "gao", function() Snacks.picker.lsp_incoming_calls() end, { desc = "C[a]lls Outgoing" })
 map("n", "<leader>fs", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 map("n", "<leader>fS", function() Snacks.picker.lsp_workspace_symbols() end, { desc = "LSP Workspace Symbols" })
+map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
+map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+map("i", "<c-k>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+map("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+map({ "n", "x" }, "<leader>cc", vim.lsp.codelens.run, { desc = "Run Codelens" })
+map("n", "<leader>cC", vim.lsp.codelens.refresh, { desc = "Refresh Codelens" })
+map("n", "<leader>cf", vim.lsp.buf.format, { desc = "Format" })
 
 map({ "n", "i" }, "<c-t>", function() require("trouble").toggle() end, { desc = "Toggle Trouble" })
