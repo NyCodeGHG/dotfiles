@@ -49,6 +49,10 @@
       target = "tank/zroot-data";
       source = "zroot/data";
       recursive = true;
+      extraArgs = [
+        "--no-sync-snap"
+        "--delete-target-snapshots"
+      ];
     };
     localSourceAllow = options.services.syncoid.localSourceAllow.default ++ [
       "mount"
