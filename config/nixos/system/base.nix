@@ -49,8 +49,6 @@
     systemd.network.enable = lib.mkDefault true;
     boot.tmp.useTmpfs = lib.mkDefault true;
 
-    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_12;
-
     networking.nftables.enable = lib.mkDefault true;
 
     virtualisation.containers.containersConf.settings.network.firewall_driver =
