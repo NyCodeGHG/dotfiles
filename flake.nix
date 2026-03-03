@@ -71,6 +71,11 @@
       url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    nix-locate-man = {
+      url = "https://codeberg.org/marie/nix-locate-man/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -84,6 +89,7 @@
       systemd-impersonate,
       nixos-wii-u,
       corsair-hs80-pipewire-thing,
+      nix-locate-man,
       ...
     }:
     let
@@ -103,6 +109,7 @@
                   self.overlays.default
                   systemd-impersonate.overlays.default
                   corsair-hs80-pipewire-thing.overlays.default
+                  nix-locate-man.overlays.default
                 ];
               }
             )
@@ -188,6 +195,7 @@
                 self.overlays.default
                 systemd-impersonate.overlays.default
                 corsair-hs80-pipewire-thing.overlays.default
+                nix-locate-man.overlays.default
               ];
             };
           patchedInputs = patchInputs {

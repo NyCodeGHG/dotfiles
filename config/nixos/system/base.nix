@@ -38,7 +38,8 @@
         lix-diff
         (lib.lowPrio neovim-unwrapped)
       ]
-      ++ lib.optionals (!(lib.versionOlder "25.05" lib.trivial.release)) (with pkgs; [ wcurl ]);
+      ++ lib.optionals (!(lib.versionOlder "25.05" lib.trivial.release)) (with pkgs; [ wcurl ])
+      ++ lib.optionals config.documentation.man.enable [ pkgs.nix-locate-man ];
     programs.trippy.enable = true;
     programs.nano.enable = false;
     security.sudo-rs.enable = lib.mkDefault true;
@@ -78,6 +79,10 @@
       "PAGER" = "less";
       "LESS" = "-FRXi -x4 --use-color -Dd+r\\$Du+b";
       "EDITOR" = "nvim";
+    };
+
+    environment.shellAliases = {
+      "man" = lib.mkIf config.documentation.man.enable "nix-locate-man";
     };
 
     security.polkit.enable = lib.mkDefault true;

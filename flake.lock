@@ -352,6 +352,24 @@
         "type": "github"
       }
     },
+    "nix-locate-man": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773526977,
+        "narHash": "sha256-Shzq0cZ9wVEIgvJoQ5lJtG5LwvYQz+SZlq2cclxZ9Bc=",
+        "rev": "81ce718bb49f4f4aa7186f57fbd3fd6d1042eb27",
+        "type": "tarball",
+        "url": "https://codeberg.org/api/v1/repos/marie/nix-locate-man/archive/81ce718bb49f4f4aa7186f57fbd3fd6d1042eb27.tar.gz?rev=81ce718bb49f4f4aa7186f57fbd3fd6d1042eb27"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://codeberg.org/marie/nix-locate-man/archive/main.tar.gz"
+      }
+    },
     "nix2container": {
       "flake": false,
       "locked": {
@@ -548,6 +566,7 @@
         "ip-playground": "ip-playground",
         "iplookupd": "iplookupd",
         "nix-index-database": "nix-index-database",
+        "nix-locate-man": "nix-locate-man",
         "nixos-hardware": "nixos-hardware",
         "nixos-wii-u": "nixos-wii-u",
         "nixpak": "nixpak",
