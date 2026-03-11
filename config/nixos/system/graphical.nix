@@ -78,6 +78,8 @@
       extraPackages = [ pkgs.mesa.opencl ];
     };
 
+    services.kmscon.hwRender = true;
+
     xdg.portal.xdgOpenUsePortal = true;
   };
 }

@@ -81,5 +81,16 @@
     };
 
     security.polkit.enable = lib.mkDefault true;
+
+    services.kmscon = {
+      enable = lib.mkDefault true;
+      useXkbConfig = true;
+      fonts = [
+        {
+          name = "Fira Mono";
+          package = pkgs.fira;
+        }
+      ];
+    };
   };
 }
