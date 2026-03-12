@@ -58,7 +58,7 @@ map("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Goto De
 map("n", "gD", function() Snacks.picker.lsp_declarations() end, { desc = "Goto Declaration" })
 map("n", "gr", function() Snacks.picker.lsp_references() end, { desc = "References", nowait = true })
 map("n", "gI", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation" })
-map("n", "gy", function() Snacks.picker.lsp_implementations() end, { desc = "Goto T[y]pe Definition" })
+map("n", "gt", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Type Definition" })
 map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 map("n", "gai", function() Snacks.picker.lsp_incoming_calls() end, { desc = "C[a]lls Incoming" })
 map("n", "gao", function() Snacks.picker.lsp_incoming_calls() end, { desc = "C[a]lls Outgoing" })
