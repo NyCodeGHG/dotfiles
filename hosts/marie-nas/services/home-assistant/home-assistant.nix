@@ -1,5 +1,49 @@
-{ pkgs, config, ... }:
 {
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  containers.home-assistant = {
+    privateNetwork = true;
+    privateUsers = "pick";
+    autoStart = true;
+    hostBridge = "br0";
+
+    specialArgs = { inherit inputs; };
+
+    config =
+      { lib, ... }:
+      {
+        imports = [
+          inputs.self.nixosModules.config
+          ./networking.nix
+        ];
+        uwumarie.profiles = {
+          users.marie = false;
+          openssh = false;
+          headless = true;
+        };
+        nix.gc.automatic = false;
+        security.pam.services.login.updateWtmp = lib.mkForce false;
+        users.allowNoPasswordLogin = true;
+
+        networking = {
+          useHostResolvConf = false;
+          useDHCP = false;
+        };
+
+        nixpkgs.pkgs = pkgs;
+
+        system.stateVersion = "26.05";
+      };
+    bindMounts = {
+      "/etc/nix" = {
+        hostPath = "/etc/nix";
+        isReadOnly = true;
+      };
+    };
+  };
   services.home-assistant = {
     enable = true;
     extraComponents = [

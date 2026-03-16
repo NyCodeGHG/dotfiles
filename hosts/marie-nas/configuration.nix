@@ -22,7 +22,7 @@
     ./services/radarr.nix
     ./services/transmission.nix
     ./services/vpn.nix
-    ./services/home-assistant.nix
+    ./services/home-assistant/home-assistant.nix
     ./services/mosquitto.nix
     ./services/zigbee2mqtt.nix
     ./services/home-assistant-matter-hub.nix

@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   networking = {
     hostName = "marie-nas";
@@ -18,12 +18,22 @@
       ethernet = {
         matchConfig = {
           Type = [ "ether" ];
-          Kind = [ "!veth" ];
+          Kind = [ "!veth bridge tap tun" ];
+        };
+        networkConfig = {
+          Bridge = "br0";
+        };
+      };
+      "25-br0" = {
+        matchConfig = {
+          Name = "br0";
+        };
+        linkConfig = {
+          RequiredForOnline = "routable";
         };
         networkConfig = {
           DHCP = "ipv4";
           IPv6AcceptRA = true;
-          KeepConfiguration = "yes";
           MulticastDNS = "resolve";
         };
         dhcpV4Config.UseDNS = false;
@@ -39,6 +49,23 @@
         linkConfig = {
           MACAddressPolicy = "persistent";
           WakeOnLan = "magic";
+        };
+      };
+      "25-br0" = {
+        matchConfig = {
+          OriginalName = "br0";
+        };
+        linkConfig = {
+          MACAddressPolicy = "none";
+        };
+      };
+    };
+    netdevs = {
+      "25-br0" = {
+        netdevConfig = {
+          Name = "br0";
+          Kind = "bridge";
+          MACAddress = "none";
         };
       };
     };
