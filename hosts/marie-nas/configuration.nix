@@ -33,6 +33,7 @@
     ./services/dyndns.nix
     ./services/bazarr.nix
     ./services/incus.nix
+    ./services/lab-client/lab-client.nix
   ];
   boot = {
     loader = {
