@@ -105,6 +105,7 @@
             user = "bazarr";
             group = "bazarr";
           }
+          "/var/lib/incus"
         ];
         files = [
           {

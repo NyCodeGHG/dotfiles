@@ -32,6 +32,7 @@
     ./services/factorio.nix
     ./services/dyndns.nix
     ./services/bazarr.nix
+    ./services/incus.nix
   ];
   boot = {
     loader = {
