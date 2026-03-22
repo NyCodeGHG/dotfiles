@@ -176,6 +176,7 @@
       jetbrains.rust-rover
       jetbrains.clion
       anki
+      incus.client
     ]
     ++ (with pkgs.kdePackages; [
       # kdenlive
