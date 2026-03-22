@@ -42,6 +42,8 @@
           waypipe
         ];
 
+        security.sudo-rs.wheelNeedsPassword = false;
+
         hardware.graphics.enable = true;
       };
     bindMounts = {
