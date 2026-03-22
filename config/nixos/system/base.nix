@@ -47,7 +47,6 @@
     documentation.nixos.enable = lib.mkDefault false;
     boot.initrd.systemd.enable = lib.mkDefault true;
     programs.traceroute.enable = true;
-    systemd.network.enable = lib.mkDefault true;
     boot.tmp.useTmpfs = lib.mkDefault true;
 
     networking.nftables.enable = lib.mkDefault true;
