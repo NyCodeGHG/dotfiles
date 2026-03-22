@@ -88,6 +88,7 @@
         yt-dlp
         restic
         rclone
+        waypipe
 
         # Browsers
         (chromium.override { enableWideVine = true; })
