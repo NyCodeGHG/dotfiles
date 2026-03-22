@@ -134,6 +134,8 @@
     };
   };
 
+  boot.resumeDevice = "/dev/disk/by-uuid/0b3f37d1-6752-4bea-8049-23199f49797f";
+
   environment.systemPackages =
     with pkgs;
     [
