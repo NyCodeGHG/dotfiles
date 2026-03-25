@@ -167,7 +167,6 @@
       unrar
       jellyfin-desktop
       distrobox
-      docker-compose # for podman-compose
       obs-cmd
       kdiff3
       evcxr

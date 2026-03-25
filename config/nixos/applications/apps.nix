@@ -79,6 +79,7 @@
         leiningen
         tokei
         clang-tools
+        docker-compose # for podman-compose
 
         # Networking
         wireguard-tools
