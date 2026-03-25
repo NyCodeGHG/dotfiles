@@ -17,7 +17,7 @@
     ./kanidm.nix
     ./anubis.nix
     ./iplookupd.nix
-    ./hydra.nix
+    # ./hydra.nix
     ./garage.nix
     ./untis-caldav-sync/staging.nix
     ./thelounge.nix
