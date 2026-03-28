@@ -77,7 +77,10 @@
     ffmpeg
     wireguard-tools
     yt-dlp
+    waypipe
   ];
+
+  hardware.graphics.enable = true;
 
   environment.shellAliases = {
     "ffmpeg" = "ffmpeg -hide_banner";
