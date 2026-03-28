@@ -232,6 +232,13 @@ resource "cloudflare_record" "jellyfin_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "immich_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "immich"
+  content = "marie-nas.marie.cologne"
+  type    = "CNAME"
+}
+
 resource "cloudflare_record" "jellyseerr_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "jellyseerr"

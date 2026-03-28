@@ -69,6 +69,11 @@
       fsType = "zfs";
       options = [ "nofail" ];
     };
+    "/var/lib/immich" = {
+      device = "tank/data/immich";
+      fsType = "zfs";
+      options = [ "nofail" ];
+    };
     "/state" = {
       device = "zroot/data/state";
       fsType = "zfs";

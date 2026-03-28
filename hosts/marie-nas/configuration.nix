@@ -34,6 +34,7 @@
     ./services/bazarr.nix
     ./services/incus.nix
     ./services/lab-client/lab-client.nix
+    ./services/immich.nix
   ];
   boot = {
     loader = {
