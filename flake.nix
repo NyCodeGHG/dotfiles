@@ -277,7 +277,7 @@
               ./hosts/marie-nas/configuration.nix
               self.nixosModules.config
             ];
-            deployment.targetHost = "192.168.1.21";
+            deployment.targetHost = "marie-nas";
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
             nix.registry.nixpkgs.flake = nixpkgs-unstable;
