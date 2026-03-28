@@ -69,7 +69,7 @@
           OriginalName = "br0";
         };
         linkConfig = {
-          MACAddressPolicy = "none";
+          MACAddressPolicy = "persistent";
         };
       };
     };
