@@ -65,6 +65,10 @@
       "jellyfin"
       "fritz"
       "google_drive"
+      "esphome"
+      "matter"
+      "androidtv_remote"
+      "androidtv"
     ];
     config = {
       # Includes dependencies for a basic setup
