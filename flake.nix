@@ -282,6 +282,16 @@
             deployment.targetUser = null;
             nix.registry.nixpkgs.flake = nixpkgs-unstable;
           };
+          lab-client = {
+            imports = [
+              ./hosts/lab-client/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.targetHost = "lab-client";
+            deployment.buildOnTarget = false;
+            deployment.targetUser = null;
+            nix.registry.nixpkgs.flake = nixpkgs-unstable;
+          };
           marie-desktop = {
             imports = [
               ./hosts/marie-desktop/configuration.nix
