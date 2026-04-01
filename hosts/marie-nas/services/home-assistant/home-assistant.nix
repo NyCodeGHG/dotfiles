@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }:
 {
@@ -122,4 +123,12 @@
       client_max_body_size 100M;
     '';
   };
+
+  services.matter-server.enable = true;
+
+  systemd.services.matter-server.serviceConfig.BindReadOnlyPaths = lib.mkForce [
+    "/nix/store"
+    "/run/dbus"
+    "/etc/resolv.conf"
+  ];
 }
