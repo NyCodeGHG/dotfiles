@@ -1,0 +1,65 @@
+Commit ID: b901ac37f8a87c32ea3fa3f8dfa5420bab5081a1
+Change ID: wyvkquvwmttmqxtulsntkyxltlpznmxq
+Author   : Marie Ramlow <me@nycode.dev> (2026-04-02 17:40:08)
+Committer: Marie Ramlow <me@nycode.dev> (2026-04-02 18:20:32)
+
+    Add IPv6 Prefix sensor to Fritz
+
+diff --git a/homeassistant/components/fritz/icons.json b/homeassistant/components/fritz/icons.json
+index 3d220a96e7..e952693722 100644
+--- a/homeassistant/components/fritz/icons.json
++++ b/homeassistant/components/fritz/icons.json
+@@ -23,6 +23,9 @@
+       "external_ipv6": {
+         "default": "mdi:earth"
+       },
++      "ipv6_prefix": {
++        "default": "mdi:earth"
++      },
+       "gb_received": {
+         "default": "mdi:download"
+       },
+diff --git a/homeassistant/components/fritz/sensor.py b/homeassistant/components/fritz/sensor.py
+index 8aa48b216c..602f77ac18 100644
+--- a/homeassistant/components/fritz/sensor.py
++++ b/homeassistant/components/fritz/sensor.py
+@@ -75,6 +75,12 @@
+     return str(status.external_ipv6)
+ 
+ 
++def _retrieve_ipv6_prefix_state(status: FritzStatus, last_value: str) -> str:
++    """Return ipv6 prefix from device."""
++    info = status.ipv6_prefix_info
++    return f"{info["NewIPv6Prefix"]}/{info["NewPrefixLength"]}"
++
++
+ def _retrieve_kb_s_sent_state(status: FritzStatus, last_value: str) -> float:
+     """Return upload transmission rate."""
+     return round(status.transmission_rate[0] / 1000, 1)  # type: ignore[no-any-return]
+@@ -170,6 +176,12 @@
+         is_suitable=lambda info: info.ipv6_active,
+     ),
+     FritzSensorEntityDescription(
++        key="ipv6_prefix",
++        translation_key="ipv6_prefix",
++        value_fn=_retrieve_ipv6_prefix_state,
++        is_suitable=lambda info: info.ipv6_active,
++    ),
++    FritzSensorEntityDescription(
+         key="device_uptime",
+         translation_key="device_uptime",
+         device_class=SensorDeviceClass.TIMESTAMP,
+diff --git a/homeassistant/components/fritz/strings.json b/homeassistant/components/fritz/strings.json
+index c2aa92818b..684f83cba0 100644
+--- a/homeassistant/components/fritz/strings.json
++++ b/homeassistant/components/fritz/strings.json
+@@ -129,6 +129,9 @@
+       "external_ipv6": {
+         "name": "External IPv6"
+       },
++      "ipv6_prefix": {
++        "name": "IPv6 prefix"
++      },
+       "gb_received": {
+         "name": "GB received"
+       },

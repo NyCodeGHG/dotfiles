@@ -47,6 +47,11 @@
   };
   services.home-assistant = {
     enable = true;
+    package = pkgs.home-assistant.overrideAttrs (prev: {
+      patches = (prev.patches or []) ++ [
+        ../../../../patches/hass-ipv6-prefix.patch
+      ];
+    });
     extraComponents = [
       # Components required to complete the onboarding
       "analytics"
