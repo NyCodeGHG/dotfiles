@@ -123,7 +123,7 @@
     };
     guess-indent.enable = true;
     highlight-colors.enable = true;
-    hmts.enable = true;
+    # hmts.enable = true;
 
     mini-surround = {
       enable = true;
@@ -195,7 +195,7 @@
       enable = true;
       folding.enable = true;
       highlight.enable = true;
-      nixvimInjections = true;
+      nixvimInjections = false;
     };
 
     # Languages
