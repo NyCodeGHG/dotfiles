@@ -106,6 +106,7 @@
             group = "bazarr";
           }
           "/var/lib/incus"
+          "/var/lib/esphome"
         ];
         files = [
           {

@@ -303,6 +303,13 @@ resource "cloudflare_record" "zigbee2mqtt_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "esphome_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "esphome.home"
+  content = "marie-nas.marie.cologne"
+  type    = "CNAME"
+}
+
 resource "cloudflare_record" "matter-hub_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "matter-hub.home"
