@@ -14,6 +14,11 @@
       enable = true;
       openFirewall = true;
       nssmdns4 = true;
+      nssmdns6 = true;
+      publish = {
+        enable = true;
+        userServices = true;
+      };
     };
     printing = {
       enable = true;
