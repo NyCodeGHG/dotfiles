@@ -13,13 +13,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "home-assistant-matter-hub";
-  version = "3.0.3";
+  version = "2.0.36";
 
   src = fetchFromGitHub {
-    owner = "t0bst4r";
+    owner = "RiDDiX";
     repo = "home-assistant-matter-hub";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-VfhE+rf3pFtAjKpTTLPmHjByuZuigoT3s3S9muLXtnI=";
+    hash = "sha256-rH+21cHoOHZQ4QG5qfQsdL7u/t4I8WoqS+tpZ+8gbtk=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -34,7 +34,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       prePatch
       ;
     fetcherVersion = 3;
-    hash = "sha256-stIS9Nef2ZWEDKnrCbdA5UwSMvyulLO/mEpQgGldkc4=";
+    hash = "sha256-CjO2URubT1uAPsOvYsw5vvJjxIk7kFzKI6+4Ylv+P+M=";
   };
 
   nativeBuildInputs = [
@@ -77,13 +77,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     # pnpm can't recursively prune monorepos, so we follow pnpm's
     # recommendation of deleting all node_modules and installing
     # just what we need.
-    rm -r **/node_modules
+    find -name 'node_modules' -type d -exec rm -rf {} \; || true
     pnpm install --offline --prod --filter-prod home-assistant-matter-hub
     mv node_modules $out/share/
     mv {,$out/share/}apps/home-assistant-matter-hub/node_modules
 
-    # We're not including the whole workspace so these links will be broken
-    rm -r $out/share/node_modules/.pnpm/node_modules/@home-assistant-matter-hub
+    rm -rf $out/share/apps/home-assistant-matter-hub/node_modules/@home-assistant-matter-hub
 
     makeWrapper '${lib.getExe nodejs}' "$out/bin/home-assistant-matter-hub" \
       --add-flags "$out/share/apps/home-assistant-matter-hub/dist/backend/cli.js" \
