@@ -53,13 +53,13 @@
   };
 
   # VR
-  services.wivrn = {
-    enable = false;
-    openFirewall = true;
-    defaultRuntime = true;
-
-    autoStart = true;
-  };
+  # services.wivrn = {
+  #   enable = false;
+  #   openFirewall = true;
+  #   defaultRuntime = true;
+  #
+  #   autoStart = true;
+  # };
 
   programs.alvr = {
     enable = false;
