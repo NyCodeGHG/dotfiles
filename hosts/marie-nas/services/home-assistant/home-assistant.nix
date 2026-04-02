@@ -70,6 +70,7 @@
       "matter"
       "androidtv_remote"
       "androidtv"
+      "vesync"
     ];
     config = {
       # Includes dependencies for a basic setup
