@@ -1,0 +1,25 @@
+From a09049af0fbc8cf1a03a6373f040abc77a7aa2d8 Mon Sep 17 00:00:00 2001
+From: Marie Ramlow <me@nycode.dev>
+Date: Tue, 7 Apr 2026 14:03:44 +0200
+Subject: [PATCH] Don't enable rusqlite bundled feature unconditionally
+
+---
+ Cargo.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Cargo.toml b/Cargo.toml
+index 2a30fb8..5781285 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -5,7 +5,7 @@ edition = "2021"
+ 
+ [dependencies]
+ pcap = "2.4.0"
+-rusqlite = { version = "0.39", features = ["bundled"] }
++rusqlite = { version = "0.39" }
+ anyhow = "1.0"
+ clap = { version = "4.0", features = ["derive"] }
+ serde = { version = "1.0", features = ["derive"] }
+-- 
+2.53.0
+
