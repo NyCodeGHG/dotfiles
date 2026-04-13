@@ -26,10 +26,11 @@
     mangohud
     dualsensectl
     libray
-    cemu
-    ryubing
+    # cemu
+    # ryubing
     xrgears
-    oversteer
+    # oversteer
+    satisfactorymodmanager
   ];
 
   services.flatpak.enable = true;
