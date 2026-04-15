@@ -76,6 +76,9 @@
       "androidtv_remote"
       "androidtv"
       "vesync"
+      "workday"
+      "holiday"
+      "google"
     ];
     config = {
       # Includes dependencies for a basic setup
