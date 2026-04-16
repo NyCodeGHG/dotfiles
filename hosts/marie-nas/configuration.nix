@@ -25,7 +25,6 @@
     ./services/home-assistant/home-assistant.nix
     ./services/home-assistant/esphome.nix
     ./services/mosquitto.nix
-    ./services/zigbee2mqtt.nix
     ./services/home-assistant-matter-hub.nix
     ./services/oauth2-proxy.nix
     ./services/minecraft.nix
