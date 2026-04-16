@@ -44,6 +44,9 @@
         matchConfig = {
           Name = "br1";
         };
+        linkConfig = {
+          RequiredForOnline = false;
+        };
         networkConfig = {
           DHCP = "ipv4";
           IPv6AcceptRA = true;
