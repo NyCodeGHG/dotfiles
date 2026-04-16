@@ -51,8 +51,12 @@
 
     networking.nftables.enable = lib.mkDefault true;
 
-    virtualisation.containers.containersConf.settings.network.firewall_driver =
-      lib.mkIf config.networking.nftables.enable "nftables";
+    virtualisation.containers.containersConf.settings = {
+      network.firewall_driver = lib.mkIf config.networking.nftables.enable "nftables";
+      engine = {
+        compose_warning_logs = false;
+      };
+    };
 
     users.mutableUsers = false;
 
