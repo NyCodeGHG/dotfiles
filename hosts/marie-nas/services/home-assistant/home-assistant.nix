@@ -67,6 +67,8 @@
       "cast"
       "ipp"
       "homekit_controller"
+      "homekit"
+      "control4"
       "ping"
       "jellyfin"
       "fritz"
