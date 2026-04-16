@@ -23,7 +23,7 @@ resource "cloudflare_record" "dn42_endpoint" {
 resource "cloudflare_record" "artemis_v6" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "artemis.marie.cologne"
-  content = "2a03:4000:5f:f5b::"
+  content = "2a03:4000:5f:f5b::1"
   type    = "AAAA"
 }
 
