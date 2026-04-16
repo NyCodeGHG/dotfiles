@@ -79,6 +79,7 @@
       "workday"
       "holiday"
       "google"
+      "enocean"
     ];
     config = {
       # Includes dependencies for a basic setup
