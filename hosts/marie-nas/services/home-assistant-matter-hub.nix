@@ -4,7 +4,7 @@
 }:
 {
   virtualisation.oci-containers.containers.home-assistant-matter-hub = {
-    image = "ghcr.io/riddix/home-assistant-matter-hub:2.0.36";
+    image = "ghcr.io/riddix/home-assistant-matter-hub:2.0.40";
     environment = {
       HAMH_HOME_ASSISTANT_URL = "https://hass.marie.cologne";
       HAMH_LOG_LEVEL = "info";
