@@ -1,65 +1,142 @@
-Commit ID: b901ac37f8a87c32ea3fa3f8dfa5420bab5081a1
+Commit ID: 7d96442ac3e25b9d056d5684822b25331de3d3cc
 Change ID: wyvkquvwmttmqxtulsntkyxltlpznmxq
+Bookmarks: fritz-ipv6-prefix* fritz-ipv6-prefix@git
 Author   : Marie Ramlow <me@nycode.dev> (2026-04-02 17:40:08)
-Committer: Marie Ramlow <me@nycode.dev> (2026-04-02 18:20:32)
+Committer: Marie Ramlow <me@nycode.dev> (2026-04-21 15:56:09)
 
-    Add IPv6 Prefix sensor to Fritz
+    Add IPv6 prefix sensor to FRITZ!Box Tools
 
 diff --git a/homeassistant/components/fritz/icons.json b/homeassistant/components/fritz/icons.json
-index 3d220a96e7..e952693722 100644
+index 3d220a96e7..efd7ee7628 100644
 --- a/homeassistant/components/fritz/icons.json
 +++ b/homeassistant/components/fritz/icons.json
-@@ -23,6 +23,9 @@
-       "external_ipv6": {
-         "default": "mdi:earth"
+@@ -29,6 +29,9 @@
+       "gb_sent": {
+         "default": "mdi:upload"
        },
 +      "ipv6_prefix": {
 +        "default": "mdi:earth"
 +      },
-       "gb_received": {
+       "kb_s_received": {
          "default": "mdi:download"
        },
 diff --git a/homeassistant/components/fritz/sensor.py b/homeassistant/components/fritz/sensor.py
-index 8aa48b216c..602f77ac18 100644
+index 41fa3fca05..920f802c9b 100644
 --- a/homeassistant/components/fritz/sensor.py
 +++ b/homeassistant/components/fritz/sensor.py
-@@ -75,6 +75,12 @@
+@@ -76,6 +76,12 @@
      return str(status.external_ipv6)
  
  
 +def _retrieve_ipv6_prefix_state(status: FritzStatus, last_value: str) -> str:
 +    """Return ipv6 prefix from device."""
 +    info = status.ipv6_prefix_info
-+    return f"{info["NewIPv6Prefix"]}/{info["NewPrefixLength"]}"
++    return f"{info['NewIPv6Prefix']}/{info['NewPrefixLength']}"
 +
 +
  def _retrieve_kb_s_sent_state(status: FritzStatus, last_value: str) -> float:
      """Return upload transmission rate."""
      return round(status.transmission_rate[0] / 1000, 1)  # type: ignore[no-any-return]
-@@ -170,6 +176,12 @@
+@@ -198,6 +204,12 @@
          is_suitable=lambda info: info.ipv6_active,
      ),
-     FritzSensorEntityDescription(
+     FritzConnectionSensorEntityDescription(
 +        key="ipv6_prefix",
 +        translation_key="ipv6_prefix",
 +        value_fn=_retrieve_ipv6_prefix_state,
 +        is_suitable=lambda info: info.ipv6_active,
 +    ),
-+    FritzSensorEntityDescription(
-         key="device_uptime",
-         translation_key="device_uptime",
++    FritzConnectionSensorEntityDescription(
+         key="connection_uptime",
+         translation_key="connection_uptime",
          device_class=SensorDeviceClass.TIMESTAMP,
 diff --git a/homeassistant/components/fritz/strings.json b/homeassistant/components/fritz/strings.json
-index c2aa92818b..684f83cba0 100644
+index 22cdd12bd2..2d5dd1be0e 100644
 --- a/homeassistant/components/fritz/strings.json
 +++ b/homeassistant/components/fritz/strings.json
-@@ -129,6 +129,9 @@
-       "external_ipv6": {
-         "name": "External IPv6"
+@@ -135,6 +135,9 @@
+       "gb_sent": {
+         "name": "GB sent"
        },
 +      "ipv6_prefix": {
 +        "name": "IPv6 prefix"
 +      },
-       "gb_received": {
-         "name": "GB received"
+       "kb_s_received": {
+         "name": "Download throughput"
        },
+diff --git a/tests/components/fritz/const.py b/tests/components/fritz/const.py
+index 0055192c79..9b6e76ec3f 100644
+--- a/tests/components/fritz/const.py
++++ b/tests/components/fritz/const.py
+@@ -154,6 +154,10 @@
+         },
+         "GetExternalIPAddress": {"NewExternalIPAddress": "1.2.3.4"},
+         "X_AVM_DE_GetExternalIPv6Address": {"NewExternalIPv6Address": "fec0::1"},
++        "X_AVM_DE_GetIPv6Prefix": {
++            "NewIPv6Prefix": "2001:DB8::",
++            "NewPrefixLength": 32,
++        },
+     },
+     "WANPPPConnection1": {
+         "GetInfo": {
+diff --git a/tests/components/fritz/snapshots/test_sensor.ambr b/tests/components/fritz/snapshots/test_sensor.ambr
+index d820dda43e..17f955b139 100644
+--- a/tests/components/fritz/snapshots/test_sensor.ambr
++++ b/tests/components/fritz/snapshots/test_sensor.ambr
+@@ -2956,6 +2956,56 @@
+     'state': '1.7',
+   })
+ # ---
++# name: test_sensor_setup[sensor.mock_title_ipv6_prefix-entry]
++  EntityRegistryEntrySnapshot({
++    'aliases': list([
++      None,
++    ]),
++    'area_id': None,
++    'capabilities': None,
++    'config_entry_id': <ANY>,
++    'config_subentry_id': <ANY>,
++    'device_class': None,
++    'device_id': <ANY>,
++    'disabled_by': None,
++    'domain': 'sensor',
++    'entity_category': None,
++    'entity_id': 'sensor.mock_title_ipv6_prefix',
++    'has_entity_name': True,
++    'hidden_by': None,
++    'icon': None,
++    'id': <ANY>,
++    'labels': set({
++    }),
++    'name': None,
++    'object_id_base': 'IPv6 prefix',
++    'options': dict({
++    }),
++    'original_device_class': None,
++    'original_icon': None,
++    'original_name': 'IPv6 prefix',
++    'platform': 'fritz',
++    'previous_unique_id': None,
++    'suggested_object_id': None,
++    'supported_features': 0,
++    'translation_key': 'ipv6_prefix',
++    'unique_id': '1C:ED:6F:12:34:11-ipv6_prefix',
++    'unit_of_measurement': None,
++  })
++# ---
++# name: test_sensor_setup[sensor.mock_title_ipv6_prefix-state]
++  StateSnapshot({
++    'attributes': ReadOnlyDict({
++      'friendly_name': 'Mock Title IPv6 prefix',
++    }),
++    'context': <ANY>,
++    'entity_id': 'sensor.mock_title_ipv6_prefix',
++    'last_changed': <ANY>,
++    'last_reported': <ANY>,
++    'last_updated': <ANY>,
++    'state': '2001:DB8::/32',
++  })
++# ---
+ # name: test_sensor_setup[sensor.mock_title_last_restart-entry]
+   EntityRegistryEntrySnapshot({
+     'aliases': list([
