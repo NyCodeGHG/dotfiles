@@ -43,9 +43,8 @@
 
   services.samba = {
     enable = true;
-    package = pkgs.samba.override { enableMDNS = true; };
+    package = pkgs.samba;
     openFirewall = true;
-    nsswins = true;
     settings = {
       global = {
         security = "user";
@@ -93,5 +92,15 @@
   services.samba-wsdd = {
     enable = true;
     openFirewall = true;
+  };
+
+  environment.etc = {
+    # enable mDNS to be discoverable by normal clients
+    "systemd/dnssd/smb.dnssd".text = ''
+      [Service]
+      Name=%H
+      Type=_smb._tcp
+      Port=445
+    '';
   };
 }

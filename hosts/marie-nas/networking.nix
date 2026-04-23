@@ -34,7 +34,7 @@
         networkConfig = {
           DHCP = "ipv4";
           IPv6AcceptRA = true;
-          MulticastDNS = "resolve";
+          MulticastDNS = true;
         };
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
@@ -50,7 +50,7 @@
         networkConfig = {
           DHCP = "ipv4";
           IPv6AcceptRA = true;
-          MulticastDNS = "resolve";
+          MulticastDNS = true;
         };
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
@@ -104,18 +104,9 @@
     useRoutingFeatures = "both";
   };
 
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    publish = {
-      enable = true;
-      userServices = true;
-    };
-  };
-
   services.resolved = {
     enable = true;
-    settings.Resolve.MulticastDNS = "resolve";
+    settings.Resolve.MulticastDNS = true;
   };
   networking.firewall.trustedInterfaces = [ "podman*" ];
 }
