@@ -1,6 +1,6 @@
 { ... }:
 {
-  services.jellyseerr = {
+  services.seerr = {
     enable = true;
   };
   services.nginx.virtualHosts."jellyseerr.marie.cologne".locations."/" = {

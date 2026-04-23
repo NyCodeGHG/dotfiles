@@ -9,7 +9,7 @@
     ../../modules/hm/switch-to-windows.nix
     inputs.nix-index-database.homeModules.nix-index
   ];
-  home.packages = [ inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nixvim ];
+  home.packages = [ pkgs.nixvim ];
   news.display = "silent";
   uwumarie.profiles = {
     eza = true;

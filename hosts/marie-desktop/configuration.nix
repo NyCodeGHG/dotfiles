@@ -219,7 +219,7 @@
   fonts.packages = with pkgs; [ corefonts ];
 
   home-manager.users.marie =
-    { config, pkgs, ... }:
+    { config, ... }:
     {
       imports = [
         inputs.self.homeManagerModules.config
