@@ -30,7 +30,7 @@
           "nix-command"
           "flakes"
         ];
-        deprecated-features = [
+        deprecated-features = lib.mkIf (lib.versionAtLeast config.nix.package.version "2.95")[
           "or-as-identifier"
         ];
         trusted-users = [ "@wheel" ];
