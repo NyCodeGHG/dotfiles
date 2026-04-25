@@ -30,6 +30,9 @@
           "nix-command"
           "flakes"
         ];
+        deprecated-features = [
+          "or-as-identifier"
+        ];
         trusted-users = [ "@wheel" ];
         builders-use-substitutes = true;
         build-dir = "/var/tmp/nix";
