@@ -81,13 +81,6 @@
 
   hardware.graphics.enable = true;
 
-  environment.shellAliases = {
-    "ffmpeg" = "ffmpeg -hide_banner";
-    "ffprobe" = "ffprobe -hide_banner";
-    "ffplay" = "ffplay -hide_banner";
-    "whois" = "rdap";
-  };
-
   systemd = {
     enableEmergencyMode = false;
     settings.Manager.RuntimeWatchdogSec = "15s";

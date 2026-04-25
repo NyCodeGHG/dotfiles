@@ -205,14 +205,6 @@
     "RUSTICL_ENABLE" = "radeonsi";
   };
 
-  environment.shellAliases = {
-    "vim" = "nvim";
-    "ffmpeg" = "ffmpeg -hide_banner";
-    "ffprobe" = "ffprobe -hide_banner";
-    "ffplay" = "ffplay -hide_banner";
-    "whois" = "rdap";
-  };
-
   virtualisation.podman.enable = true;
   virtualisation.containers.containersConf.settings.engine.compose_warning_logs = false;
 

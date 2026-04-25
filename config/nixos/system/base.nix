@@ -86,6 +86,11 @@
 
     environment.shellAliases = {
       "man" = lib.mkIf config.documentation.man.enable "nix-locate-man";
+      "ffmpeg" = "ffmpeg -hide_banner";
+      "ffprobe" = "ffprobe -hide_banner";
+      "ffplay" = "ffplay -hide_banner";
+      "nrp" = "nix repl --file '<nixpkgs>'";
+      "vim" = "nvim";
     };
 
     security.polkit.enable = lib.mkDefault true;
