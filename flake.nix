@@ -151,6 +151,11 @@
               withVencord = true;
             }
           );
+
+          nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
+            module = import ./config/nixvim;
+            pkgs = final;
+          };
         }
         // (self.overlays.packages final prev)
       );
@@ -164,11 +169,6 @@
           );
         in
         packages
-        // {
-          nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
-            module = import ./config/nixvim;
-          };
-        }
       );
 
       nixosModules = {
@@ -206,6 +206,7 @@
               {
                 nixpkgs-unstable = [
                   # ./patches/nixpkgs-kapsule.patch
+                  (npr 512989 "sha256-hdFMoG2xKvyF1/8RAt6iQXBx7HEvTSo4N9TXQkGqCbw=")
                 ];
                 nixpkgs = [
                 ];
