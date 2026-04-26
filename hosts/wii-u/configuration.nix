@@ -16,7 +16,6 @@
   uwumarie.profiles = {
     base = false;
     headless = true;
-    ntp = false;
     zram = false;
   };
 
@@ -28,12 +27,6 @@
     westonLite
     tmux
   ];
-
-  nix.package = pkgs.lix.overrideAttrs (prev: {
-    patches = prev.patches ++ [
-      ../../patches/lix-powerpc-system.patch
-    ];
-  });
 
   networking = {
     hostName = "wiiu";
