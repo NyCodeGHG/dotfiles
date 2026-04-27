@@ -208,6 +208,7 @@
                   # ./patches/nixpkgs-kapsule.patch
                   (npr 512989 "sha256-hdFMoG2xKvyF1/8RAt6iQXBx7HEvTSo4N9TXQkGqCbw=")
                   (npr 513732 "sha256-zpz45aJa2Icr3p8pZUZFK+xX1pLfj4ig+KC2F1+Ui5o=")
+                  (npr 513809 "sha256-SbfLWlpkgez6ccKIGOWFxoCfY7hd06aa5qMWLIN8UjQ=")
                 ];
                 nixpkgs = [
                 ];
