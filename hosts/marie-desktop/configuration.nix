@@ -201,7 +201,6 @@
   services.nixseparatedebuginfod2.enable = true;
 
   environment.variables = {
-    "SSH_ASKPASS_REQUIRE" = "prefer";
     "RUSTICL_ENABLE" = "radeonsi";
   };
 
