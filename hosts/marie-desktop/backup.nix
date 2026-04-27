@@ -23,7 +23,7 @@
     environment = {
       RESTIC_REPOSITORY = "sftp:marie@marie-nas.fritz.box:/srv/restic/marie";
       RESTIC_PASSWORD_FILE = config.age.secrets.restic-password.path;
-      SSH_AUTH_SOCK = "/run/user/1000/ssh-agent";
+      SSH_AUTH_SOCK = config.environment.variables.SSH_AUTH_SOCK;
       HOME = "/home/marie";
       RESTIC_PROGRESS_FPS = "0.03333";
     };
