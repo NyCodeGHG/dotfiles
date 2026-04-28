@@ -13,7 +13,7 @@
   ];
   uwumarie.profiles = {
     fail2ban = true;
-    openssh = true;
+    openssh.enable = true;
     acme = true;
     nginx.enable = true;
     nix = true;
