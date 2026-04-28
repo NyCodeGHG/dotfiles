@@ -206,11 +206,7 @@
               {
                 nixpkgs-unstable = [
                   # ./patches/nixpkgs-kapsule.patch
-                  (npr 512989 "sha256-hdFMoG2xKvyF1/8RAt6iQXBx7HEvTSo4N9TXQkGqCbw=")
-                  (npr 513732 "sha256-zpz45aJa2Icr3p8pZUZFK+xX1pLfj4ig+KC2F1+Ui5o=")
                   (npr 513809 "sha256-SbfLWlpkgez6ccKIGOWFxoCfY7hd06aa5qMWLIN8UjQ=")
-                  (npr 508807 "sha256-/LcupcJRyk9BbOkHHusqq4KP+nIPUbshOYmUrGuDJIY=")
-                  (npr 513042 "sha256-N0Ko+00SEXS9wQXmkY3tBbsuFnXh0zuHpP33if0xVVc=")
                 ];
                 nixpkgs = [
                 ];
