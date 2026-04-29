@@ -2,7 +2,6 @@
 {
   services.renovate = {
     enable = true;
-    package = pkgs.callPackage ./renovate-package.nix { };
     schedule = "hourly";
     settings = {
       platform = "gitea";
