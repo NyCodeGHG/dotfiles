@@ -207,6 +207,7 @@
                 nixpkgs-unstable = [
                   # ./patches/nixpkgs-kapsule.patch
                   (npr 513809 "sha256-SbfLWlpkgez6ccKIGOWFxoCfY7hd06aa5qMWLIN8UjQ=")
+                  ./patches/hamh.patch
                 ];
                 nixpkgs = [
                 ];

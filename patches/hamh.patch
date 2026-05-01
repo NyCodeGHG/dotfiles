@@ -1,0 +1,31 @@
+Commit ID: 50ad62071b2b2f062228b0dfac337453db50cd3d
+Change ID: onowzpmonpxlnnwukozmyvvvtzkvmvmr
+Author   : Marie Ramlow <me@nycode.dev> (2026-05-01 13:40:35)
+Committer: Marie Ramlow <me@nycode.dev> (2026-05-01 13:40:35)
+
+    home-assistant-matter-hub: 2.0.42 -> 2.0.43
+
+    Diff: https://github.com/RiDDiX/home-assistant-matter-hub/compare/v2.0.42...v2.0.43
+
+    Changelog: https://github.com/RiDDiX/home-assistant-matter-hub/releases/tag/v2.0.43
+
+diff --git a/pkgs/by-name/ho/home-assistant-matter-hub/package.nix b/pkgs/by-name/ho/home-assistant-matter-hub/package.nix
+index ed0600ff35..9b45a6d213 100644
+--- a/pkgs/by-name/ho/home-assistant-matter-hub/package.nix
++++ b/pkgs/by-name/ho/home-assistant-matter-hub/package.nix
+@@ -11,13 +11,13 @@
+ 
+ stdenvNoCC.mkDerivation (finalAttrs: {
+   pname = "home-assistant-matter-hub";
+-  version = "2.0.42";
++  version = "2.0.43";
+ 
+   src = fetchFromGitHub {
+     owner = "RiDDiX";
+     repo = "home-assistant-matter-hub";
+     tag = "v${finalAttrs.version}";
+-    hash = "sha256-joaw/YrDmYhfxRwr73IMc2FVEOG6zSlLGIru9lHKHjo=";
++    hash = "sha256-Dls5TglEIFvVGpg8ENTb6IhCwJermmREHuJnalF4kJ4=";
+   };
+ 
+   # The bundled cli.js imports transitive dependencies (e.g. @noble/curves)
