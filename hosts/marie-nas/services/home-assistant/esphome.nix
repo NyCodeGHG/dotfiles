@@ -1,7 +1,7 @@
 { ... }:
 {
   virtualisation.oci-containers.containers.esphome = {
-    image = "ghcr.io/esphome/esphome:2026.3.2";
+    image = "ghcr.io/esphome/esphome:2026.4.3";
     volumes = [
       "/var/lib/esphome:/config"
       "/etc/localtime:/etc/localtime:ro"
