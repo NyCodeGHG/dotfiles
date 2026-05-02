@@ -28,6 +28,12 @@
           id = "bdugq-zrmhr";
           devices = [ "marie-desktop" ];
         };
+        "satisfactory-saves" = {
+          path = "/var/lib/syncthing/satisfactory-saves";
+          label = "Satisfactory Saves";
+          id = "juy6j-mmhjp";
+          devices = [ "marie-desktop" ];
+        };
       };
     };
   };
