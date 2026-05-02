@@ -9,7 +9,6 @@
   ./applications/podman.nix
   ./applications/corsair.nix
   ./applications/apps.nix
-  ./system/audio.nix
   ./system/base.nix
   ./system/dns.nix
   ./system/graphical.nix
