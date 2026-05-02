@@ -63,6 +63,10 @@
       kwin-x11
     ];
 
+    environment.systemPackages = with pkgs.kdePackages; [
+      kzones
+    ];
+
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
