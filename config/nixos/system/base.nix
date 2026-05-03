@@ -59,6 +59,7 @@
       bpftrace
       lix-diff
       (lib.lowPrio neovim-unwrapped)
+      cryptsetup
     ];
 
     security.sudo-rs.enable = lib.mkDefault true;
