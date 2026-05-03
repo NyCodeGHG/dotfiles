@@ -23,6 +23,7 @@
     headless = true;
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
   environment.systemPackages = with pkgs; [ p7zip ];
 
   boot.loader.systemd-boot.enable = true;
