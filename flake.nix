@@ -76,6 +76,11 @@
       url = "https://codeberg.org/marie/nix-locate-man/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -230,6 +235,7 @@
               marie-nas = importNixpkgs { nixpkgs = nixpkgs-unstable; };
               gitlabber = importNixpkgs { nixpkgs = nixpkgs-unstable; };
               hydra2 = importNixpkgs { nixpkgs = nixpkgs-unstable; };
+              steamdeck = importNixpkgs { nixpkgs = nixpkgs-unstable; };
               marie-desktop = importNixpkgs {
                 nixpkgs = nixpkgs-unstable;
               };
@@ -322,6 +328,17 @@
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
             nix.registry.nixpkgs.flake = nixos-wii-u.inputs.nixpkgs;
+            nixpkgs.buildPlatform = "x86_64-linux";
+          };
+          steamdeck = {
+            imports = [
+              ./hosts/steamdeck/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.targetHost = "steamdeck";
+            deployment.buildOnTarget = false;
+            deployment.targetUser = null;
+            nix.registry.nixpkgs.flake = nixpkgs-unstable;
             nixpkgs.buildPlatform = "x86_64-linux";
           };
         };
