@@ -4,6 +4,7 @@
     enable = true;
     package = pkgs.incus;
     ui.enable = true;
+    bucketSupport = false;
     preseed = {
       config."core.https_address" = ":8443";
       storage_pools = [
@@ -46,8 +47,4 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 8443 ];
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "minio-2025-10-15T17-29-55Z"
-  ];
 }

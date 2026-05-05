@@ -34,7 +34,6 @@
   uwumarie.profiles.users.marie = false;
   uwumarie.profiles = {
     headless = true;
-    openssh.enable = true;
     nix = true;
   };
 

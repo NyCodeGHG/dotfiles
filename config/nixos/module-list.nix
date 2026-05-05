@@ -2,16 +2,15 @@
   ./applications/fail2ban.nix
   ./applications/nginx.nix
   ./applications/nix.nix
-  ./applications/openssh.nix
   ./applications/prismlauncher.nix
   ./applications/tailscale.nix
   ./applications/valkey.nix
   ./applications/podman.nix
   ./applications/corsair.nix
   ./applications/apps.nix
+  ./applications/ssh-agent.nix
   ./system/base.nix
   ./system/dns.nix
-  ./system/graphical.nix
   ./system/headless.nix
   ./system/locale.nix
   ./system/nspawn.nix

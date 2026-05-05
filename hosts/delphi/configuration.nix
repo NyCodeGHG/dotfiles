@@ -16,7 +16,6 @@
     ./hardware.nix
   ];
   uwumarie.profiles = {
-    openssh.enable = true;
     acme = true;
     nginx.enable = true;
     nix = true;

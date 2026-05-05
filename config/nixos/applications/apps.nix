@@ -80,6 +80,8 @@
         tokei
         clang-tools
         docker-compose # for podman-compose
+        systemd-impersonate
+        nix-locate-man
 
         # Networking
         wireguard-tools

@@ -9,45 +9,63 @@
     default = true;
   };
   config = lib.mkIf config.uwumarie.profiles.base {
-    environment.systemPackages =
-      with pkgs;
-      [
-        htop
-        btop
-        fastfetch
-        pciutils
-        file
-        iputils
-        dnsutils
-        usbutils
-        wget2
-        curl
-        tcpdump
-        git
-        fd
-        bat
-        ripgrep
-        inxi
-        pv
-        cyme
-        rdap
-        jq
-        systemd-impersonate
-        b3sum
-        bpftrace
-        lix-diff
-        (lib.lowPrio neovim-unwrapped)
-      ]
-      ++ lib.optionals (!(lib.versionOlder "25.05" lib.trivial.release)) (with pkgs; [ wcurl ])
-      ++ lib.optionals config.documentation.man.enable [ pkgs.nix-locate-man ];
-    programs.trippy.enable = true;
-    programs.nano.enable = false;
+    boot = {
+      tmp.useTmpfs = true;
+      initrd.systemd = {
+        enable = true;
+        emergencyAccess = true;
+      };
+
+      # enable TCP BBR for hopefully better utilization
+      kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";
+    };
+
+    services = {
+      openssh = {
+        enable = true;
+        openFirewall = true;
+        settings = {
+          PasswordAuthentication = false;
+        };
+      };
+
+      journald.extraConfig = "SystemMaxUse=100M";
+
+      orca.enable = false;
+      speechd.enable = false;
+    };
+
+    environment.systemPackages = with pkgs; [
+      htop
+      btop
+      fastfetch
+      pciutils
+      file
+      iputils
+      dnsutils
+      usbutils
+      wget2
+      curl
+      tcpdump
+      git
+      fd
+      bat
+      ripgrep
+      inxi
+      pv
+      cyme
+      jq
+      b3sum
+      bpftrace
+      lix-diff
+      (lib.lowPrio neovim-unwrapped)
+    ];
+
     security.sudo-rs.enable = lib.mkDefault true;
+
     programs.command-not-found.enable = false;
+
     documentation.nixos.enable = lib.mkDefault false;
-    boot.initrd.systemd.enable = lib.mkDefault true;
-    programs.traceroute.enable = true;
-    boot.tmp.useTmpfs = lib.mkDefault true;
 
     networking.nftables.enable = lib.mkDefault true;
 

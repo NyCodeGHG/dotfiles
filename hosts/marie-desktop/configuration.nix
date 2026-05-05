@@ -9,6 +9,7 @@
   imports = with inputs; [
     home-manager-unstable.nixosModules.default
     agenix.nixosModules.default
+    ../../config/nixos/system/graphical.nix
     ./hardware.nix
     ./gaming.nix
     ./suspend-fix.nix
@@ -27,7 +28,6 @@
   services.dbus.implementation = "broker";
 
   uwumarie.profiles = {
-    graphical = true;
     apps = true;
   };
 
@@ -67,15 +67,13 @@
       "idea"
       "rust-rover"
       "clion"
+      "nvim-highlight-colors"
+      "vim-jack-in"
+      "wildfire.nvim"
+      "nvim-vtsls"
     ]);
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  boot = {
-    plymouth.enable = true;
-    consoleLogLevel = 3;
-    kernelParams = [ "quiet" ];
-  };
 
   boot.loader = {
     systemd-boot = {

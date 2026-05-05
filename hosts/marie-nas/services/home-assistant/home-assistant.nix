@@ -22,7 +22,6 @@
         ];
         uwumarie.profiles = {
           users.marie = false;
-          openssh.enable = false;
           headless = true;
         };
         nix.gc.automatic = false;
