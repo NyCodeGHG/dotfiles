@@ -100,6 +100,8 @@
           keyboard.layout = "de";
         };
       };
+      # Fix amdgpu not found
+      systemd.services.unl0kr-agent.after = [ "systemd-modules-load.service" ];
     };
     plymouth.enable = lib.mkForce false;
     kernelParams = [
