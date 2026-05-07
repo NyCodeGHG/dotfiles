@@ -9,7 +9,6 @@
         "/state/secrets/initrd/ssh_host_rsa_key"
         "/state/secrets/initrd/ssh_host_ed25519_key"
       ];
-      port = 2222;
     };
   };
   boot.initrd.systemd.network = {
@@ -23,7 +22,9 @@
         networkConfig = {
           DHCP = "ipv4";
           IPv6AcceptRA = true;
-          KeepConfiguration = "yes";
+        };
+        dhcpV4Config = {
+          Hostname = "${config.networking.hostName}-initrd";
         };
       };
     };
