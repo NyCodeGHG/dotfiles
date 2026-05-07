@@ -96,10 +96,4 @@
   };
 
   services.matter-server.enable = true;
-
-  systemd.services.matter-server.serviceConfig.BindReadOnlyPaths = lib.mkForce [
-    "/nix/store"
-    "/run/dbus"
-    "/etc/resolv.conf"
-  ];
 }
