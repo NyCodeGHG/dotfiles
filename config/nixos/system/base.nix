@@ -18,6 +18,22 @@
 
       # enable TCP BBR for hopefully better utilization
       kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";
+
+      extraModprobeConfig = ''
+        install esp4 ${pkgs.coreutils}/bin/false
+        install esp6 ${pkgs.coreutils}/bin/false
+        install rxrpc ${pkgs.coreutils}/bin/false
+        install ipcomp4 ${pkgs.coreutils}/bin/false
+        install ipcomp6 ${pkgs.coreutils}/bin/false
+      '';
+
+      blacklistedKernelModules = [
+        "esp4"
+        "esp6"
+        "rxrpc"
+        "ipcomp4"
+        "ipcomp6"
+      ];
     };
 
     services = {
