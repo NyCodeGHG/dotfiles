@@ -8,6 +8,7 @@
   imports = [
     ../../config/nixos/system/graphical.nix
     inputs.jovian.nixosModules.default
+    ./syncthing.nix
   ];
 
   system.stateVersion = "26.11";
