@@ -55,11 +55,6 @@
             group = "prowlarr";
           }
           {
-            directory = "/var/lib/private/jellyseerr";
-            user = "jellyseerr";
-            group = "jellyseerr";
-          }
-          {
             directory = "/var/lib/private/bitmagnet";
             user = "bitmagnet";
             group = "bitmagnet";

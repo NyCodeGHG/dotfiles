@@ -15,7 +15,6 @@
     ./monitoring.nix
     ./media.nix
     ./services/bitmagnet.nix
-    ./services/jellyseerr.nix
     ./services/postgres.nix
     ./services/prowlarr.nix
     ./services/sonarr.nix

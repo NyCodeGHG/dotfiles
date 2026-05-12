@@ -239,13 +239,6 @@ resource "cloudflare_record" "immich_marie_cologne" {
   type    = "CNAME"
 }
 
-resource "cloudflare_record" "jellyseerr_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "jellyseerr"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-}
-
 resource "cloudflare_record" "bt_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name = "bt"
