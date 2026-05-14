@@ -71,6 +71,7 @@
       "vim-jack-in"
       "wildfire.nvim"
       "nvim-vtsls"
+      "claude-code"
     ]);
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -169,6 +170,7 @@
       gemini-cli
       jetbrains.idea
       incus.client
+      claude-code
     ]
     ++ (with pkgs.kdePackages; [
       # kdenlive
