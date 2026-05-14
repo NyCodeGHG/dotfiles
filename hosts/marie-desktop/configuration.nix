@@ -159,8 +159,6 @@
       quickemu
       anydesk
       ludusavi
-      sequoia-sq
-      sequoia-chameleon-gnupg
       chatterino7
       unrar
       jellyfin-desktop
