@@ -92,17 +92,17 @@
       cfg = config.services.forgejo;
       gitgaySrc = pkgs.fetchFromGitea {
         domain = "git.gay";
-        owner = "marie";
+        owner = "gitgay";
         repo = "forgejo";
-        rev = "87d13f36e7da4d3d99cacecde14f380bb88294e2";
-        hash = "sha256-ynbPMvDhMIBh9K0/jISSriNxnsjHIX9Us6HBe1el8aw=";
+        rev = "9f4d19af953588a0595f05d59982549475494121";
+        hash = "sha256-8wNoFmg2jyDJU3KTtdx/Ji4cHf6CXger1dTUb0AcCPk=";
       };
       gitgayAssets = pkgs.fetchFromGitea {
         domain = "git.gay";
         owner = "gitgay";
         repo = "assets";
-        rev = "35ddd92af9da884f112b5a3224b8685ac92b627f";
-        hash = "sha256-KiDLQrsx7d9InuVvsdgKhPIlAAZk4jr4aMm3WkH+YiE=";
+        rev = "66519eb5cab2e072fd12a71c013826efb61928ba";
+        hash = "sha256-QMwprSD+k0qu3HMCYHlsOdqSA708BdMS2j0bcfoWWAU=";
       };
       customContent = pkgs.runCommand "forgejo-custom-content" { } ''
         mkdir -p $out/{public/assets/css,templates/base}
