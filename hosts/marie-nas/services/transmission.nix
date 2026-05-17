@@ -10,7 +10,6 @@
     bindsTo = [ "netns@vpn.target" ];
     serviceConfig = {
       NetworkNamespacePath = "/var/run/netns/vpn";
-      Type = "notify";
       BindReadOnlyPaths = "${config.vpn.dns.resolvconf}:/etc/resolv.conf:norbind";
       InaccessiblePaths = "/run/nscd/socket";
     };
