@@ -21,5 +21,6 @@
     ./garage.nix
     ./untis-caldav-sync/staging.nix
     ./thelounge.nix
+    ./proxyt.nix
   ];
 }
