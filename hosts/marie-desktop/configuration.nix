@@ -138,7 +138,6 @@
   environment.systemPackages =
     with pkgs;
     [
-      discord
       spotify
       nvtopPackages.amd
       (nix-update.override {
