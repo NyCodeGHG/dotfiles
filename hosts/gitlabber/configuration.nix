@@ -1,18 +1,15 @@
 {
   pkgs,
   modulesPath,
-  config,
   inputs,
   ...
 }:
 {
   imports = with inputs; [
     agenix.nixosModules.default
-    preservation.nixosModules.default
     ../../config/nixos/system/acme.nix
     (modulesPath + "/profiles/minimal.nix")
     ./forgejo-runner.nix
-    ./state.nix
     ./hardware.nix
   ];
 
@@ -101,10 +98,7 @@
     };
   };
 
-  system.stateVersion = "24.11";
-
-  boot.binfmt.emulatedSystems = [ "powerpc-linux" ];
-  boot.binfmt.preferStaticEmulators = true;
+  system.stateVersion = "26.05";
 
   environment.systemPackages = with pkgs; [
     rsync
