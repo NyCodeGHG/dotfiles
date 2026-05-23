@@ -242,7 +242,7 @@
         terraformls.enable = true;
         gopls.enable = true;
         lua_ls.enable = true;
-        pylsp.enable = true;
+        # pylsp.enable = true;
         svelte.enable = true;
         nixd.enable = true;
         # nil_ls.enable = true;
