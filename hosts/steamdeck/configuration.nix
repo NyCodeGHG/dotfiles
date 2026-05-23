@@ -69,6 +69,7 @@
 
     heroic
     switchfin
+    moonlight-qt
   ];
 
   powerManagement.cpuFreqGovernor = "schedutil";
