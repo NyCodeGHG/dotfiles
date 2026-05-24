@@ -33,6 +33,7 @@
     ./services/bazarr.nix
     ./services/incus.nix
     ./services/immich.nix
+    ./services/music-assistant.nix
   ];
   boot = {
     loader = {

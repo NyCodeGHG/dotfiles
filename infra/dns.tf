@@ -289,6 +289,13 @@ resource "cloudflare_record" "hass_marie_cologne" {
   type    = "CNAME"
 }
 
+resource "cloudflare_record" "mass_marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "mass"
+  content = "marie-nas.marie.cologne"
+  type    = "CNAME"
+}
+
 resource "cloudflare_record" "mqtt_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "mqtt.home"
