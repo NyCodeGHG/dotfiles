@@ -17,15 +17,13 @@
     ./wireshark.nix
     ./backup.nix
     # ./router.nix
-    ./krisp-patcher.nix
+    # ./krisp-patcher.nix
     ./peacock.nix
     ./networking.nix
     ./kapsule.nix
   ];
 
   virtualisation.waydroid.enable = true;
-
-  services.dbus.implementation = "broker";
 
   uwumarie.profiles = {
     apps = true;
@@ -43,8 +41,6 @@
   };
 
   services.fwupd.enable = true;
-
-  virtualisation.libvirtd.enable = true;
 
   nixpkgs.config.allowUnfreePredicate =
     pkg:
