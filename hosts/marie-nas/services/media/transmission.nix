@@ -98,7 +98,7 @@
   };
 
   age.secrets.transmission = {
-    file = ../secrets/transmission.age;
+    file = ../../secrets/transmission.age;
     owner = "transmission";
   };
 

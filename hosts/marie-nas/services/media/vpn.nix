@@ -35,7 +35,7 @@ let
 in
 {
   imports = [
-    ../../../modules/nixos/netns.nix
+    ../../../../modules/nixos/netns.nix
   ];
   options.vpn.dns.resolvconf = lib.mkOption {
     type = lib.types.path;

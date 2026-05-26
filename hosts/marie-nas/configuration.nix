@@ -14,19 +14,12 @@
     ./samba.nix
     ./monitoring.nix
     ./media.nix
-    ./services/bitmagnet.nix
     ./services/postgres.nix
-    ./services/prowlarr.nix
-    ./services/sonarr.nix
-    ./services/radarr.nix
-    ./services/transmission.nix
-    ./services/vpn.nix
     ./services/oauth2-proxy.nix
     ./services/minecraft.nix
     ./services/proxy.nix
     ./services/factorio.nix
     ./services/dyndns.nix
-    ./services/bazarr.nix
     ./services/incus.nix
     ./services/immich.nix
 
@@ -36,6 +29,15 @@
     ./services/smart-home/home-assistant.nix
     ./services/smart-home/mosquitto.nix
     ./services/smart-home/music-assistant.nix
+
+    # Media
+    ./services/media/bazarr.nix
+    ./services/media/bitmagnet.nix
+    ./services/media/prowlarr.nix
+    ./services/media/radarr.nix
+    ./services/media/sonarr.nix
+    ./services/media/transmission.nix
+    ./services/media/vpn.nix
   ];
   boot = {
     loader = {
