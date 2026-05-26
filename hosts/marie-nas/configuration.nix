@@ -21,10 +21,6 @@
     ./services/radarr.nix
     ./services/transmission.nix
     ./services/vpn.nix
-    ./services/home-assistant/home-assistant.nix
-    ./services/home-assistant/esphome.nix
-    ./services/mosquitto.nix
-    ./services/home-assistant-matter-hub.nix
     ./services/oauth2-proxy.nix
     ./services/minecraft.nix
     ./services/proxy.nix
@@ -33,7 +29,13 @@
     ./services/bazarr.nix
     ./services/incus.nix
     ./services/immich.nix
-    ./services/music-assistant.nix
+
+    # Smart Home
+    ./services/smart-home/esphome.nix
+    ./services/smart-home/home-assistant-matter-hub.nix
+    ./services/smart-home/home-assistant.nix
+    ./services/smart-home/mosquitto.nix
+    ./services/smart-home/music-assistant.nix
   ];
   boot = {
     loader = {

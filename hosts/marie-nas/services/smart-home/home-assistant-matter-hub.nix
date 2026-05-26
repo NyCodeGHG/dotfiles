@@ -11,7 +11,7 @@
       homeAssistantUrl = "https://hass.marie.cologne";
     };
   };
-  age.secrets.matter-hub-token.file = ../secrets/matter-hub-token.age;
+  age.secrets.matter-hub-token.file = ../../secrets/matter-hub-token.age;
 
   services.nginx.virtualHosts."matter-hub.home.marie.cologne" = {
     useACMEHost = "matter-hub.home.marie.cologne";
