@@ -85,10 +85,9 @@
             group = "home-assistant-matter-hub";
           }
           {
-            directory = "/var/lib/private/matter-server";
-            mode = "0700";
-            user = "matter-server";
-            group = "matter-server";
+            directory = "/var/lib/private/matterjs-server";
+            user = "matterjs-server";
+            group = "matterjs-server";
           }
           "/var/lib/minecraft"
           {

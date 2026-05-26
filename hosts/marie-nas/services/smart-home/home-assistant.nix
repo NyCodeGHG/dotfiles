@@ -94,6 +94,4 @@
       client_max_body_size 100M;
     '';
   };
-
-  services.matter-server.enable = true;
 }

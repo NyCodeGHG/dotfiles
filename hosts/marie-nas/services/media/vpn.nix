@@ -77,7 +77,7 @@ in
       '';
     };
 
-    age.secrets.vpn-wg.file = ../secrets/vpn-wg.age;
+    age.secrets.vpn-wg.file = ../../secrets/vpn-wg.age;
 
     systemd.services.nftables-vpn = {
       after = [ "netns@vpn.service" ];

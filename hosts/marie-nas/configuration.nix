@@ -27,6 +27,7 @@
     ./services/smart-home/esphome.nix
     ./services/smart-home/home-assistant-matter-hub.nix
     ./services/smart-home/home-assistant.nix
+    ./services/smart-home/matter-server.nix
     ./services/smart-home/mosquitto.nix
     ./services/smart-home/music-assistant.nix
 
