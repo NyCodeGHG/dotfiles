@@ -56,9 +56,8 @@
       "locked": {
         "lastModified": 1771260726,
         "narHash": "sha256-WK4z1IdmkgLXEpjnM92JfUT+g8QRMaGjuCTefu8rovg=",
-        "rev": "09632521d49eaba170db2e5dc8d6c46a3e7ae3e3",
         "type": "tarball",
-        "url": "https://codeberg.org/api/v1/repos/marie/corsair-hs80-pipewire-thing/archive/09632521d49eaba170db2e5dc8d6c46a3e7ae3e3.tar.gz?rev=09632521d49eaba170db2e5dc8d6c46a3e7ae3e3"
+        "url": "https://codeberg.org/marie/corsair-hs80-pipewire-thing/archive/main.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -206,11 +205,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779678629,
-        "narHash": "sha256-gHcIFg0mm+KFsg7iZQt67kni3+qR5U3PhEC9P7vKlZ4=",
+        "lastModified": 1779726696,
+        "narHash": "sha256-/p37CB5n6Wpw250b0Lq0CYwNq2D8uGKzDoBulyLcQqA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "612bbe3b405ad5f71d7bf9edecc04b678a061652",
+        "rev": "1a95e2efb477959b70b4a14c51035975c0481df6",
         "type": "github"
       },
       "original": {
@@ -287,11 +286,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779525206,
-        "narHash": "sha256-5sr/1CIdf1qu6SCeM6qkiBCuD3s3P8TugUY4JKQ6kUI=",
+        "lastModified": 1779787240,
+        "narHash": "sha256-hqpzAmYzcKvo+i0XCDgDCAV9WzW1a7gzQWGjp8Dfcjg=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "4b81cbddc037e480c2f3c20dee1a6457c6bb99b8",
+        "rev": "976bb49bfc30f716c1e94cef55845e915631a4c6",
         "type": "github"
       },
       "original": {
@@ -431,11 +430,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1779258371,
-        "narHash": "sha256-j1iZsLy6oFApqR1oiDmHhvkwxXqcNi0aoSJj643LuwU=",
+        "lastModified": 1779826373,
+        "narHash": "sha256-3sRzgLX86qV5NlhWUAufLmHwkyP03tmL3VdZIM13dEo=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "c97bc4d15bd3473dd095e8e8ba57330ab1943a77",
+        "rev": "ef4efb84766a166c906bd55759574676bf91267c",
         "type": "github"
       },
       "original": {
@@ -516,11 +515,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1779508470,
-        "narHash": "sha256-Ap9KJX+5xHIn3bPIpfNgT6MEXdAECECwo4/rmlQD74M=",
+        "lastModified": 1779560665,
+        "narHash": "sha256-tpyBcxPpcQb8ukyNF7DoCwfSY3VPsxHoYwj00Cayv5o=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "29916453413845e54a65b8a1cf996842300cd299",
+        "rev": "64c08a7ca051951c8eae34e3e3cb1e202fe36786",
         "type": "github"
       },
       "original": {
@@ -555,11 +554,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1779683452,
-        "narHash": "sha256-Ksx8jghpDBCPDiTaTyGhYUXG1BUwqPjf5pajl0q0cqA=",
+        "lastModified": 1779816597,
+        "narHash": "sha256-Kgod3gZlhSp6WozZ2pFaclXbWpjs6kQLAtldoxb85Lc=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "afec1bae0e6f7983a5c03ec559f7ed2ec0e714a9",
+        "rev": "297f9341476ba7f821a42d7a2805e206ef8c6ef8",
         "type": "github"
       },
       "original": {
@@ -690,11 +689,11 @@
     "trackerlist": {
       "flake": false,
       "locked": {
-        "lastModified": 1779660582,
-        "narHash": "sha256-W83ECTJWrtD5yKRlqO7lGgz0RUIYRBNDN7WxBBxSRBI=",
+        "lastModified": 1779833376,
+        "narHash": "sha256-08GgpW9FKj/gIhD7VmzspqY9Xo8nlyCcwgyEaIgQMUE=",
         "owner": "ngosang",
         "repo": "trackerslist",
-        "rev": "01df967a4936eb70881c2b6aff878a3ba5f5350d",
+        "rev": "9d25995a4b74c18d59be985f572052ab7e234d5d",
         "type": "github"
       },
       "original": {
