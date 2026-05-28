@@ -4,21 +4,23 @@ let
 in
 {
   services.kanidm = {
-    enableClient = true;
-    clientSettings = {
-      uri = "https://${domain}";
-    };
-
     package = pkgs.kanidm_1_10;
 
-    enableServer = true;
-    serverSettings = {
-      inherit domain;
-      origin = "https://${domain}";
-      tls_chain = "/var/lib/acme/${domain}/fullchain.pem";
-      tls_key = "/var/lib/acme/${domain}/key.pem";
-      trust_x_forward_for = true;
-      bindaddress = "[::1]:8443";
+    client = {
+      enable = true;
+      settings.uri = "https://${domain}";
+    };
+
+    server = {
+      enable = true;
+      settings = {
+        inherit domain;
+        origin = "https://${domain}";
+        tls_chain = "/var/lib/acme/${domain}/fullchain.pem";
+        tls_key = "/var/lib/acme/${domain}/key.pem";
+        trust_x_forward_for = true;
+        bindaddress = "[::1]:8443";
+      };
     };
   };
   security.acme.certs."${domain}" = {
@@ -28,7 +30,7 @@ in
 
   services.nginx.virtualHosts."${domain}" = {
     locations."/" = {
-      proxyPass = "https://${toString config.services.kanidm.serverSettings.bindaddress}";
+      proxyPass = "https://${toString config.services.kanidm.server.settings.bindaddress}";
       extraConfig = ''
         proxy_ssl_verify on;
         proxy_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;

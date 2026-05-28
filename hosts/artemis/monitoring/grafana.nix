@@ -52,6 +52,7 @@ in
         user = "grafana";
         host = "/run/postgresql";
       };
+      security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
     };
     provision = {
       enable = true;
