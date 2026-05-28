@@ -39,6 +39,18 @@
     };
   };
 
+  systemd.services.oauth2-proxy = {
+    serviceConfig = {
+      RestartSec = "300ms";
+      RestartSteps = 5;
+      RestartMaxDelaySec = "5s";
+    };
+    unitConfig = {
+      StartLimitIntervalSec = "30s";
+      StartLimitBurst = 8;
+    };
+  };
+
   age.secrets.oauth2-proxy = {
     file = ../secrets/oauth2-proxy.age;
     owner = "oauth2-proxy";
