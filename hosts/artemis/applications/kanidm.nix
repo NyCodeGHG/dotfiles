@@ -18,7 +18,7 @@ in
         origin = "https://${domain}";
         tls_chain = "/var/lib/acme/${domain}/fullchain.pem";
         tls_key = "/var/lib/acme/${domain}/key.pem";
-        trust_x_forward_for = true;
+        http_client_address_info.x-forward-for = [ "::1" ];
         bindaddress = "[::1]:8443";
       };
     };
