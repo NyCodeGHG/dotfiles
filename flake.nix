@@ -212,6 +212,7 @@
                 nixpkgs-unstable = [
                   # ./patches/nixpkgs-kapsule.patch
                   (npr 524144 "sha256-vJ5So/nbSga0Lk8TqKFODgmxmxuVyIIgkHSo6DK6BA0=")
+                  (npr 524985 "sha256-Ir57/CI5fmGxmvlhhsdHLMpb53zm/jzYvOVWQrpkAhw=")
                 ];
                 nixpkgs = [
                   (npr 524985 "sha256-Ir57/CI5fmGxmvlhhsdHLMpb53zm/jzYvOVWQrpkAhw=")
