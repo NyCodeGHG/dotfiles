@@ -21,6 +21,7 @@
       code-challenge-method = "S256";
       whitelist-domain = "*.marie.cologne";
       reverse-proxy = true;
+      trusted-proxy-ip = "127.0.0.1,::1";
       scope = "openid email profile groups";
       session-store-type = "redis";
       redis-connection-url = "unix:/run/redis-oauth2-proxy/redis.sock";
