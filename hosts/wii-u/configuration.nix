@@ -20,7 +20,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    fastfetchMinimal
+    fastfetch.minimal
     libinput
     iperf
     btop

@@ -7,7 +7,7 @@
     powerManagement.enable = lib.mkDefault false;
 
     environment.systemPackages = [
-      pkgs.fastfetchMinimal
+      pkgs.fastfetch.minimal
     ];
   };
 }
