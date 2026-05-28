@@ -81,6 +81,7 @@
 
   environment.systemPackages = with pkgs.kdePackages; [
     kzones
+    pkgs.fastfetch
   ];
 
   hardware.graphics = {
