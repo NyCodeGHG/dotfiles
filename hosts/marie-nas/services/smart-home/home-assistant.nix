@@ -41,6 +41,7 @@
       "holiday"
       "google"
       "enocean"
+      "otbr"
     ];
     config = {
       # Includes dependencies for a basic setup

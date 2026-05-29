@@ -89,6 +89,9 @@
             user = "matterjs-server";
             group = "matterjs-server";
           }
+          {
+            directory = "/var/lib/private/thread";
+          }
           "/var/lib/minecraft"
           {
             directory = "/var/lib/private/factorio";

@@ -30,6 +30,7 @@
     ./services/smart-home/matter-server.nix
     ./services/smart-home/mosquitto.nix
     ./services/smart-home/music-assistant.nix
+    ./services/smart-home/openthread-border-router.nix
 
     # Media
     ./services/media/bazarr.nix
