@@ -7,6 +7,7 @@
 {
   imports = [
     ../../modules/hm/switch-to-windows.nix
+    ../../config/home-manager/programs/claude.nix
     inputs.nix-index-database.homeModules.nix-index
   ];
   home.packages = [ pkgs.nixvim ];

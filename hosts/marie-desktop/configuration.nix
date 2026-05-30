@@ -165,7 +165,6 @@
       gemini-cli
       jetbrains.idea
       incus.client
-      claude-code
     ]
     ++ (with pkgs.kdePackages; [
       # kdenlive
