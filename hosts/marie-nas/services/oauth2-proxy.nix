@@ -19,7 +19,7 @@
 
     extraConfig = {
       code-challenge-method = "S256";
-      whitelist-domain = "*.marie.cologne";
+      whitelist-domain = [ "*.marie.cologne" "*.home.marie.cologne" ];
       reverse-proxy = true;
       trusted-proxy-ip = "127.0.0.1,::1";
       scope = "openid email profile groups";
@@ -36,6 +36,7 @@
         "radarr.marie.cologne".allowed_groups = [ "pirates@idm.marie.cologne" ];
         "bazarr.marie.cologne".allowed_groups = [ "pirates@idm.marie.cologne" ];
         "bitmagnet.marie.cologne".allowed_groups = [ "pirates@idm.marie.cologne" ];
+        "matterjs.home.marie.cologne".allowed_groups = [ "smart-home@idm.marie.cologne" ];
       };
     };
   };
