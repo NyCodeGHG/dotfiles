@@ -34,7 +34,7 @@
         networkConfig = {
           DHCP = "ipv4";
           IPv6AcceptRA = true;
-          MulticastDNS = true;
+          MulticastDNS = "resolve";
         };
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
@@ -50,7 +50,7 @@
         networkConfig = {
           DHCP = "ipv4";
           IPv6AcceptRA = true;
-          MulticastDNS = true;
+          MulticastDNS = "resolve";
         };
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;
@@ -106,7 +106,7 @@
 
   services.resolved = {
     enable = true;
-    settings.Resolve.MulticastDNS = true;
+    settings.Resolve.MulticastDNS = "resolve";
   };
   networking.firewall.trustedInterfaces = [ "podman*" ];
 }

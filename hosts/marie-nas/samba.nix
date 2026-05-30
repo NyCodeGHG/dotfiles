@@ -94,13 +94,15 @@
     openFirewall = true;
   };
 
-  environment.etc = {
-    # enable mDNS to be discoverable by normal clients
-    "systemd/dnssd/smb.dnssd".text = ''
-      [Service]
-      Name=%H
-      Type=_smb._tcp
-      Port=445
-    '';
-  };
+  services.avahi.extraServiceFiles.smb = ''
+    <?xml version="1.0" standalone='no'?>
+    <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+    <service-group>
+      <name replace-wildcards="yes">%h</name>
+      <service>
+        <type>_smb._tcp</type>
+        <port>445</port>
+      </service>
+    </service-group>
+  '';
 }
