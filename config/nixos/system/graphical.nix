@@ -37,7 +37,15 @@
     speechd.enable = false;
 
     xserver.xkb.layout = "de";
-    kmscon.hwRender = true;
+    kmscon =
+      if lib.versionAtLeast lib.trivial.release "26.11" then
+        {
+          config.hwaccel = true;
+        }
+      else
+        {
+          hwRender = true;
+        };
 
     pipewire = {
       enable = true;

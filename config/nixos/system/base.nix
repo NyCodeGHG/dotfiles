@@ -129,15 +129,27 @@
 
     security.polkit.enable = lib.mkDefault true;
 
-    services.kmscon = {
-      enable = lib.mkDefault true;
-      useXkbConfig = true;
-      fonts = [
+    fonts.packages = [ pkgs.fira ];
+
+    services.kmscon =
+      if lib.versionAtLeast lib.trivial.release "26.11" then
         {
-          name = "Fira Mono";
-          package = pkgs.fira;
+          enable = lib.mkDefault true;
+          useXkbConfig = true;
+          config = {
+            font-name = "Fira Mono";
+          };
         }
-      ];
-    };
+      else
+        {
+          enable = lib.mkDefault true;
+          useXkbConfig = true;
+          fonts = [
+            {
+              name = "Fira Mono";
+              package = pkgs.fira;
+            }
+          ];
+        };
   };
 }

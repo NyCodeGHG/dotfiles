@@ -143,7 +143,6 @@
       protontricks
       dysk
       qbittorrent
-      bitwarden-desktop
       p7zip
       unrar-wrapper
       nushell
