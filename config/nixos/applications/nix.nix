@@ -29,13 +29,17 @@
         experimental-features = [
           "nix-command"
           "flakes"
+          "auto-allocate-uids"
+          "cgroups"
         ];
-        deprecated-features = lib.mkIf (lib.versionAtLeast config.nix.package.version "2.95")[
+        deprecated-features = lib.mkIf (lib.versionAtLeast config.nix.package.version "2.95") [
           "or-as-identifier"
         ];
         trusted-users = [ "@wheel" ];
         builders-use-substitutes = true;
         build-dir = "/var/tmp/nix";
+        auto-allocate-uids = true;
+        extra-system-features = [ "uid-range" ];
       };
     };
   };
