@@ -40,6 +40,7 @@
         build-dir = "/var/tmp/nix";
         auto-allocate-uids = true;
         extra-system-features = [ "uid-range" ];
+        use-cgroups = true;
       };
     };
   };
