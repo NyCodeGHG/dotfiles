@@ -1,11 +1,10 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager-unstable = {
+    home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     agenix = {
@@ -21,7 +20,7 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     preservation.url = "github:nix-community/preservation";
@@ -35,7 +34,7 @@
 
     corsair-hs80-pipewire-thing = {
       url = "https://codeberg.org/marie/corsair-hs80-pipewire-thing/archive/main.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     trackerlist = {
@@ -50,12 +49,12 @@
 
     colmena = {
       url = "github:zhaofengli/colmena";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     systemd-impersonate = {
       url = "https://codeberg.org/marie/systemd-impersonate/archive/main.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-wii-u = {
@@ -69,25 +68,23 @@
 
     nixpak = {
       url = "github:nixpak/nixpak";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-locate-man = {
       url = "https://codeberg.org/marie/nix-locate-man/archive/main.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
     inputs@{
-      agenix,
       nixpkgs,
-      nixpkgs-unstable,
       nixvim,
       self,
       colmena,
@@ -135,17 +132,7 @@
           ];
         };
       });
-      packages =
-        let
-          stable = forEachSystem nixpkgs (pkgs: self.overlays.packages pkgs pkgs);
-          unstable = forEachSystem nixpkgs-unstable (
-            pkgs:
-            nixpkgs.lib.mapAttrs' (n: v: nixpkgs.lib.nameValuePair "${n}-unstable" v) (
-              self.overlays.packages pkgs pkgs
-            )
-          );
-        in
-        nixpkgs.lib.recursiveUpdate stable unstable;
+      packages = forEachSystem nixpkgs (pkgs: self.overlays.packages pkgs pkgs);
 
       overlays.default = (
         final: prev:
@@ -191,7 +178,6 @@
           patchInputs = import ./utils/patch-inputs.nix;
           importNixpkgs =
             {
-              nixpkgs,
               system ? "x86_64-linux",
             }:
             import nixpkgs {
@@ -209,57 +195,34 @@
             patches =
               { npr, ... }:
               {
-                nixpkgs-unstable = [
-                  # ./patches/nixpkgs-kapsule.patch
-                ];
                 nixpkgs = [
+                  # ./patches/nixpkgs-kapsule.patch
                 ];
               };
           };
           inherit (patchedInputs)
             nixpkgs
-            nixpkgs-unstable
             ;
         in
         colmena.lib.makeHive {
           meta = {
-            nixpkgs = importNixpkgs { inherit nixpkgs; };
+            nixpkgs = importNixpkgs { };
             specialArgs = {
               inputs = patchedInputs;
             };
             nodeNixpkgs = {
-              delphi = importNixpkgs {
-                inherit nixpkgs;
-                system = "aarch64-linux";
-              };
-              marie-nas = importNixpkgs { nixpkgs = nixpkgs-unstable; };
-              gitlabber = importNixpkgs { nixpkgs = nixpkgs-unstable; };
-              hydra2 = importNixpkgs { nixpkgs = nixpkgs-unstable; };
-              steamdeck = importNixpkgs { nixpkgs = nixpkgs-unstable; };
-              marie-desktop = importNixpkgs {
-                nixpkgs = nixpkgs-unstable;
-              };
-              wii-u = importNixpkgs {
-                nixpkgs = nixos-wii-u.inputs.nixpkgs;
-              };
+              delphi = importNixpkgs { system = "aarch64-linux"; };
             };
           };
-          artemis =
-            {
-              name,
-              nodes,
-              pkgs,
-              ...
-            }:
-            {
-              imports = [
-                ./hosts/artemis/configuration.nix
-                self.nixosModules.config
-              ];
-              deployment.buildOnTarget = true;
-              deployment.targetUser = null;
-              nix.registry.nixpkgs.flake = nixpkgs;
-            };
+          artemis = {
+            imports = [
+              ./hosts/artemis/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.buildOnTarget = true;
+            deployment.targetUser = null;
+            nix.registry.nixpkgs.flake = nixpkgs;
+          };
           delphi = {
             imports = [
               ./hosts/delphi/configuration.nix
@@ -267,6 +230,7 @@
             ];
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
+            nix.registry.nixpkgs.flake = nixpkgs;
           };
           gitlabber = {
             imports = [
@@ -276,7 +240,7 @@
             deployment.targetHost = "root@gitlabber.weasel-gentoo.ts.net";
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = nixpkgs-unstable;
+            nix.registry.nixpkgs.flake = nixpkgs;
           };
           marie-nas = {
             imports = [
@@ -286,7 +250,7 @@
             deployment.targetHost = "marie-nas";
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = nixpkgs-unstable;
+            nix.registry.nixpkgs.flake = nixpkgs;
           };
           lab-client = {
             imports = [
@@ -296,7 +260,7 @@
             deployment.targetHost = "lab-client";
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = nixpkgs-unstable;
+            nix.registry.nixpkgs.flake = nixpkgs;
           };
           marie-desktop = {
             imports = [
@@ -305,7 +269,7 @@
             ];
             deployment.allowLocalDeployment = true;
             deployment.targetHost = null;
-            nix.registry.nixpkgs.flake = nixpkgs-unstable;
+            nix.registry.nixpkgs.flake = nixpkgs;
           };
           hydra2 = {
             imports = [
@@ -315,7 +279,7 @@
             deployment.targetHost = "91.99.205.130";
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = nixpkgs-unstable;
+            nix.registry.nixpkgs.flake = nixpkgs;
             nixpkgs.buildPlatform = "x86_64-linux";
           };
           wii-u = {
@@ -338,7 +302,7 @@
             deployment.targetHost = "steamdeck";
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = nixpkgs-unstable;
+            nix.registry.nixpkgs.flake = nixpkgs;
             nixpkgs.buildPlatform = "x86_64-linux";
           };
         };
