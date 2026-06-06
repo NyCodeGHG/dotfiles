@@ -197,6 +197,7 @@
               {
                 nixpkgs = [
                   # ./patches/nixpkgs-kapsule.patch
+                  (npr 528019 "sha256-XFS17yhTkdvLrqtVebI7FHo4kgFbyQGi5fdI6HomWcQ=")
                 ];
               };
           };
