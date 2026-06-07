@@ -39,7 +39,7 @@ if len(records.result) == 0:
     for address in addresses:
         print(f"Creating record {record_name}: {address}")
         client.dns.records.create(
-            zone_id=zone_id, name=record_name, type="AAAA", content=str(address)
+            zone_id=zone_id, name=record_name, type="AAAA", content=str(address), ttl=0
         )
 else:
     existing_records = []
@@ -55,7 +55,7 @@ else:
         if address not in existing_records:
             print(f"Creating record {record_name}: {address}")
             client.dns.records.create(
-                zone_id=zone_id, name=record_name, type="AAAA", content=str(address)
+                zone_id=zone_id, name=record_name, type="AAAA", content=str(address), ttl=0
             )
 
     for record in to_be_deleted:
