@@ -70,6 +70,11 @@
             group = "hass";
           }
           {
+            directory = "/var/lib/private/music-assistant";
+            user = "music-assistant";
+            group = "music-assistant";
+          }
+          {
             directory = "/var/lib/mosquitto";
             user = "mosquitto";
             group = "mosquitto";
