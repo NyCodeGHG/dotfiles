@@ -7,7 +7,7 @@
 }:
 {
   imports = with inputs; [
-    home-manager-unstable.nixosModules.default
+    home-manager.nixosModules.default
     agenix.nixosModules.default
     ../../config/nixos/system/graphical.nix
     ./hardware.nix
