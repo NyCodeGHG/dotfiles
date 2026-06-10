@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p moreutils jq
+#!nix-shell -i bash -p moreutils jq gh
 
 set -eoi pipefail
 
@@ -19,6 +19,12 @@ HASH="$(nix-build \
 
 set -e
 
+BEFORE="$(cat patches/nixpkgs.json)"
 jq ". + { \"${PR}\": \"${HASH}\" }" ./patches/nixpkgs.json | sponge patches/nixpkgs.json
 jq "." ./patches/nixpkgs.json
+
+if [[ "$(cat patches/nixpkgs.json)" != "$BEFORE" ]]; then
+  PR_TITLE="$(gh pr view "$PR" --repo NixOS/nixpkgs --json title --jq .title)"
+  jj commit -m "patches: add ${PR_TITLE} (#${PR})" patches/nixpkgs.json
+fi
 
