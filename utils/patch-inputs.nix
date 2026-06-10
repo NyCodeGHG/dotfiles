@@ -11,7 +11,7 @@ let
   patchFetchers = rec {
     pr =
       repo: id: hash:
-      pkgsForPatching.fetchpatch2 {
+      pkgsForPatching.fetchpatch {
         url = "https://github.com/${repo}/pull/${builtins.toString id}.diff";
         inherit hash;
       };
