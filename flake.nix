@@ -175,6 +175,7 @@
 
       colmenaHive =
         let
+          inherit (inputs.nixpkgs) lib;
           patchInputs = import ./utils/patch-inputs.nix;
           importNixpkgs =
             {
@@ -195,9 +196,7 @@
             patches =
               { npr, ... }:
               {
-                nixpkgs = [
-                  # ./patches/nixpkgs-kapsule.patch
-                  (npr 528019 "sha256-XFS17yhTkdvLrqtVebI7FHo4kgFbyQGi5fdI6HomWcQ=")
+                nixpkgs = (lib.mapAttrsToList npr) (lib.importJSON ./patches/nixpkgs.json) ++ [
                 ];
               };
           };
