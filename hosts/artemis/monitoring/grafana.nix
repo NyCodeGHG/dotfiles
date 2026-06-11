@@ -84,15 +84,10 @@ in
     group = "grafana";
   };
 
-  services.nginx.virtualHosts = {
-    "grafana.marie.cologne" = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${builtins.toString port}";
-        proxyWebsockets = true;
-      };
-    };
-    "grafana.nycode.dev" = {
-      globalRedirect = "grafana.marie.cologne";
+  services.nginx.virtualHosts."grafana.marie.cologne" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${builtins.toString port}";
+      proxyWebsockets = true;
     };
   };
 }
