@@ -91,8 +91,7 @@
           }
           {
             directory = "/var/lib/private/matterjs-server";
-            user = "matterjs-server";
-            group = "matterjs-server";
+            mode = "0770";
           }
           "/var/lib/thread"
           "/var/lib/minecraft"
