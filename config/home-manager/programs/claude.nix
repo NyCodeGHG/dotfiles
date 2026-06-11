@@ -11,6 +11,7 @@
         "Bash(nix-build:*)"
         "Bash(nix eval:*)"
         "Bash(nix repl:*)"
+        "Bash(nix log:*)"
         "Read(/nix/store/**)"
         "mcp__plugin_claude-code-home-manager_nixos__*"
       ];
