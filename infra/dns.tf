@@ -10,46 +10,69 @@ data "cloudflare_zone" "nycode_dev" {
   }
 }
 
-module "prometheus_record" {
-  source   = "./tailscale-record"
-  zone_id  = data.cloudflare_zone.marie_cologne.id
-  name     = "prometheus"
-  hostname = "artemis"
+locals {
+  artemis_cnames = toset([
+    "cache", "irc", "tsp", "iplookupd",
+    "git", "grafana", "chat", "admin.chat",
+    "matrix", "miniflux", "status", "nue01",
+    "ip", "tunnel", "*.tunnel", "hedgedoc",
+    "atuin", "hydra", "s3", "*.s3",
+    "staging.untis-caldav-sync", "untis-caldav-sync",
+    "idm.marie.cologne", "dn42-de.marie.cologne",
+  ])
+
+  marie_nas_cnames = toset([
+    "jellyfin", "immich", "bt", "bitmagnet",
+    "prowlarr", "sonarr", "bazarr", "hass", "mass",
+    "mqtt.home", "esphome.home", "matter-hub.home", "matterjs.home",
+    "auth.marie-nas",
+  ])
+
+  delphi_cnames = toset([
+    "oci-fra01", "cdn", "syncthing.delphi",
+  ])
 }
 
-module "paperless_record" {
+module "tailscale_records" {
+  for_each = {
+    "prometheus"        = "artemis"
+    "paperless"         = "artemis"
+    "cdio"              = "artemis"
+    "syncthing.artemis" = "artemis"
+    "logs.artemis"      = "artemis"
+    "metrics.artemis"   = "artemis"
+  }
   source   = "./tailscale-record"
   zone_id  = data.cloudflare_zone.marie_cologne.id
-  name     = "paperless"
-  hostname = "artemis"
+  name     = each.key
+  hostname = each.value
 }
 
-module "cdio_record" {
-  source   = "./tailscale-record"
+resource "cloudflare_dns_record" "artemis_cnames" {
+  for_each = local.artemis_cnames
   zone_id  = data.cloudflare_zone.marie_cologne.id
-  name     = "cdio"
-  hostname = "artemis"
+  name     = each.value
+  content  = "artemis.marie.cologne"
+  type     = "CNAME"
+  ttl      = 1
 }
 
-module "artemis_syncthing_record" {
-  source   = "./tailscale-record"
+resource "cloudflare_dns_record" "marie_nas_cnames" {
+  for_each = local.marie_nas_cnames
   zone_id  = data.cloudflare_zone.marie_cologne.id
-  name     = "syncthing.artemis"
-  hostname = "artemis"
+  name     = each.value
+  content  = "marie-nas.marie.cologne"
+  type     = "CNAME"
+  ttl      = 1
 }
 
-module "artemis_logs_record" {
-  source   = "./tailscale-record"
+resource "cloudflare_dns_record" "delphi_cnames" {
+  for_each = local.delphi_cnames
   zone_id  = data.cloudflare_zone.marie_cologne.id
-  name     = "logs.artemis"
-  hostname = "artemis"
-}
-
-module "artemis_metrics_record" {
-  source   = "./tailscale-record"
-  zone_id  = data.cloudflare_zone.marie_cologne.id
-  name     = "metrics.artemis"
-  hostname = "artemis"
+  name     = each.value
+  content  = "delphi.marie.cologne"
+  type     = "CNAME"
+  ttl      = 1
 }
 
 resource "cloudflare_dns_record" "artemis_v4" {
@@ -57,14 +80,6 @@ resource "cloudflare_dns_record" "artemis_v4" {
   name    = "artemis.marie.cologne"
   content = "89.58.10.36"
   type    = "A"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "dn42_endpoint" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "dn42-de.marie.cologne"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
   ttl     = 1
 }
 
@@ -84,339 +99,11 @@ resource "cloudflare_dns_record" "artemis_wg" {
   ttl     = 1
 }
 
-resource "cloudflare_dns_record" "marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "marie.cologne"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "cache_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "cache"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "irc_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "irc"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "tsp_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "tsp"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "iplookupd_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "iplookupd"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "kanidm" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "idm.marie.cologne"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "git_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "git"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "grafana_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "grafana"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "chat_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "chat"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "admin_chat_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "admin.chat"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "matrix_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "matrix"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "miniflux_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "miniflux"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "status_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "status"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "nue01_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "nue01"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "ip_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "ip"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "tunnel_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "tunnel"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "wildcard_tunnel_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "*.tunnel"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "hedgedoc_tunnel_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "hedgedoc"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "sso_nycode_dev" {
-  zone_id = data.cloudflare_zone.nycode_dev.id
-  name    = "sso"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "atuin_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "atuin"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "hydra_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "hydra"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "s3_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "s3"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "s3_wildcard_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "*.s3"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "staging_untis_caldav_sync_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "staging.untis-caldav-sync"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "prod_untis_caldav_sync_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "untis-caldav-sync"
-  content = "artemis.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "hydra2_marie_cologne_v4" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "hydra2"
-  content = "91.99.205.130"
-  type    = "A"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "hydra2_marie_cologne_v6" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "hydra2"
-  content = "2a01:4f8:c0c:7e48::1"
-  type    = "AAAA"
-  ttl     = 1
-}
-
 resource "cloudflare_dns_record" "marie_nas_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "marie-nas"
   content = "192.168.1.21"
   type    = "A"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "jellyfin_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "jellyfin"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "immich_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "immich"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "bt_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "bt"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "bitmagnet_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "bitmagnet"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "prowlarr_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "prowlarr"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "sonarr_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "sonarr"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "bazarr_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "bazarr"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "hass_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "hass"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "mass_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "mass"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "mqtt_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "mqtt.home"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "esphome_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "esphome.home"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "matter-hub_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "matter-hub.home"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "matterjs_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "matterjs.home"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "auth_marie_nas_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "auth.marie-nas"
-  content = "marie-nas.marie.cologne"
-  type    = "CNAME"
   ttl     = 1
 }
 
@@ -436,27 +123,19 @@ resource "cloudflare_dns_record" "delphi_v6" {
   ttl     = 1
 }
 
-resource "cloudflare_dns_record" "oci-fra01_marie_cologne" {
+resource "cloudflare_dns_record" "hydra2_marie_cologne_v4" {
   zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "oci-fra01"
-  content = "delphi.marie.cologne"
-  type    = "CNAME"
+  name    = "hydra2"
+  content = "91.99.205.130"
+  type    = "A"
   ttl     = 1
 }
 
-resource "cloudflare_dns_record" "cdn_marie_cologne" {
+resource "cloudflare_dns_record" "hydra2_marie_cologne_v6" {
   zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "cdn"
-  content = "delphi.marie.cologne"
-  type    = "CNAME"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "syncthing_delphi_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "syncthing.delphi"
-  content = "delphi.marie.cologne"
-  type    = "CNAME"
+  name    = "hydra2"
+  content = "2a01:4f8:c0c:7e48::1"
+  type    = "AAAA"
   ttl     = 1
 }
 
@@ -465,6 +144,22 @@ resource "cloudflare_dns_record" "ha_marie_cologne" {
   name    = "ha"
   content = "192.168.1.28"
   type    = "A"
+  ttl     = 1
+}
+
+resource "cloudflare_dns_record" "marie_cologne" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "marie.cologne"
+  content = "artemis.marie.cologne"
+  type    = "CNAME"
+  ttl     = 1
+}
+
+resource "cloudflare_dns_record" "sso_nycode_dev" {
+  zone_id = data.cloudflare_zone.nycode_dev.id
+  name    = "sso"
+  content = "artemis.marie.cologne"
+  type    = "CNAME"
   ttl     = 1
 }
 
