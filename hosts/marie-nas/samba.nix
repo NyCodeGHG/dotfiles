@@ -16,6 +16,9 @@
       user = "root";
       mode = "2770";
     };
+    "/srv/shares/media"."a+" = {
+      argument = "d:g:media:rwX";
+    };
     "/srv/shares/public".d = {
       group = "root";
       user = "root";
