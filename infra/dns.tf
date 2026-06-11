@@ -14,22 +14,22 @@ locals {
   artemis_cnames = toset([
     "cache", "irc", "tsp", "iplookupd",
     "git", "grafana", "chat", "admin.chat",
-    "matrix", "miniflux", "status", "nue01",
-    "ip", "tunnel", "*.tunnel", "hedgedoc",
-    "atuin", "hydra", "s3", "*.s3",
+    "matrix", "miniflux", "nue01",
+    "ip", "hedgedoc",
+    "atuin", "hydra", "s3", "*.s3", "s3-web",
     "staging.untis-caldav-sync", "untis-caldav-sync",
     "idm.marie.cologne", "dn42-de.marie.cologne",
   ])
 
   marie_nas_cnames = toset([
     "jellyfin", "immich", "bt", "bitmagnet",
-    "prowlarr", "sonarr", "bazarr", "hass", "mass",
+    "prowlarr", "sonarr", "radarr", "bazarr", "hass", "mass",
     "mqtt.home", "esphome.home", "matter-hub.home", "matterjs.home",
     "auth.marie-nas",
   ])
 
   delphi_cnames = toset([
-    "oci-fra01", "cdn", "syncthing.delphi",
+    "oci-fra01", "syncthing.delphi",
   ])
 }
 
@@ -37,7 +37,6 @@ module "tailscale_records" {
   for_each = {
     "prometheus"        = "artemis"
     "paperless"         = "artemis"
-    "cdio"              = "artemis"
     "syncthing.artemis" = "artemis"
     "logs.artemis"      = "artemis"
     "metrics.artemis"   = "artemis"
@@ -91,14 +90,6 @@ resource "cloudflare_dns_record" "artemis_v6" {
   ttl     = 1
 }
 
-resource "cloudflare_dns_record" "artemis_wg" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "wg.artemis.marie.cologne"
-  content = "10.69.0.1"
-  type    = "A"
-  ttl     = 1
-}
-
 resource "cloudflare_dns_record" "marie_nas_marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "marie-nas"
@@ -136,14 +127,6 @@ resource "cloudflare_dns_record" "hydra2_marie_cologne_v6" {
   name    = "hydra2"
   content = "2a01:4f8:c0c:7e48::1"
   type    = "AAAA"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "ha_marie_cologne" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "ha"
-  content = "192.168.1.28"
-  type    = "A"
   ttl     = 1
 }
 
