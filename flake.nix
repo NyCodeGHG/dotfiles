@@ -144,6 +144,17 @@
             }
           );
 
+          kdePackages = prev.kdePackages.overrideScope (
+            kdeFinal: kdePrev: {
+              spectacle = kdePrev.spectacle.override {
+                tesseractLanguages = [
+                  "eng"
+                  "deu"
+                ];
+              };
+            }
+          );
+
           nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
             module = import ./config/nixvim;
             pkgs = final;
