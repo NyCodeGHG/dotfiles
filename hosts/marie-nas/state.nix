@@ -71,8 +71,7 @@
           }
           {
             directory = "/var/lib/private/music-assistant";
-            user = "music-assistant";
-            group = "music-assistant";
+            mode = "0770";
           }
           {
             directory = "/var/lib/mosquitto";
