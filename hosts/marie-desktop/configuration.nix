@@ -42,6 +42,9 @@
 
   services.fwupd.enable = true;
 
+  # for sidetone thingy
+  hardware.alsa.enablePersistence = true;
+
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     (builtins.elem (lib.getName pkg) [
