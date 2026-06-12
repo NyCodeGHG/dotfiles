@@ -36,7 +36,7 @@
       "zroot/data" = {
         recursive = "zfs";
         hourly = 6;
-        daily = 14;
+        daily = 3;
         monthly = 3;
       };
     };
