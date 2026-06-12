@@ -95,5 +95,10 @@
     contents."/etc/fstab".text = ''
       UUID=a92d7fc5-21a0-4e7a-b995-2fb84195c2f1 /encryption-keys ext4 ro
     '';
+
+    services.zfs-import-zroot = {
+      after = [ "cryptsetup.target" ];
+      wants = [ "cryptsetup.target" ];
+    };
   };
 }
