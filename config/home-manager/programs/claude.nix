@@ -3,6 +3,44 @@
   programs.claude-code = {
     enable = true;
     enableMcpIntegration = true;
+    lspServers = {
+      c = {
+        command = lib.getExe' pkgs.clang-tools "clangd";
+        extensionToLanguage = {
+          ".c" = "c";
+          ".h" = "c";
+          ".cc" = "cpp";
+          ".cpp" = "cpp";
+          ".hh" = "cpp";
+          ".hpp" = "cpp";
+        };
+      };
+      rust = {
+        command = lib.getExe pkgs.rust-analyzer;
+        extensionToLanguage = {
+          ".rs" = "rust";
+        };
+      };
+      typescript = {
+        command = lib.getExe pkgs.vtsls;
+        args = [ "--stdio" ];
+        extensionToLanguage = {
+          ".ts" = "typescript";
+          ".tsx" = "typescriptreact";
+          ".js" = "javascript";
+          ".jsx" = "javascriptreact";
+          ".mjs" = "javascript";
+          ".cjs" = "javascript";
+        };
+      };
+      go = {
+        command = lib.getExe pkgs.gopls;
+        args = [ "serve" ];
+        extensionToLanguage = {
+          ".go" = "go";
+        };
+      };
+    };
     settings = {
       permissions.allow = [
         "WebSearch"
