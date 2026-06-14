@@ -273,6 +273,28 @@
             deployment.targetUser = null;
             nix.registry.nixpkgs.flake = nixpkgs;
           };
+          lab-router-a = {
+            imports = [
+              ./hosts/lab-router-a/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.targetHost = "lab-router-a";
+            deployment.buildOnTarget = false;
+            deployment.targetUser = null;
+            deployment.tags = [ "lab-router" ];
+            nix.registry.nixpkgs.flake = nixpkgs;
+          };
+          lab-router-b = {
+            imports = [
+              ./hosts/lab-router-b/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.targetHost = "lab-router-b";
+            deployment.buildOnTarget = false;
+            deployment.targetUser = null;
+            deployment.tags = [ "lab-router" ];
+            nix.registry.nixpkgs.flake = nixpkgs;
+          };
           marie-desktop = {
             imports = [
               ./hosts/marie-desktop/configuration.nix
