@@ -282,17 +282,6 @@
             deployment.targetHost = null;
             nix.registry.nixpkgs.flake = nixpkgs;
           };
-          hydra2 = {
-            imports = [
-              ./hosts/hydra2/configuration.nix
-              self.nixosModules.config
-            ];
-            deployment.targetHost = "91.99.205.130";
-            deployment.buildOnTarget = false;
-            deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = nixpkgs;
-            nixpkgs.buildPlatform = "x86_64-linux";
-          };
           wii-u = {
             imports = [
               ./hosts/wii-u/configuration.nix
