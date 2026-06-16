@@ -26,9 +26,5 @@
       enable = true;
       settings.Resolve.MulticastDNS = "resolve";
     };
-    tailscale = {
-      enable = true;
-      useRoutingFeatures = "client";
-    };
   };
 }

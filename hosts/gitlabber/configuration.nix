@@ -8,6 +8,8 @@
   imports = with inputs; [
     agenix.nixosModules.default
     ../../config/nixos/system/acme.nix
+    ../../config/nixos/applications/tailscale.nix
+    ../../config/nixos/monitoring
     (modulesPath + "/profiles/minimal.nix")
     ./forgejo-runner.nix
     ./hardware.nix
@@ -55,8 +57,6 @@
     };
     config.networkConfig.IPv6PrivacyExtensions = false;
   };
-
-  services.tailscale.enable = true;
 
   services.resolved.enable = true;
 

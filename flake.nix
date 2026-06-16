@@ -129,6 +129,7 @@
               inherit (lixPackageSets.latest) nix-eval-jobs;
             })
             nix-update
+            grafana-alloy
           ];
         };
       });
@@ -241,7 +242,7 @@
             ];
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = nixpkgs;
+            # nix.registry.nixpkgs.flake = nixpkgs;
           };
           gitlabber = {
             imports = [

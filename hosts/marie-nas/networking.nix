@@ -99,11 +99,6 @@
     };
   };
 
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "both";
-  };
-
   services.resolved = {
     enable = true;
     settings.Resolve.MulticastDNS = "resolve";

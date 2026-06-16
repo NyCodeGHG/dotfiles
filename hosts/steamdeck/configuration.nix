@@ -7,6 +7,7 @@
 {
   imports = [
     ../../config/nixos/system/graphical.nix
+    ../../config/nixos/applications/tailscale.nix
     inputs.jovian.nixosModules.default
     ./syncthing.nix
   ];
@@ -53,10 +54,6 @@
   services = {
     displayManager.plasma-login-manager.enable = lib.mkForce false;
     flatpak.enable = true;
-    tailscale = {
-      enable = true;
-      useRoutingFeatures = "client";
-    };
   };
 
   nixpkgs.config.allowUnfree = true;

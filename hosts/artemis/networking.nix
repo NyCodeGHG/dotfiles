@@ -128,11 +128,6 @@ in
     "net.ipv6.conf.default.forwarding" = true;
   };
 
-  services.tailscale = {
-    enable = true;
-    openFirewall = true;
-  };
-
   virtualisation.podman = {
     enable = true;
     extraPackages = [ pkgs.nftables ];

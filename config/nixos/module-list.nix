@@ -3,7 +3,6 @@
   ./applications/nginx.nix
   ./applications/nix.nix
   ./applications/prismlauncher.nix
-  ./applications/tailscale.nix
   ./applications/valkey.nix
   ./applications/podman.nix
   ./applications/corsair.nix

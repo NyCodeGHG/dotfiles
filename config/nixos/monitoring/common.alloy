@@ -1,0 +1,88 @@
+livedebugging {
+	enabled = true
+}
+
+declare "scrape" {
+	argument "name" {
+		optional = false
+	}
+
+	argument "targets" {
+		optional = false
+	}
+
+	argument "metrics_path" {
+		optional = true
+		default  = "/metrics"
+	}
+
+	prometheus.remote_write "default" {
+		endpoint {
+			url = "https://metrics.artemis.marie.cologne/api/v1/push"
+		}
+
+		external_labels = {
+			hostname  = constants.hostname,
+		}
+	}
+
+	prometheus.scrape "scrape" {
+		scrape_interval = "10s"
+		job_name        = argument.name.value
+		targets         = argument.targets.value
+		metrics_path    = argument.metrics_path.value
+		forward_to      = [prometheus.remote_write.default.receiver]
+	}
+}
+
+prometheus.exporter.cadvisor "default" { }
+
+scrape "cadvisor" {
+	name    = "cadvisor"
+	targets = prometheus.exporter.cadvisor.default.targets
+}
+
+prometheus.exporter.self "default" { }
+
+scrape "self" {
+	name    = "self"
+	targets = prometheus.exporter.self.default.targets
+}
+
+prometheus.exporter.unix "default" {
+	enable_collectors = ["processes", "systemd", "wifi"]
+
+	systemd {
+		enable_restarts = true
+	}
+}
+
+scrape "unix" {
+	name    = "unix"
+	targets = prometheus.exporter.unix.default.targets
+}
+
+loki.write "default" {
+	endpoint {
+		url = "https://logs.artemis.marie.cologne/insert/loki/api/v1/push"
+	}
+}
+
+loki.relabel "journal" {
+	forward_to = []
+
+	rule {
+		source_labels = ["__journal__systemd_unit"]
+		target_label  = "unit"
+	}
+}
+
+loki.source.journal "default" {
+	relabel_rules = loki.relabel.journal.rules
+	forward_to    = [loki.write.default.receiver]
+	max_age       = "12h"
+	labels        = {
+		job  = "systemd-journal",
+		host = constants.hostname,
+	}
+}

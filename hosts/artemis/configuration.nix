@@ -3,6 +3,8 @@
   imports = with inputs; [
     agenix.nixosModules.default
     ../../config/nixos/system/acme.nix
+    ../../config/nixos/applications/tailscale.nix
+    ../../config/nixos/monitoring
     ./monitoring
     ./applications
     ./hardware.nix

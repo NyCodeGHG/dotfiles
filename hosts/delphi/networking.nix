@@ -36,9 +36,4 @@
     };
     config.networkConfig.IPv6PrivacyExtensions = false;
   };
-
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "server";
-  };
 }

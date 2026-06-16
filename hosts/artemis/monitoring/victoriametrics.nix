@@ -1,20 +1,7 @@
-{ ... }:
 {
   services.victoriametrics = {
     enable = true;
     retentionPeriod = "30d";
-    prometheusConfig = {
-      global = {
-        scrape_interval = "30s";
-        scrape_timeout = "10s";
-      };
-      scrape_configs = [ ];
-    };
-  };
-
-  services.nginx.tailscaleAuth = {
-    enable = true;
-    virtualHosts = [ "metrics.artemis.marie.cologne" ];
   };
 
   services.nginx.virtualHosts."metrics.artemis.marie.cologne" = {
@@ -22,5 +9,12 @@
       proxyPass = "http://localhost:8428";
       proxyWebsockets = true;
     };
+    extraConfig = ''
+      allow 127.0.0.1/32;
+      allow ::1/128;
+      allow 100.64.0.0/10;
+      allow fd7a:115c:a1e0::/48;
+      deny all;
+    '';
   };
 }

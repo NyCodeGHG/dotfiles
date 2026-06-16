@@ -8,6 +8,8 @@
   imports = with inputs; [
     agenix.nixosModules.default
     ../../config/nixos/system/acme.nix
+    ../../config/nixos/applications/tailscale.nix
+    ../../config/nixos/monitoring
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/profiles/headless.nix"
     ./networking.nix

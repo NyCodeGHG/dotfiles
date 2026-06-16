@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   services.victorialogs.enable = true;
 
@@ -7,16 +6,12 @@
       proxyPass = "http://localhost:9428";
       proxyWebsockets = true;
     };
-  };
-  services.nginx.tailscaleAuth = {
-    enable = true;
-    virtualHosts = [ "logs.artemis.marie.cologne" ];
-  };
-
-  services.journald.upload = {
-    enable = true;
-    settings = {
-      Upload.URL = "http://localhost:9428/insert/journald";
-    };
+    extraConfig = ''
+      allow 127.0.0.1/32;
+      allow ::1/128;
+      allow 100.64.0.0/10;
+      allow fd7a:115c:a1e0::/48;
+      deny all;
+    '';
   };
 }
