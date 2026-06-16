@@ -8,18 +8,7 @@
         scrape_interval = "30s";
         scrape_timeout = "10s";
       };
-      scrape_configs = [
-        {
-          job_name = "untis-caldav-sync";
-          metrics_path = "/metrics";
-          static_configs = [
-            {
-              targets = [ "localhost:3002" ];
-              labels.environment = "staging";
-            }
-          ];
-        }
-      ];
+      scrape_configs = [ ];
     };
   };
 

@@ -17,7 +17,6 @@ locals {
     "matrix", "miniflux", "nue01",
     "ip", "hedgedoc",
     "atuin", "hydra", "s3", "*.s3", "s3-web",
-    "staging.untis-caldav-sync", "untis-caldav-sync",
     "idm.marie.cologne", "dn42-de.marie.cologne",
   ])
 
