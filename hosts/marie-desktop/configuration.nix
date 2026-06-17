@@ -150,7 +150,7 @@
       p7zip
       unrar-wrapper
       nushell
-      makemkv
+      # makemkv
       scrcpy
       zfs # to view manpages
       attic-client
