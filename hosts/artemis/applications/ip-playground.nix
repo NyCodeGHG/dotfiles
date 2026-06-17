@@ -100,4 +100,11 @@ in
     group = "ip-playground";
   };
   users.groups.ip-playground = { };
+
+  environment.etc."alloy/ip-playground.alloy".text = ''
+    scrape_local "ip_playground" {
+      name = "ip-playground"
+      port = 3032
+    }
+  '';
 }
