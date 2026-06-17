@@ -2,8 +2,9 @@
 {
   imports = [
     ./grafana.nix
-    ./prometheus
     ./victorialogs.nix
     ./victoriametrics.nix
   ];
+
+  environment.etc."alloy/blackbox.alloy".source = ./blackbox.alloy;
 }

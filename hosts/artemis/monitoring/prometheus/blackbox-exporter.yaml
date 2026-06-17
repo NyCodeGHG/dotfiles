@@ -1,9 +1,0 @@
-modules:
-  http_2xx:
-    prober: http
-    timeout: 2s
-  icmp:
-    prober: icmp
-    timeout: 5s
-    icmp:
-      preferred_ip_protocol: "ip6"

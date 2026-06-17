@@ -1,0 +1,81 @@
+prometheus.exporter.blackbox "generic" {
+    config = `
+modules:
+    http_2xx:
+        prober: http
+        timeout: 2s
+    icmp:
+        prober: icmp
+        timeout: 5s
+        icmp:
+            preferred_ip_protocol: "ip6"
+    `
+
+    target {
+        name = "authentik"
+        address = "https://sso.nycode.dev/-/health/live/"
+        module  = "http_2xx"
+    }
+
+    target {
+        name = "forgejo"
+        address = "https://git.marie.cologne/"
+        module  = "http_2xx"
+    }
+
+    target {
+        name = "grafana"
+        address = "https://grafana.marie.cologne/"
+        module  = "http_2xx"
+    }
+
+    target {
+        name = "ip-playground"
+        address = "https://ip.marie.cologne/"
+        module  = "http_2xx"
+    }
+
+    target {
+        name = "miniflux"
+        address = "https://miniflux.marie.cologne/"
+        module  = "http_2xx"
+    }
+
+    target {
+        name = "tsp"
+        address = "https://tsp.marie.cologne/health"
+        module  = "http_2xx"
+    }
+
+    target {
+        name = "kanidm"
+        address = "https://idm.marie.cologne"
+        module  = "http_2xx"
+    }
+
+    target {
+        name = "vpn.wg.techtoto.dev"
+        address = "vpn.wg.techtoto.dev"
+        module = "icmp"
+    }
+
+    target {
+        name = "delphi.marie.cologne"
+        address = "delphi.marie.cologne"
+        module = "icmp"
+    }
+}
+
+discovery.relabel "generic" {
+  targets = prometheus.exporter.blackbox.generic.targets
+
+  rule {
+    source_labels = ["__param_target"]
+    target_label = "instance"
+  }
+}
+
+scrape "blackbox_generic" {
+    name = "blackbox_generic"
+    targets = discovery.relabel.generic.output
+}
