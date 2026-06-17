@@ -1,0 +1,23 @@
+prometheus.exporter.blackbox "federation" {
+	config_file = file.path_join(module_path, "blackbox_federation.yaml")
+
+	target {
+		name    = "matrix-federation"
+		module  = "federation"
+		address = "https://federationtester.matrix.org/api/federation-ok?server_name=marie.cologne"
+	}
+}
+
+discovery.relabel "blackbox_federation" {
+	targets = prometheus.exporter.blackbox.federation.targets
+
+	rule {
+		source_labels = ["__param_target"]
+		target_label  = "instance"
+	}
+}
+
+scrape "blackbox_federation" {
+	name    = "blackbox_federation"
+	targets = discovery.relabel.blackbox_federation.output
+}

@@ -31,6 +31,9 @@ let
   '';
 in
 {
+  imports = [
+    ./federation-monitoring
+  ];
   services.nginx.virtualHosts = {
     "${serverName}" = {
       locations."= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;

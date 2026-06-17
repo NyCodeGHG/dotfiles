@@ -1,0 +1,7 @@
+modules:
+  federation:
+    prober: http
+    http:
+      ip_protocol_fallback: true
+      fail_if_body_not_matches_regexp:
+        - ".*GOOD.*"
