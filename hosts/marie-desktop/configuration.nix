@@ -111,7 +111,7 @@
     ];
     "/mnt/sata" = {
       device = "/dev/disk/by-id/ata-Samsung_SSD_870_EVO_2TB_S6PPNX0W301861L-part2";
-      fsType = "ntfs-3g";
+      fsType = "ntfs";
       options = [
         "rw"
         "uid=1000"
@@ -130,6 +130,11 @@
         "nosuid"
         "compress=zstd"
       ];
+    };
+    "/mnt/windows-shared-games" = {
+      device = "/dev/disk/by-uuid/75734D662554FA4A";
+      fsType = "ntfs";
+      options = [ "nofail" "nosuid" "uid=1000" ];
     };
   };
 
