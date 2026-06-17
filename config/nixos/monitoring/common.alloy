@@ -35,6 +35,29 @@ declare "scrape" {
 	}
 }
 
+declare "scrape_local" {
+	argument "name" {
+		optional = false
+	}
+
+	argument "port" {
+		optional = false
+	}
+
+	argument "metrics_path" {
+		optional = true
+		default  = "/metrics"
+	}
+
+	scrape {
+		name         = argument.name.value
+		metrics_path = argument.metrics_path.value
+		targets      = [
+			{"__address__" = string.format("localhost:%d", argument.port.value), "instance" = constants.hostname},
+		]
+	}
+}
+
 prometheus.exporter.cadvisor "default" { }
 
 scrape "cadvisor" {

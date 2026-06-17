@@ -162,4 +162,12 @@
   };
 
   security.pki.certificateFiles = [ ./dn42-ca.pem ];
+
+  services.prometheus.exporters.bird.enable = true;
+  environment.etc."alloy/bird.alloy".text = ''
+    scrape_local "bird" {
+      name = "bird"
+      port = ${toString config.services.prometheus.exporters.bird.port}
+    }
+  '';
 }
