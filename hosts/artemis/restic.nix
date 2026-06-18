@@ -92,8 +92,7 @@ in
         --group-by host,tags \
         --keep-within 7d \
         --keep-weekly 3 \
-        --keep-monthly 12 \
-        --keep-yearly 5
+        --keep-monthly 3
     '';
   };
 
@@ -136,8 +135,7 @@ in
         --group-by host,tags \
         --keep-within 7d \
         --keep-weekly 3 \
-        --keep-monthly 12 \
-        --keep-yearly 5
+        --keep-monthly 3
     '';
   };
   systemd.services."restic-paperless" = mkResticService {
@@ -168,8 +166,7 @@ in
         --group-by host,tags \
         --keep-within 7d \
         --keep-weekly 3 \
-        --keep-monthly 12 \
-        --keep-yearly 5
+        --keep-monthly 3
     '';
   };
   systemd.services."restic-synapse" = mkResticService {
@@ -200,8 +197,7 @@ in
         --group-by host,tags \
         --keep-within 7d \
         --keep-weekly 3 \
-        --keep-monthly 12 \
-        --keep-yearly 5
+        --keep-monthly 3
     '';
   };
 }
