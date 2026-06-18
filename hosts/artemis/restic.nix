@@ -59,6 +59,10 @@ in
     startAt = "03:00";
     serviceConfig = {
       PrivateTmp = true;
+      CacheDirectory = "restic-postgres";
+    };
+    environment = {
+      RESTIC_CACHE_DIR = "%C/restic-postgres";
     };
     script = ''
       set -euo pipefail
@@ -103,6 +107,7 @@ in
         HOME = cfg.stateDir;
         FORGEJO_WORK_DIR = cfg.stateDir;
         FORGEJO_CUSTOM = cfg.customDir;
+        RESTIC_CACHE_DIR = "%C/restic-forgejo";
       };
     path = with pkgs; [
       config.services.forgejo.package
@@ -112,6 +117,7 @@ in
     serviceConfig = {
       User = "forgejo";
       Group = "forgejo";
+      CacheDirectory = "restic-forgejo";
     };
     startAt = "03:00";
     script = ''
@@ -142,6 +148,10 @@ in
     serviceConfig = {
       User = "paperless";
       Group = "paperless";
+      CacheDirectory = "restic-paperless";
+    };
+    environment = {
+      RESTIC_CACHE_DIR = "%C/restic-paperless";
     };
     startAt = "03:00";
     script = ''
@@ -170,6 +180,10 @@ in
     serviceConfig = {
       User = "matrix-synapse";
       Group = "matrix-synapse";
+      CacheDirectory = "restic-synapse";
+    };
+    environment = {
+      RESTIC_CACHE_DIR = "%C/restic-synapse";
     };
     startAt = "03:00";
     script = ''
