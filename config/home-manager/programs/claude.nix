@@ -69,6 +69,12 @@
       linux = {
         command = lib.getExe pkgs.linux-mcp-server;
       };
+      victorialogs = {
+        command = lib.getExe pkgs.mcp-victorialogs;
+        env = {
+          VL_INSTANCE_ENTRYPOINT = "https://logs.artemis.marie.cologne";
+        };
+      };
     };
   };
 }
