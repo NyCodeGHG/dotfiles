@@ -11,4 +11,12 @@
     };
     web.enable = true;
   };
+
+  systemd.services.otbr-agent = {
+    startLimitIntervalSec = 0;
+    serviceConfig = {
+      RestartSteps = 5;
+      RestartMaxDelaySec = "5min";
+    };
+  };
 }
