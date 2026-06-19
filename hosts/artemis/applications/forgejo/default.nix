@@ -48,6 +48,7 @@
         REGISTER_EMAIL_CONFIRM = false;
         USERNAME = "nickname";
       };
+      metrics.ENABLED = true;
       ui = {
         DEFAULT_THEME = "gitdotgay";
         THEMES = "gitdotgay, gitdotgay-light, gitdotgay-dark, forgejo-auto, forgejo-light, forgejo-dark, gitea-auto, gitea-light, gitea-dark, forgejo-auto-deuteranopia-protanopia, forgejo-light-deuteranopia-protanopia, forgejo-dark-deuteranopia-protanopia, forgejo-auto-tritanopia, forgejo-light-tritanopia, forgejo-dark-tritanopia";
@@ -83,9 +84,21 @@
     instances.forgejo.settings = {
       TARGET = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
       BIND = "/run/anubis/anubis-forgejo/anubis.sock";
-      METRICS_BIND = "/run/anubis/anubis-forgejo/anubis-metrics.sock";
+      METRICS_BIND = ":9090";
+      METRICS_BIND_NETWORK = "tcp";
     };
   };
+
+  environment.etc."alloy/anubis-forgejo.alloy".text = ''
+    scrape_local "anubis_forgejo" {
+      name = "anubis_forgejo" 
+      port = 9090
+    } 
+    scrape_local "forgejo" {
+      name = "forgejo" 
+      port = ${toString config.services.forgejo.settings.server.HTTP_PORT}
+    } 
+  '';
 
   systemd.tmpfiles.rules =
     let
