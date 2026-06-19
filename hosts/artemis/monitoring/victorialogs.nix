@@ -1,5 +1,11 @@
 {
-  services.victorialogs.enable = true;
+  services.victorialogs = {
+    enable = true;
+    extraOptions = [
+      "-enableTCP6"
+      "-retentionPeriod=4w"
+    ];
+  };
 
   services.nginx.virtualHosts."logs.artemis.marie.cologne" = {
     locations."/" = {
