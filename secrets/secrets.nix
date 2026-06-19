@@ -1,6 +1,7 @@
 let
   marie-desktop = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILdNaJgKxA021pqrbkoMiP2a9buYZUXfG5q01y2h8YOa"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA56+5iSfyhYaTU3jc4Hl6G2qqHOUG9SMymPr5dfwbZf"
   ];
   artemis = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8 root@artemis"
@@ -30,7 +31,8 @@ in
   "paperless-env.age".publicKeys = users ++ artemis;
   "curseforge-api-key.age".publicKeys = users ++ delphi;
 
-  "git-email.age".publicKeys = users;
+  "git-email.age".publicKeys = marie-desktop;
+  "grafana-mcp-token.age".publicKeys = marie-desktop;
 
   "../hosts/artemis/dn42/peers/emma/wg-private.age".publicKeys = users ++ artemis;
   "../hosts/artemis/dn42/peers/kioubit/wg-private.age".publicKeys = users ++ artemis;

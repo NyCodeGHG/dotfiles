@@ -75,6 +75,15 @@
           VL_INSTANCE_ENTRYPOINT = "https://logs.artemis.marie.cologne";
         };
       };
+      grafana = {
+        command = lib.getExe pkgs.mcp-grafana;
+        env = {
+          GRAFANA_URL = "https://grafana.marie.cologne";
+          GRAFANA_SERVICE_ACCOUNT_TOKEN.file = "/run/user/1000/agenix/grafana-mcp-token";
+        };
+      };
     };
   };
+
+  age.secrets.grafana-mcp-token.file = ../../../secrets/grafana-mcp-token.age;
 }
