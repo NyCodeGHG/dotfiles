@@ -125,6 +125,7 @@
       "ffplay" = "ffplay -hide_banner";
       "nrp" = "nix repl --file '<nixpkgs>'";
       "vim" = "nvim";
+      "nginx-config" = lib.mkIf config.services.nginx.enable "systemctl cat nginx | grep -oP '\\/nix\\/store\\/\\w+-nginx\\.conf' -m 1";
     };
 
     security.polkit.enable = lib.mkDefault true;
