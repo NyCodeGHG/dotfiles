@@ -109,8 +109,14 @@
       ];
     };
 
-    programs.firefox.enable = true;
-    programs.thunderbird.enable = true;
+    programs.firefox = {
+      enable = true;
+      policies = lib.mkForce { };
+    };
+    programs.thunderbird = {
+      enable = true;
+      policies = lib.mkForce { };
+    };
 
     environment.etc."distrobox/distrobox.conf".text = ''
       container_additional_volumes="/nix/store:/nix/store:ro /etc/profiles/per-user:/etc/profiles/per-user:ro /etc/static/profiles/per-user:/etc/static/profiles/per-user:ro"
