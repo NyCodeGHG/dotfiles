@@ -20,4 +20,11 @@
       deny all;
     '';
   };
+
+  environment.etc."alloy/victoriametrics.alloy".text = ''
+    scrape_local "victoriametrics" {
+      name = "victoriametrics"
+      port = 8428
+    }
+  '';
 }
