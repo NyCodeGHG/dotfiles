@@ -2,6 +2,9 @@
   services.victoriametrics = {
     enable = true;
     retentionPeriod = "30d";
+    extraOptions = [
+      "-enableTCP6"
+    ];
   };
 
   services.nginx.virtualHosts."metrics.artemis.marie.cologne" = {
