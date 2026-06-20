@@ -54,17 +54,6 @@ in
       };
       security.secret_key = "SW2YcwTIb9zpOOhoPsMm";
     };
-    provision = {
-      enable = true;
-      datasources.settings.datasources = [
-        {
-          name = "Prometheus artemis";
-          type = "prometheus";
-          access = "proxy";
-          url = "http://127.0.0.1:${toString config.services.prometheus.port}";
-        }
-      ];
-    };
   };
 
   services.postgresql = {
