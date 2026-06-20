@@ -12,7 +12,6 @@ in
     enable = true;
     declarativePlugins = with pkgs.grafanaPlugins; [
       victoriametrics-logs-datasource
-      victoriametrics-metrics-datasource
     ];
     settings = {
       server = {
