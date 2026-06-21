@@ -103,5 +103,5 @@
     enable = true;
     settings.Resolve.MulticastDNS = "resolve";
   };
-  networking.firewall.trustedInterfaces = [ "podman*" ];
+  networking.firewall.trustedInterfaces = [ "podman*" "talos" ];
 }
