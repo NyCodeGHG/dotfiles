@@ -165,11 +165,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778930899,
-        "narHash": "sha256-OOEWyt8ma7QAysDbiP65J7li7KIdtZfnbA11gFnwyEI=",
+        "lastModified": 1781499420,
+        "narHash": "sha256-vy0EiuiLRKWbXYOqdEKoy5ImlbHcdMC52x9BcC/MwQ8=",
         "owner": "hercules-ci",
         "repo": "hercules-ci-effects",
-        "rev": "af4331c44f13977b6964745454eadcfee2d244d1",
+        "rev": "86c7c78a840b44b1a0a5cbc7e9baa0154c0d0f3f",
         "type": "github"
       },
       "original": {
@@ -206,11 +206,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781667738,
-        "narHash": "sha256-OxrwHpsWf+QGbos1LMDGAcv7sjBGshcw/43th6waeYI=",
+        "lastModified": 1782134359,
+        "narHash": "sha256-dh0RDcJ17Rubgk3hGTugYmTu6rnUPfRu5vA7MA1Pdo0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7664e05e2413d5e2b8c54a884eb8ea0f8a504fc2",
+        "rev": "979bfee6e1a7996fc395270d54c9b59e88762494",
         "type": "github"
       },
       "original": {
@@ -266,11 +266,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770930546,
-        "narHash": "sha256-/adJkkMy4b3BBxbg6fml3Eq01yEhm3Z+JDMQRFK2Jyg=",
+        "lastModified": 1782051427,
+        "narHash": "sha256-nbG6Zl+dCX1kMGONSgC/xNpH9RXutUUvEALWT+iMh/c=",
         "ref": "refs/heads/main",
-        "rev": "3edeca91b7f6ae0d8266e57d7249076959681d55",
-        "revCount": 32,
+        "rev": "74238d20714e23dd7c4aabd31a4ba0837c44f88b",
+        "revCount": 33,
         "type": "git",
         "url": "ssh://forgejo@git.marie.cologne/marie/iplookupd.git"
       },
@@ -287,11 +287,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781344759,
-        "narHash": "sha256-S6UBeQM7NLaQX6RZYS65fMypWfRQL/F4iRu0y8sTLPc=",
+        "lastModified": 1782029918,
+        "narHash": "sha256-HFbkQDbk9gAOe9Gnmm3leVjvk+lY5dEWQ6fIHcikBLk=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "ffac737e4117f7e9f070d38078801a5433f19d5b",
+        "rev": "12a0c56d9f42d917814e9ccf66a330499c4f2753",
         "type": "github"
       },
       "original": {
@@ -382,11 +382,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781422160,
-        "narHash": "sha256-W7S8O86bVrw2gaomEwkHStOzmPpnFIHQ6lS4Q2HffJ0=",
+        "lastModified": 1782030356,
+        "narHash": "sha256-h4WpMr455AfRub0FXBaon6Vcpe0waUyJ4GivIW6oyd4=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "854d04e2368fb2e9c328a36b3c0a04cd713bfae1",
+        "rev": "3017088b49efd404f78e3b104f553b97e4af786b",
         "type": "github"
       },
       "original": {
@@ -472,11 +472,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781356953,
-        "narHash": "sha256-Z6+m8YqDkW/7wF0RSqbisR2TbBM6opAT60eTOe/o91g=",
+        "lastModified": 1781749433,
+        "narHash": "sha256-Pb2+bL5WRZLIzb/NMdjHEe9UBcU/yGfb1QWlyzyMTic=",
         "owner": "nixpak",
         "repo": "nixpak",
-        "rev": "26b2c3bfcc07c548ffa4c66121b397303bcf50f5",
+        "rev": "be97295fa81fe743b9753449143dd4931e51d63c",
         "type": "github"
       },
       "original": {
@@ -555,11 +555,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1781637822,
-        "narHash": "sha256-6Fwwt8BBGF5rqwGPhj/9ZMyyjXeJQzeHHJQfPuqJP3I=",
+        "lastModified": 1782062554,
+        "narHash": "sha256-v2J6/S33H2ms6jz3qr6in0UUlGFqUW46+iB3hMJDuD4=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "d43c763fd9fae0912bdb4103cd842f26fea5b0ed",
+        "rev": "b3e7b2d2e568f29becae04217242ed18a90febc4",
         "type": "github"
       },
       "original": {
@@ -690,11 +690,11 @@
     "trackerlist": {
       "flake": false,
       "locked": {
-        "lastModified": 1781647765,
-        "narHash": "sha256-P6jMO/AqE3785DyIQD8vmdKPT3CdFT/u+P5wn9iY+Yk=",
+        "lastModified": 1782079783,
+        "narHash": "sha256-lLs/25+jAVfb+3S+FeOYo9oBolHQrci81k+CJX3lsc4=",
         "owner": "ngosang",
         "repo": "trackerslist",
-        "rev": "3ff88c4487dbeeee4e620bf299e43bd7bb23c2ac",
+        "rev": "0fbcd640f2b73e18760d21f230558b6cb17b8c2c",
         "type": "github"
       },
       "original": {
