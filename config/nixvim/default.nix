@@ -42,7 +42,6 @@
   extraPlugins = with pkgs.vimPlugins; [
     zen-mode-nvim
     guard-nvim
-    neoconf-nvim
     vim-nftables
     vim-caddyfile
     vim-glsl
@@ -57,7 +56,6 @@
     jj-nvim
   ];
   extraConfigLuaPre = ''
-    require("neoconf").setup()
     require("nvim-paredit").setup()
     require("wildfire").setup({
       keymaps = {
@@ -180,6 +178,8 @@
         input.enabled = true;
       };
     };
+
+    codesettings.enable = true;
 
     actions-preview = {
       enable = true;
