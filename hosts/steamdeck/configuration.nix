@@ -67,6 +67,7 @@
     heroic
     switchfin
     moonlight-qt
+    prismlauncher
   ];
 
   powerManagement.cpuFreqGovernor = "schedutil";
