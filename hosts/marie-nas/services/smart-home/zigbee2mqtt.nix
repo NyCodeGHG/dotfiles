@@ -37,7 +37,7 @@
       frontend = {
         enabled = true;
         port = 8081;
-        url = "https://zigbee2mqtt.home.marie.cologne";
+        url = "https://z2m.home.marie.cologne";
       };
     };
   };
@@ -54,13 +54,13 @@
     name = "zigbee2mqtt.yaml";
   };
 
-  services.nginx.virtualHosts."zigbee2mqtt.home.marie.cologne" = {
-    useACMEHost = "zigbee2mqtt.home.marie.cologne";
+  services.nginx.virtualHosts."z2m.home.marie.cologne" = {
+    useACMEHost = "z2m.home.marie.cologne";
     locations."/" = {
       proxyPass = "http://127.0.0.1:8081";
       proxyWebsockets = true;
     };
   };
 
-  security.acme.certs."zigbee2mqtt.home.marie.cologne" = { };
+  security.acme.certs."z2m.home.marie.cologne" = { };
 }
