@@ -39,6 +39,7 @@
         "esphome.home.marie.cologne".allowed_groups = [ "smart-home@idm.marie.cologne" ];
         "matter-hub.home.marie.cologne".allowed_groups = [ "smart-home@idm.marie.cologne" ];
         "matterjs.home.marie.cologne".allowed_groups = [ "smart-home@idm.marie.cologne" ];
+        "z2m.home.marie.cologne".allowed_groups = [ "smart-home@idm.marie.cologne" ];
       };
     };
   };
