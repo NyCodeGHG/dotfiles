@@ -161,7 +161,7 @@
       attic-client
       syncthingtray
       quickemu
-      anydesk
+      # anydesk
       ludusavi
       chatterino7
       unrar
