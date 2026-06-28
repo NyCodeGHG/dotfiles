@@ -13,7 +13,6 @@
     "${modulesPath}/profiles/qemu-guest.nix"
     "${modulesPath}/profiles/headless.nix"
     ./networking.nix
-    ./monitoring.nix
     ./applications
     ./hardware.nix
   ];

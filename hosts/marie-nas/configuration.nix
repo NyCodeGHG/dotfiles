@@ -14,7 +14,6 @@
     ./filesystems.nix
     ./initrd-ssh.nix
     ./samba.nix
-    ./monitoring.nix
     ./media.nix
     ./services/postgres.nix
     ./services/oauth2-proxy.nix
