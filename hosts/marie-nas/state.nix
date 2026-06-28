@@ -79,6 +79,11 @@
             group = "mosquitto";
           }
           {
+            directory = "/var/lib/zigbee2mqtt";
+            user = "zigbee2mqtt";
+            group = "zigbee2mqtt";
+          }
+          {
             directory = "/var/lib/redis-oauth2-proxy";
             user = "oauth2-proxy";
             group = "oauth2-proxy";

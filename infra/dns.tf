@@ -24,7 +24,7 @@ locals {
     "jellyfin", "immich", "bt", "bitmagnet",
     "prowlarr", "sonarr", "radarr", "bazarr", "hass", "mass",
     "mqtt.home", "esphome.home", "matter-hub.home", "matterjs.home",
-    "auth.marie-nas",
+    "auth.marie-nas", "zigbee2mqtt.home",
   ])
 
   delphi_cnames = toset([
