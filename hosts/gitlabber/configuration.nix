@@ -15,8 +15,6 @@
     ./hardware.nix
   ];
 
-  boot.supportedFilesystems.bcachefs = true;
-
   boot.loader.systemd-boot = {
     enable = true;
     configurationLimit = 10;
