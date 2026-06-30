@@ -31,6 +31,7 @@
     xrgears
     # oversteer
     satisfactorymodmanager
+    bs-manager
   ];
 
   services.flatpak.enable = true;
