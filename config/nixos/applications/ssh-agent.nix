@@ -18,7 +18,7 @@
           serviceConfig = {
             ExecStartPre = "${pkgs.coreutils}/bin/rm -f $SSH_AUTH_SOCK";
             ExecStart = "${pkgs.openssh}/bin/ssh-agent -D -a $SSH_AUTH_SOCK";
-            User = "marie";
+            User = lib.mkIf (config.users.users ? marie) "marie";
           };
         };
 
