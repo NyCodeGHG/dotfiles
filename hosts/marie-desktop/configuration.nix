@@ -102,6 +102,11 @@
     ];
   };
 
+  programs.ausweisapp = {
+    enable = true;
+    openFirewall = true;
+  };
+
   fileSystems = {
     "/".options = [ "compress=zstd" ];
     "/home".options = [ "compress=zstd" ];
