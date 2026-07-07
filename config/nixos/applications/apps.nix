@@ -34,6 +34,7 @@
         krdc
         kcolorchooser
         kcalc
+        kleopatra
       ])
 
       ++ (with pkgs; [
