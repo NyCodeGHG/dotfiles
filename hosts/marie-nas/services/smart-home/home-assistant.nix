@@ -42,6 +42,7 @@
       "google"
       "enocean"
       "otbr"
+      "homeassistant_connect_zbt2"
     ];
     config = {
       # Includes dependencies for a basic setup
