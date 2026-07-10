@@ -5,10 +5,11 @@
     backboneInterfaces = [ "br0" ];
     logLevel = "warning";
     radio = {
-      device = "/dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_V2_b2755e278739ef11a42a53f454516304-if00-port0";
+      device = "/dev/serial/by-id/usb-Nabu_Casa_ZBT-2_E072A1D7903C-if00";
       baudRate = 460800;
-      flowControl = false;
+      flowControl = true;
     };
+    rest.listenPort = 8083;
     web.enable = true;
   };
 
