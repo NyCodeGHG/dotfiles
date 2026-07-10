@@ -49,6 +49,11 @@ lib.mkIf config.uwumarie.profiles.jujutsu {
           "file"
           "show"
         ];
+        retrunk = [
+          "rebase"
+          "-o"
+          "trunk()"
+        ];
       };
       revsets.log = "trunk() | reachable(@, trunk()..visible_heads())";
       fsmonitor.backend = "watchman";
