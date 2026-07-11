@@ -64,7 +64,6 @@
       };
       github = {
         url = "https://api.githubcopilot.com/mcp/";
-        headers.Authorization = "Bearer \${GITHUB_MCP_PAT}";
       };
       linux = {
         command = lib.getExe pkgs.linux-mcp-server;
