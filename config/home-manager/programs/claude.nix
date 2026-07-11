@@ -82,6 +82,13 @@
           GRAFANA_SERVICE_ACCOUNT_TOKEN.file = "/run/user/1000/agenix/grafana-mcp-token";
         };
       };
+      home-assistant = {
+        url = "https://hass.marie.cologne/api/mcp";
+        oauth = {
+          clientId = "http://localhost:12345";
+          callbackPort = 12345;
+        };
+      };
     };
   };
 

@@ -43,6 +43,7 @@
       "enocean"
       "otbr"
       "homeassistant_connect_zbt2"
+      "mcp_server"
     ];
     config = {
       # Includes dependencies for a basic setup
