@@ -9,6 +9,7 @@
     accessTokenFile = config.age.secrets.matter-hub-token.path;
     settings = {
       homeAssistantUrl = "https://hass.marie.cologne";
+      mdnsNetworkInterface = "br0";
     };
   };
   age.secrets.matter-hub-token.file = ../../secrets/matter-hub-token.age;
