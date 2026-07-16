@@ -10,7 +10,7 @@
       api-endpoint = "https://cache.marie.cologne/";
       soft-delete-caches = false;
       require-proof-of-possession = true;
-      database.url = "postgresql:///atticd";
+      database.url = "postgresql:///atticd?host=/run/postgresql&user=atticd";
       storage = {
         type = "s3";
         region = "auto";
