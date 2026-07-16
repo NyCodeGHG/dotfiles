@@ -71,7 +71,9 @@
           }
           {
             directory = "/var/lib/private/music-assistant";
-            mode = "0770";
+            user = "music-assistant";
+            group = "music-assistant";
+            mode = "0755";
           }
           {
             directory = "/var/lib/mosquitto";
@@ -95,7 +97,9 @@
           }
           {
             directory = "/var/lib/private/matterjs-server";
-            mode = "0770";
+            user = "matterjs-server";
+            group = "matterjs-server";
+            mode = "0700";
           }
           "/var/lib/thread"
           "/var/lib/minecraft"
