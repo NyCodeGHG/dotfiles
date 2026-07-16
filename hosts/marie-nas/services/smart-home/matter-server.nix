@@ -3,6 +3,10 @@
   services.matterjs-server = {
     enable = true;
     listenAddress = "::1";
+    extraArgs = [
+      "--primary-interface=br0"
+      "--log-level=warning"
+    ];
   };
 
   services.nginx.virtualHosts."matterjs.home.marie.cologne" = {
