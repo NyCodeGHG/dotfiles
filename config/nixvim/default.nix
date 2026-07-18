@@ -257,6 +257,7 @@
           enable = true;
           packageFallback = true;
         };
+        qmlls.enable = true;
       };
     };
     conjure.enable = true;
