@@ -153,6 +153,7 @@
                   "deu"
                 ];
               };
+              inherit (final) kiot;
             }
           );
 
@@ -177,6 +178,9 @@
           ] ./pkgs;
         in
         packages
+        // {
+          kiot = prev.kdePackages.callPackage ./pkgs/kiot { };
+        }
       );
 
       nixosModules = {

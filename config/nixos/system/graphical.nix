@@ -90,6 +90,7 @@
   environment.systemPackages = with pkgs.kdePackages; [
     kzones
     pkgs.hyfetch
+    kiot
   ];
 
   hardware.graphics = {
