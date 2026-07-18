@@ -16,6 +16,12 @@ let
       ];
       hashedPassword = "$7$101$hW4MJmidGzRz5kXA$8SAPdONZper0ftdTLp+8cVv039aHZp2GG2/SgpzksujT7LKnTkM80CiAjSlY1G/UifM5uncdg3gtTK0YChgSig==";
     };
+    marie = {
+      acl = [
+        "readwrite homeassistant/#"
+      ];
+      hashedPassword = "$7$1000$iIBuiVeAqH8B04ABMk70VC4SJxOlKK534AOp+SQEYM357DWc6bD2VP4i5NlqTuU/+vYAGtLjO4KVYKWJTg97wA==$lGPJhE7S5Cw5uOf22N88ANwEPPh3mIRlTfk96xMgWftUuEjtikNGWD4QWHq723JJpMEhyMkzThYS/3hyAyQ2IQ==";
+    };
   };
 in
 {
