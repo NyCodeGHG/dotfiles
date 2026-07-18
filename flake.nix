@@ -168,9 +168,13 @@
         final: prev:
         let
           inherit (prev) lib;
-          packages = lib.mapAttrs (name: _: prev.callPackage ./pkgs/${name}/package.nix { }) (
-            lib.filterAttrs (n: v: v == "directory") (builtins.readDir ./pkgs)
-          );
+          packages = lib.flip lib.pipe [
+            lib.readDir
+            (lib.filterAttrs (_: type: type == "directory"))
+            (lib.mapAttrs (name: _: ./pkgs/${name}/package.nix))
+            (lib.filterAttrs (_: path: lib.pathExists path))
+            (lib.mapAttrs (_: path: prev.callPackage path { }))
+          ] ./pkgs;
         in
         packages
       );
