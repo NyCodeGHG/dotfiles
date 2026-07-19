@@ -1,0 +1,122 @@
+diff --git a/README.md b/README.md
+index c3761896c0..948fec1e1b 100644
+--- a/README.md
++++ b/README.md
+@@ -106,7 +106,7 @@
+ port=1883
+ user=mqtt_user
+ password=secure_password
+-useSSL=false
++tls=false
+ ```
+ 
+ #### Scripts Configuration
+diff --git a/core.cpp b/core.cpp
+index 8276726e85..1b4a6fc605 100644
+--- a/core.cpp
++++ b/core.cpp
+@@ -83,7 +83,7 @@
+ {
+     auto config = KSharedConfig::openConfig();
+     auto group = config->group("general");
+-    if (group.readEntry("useSSL", false)) {
++    if (group.readEntry("tls", false)) {
+         QSslConfiguration sslConfig = QSslConfiguration::defaultConfiguration();
+         m_client->connectToHostEncrypted(sslConfig);
+     } else {
+diff --git a/entities/entity.cpp b/entities/entity.cpp
+index 2188814419..2b366efd86 100644
+--- a/entities/entity.cpp
++++ b/entities/entity.cpp
+@@ -28,6 +28,7 @@
+ Q_DECLARE_LOGGING_CATEGORY(base)
+ Q_LOGGING_CATEGORY(base, "entities.Entity")
+ 
++static QString s_topicPrefix = "kiot";
+ 
+ static QString sanitizeForMqttTopic(const QString &input)
+ {
+@@ -75,7 +76,8 @@
+ 
+ QString Entity::baseTopic() const
+ {
+-    return hostname() + "/" + id();
++    return s_topicPrefix + "/" + hostname() + "/" + id();
++
+ }
+ 
+ QString Entity::haType() const
+@@ -148,7 +150,7 @@
+     config["name"] = name();
+     
+     if (id() != "connected") { //special case
+-        config["availability_topic"] = hostname() + "/connected";
++        config["availability_topic"] = s_topicPrefix + "/" + hostname() + "/connected";
+         config["payload_available"] = "on";
+         config["payload_not_available"] = "off";
+         const QString icon = haIcon();
+@@ -164,7 +166,7 @@
+     config["unique_id"] = "linux_ha_control_"+ hostname() + "_" + id();
+     HaControl::mqttClient()->publish(s_discoveryPrefix + "/" + haType() + "/" + hostname() + "/" + id() + "/config", QJsonDocument(QJsonObject::fromVariantMap(config)).toJson(QJsonDocument::Compact), 0, true);
+     if (id() != "connected") { //special case
+-        HaControl::mqttClient()->publish(hostname() + "/connected", "on", 0, false);
++        HaControl::mqttClient()->publish(s_topicPrefix + "/" + hostname() + "/connected", "on", 0, false);
+     }
+ }
+ 
+@@ -223,4 +225,4 @@
+     
+     QJsonDocument doc(obj);
+     HaControl::mqttClient()->publish(baseTopic() + "/attributes", doc.toJson(QJsonDocument::Compact), 0, true);
+-}
+\ No newline at end of file
++}
+diff --git a/ui/kiotsettings.kcfg b/ui/kiotsettings.kcfg
+index c66f98f46c..a1064e27e5 100644
+--- a/ui/kiotsettings.kcfg
++++ b/ui/kiotsettings.kcfg
+@@ -18,6 +18,10 @@
+             <label>MQTT password</label>
+             <default></default>
+         </entry>
++        <entry name="tls" type="Bool">
++            <label>Use TLS</label>
++            <default>false</default>
++        </entry>
+     </group>
+ </kcfg>
+ 
+diff --git a/ui/ui/main.qml b/ui/ui/main.qml
+index bb42ba0425..129f0c1abf 100644
+--- a/ui/ui/main.qml
++++ b/ui/ui/main.qml
+@@ -17,9 +17,9 @@
+ 
+         QQC2.TextField {
+             Kirigami.FormData.label: i18n("Port:")
+-            inputMask: "99999999"
++            validator: IntValidator { bottom: 1; top: 65535 }
+             text: kcm.settings.port
+-            onTextChanged: kcm.settings.port = value
++            onTextChanged: kcm.settings.port = text
+         }
+ 
+         QQC2.TextField {
+@@ -30,10 +30,16 @@
+ 
+         QQC2.TextField {
+             Kirigami.FormData.label: i18n("Password:")
+-            echoMode: QQC2.TextInput.Password
++            echoMode: TextInput.Password
+             text: kcm.settings.password
+             onTextChanged: kcm.settings.password = text
+         }
++
++        QQC2.CheckBox {
++            Kirigami.FormData.label: i18n("Use TLS:")
++            checked: kcm.settings.tls
++            onCheckedChanged: kcm.settings.tls = checked
++        }
+     }
+ }
+ 

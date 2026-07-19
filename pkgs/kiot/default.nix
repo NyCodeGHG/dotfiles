@@ -26,6 +26,10 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "kiot";
   version = "0-unstable-2026-07-01";
 
+  patches = [
+    ../../patches/kiot-fixes.patch
+  ];
+
   __structuredAttrs = true;
   strictDeps = true;
 
