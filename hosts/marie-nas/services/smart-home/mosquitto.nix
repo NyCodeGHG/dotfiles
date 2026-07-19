@@ -19,6 +19,7 @@ let
     marie = {
       acl = [
         "readwrite homeassistant/#"
+        "readwrite kiot/#"
       ];
       hashedPassword = "$7$1000$iIBuiVeAqH8B04ABMk70VC4SJxOlKK534AOp+SQEYM357DWc6bD2VP4i5NlqTuU/+vYAGtLjO4KVYKWJTg97wA==$lGPJhE7S5Cw5uOf22N88ANwEPPh3mIRlTfk96xMgWftUuEjtikNGWD4QWHq723JJpMEhyMkzThYS/3hyAyQ2IQ==";
     };
