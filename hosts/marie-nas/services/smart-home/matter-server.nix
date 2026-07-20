@@ -6,6 +6,7 @@
     extraArgs = [
       "--primary-interface=br0"
       "--log-level=warning"
+      "--enable-time-sync"
     ];
   };
 
