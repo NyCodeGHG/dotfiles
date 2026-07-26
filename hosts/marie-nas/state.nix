@@ -70,12 +70,6 @@
             group = "hass";
           }
           {
-            directory = "/var/lib/private/music-assistant";
-            user = "music-assistant";
-            group = "music-assistant";
-            mode = "0755";
-          }
-          {
             directory = "/var/lib/mosquitto";
             user = "mosquitto";
             group = "mosquitto";

@@ -31,7 +31,6 @@
     ./services/smart-home/home-assistant.nix
     ./services/smart-home/matter-server.nix
     ./services/smart-home/mosquitto.nix
-    ./services/smart-home/music-assistant.nix
     ./services/smart-home/openthread-border-router.nix
     ./services/smart-home/zigbee2mqtt.nix
 
