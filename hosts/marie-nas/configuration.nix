@@ -23,6 +23,7 @@
     ./services/dyndns.nix
     ./services/incus.nix
     ./services/immich.nix
+    ./monitoring.nix
 
     # Smart Home
     ./services/smart-home/esphome.nix
