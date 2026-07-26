@@ -75,11 +75,48 @@
 
   security.rtkit.enable = true;
 
-  services.sunshine = {
+  services.moonshine = {
     enable = true;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true;
+    user = "marie";
+    extraPackages = [ config.programs.xwayland.package ];
+    settings = {
+      name = "marie-desktop";
+      address = "::";
+      application = [
+        {
+          title = "Steam";
+          command = [
+            "${lib.getExe config.programs.steam.package}"
+            "steam://open/bigpicture"
+          ];
+        }
+      ];
+      application_scanner = [
+        {
+          type = "steam";
+          library = "$HOME/.local/share/Steam";
+          command = [
+            "${lib.getExe config.programs.steam.package}"
+            "-bigpicture"
+            "steam://rungameid/{game_id}"
+          ];
+        }
+        {
+          type = "desktop";
+          directories = [
+            "$HOME/.local/share/applications"
+            "$HOME/.local/share/flatpak/exports/share/applications"
+            "/run/current-system/sw/share/applications"
+          ];
+          include_terminal = false;
+          resolve_icons = true;
+        }
+      ];
+    };
+    firewallInterfaces = [
+      "tailscale0"
+      "enp14s0"
+      "wlan0"
+    ];
   };
-  users.users.marie.extraGroups = [ "uinput" ];
 }
