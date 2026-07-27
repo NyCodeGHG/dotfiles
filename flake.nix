@@ -80,6 +80,11 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-output-monitor = {
+      url = "github:maralorn/nix-output-monitor";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -92,6 +97,7 @@
       nixos-wii-u,
       corsair-hs80-pipewire-thing,
       nix-locate-man,
+      nix-output-monitor,
       ...
     }:
     let
@@ -112,6 +118,7 @@
                   systemd-impersonate.overlays.default
                   corsair-hs80-pipewire-thing.overlays.default
                   nix-locate-man.overlays.default
+                  nix-output-monitor.overlays.default
                 ];
               }
             )
@@ -208,6 +215,7 @@
                 systemd-impersonate.overlays.default
                 corsair-hs80-pipewire-thing.overlays.default
                 nix-locate-man.overlays.default
+                nix-output-monitor.overlays.default
               ];
             };
           patchedInputs = patchInputs {
