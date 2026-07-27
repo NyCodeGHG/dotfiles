@@ -21,43 +21,29 @@
       enable = true;
       enableDefaultConfig = false;
       package = pkgs.openssh;
-      matchBlocks = {
+      settings = {
+        "*" = {
+          AddKeysToAgent = true;
+        };
         "github.com" = {
-          user = "git";
-          identitiesOnly = true;
-          identityFile = config.uwumarie.profiles.ssh.githubKeyFile;
+          HostName = "github.com";
+          User = "git";
+          IdentitiesOnly = true;
+          IdentityFile = config.uwumarie.profiles.ssh.githubKeyFile;
         };
         artemis = {
-          hostname = "nue01.marie.cologne";
-          identitiesOnly = true;
-          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
+          HostName = "artemis.marie.cologne";
+          IdentitiesOnly = true;
+          IdentityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
         };
         delphi = {
-          hostname = "oci-fra01.marie.cologne";
-          identitiesOnly = true;
-          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
-        };
-        raspberrypi = {
-          user = "pi";
-          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
-          identitiesOnly = true;
-        };
-        wg-nas = {
-          hostname = "192.168.178.30";
-          identityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
-          identitiesOnly = true;
-        };
-        gitlabber = {
-          hostname = "gitlabber.weasel-gentoo.ts.net";
-          user = "root";
-          identitiesOnly = true;
+          HostName = "delphi.marie.cologne";
+          IdentitiesOnly = true;
+          IdentityFile = config.uwumarie.profiles.ssh.defaultKeyFile;
         };
         wiiu = {
-          hostname = "192.168.1.62";
-          identitiesOnly = true;
-        };
-        "*" = {
-          addKeysToAgent = "yes";
+          HostName = "192.168.1.62";
+          IdentitiesOnly = true;
         };
       };
     };
