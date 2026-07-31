@@ -20,8 +20,7 @@
       "transmission.service"
       "netns@vpn.target"
     ];
-    requires = [ "transmission.service" ];
-    bindsTo = [ "netns@vpn.target" ];
+    partOf = [ "netns@vpn.target" ];
     serviceConfig = {
       Type = "notify";
       NetworkNamespacePath = "/var/run/netns/vpn";

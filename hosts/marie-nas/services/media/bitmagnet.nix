@@ -25,9 +25,11 @@
   };
 
   systemd.services.bitmagnet-proxy = {
-    after = [ "bitmagnet.service" ];
-    requires = [ "bitmagnet.service" ];
-    bindsTo = [ "netns@vpn.target" ];
+    after = [ 
+      "bitmagnet.service"
+      "netns@vpn.target"
+    ];
+    partOf = [ "netns@vpn.target" ];
     serviceConfig = {
       Type = "notify";
       NetworkNamespacePath = "/var/run/netns/vpn";
