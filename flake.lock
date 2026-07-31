@@ -698,8 +698,7 @@
         "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim",
         "preservation": "preservation",
-        "systemd-impersonate": "systemd-impersonate",
-        "trackerlist": "trackerlist"
+        "systemd-impersonate": "systemd-impersonate"
       }
     },
     "stable": {
@@ -795,22 +794,6 @@
         "owner": "nix-systems",
         "ref": "future-26.11",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "trackerlist": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1785449386,
-        "narHash": "sha256-f+rOhAaBCePfP9ZS1XPIFQ5nMVIer5GvMK81E832wS0=",
-        "owner": "ngosang",
-        "repo": "trackerslist",
-        "rev": "3fde2b0bb300ebcbbf6ed5581e7a9b72b10404b5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ngosang",
-        "repo": "trackerslist",
         "type": "github"
       }
     },
