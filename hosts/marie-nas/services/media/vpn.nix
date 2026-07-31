@@ -100,14 +100,19 @@ in
       ];
       description = "VPN Port forwarding";
       wantedBy = [ "transmission.service" ];
-      bindsTo = [ "transmission.service" ];
+      partOf = [ "transmission.service" ];
+      requisite = [ "transmission.service" ];
       serviceConfig = {
-        Type = "oneshot";
+        Type = "exec";
         NetworkNamespacePath = "/var/run/netns/vpn";
         LoadCredential = "transmission.json:${config.age.secrets.transmission.path}";
         CapabilityBoundingSet = "CAP_NET_ADMIN";
         AmbientCapabilities = "CAP_NET_ADMIN";
         DynamicUser = true;
+        Restart = "on-failure";
+        RestartSec = "1s";
+        WatchdogSec = "60";
+        NotifyAccess = "all";
       };
       path = with pkgs; [
         libnatpmp
@@ -117,30 +122,37 @@ in
         jq
       ];
       script = ''
-        UDP_PORT="$(natpmpc -a 1 0 udp -g 10.2.0.1 | rg -o 'Mapped public port (\d+) protocol' -r '$1')"
-        TCP_PORT="$(natpmpc -a 1 0 tcp -g 10.2.0.1 | rg -o 'Mapped public port (\d+) protocol' -r '$1')"
+        function cleanup() {
+          nft flush set inet filter forwarded-ports
+          if [[ -n "$PORT" ]]; then
+            natpmpc -a "$PORT" "$PORT" udp 0 -g 10.2.0.1 || :
+          fi
+        }
 
-        nft flush set inet filter forwarded-ports
-        nft add element inet filter forwarded-ports { "$UDP_PORT" }
+        trap cleanup EXIT
+        systemd-notify WATCHDOG=1
 
-        if [[ "$TCP_PORT" != "$UDP_PORT" ]]; then
-          echo "Got a different port for TCP: $TCP_PORT"
-          nft add element inet filter forwarded-ports { "$TCP_PORT" }
-        fi
+        while :
+        do
+          PORT="$(natpmpc -a 1 0 udp 60 -g 10.2.0.1 | rg -o 'Mapped public port (\d+) protocol' -r '$1')"
+          TCP_PORT="$(natpmpc -a "$PORT" "$PORT" tcp 60 -g 10.2.0.1 | rg -o 'Mapped public port (\d+) protocol' -r '$1')"
 
-        TR_AUTH="transmission:$(jq -r '."rpc-password"' "$CREDENTIALS_DIRECTORY/transmission.json")" \
-          transmission-remote --port "$UDP_PORT" --authenv
+          if [[ "$PORT" != "$TCP_PORT" ]]; then
+            echo "Got different TCP and UDP ports." | systemd-cat --priority warning --identifier "vpn-portforward"
+          fi
+
+          nft flush set inet filter forwarded-ports
+          nft add element inet filter forwarded-ports { "$PORT" }
+
+          TR_AUTH="transmission:$(jq -r '."rpc-password"' "$CREDENTIALS_DIRECTORY/transmission.json")" \
+            transmission-remote --port "$PORT" --authenv
+
+          systemd-notify --status "Forwarded port $PORT (udp) and $TCP_PORT (tcp) for transmission"
+          systemd-notify WATCHDOG=1
+
+          sleep 45
+        done
       '';
-    };
-    systemd.timers.vpn-portforward = {
-      wantedBy = [ "transmission.service" ];
-      bindsTo = [ "transmission.service" ];
-      timerConfig = {
-        OnUnitActiveSec = "50s";
-      };
-      unitConfig = {
-        StopWhenUnneeded = true;
-      };
     };
   };
 }
