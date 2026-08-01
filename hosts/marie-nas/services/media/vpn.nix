@@ -41,15 +41,16 @@ in
     type = lib.types.path;
     description = "resolv.conf file used for services in the vpn.";
     default = pkgs.writeText "resolv.conf" ''
-      nameserver 9.9.9.10
-      nameserver 149.112.112.10
+      nameserver 2a07:b944::2:1
+      nameserver 10.2.0.1
     '';
   };
   config = {
     systemd.services.setup-netns-vpn = {
       after = [ "netns@vpn.service" ];
-      bindsTo = [ "netns@vpn.service" ];
+      partOf = [ "netns@vpn.service" ];
       wantedBy = [ "netns@vpn.target" ];
+      restartTriggers = [ config.age.secrets.vpn-wg.file ];
       description = "Setup VPN Network Namespace";
       serviceConfig = {
         RemainAfterExit = true;
@@ -70,9 +71,11 @@ in
         ip link add vpn type wireguard
         ip -n vpn link del vpn || :
         ip link set vpn netns vpn
+        ip -n vpn addr add 2a07:b944::2:2/128 dev vpn
         ip -n vpn addr add 10.2.0.2/32 dev vpn
         ip netns exec vpn wg syncconf vpn <(wg-quick strip "$CREDENTIALS_DIRECTORY/vpn-wg.conf")
         ip -n vpn link set vpn up
+        ip -6 -n vpn route add default dev vpn
         ip -n vpn route add default dev vpn
       '';
     };
