@@ -10,6 +10,7 @@
         host_whitelist = "sab.marie.cologne";
         download_dir = "/srv/shares/media/Downloads/sabnzbd-download";
         complete_dir = "/srv/shares/media/Downloads/sabnzbd-complete";
+        permissions = 750;
       };
     };
   };
