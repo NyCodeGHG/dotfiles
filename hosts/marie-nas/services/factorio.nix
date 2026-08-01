@@ -40,10 +40,4 @@
       autosave_slots = 15;
     };
   };
-
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    (builtins.elem (lib.getName pkg) [
-      "factorio-headless"
-    ]);
 }

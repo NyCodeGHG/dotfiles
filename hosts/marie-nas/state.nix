@@ -62,7 +62,17 @@
           {
             directory = "/var/lib/sonarr";
             user = "sonarr";
-            group = "sonarr";
+            group = "media";
+          }
+          {
+            directory = "/var/lib/radarr";
+            user = "radarr";
+            group = "media";
+          }
+          {
+            directory = "/var/lib/sabnzbd";
+            user = "sabnzbd";
+            group = "media";
           }
           {
             directory = "/var/lib/hass";
@@ -106,7 +116,7 @@
             directory = "/var/lib/bazarr";
             mode = "0700";
             user = "bazarr";
-            group = "bazarr";
+            group = "media";
           }
           "/var/lib/incus"
           "/var/lib/esphome"

@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, lib, ... }:
 {
   imports = [
     inputs.agenix.nixosModules.default
@@ -41,6 +41,7 @@
     ./services/media/radarr.nix
     ./services/media/sonarr.nix
     ./services/media/transmission.nix
+    ./services/media/sabnzbd.nix
     ./services/media/vpn.nix
   ];
   boot = {
@@ -96,4 +97,11 @@
   security.sudo-rs.wheelNeedsPassword = false;
 
   system.stateVersion = "24.11";
+
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    (builtins.elem (lib.getName pkg) [
+      "factorio-headless"
+      "unrar"
+    ]);
 }
