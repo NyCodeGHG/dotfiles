@@ -23,6 +23,7 @@ custom_formats:
       - e6886871085226c3da1830830146846c # Generated Dynamic HDR
       - 90a6f9a284dff5103f6346090e6280c8 # LQ
       - e204b80c87be9497a8a6eaff48f72905 # LQ (Release Title)
+      - c465ccc73923871b3eb1802042331306 # Line/Mic Dubbed
       - b8cd450cbfa689c0259a01d9e29ba3d6 # 3D
       - bfd8eb01832d646a0a89c4deb46f8564 # Upscaled
       - 0a3f082873eb454bde444150b70253cc # Extras
@@ -44,6 +45,7 @@ custom_formats:
       - 170b1d363bd8516fbf3a3eb05d4faff6 # NF
       - e36a0ba1bc902b26ee40818a1d59b8bd # PMTP
       - c9fd353f8f5f1baf56dc601c4cb29920 # PCOK
+      - 350e9170619683a55cb9191d0b1ababa # PLAY
       - 44c2b54d7c81c1a442a8b2cabeaef54f # ROKU
       - c2863d2a50c9acad1fb50e53ece60817 # STAN
 
