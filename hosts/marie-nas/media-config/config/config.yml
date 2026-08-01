@@ -13,6 +13,9 @@ sonarr:
       - template: sonarr-original-language
       - template: sonarr-naming
       - template: sonarr-x265-deny
+      - template: sonarr-german
+      - template: sonarr-german-quality
+      - template: sonarr-german-x265-deny
     media_management:
       downloadPropersAndRepacks: doNotPrefer
   tobi:
@@ -40,6 +43,9 @@ radarr:
       - template: radarr-original-language
       - template: radarr-naming
       - template: radarr-x265-deny
+      - template: radarr-german
+      - template: radarr-german-quality
+      - template: radarr-german-x265-deny
     media_management:
       downloadPropersAndRepacks: doNotPrefer
   tobi:

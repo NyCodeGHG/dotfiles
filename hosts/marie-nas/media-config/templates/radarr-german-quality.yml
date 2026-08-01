@@ -1,0 +1,34 @@
+quality_profiles:
+  - name: WEB-2160p (GER)
+    reset_unmatched_scores:
+      enabled: true
+    # German scores are a parallel scale: "Language: Not Original" drops to 0
+    # and "German DL" flips from -10000 to +11000.
+    score_set: german
+    # Required: with "Original" a German dub of an English movie is not grabbed.
+    language: Any
+    upgrade:
+      allowed: false
+      until_quality: WEB 2160p
+      until_score: 35000
+      min_format_score: 1
+    min_format_score: 0
+    quality_sort: top
+    # Deliberately NOT the merged single group TRaSH uses for German. Quality
+    # rank is evaluated before custom format score, so keeping 2160p above 1080p
+    # means 4K always wins when it exists and German only decides within a tier.
+    # 1080p stays a fallback for titles with no 4K release at all.
+    qualities:
+      - name: WEB 2160p
+        qualities:
+          - WEBDL-2160p
+          - WEBRip-2160p
+          - Bluray-2160p
+      - name: WEB 1080p
+        qualities:
+          - WEBRip-1080p
+          - WEBDL-1080p
+          - Bluray-1080p
+
+quality_definition:
+  type: movie
