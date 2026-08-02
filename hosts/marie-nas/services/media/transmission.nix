@@ -151,7 +151,11 @@ in
   };
 
   systemd.services.trackerslist-update = {
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    before = [ "transmission-load-default-trackers.service" ];
     onSuccess = [ "transmission-load-default-trackers.service" ];
+    wantedBy = [ "multi-user.target" ];
     enableStrictShellChecks = true;
     serviceConfig = {
       Type = "oneshot";
