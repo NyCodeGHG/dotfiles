@@ -188,8 +188,6 @@
       };
     };
 
-    auto-session.enable = true;
-
     # Treesitter
     treesitter = {
       enable = true;
