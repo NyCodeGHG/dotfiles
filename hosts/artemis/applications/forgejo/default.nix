@@ -81,11 +81,34 @@
   '';
 
   services.anubis = {
-    instances.forgejo.settings = {
-      TARGET = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
-      BIND = "/run/anubis/anubis-forgejo/anubis.sock";
-      METRICS_BIND = ":9090";
-      METRICS_BIND_NETWORK = "tcp";
+    instances.forgejo = {
+      settings = {
+        TARGET = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+        BIND = "/run/anubis/anubis-forgejo/anubis.sock";
+        METRICS_BIND = ":9090";
+        METRICS_BIND_NETWORK = "tcp";
+      };
+      policy = {
+        useDefaultBotRules = true;
+        extraBots = [
+          {
+            import = "(data)/clients/docker-client.yaml";
+          }
+          {
+            name = "forgejo-runner";
+            path_regex = "^/api/actions/(?:runner\\.v1\\.RunnerService|ping\\.v1\\.PingService)/.*$";
+            action = "ALLOW";
+          }
+          {
+            name = "blackbox-exporter";
+            action = "ALLOW";
+            expression.all = [
+              ''userAgent.startsWith("Blackbox Exporter/")''
+              ''path == "/"''
+            ];
+          }
+        ];
+      };
     };
   };
 
