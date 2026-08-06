@@ -10,7 +10,7 @@ let
     inherit src version;
     sourceRoot = "${src.name}/mcp-app";
 
-    npmDepsHash = "sha256-6EmAXZRq5/DLs6/3waT8dxQvZ3HVtUQJOiIWpukCK2E=";
+    npmDepsHash = "sha256-2u/lreSth9HLHt7fAwC9Q+WrYlsAz2VHFUIT6dr9XEE=";
 
     installPhase = ''
       runHook preInstall
@@ -24,14 +24,14 @@ in
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "linux-mcp-server";
-  version = "1.4.1";
+  version = "1.5.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "rhel-lightspeed";
     repo = "linux-mcp-server";
-    rev = "7e688f56e5019c5f95f18d39293a9befacb08d48";
-    hash = "sha256-oNNc0zA5d1alvbkZi7KiJtRxcTbp3sBlDCpwaNxXyPQ=";
+    tag = finalAttrs.version;
+    hash = "sha256-p5ZEjwWZOoNNEMxeM81WyHbgkGUaK+sT1Kuyls7YlQg=";
   };
 
   preBuild = ''
