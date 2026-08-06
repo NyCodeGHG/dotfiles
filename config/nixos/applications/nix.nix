@@ -41,6 +41,11 @@
         auto-allocate-uids = true;
         extra-system-features = [ "uid-range" ];
         use-cgroups = true;
+        use-xdg-base-directories = true;
+
+        download-attempts = 3;
+        initial-connect-timeout = 3;
+        max-connect-timeout = 10;
       };
     };
   };
