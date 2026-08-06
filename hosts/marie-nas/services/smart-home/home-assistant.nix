@@ -15,7 +15,6 @@
       # Components required to complete the onboarding
       "analytics"
       "google_translate"
-      "met"
       "radio_browser"
       "shopping_list"
       # Recommended for fast zlib compression
@@ -27,7 +26,6 @@
       "ipp"
       "homekit_controller"
       "homekit"
-      "control4"
       "ping"
       "jellyfin"
       "fritz"
@@ -40,10 +38,11 @@
       "workday"
       "holiday"
       "google"
-      "enocean"
       "otbr"
       "homeassistant_connect_zbt2"
       "mcp_server"
+      "openweathermap"
+      "co2signal"
     ];
     config = {
       # Includes dependencies for a basic setup
