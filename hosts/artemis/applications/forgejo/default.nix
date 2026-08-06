@@ -90,6 +90,13 @@
       };
       policy = {
         useDefaultBotRules = true;
+        settings = {
+          honeypot = {
+            enabled = true;
+            implementation = "naive";
+            ip_log_file = "/var/log/anubis-forgejo/honeypot.addrs";
+          };
+        };
         extraBots = [
           {
             import = "(data)/crawlers/tencent-cloud.yaml";
@@ -113,6 +120,10 @@
         ];
       };
     };
+  };
+
+  systemd.services.anubis-forgejo.serviceConfig = {
+    LogsDirectory = "anubis-forgejo";
   };
 
   environment.etc."alloy/anubis-forgejo.alloy".text = ''
