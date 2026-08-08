@@ -92,6 +92,9 @@
         useDefaultBotRules = true;
         extraBots = [
           {
+            import = "(data)/crawlers/tencent-cloud.yaml";
+          }
+          {
             import = "(data)/clients/docker-client.yaml";
           }
           {
