@@ -98,9 +98,8 @@
           };
         };
         extraBots = [
-          {
-            import = "(data)/crawlers/tencent-cloud.yaml";
-          }
+          { import = "${../anubis/tencent.yaml}"; }
+          { import = "${../anubis/huawei.yaml}"; }
           {
             import = "(data)/clients/docker-client.yaml";
           }
