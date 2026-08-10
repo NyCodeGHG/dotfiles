@@ -46,6 +46,7 @@
         download-attempts = 3;
         initial-connect-timeout = 3;
         max-connect-timeout = 10;
+        stalled-download-timeout = 5;
       };
     };
   };
