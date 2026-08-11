@@ -11,10 +11,14 @@ function is_pr_merged() {
   PR="$1"
   PR_INFO="$(gh api "repos/$REPO/pulls/$PR")"
   MERGE_COMMIT_SHA="$(jq -r '.merge_commit_sha' <<< "$PR_INFO")"
-  PR_STATUS="$(gh api "repos/$REPO/compare/$NIXPKGS_REV...$MERGE_COMMIT_SHA" --jq ".status")"
+  if [[ "$MERGE_COMMIT_SHA" != "null" ]]; then
+    PR_STATUS="$(gh api "repos/$REPO/compare/$NIXPKGS_REV...$MERGE_COMMIT_SHA" --jq ".status")"
 
-  [[ "$PR_STATUS" != "ahead" ]]
-  IS_MERGED=$?
+    [[ "$PR_STATUS" != "ahead" ]]
+    IS_MERGED=$?
+  else
+    IS_MERGED=1
+  fi
 
   if [[ $IS_MERGED == 0 ]]; then
     MERGED_TEXT="\e[0;39;48;2;137;87;229mMerged\e[0m"
