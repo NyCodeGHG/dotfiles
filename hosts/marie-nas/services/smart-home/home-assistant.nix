@@ -9,6 +9,7 @@
     package = pkgs.home-assistant.overrideAttrs (prev: {
       patches = (prev.patches or []) ++ [
         ../../../../patches/hass-ipv6-prefix.patch
+        ../../../../patches/hass-nixos-brand.patch
       ];
     });
     extraComponents = [

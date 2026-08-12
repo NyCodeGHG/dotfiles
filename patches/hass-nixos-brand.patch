@@ -1,0 +1,12 @@
+diff --git a/homeassistant/components/thread/discovery.py b/homeassistant/components/thread/discovery.py
+index a6ddb29..beac1b4 100644
+--- a/homeassistant/components/thread/discovery.py
++++ b/homeassistant/components/thread/discovery.py
+@@ -33,6 +33,7 @@ KNOWN_BRANDS: dict[str | None, str] = {
+     "Home Assistant": "homeassistant",
+     "IKEA": "ikea",
+     "Nanoleaf": "nanoleaf",
++    "NixOS": "openthread",
+     "OpenThread": "openthread",
+     "Samsung": "samsung",
+     "SmartThings": "smartthings",
