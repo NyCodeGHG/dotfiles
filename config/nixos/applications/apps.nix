@@ -25,6 +25,7 @@
         signal-desktop
         vscodium
         github-cli
+        krita
       ])
       ++ (with pkgs.kdePackages; [
         isoimagewriter
