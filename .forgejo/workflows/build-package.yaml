@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Install Nix
-        uses: https://github.com/cachix/install-nix-action@0b0e072294b088b73964f1d72dfdac0951439dbd # v31
+        uses: https://github.com/cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31
       
       - name: Configure attic
         if: "${{ inputs.push-to-cache}} == true"
