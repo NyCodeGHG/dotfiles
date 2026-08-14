@@ -88,8 +88,6 @@
     earlySetup = true;
   };
 
-  systemd.services.cups-browsed.enable = false;
-
   programs.fish = {
     enable = true;
     useBabelfish = true;
@@ -139,50 +137,44 @@
     "/mnt/windows-shared-games" = {
       device = "/dev/disk/by-uuid/75734D662554FA4A";
       fsType = "ntfs";
-      options = [ "nofail" "nosuid" "uid=1000" ];
+      options = [
+        "nofail"
+        "nosuid"
+        "uid=1000"
+      ];
     };
   };
 
-  boot.resumeDevice = "/dev/disk/by-uuid/0b3f37d1-6752-4bea-8049-23199f49797f";
-
-  environment.systemPackages =
-    with pkgs;
-    [
-      spotify
-      nvtopPackages.amd
-      (nix-update.override {
-        nix = config.nix.package;
-        inherit (lixPackageSets.latest) nixpkgs-review;
-      })
-      protontricks
-      dysk
-      qbittorrent
-      p7zip
-      unrar-wrapper
-      nushell
-      # makemkv
-      scrcpy
-      zfs # to view manpages
-      attic-client
-      syncthingtray
-      quickemu
-      # anydesk
-      ludusavi
-      chatterino7
-      unrar
-      jellyfin-desktop
-      distrobox
-      obs-cmd
-      kdiff3
-      evcxr
-      gemini-cli
-      jetbrains.idea
-      incus.client
-    ]
-    ++ (with pkgs.kdePackages; [
-      # kdenlive
-      konversation
-    ]);
+  environment.systemPackages = with pkgs; [
+    spotify
+    nvtopPackages.amd
+    (nix-update.override {
+      nix = config.nix.package;
+      inherit (lixPackageSets.latest) nixpkgs-review;
+    })
+    protontricks
+    dysk
+    qbittorrent
+    p7zip
+    unrar-wrapper
+    nushell
+    # makemkv
+    scrcpy
+    zfs # to view manpages
+    attic-client
+    quickemu
+    # anydesk
+    ludusavi
+    chatterino7
+    unrar
+    jellyfin-desktop
+    distrobox
+    obs-cmd
+    kdiff3
+    evcxr
+    jetbrains.idea
+    incus.client
+  ];
 
   virtualisation.spiceUSBRedirection.enable = true;
 
