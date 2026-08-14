@@ -2,6 +2,7 @@
   pkgs,
   lib,
   osConfig,
+  config,
   ...
 }:
 {
@@ -189,4 +190,10 @@
   };
 
   age.secrets.grafana-mcp-token.file = ../../../secrets/grafana-mcp-token.age;
+
+  programs.opencode = {
+    enable = true;
+    context = config.programs.claude-code.context;
+    enableMcpIntegration = true;
+  };
 }
