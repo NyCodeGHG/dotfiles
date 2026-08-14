@@ -167,7 +167,7 @@
     ludusavi
     chatterino7
     unrar
-    jellyfin-desktop
+    plezy
     distrobox
     obs-cmd
     kdiff3
