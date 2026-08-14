@@ -63,6 +63,9 @@
   #   autoStart = true;
   # };
 
+  services.lact.enable = true;
+  hardware.amdgpu.overdrive.enable = true;
+
   programs.alvr = {
     enable = false;
     openFirewall = true;
