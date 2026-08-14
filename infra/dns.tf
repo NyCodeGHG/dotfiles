@@ -97,22 +97,6 @@ resource "cloudflare_dns_record" "marie_nas_marie_cologne" {
   ttl     = 1
 }
 
-resource "cloudflare_dns_record" "delphi_v4" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "delphi"
-  content = "141.144.240.28"
-  type    = "A"
-  ttl     = 1
-}
-
-resource "cloudflare_dns_record" "delphi_v6" {
-  zone_id = data.cloudflare_zone.marie_cologne.id
-  name    = "delphi"
-  content = "2603:c020:8012:1069:0:c0ff:ee:babe"
-  type    = "AAAA"
-  ttl     = 1
-}
-
 resource "cloudflare_dns_record" "marie_cologne" {
   zone_id = data.cloudflare_zone.marie_cologne.id
   name    = "marie.cologne"
