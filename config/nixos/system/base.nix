@@ -119,7 +119,7 @@
     };
 
     environment.shellAliases = {
-      "man" = lib.mkIf config.documentation.man.enable "nix-locate-man";
+      "man" = lib.mkIf (lib.elem pkgs.nix-locate-man config.environment.systemPackages) "nix-locate-man";
       "ffmpeg" = "ffmpeg -hide_banner";
       "ffprobe" = "ffprobe -hide_banner";
       "ffplay" = "ffplay -hide_banner";
