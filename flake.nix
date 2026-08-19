@@ -80,6 +80,11 @@
       url = "github:maralorn/nix-output-monitor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    principa-document-downloader = {
+      url = "https://git.marie.cologne/marie/principa-document-downloader/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -93,6 +98,7 @@
       corsair-hs80-pipewire-thing,
       nix-locate-man,
       nix-output-monitor,
+      principa-document-downloader,
       ...
     }:
     let
@@ -114,6 +120,7 @@
                   corsair-hs80-pipewire-thing.overlays.default
                   nix-locate-man.overlays.default
                   nix-output-monitor.overlays.default
+                  principa-document-downloader.overlays.default
                 ];
               }
             )
@@ -211,6 +218,7 @@
                 corsair-hs80-pipewire-thing.overlays.default
                 nix-locate-man.overlays.default
                 nix-output-monitor.overlays.default
+                principa-document-downloader.overlays.default
               ];
             };
           patchedInputs = patchInputs {

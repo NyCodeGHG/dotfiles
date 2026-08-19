@@ -59,6 +59,13 @@ in
   "../hosts/marie-nas/secrets/matter-hub-token.age".publicKeys = users ++ marie-nas;
   "../hosts/marie-nas/secrets/oauth2-proxy.age".publicKeys = users ++ marie-nas;
   "../hosts/marie-nas/secrets/cloudflare-token.age".publicKeys = users ++ marie-nas;
+  "../hosts/marie-nas/secrets/ntfy_url.age".publicKeys = users ++ marie-nas;
+  "../hosts/marie-nas/secrets/paperless_base_url.age".publicKeys = users ++ marie-nas;
+  "../hosts/marie-nas/secrets/paperless_token.age".publicKeys = users ++ marie-nas;
+  "../hosts/marie-nas/secrets/principa_base_url.age".publicKeys = users ++ marie-nas;
+  "../hosts/marie-nas/secrets/principa_context.age".publicKeys = users ++ marie-nas;
+  "../hosts/marie-nas/secrets/principa_password.age".publicKeys = users ++ marie-nas;
+  "../hosts/marie-nas/secrets/principa_user.age".publicKeys = users ++ marie-nas;
 
   "../hosts/traewelldroid-prod/secrets/fcm-credentials.age".publicKeys = users ++ traewelldroid-prod;
 }

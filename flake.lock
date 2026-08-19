@@ -676,6 +676,24 @@
         "type": "github"
       }
     },
+    "principa-document-downloader": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787139897,
+        "narHash": "sha256-9PqWBSCZ63hsC+wgHJhAELxVQfWEimlTHUxyM/uzSxk=",
+        "rev": "7c6d22e6a7519d647a4e76287812f6a57bda42cd",
+        "type": "tarball",
+        "url": "https://git.marie.cologne/api/v1/repos/marie/principa-document-downloader/archive/7c6d22e6a7519d647a4e76287812f6a57bda42cd.tar.gz?rev=7c6d22e6a7519d647a4e76287812f6a57bda42cd"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://git.marie.cologne/marie/principa-document-downloader/archive/main.tar.gz"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -695,6 +713,7 @@
         "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim",
         "preservation": "preservation",
+        "principa-document-downloader": "principa-document-downloader",
         "systemd-impersonate": "systemd-impersonate"
       }
     },

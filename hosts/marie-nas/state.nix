@@ -120,6 +120,12 @@
           }
           "/var/lib/incus"
           "/var/lib/esphome"
+          {
+            directory = "/var/lib/private/principa-document-downloader";
+            mode = "0700";
+            user = "principa-document-downloader";
+            group = "principa-document-downloader";
+          }
         ];
         files = [
           {
