@@ -125,32 +125,20 @@
       "ffplay" = "ffplay -hide_banner";
       "nrp" = "nix repl --file '<nixpkgs>'";
       "vim" = "nvim";
-      "nginx-config" = lib.mkIf config.services.nginx.enable "systemctl cat nginx | grep -oP '\\/nix\\/store\\/\\w+-nginx\\.conf' -m 1";
+      "nginx-config" =
+        lib.mkIf config.services.nginx.enable "systemctl cat nginx | grep -oP '\\/nix\\/store\\/\\w+-nginx\\.conf' -m 1";
     };
 
     security.polkit.enable = lib.mkDefault true;
 
     fonts.packages = [ pkgs.fira ];
 
-    services.kmscon =
-      if lib.versionAtLeast lib.trivial.release "26.11" then
-        {
-          enable = lib.mkDefault true;
-          useXkbConfig = true;
-          config = {
-            font-name = "Fira Mono";
-          };
-        }
-      else
-        {
-          enable = lib.mkDefault true;
-          useXkbConfig = true;
-          fonts = [
-            {
-              name = "Fira Mono";
-              package = pkgs.fira;
-            }
-          ];
-        };
+    services.kmscon = {
+      enable = lib.mkDefault true;
+      useXkbConfig = true;
+      config = {
+        font-name = "Fira Mono";
+      };
+    };
   };
 }

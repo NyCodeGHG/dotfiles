@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   lib,
   ...
@@ -9,8 +8,6 @@
     with inputs;
     [
       self.nixosModules.authentik
-      self.nixosModules.cachixUpload
-      #inputs.self.nixosModules.scanservjs
     ]
     ++ import ./module-list.nix;
 

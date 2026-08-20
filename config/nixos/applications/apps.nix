@@ -68,7 +68,6 @@
         nixfmt
         gopls
         editorconfig-core-c
-        clojure-lsp
         nixd
         nix-diff
         lix-diff
@@ -76,8 +75,6 @@
         lixPackageSets.latest.nixpkgs-review
         nix-output-monitor
         gdb
-        clojure
-        leiningen
         tokei
         clang-tools
         docker-compose # for podman-compose
