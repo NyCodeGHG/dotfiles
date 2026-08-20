@@ -25,7 +25,6 @@
       defaultKeyFile = "~/.ssh/id_ed25519";
     };
     fish = true;
-    tmux = true;
   };
   age.identityPaths = [
     "${config.home.homeDirectory}/.ssh/agenix.ed25519"
