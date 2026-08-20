@@ -25,8 +25,6 @@
 
     preservation.url = "github:nix-community/preservation";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,11 +52,6 @@
 
     nixos-wii-u = {
       url = "https://codeberg.org/marie/nixos-wii-u/archive/main.tar.gz";
-    };
-
-    hydra = {
-      url = "https://git.lix.systems/lix-project/hydra/archive/lix-2.94.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixpak = {

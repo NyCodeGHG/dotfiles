@@ -16,7 +16,7 @@ locals {
     "git", "grafana", "chat", "admin.chat",
     "matrix", "miniflux", "nue01",
     "ip", "hedgedoc",
-    "atuin", "hydra", "s3", "*.s3", "s3-web",
+    "atuin", "s3", "*.s3", "s3-web",
     "idm.marie.cologne", "dn42-de.marie.cologne",
   ])
 
