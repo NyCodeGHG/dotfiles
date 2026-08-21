@@ -2,6 +2,16 @@
 {
   services.forgejo-runner.instances.gitlabber = {
     enable = true;
+    hostPackages = with pkgs; [
+      bash
+      coreutils
+      curl
+      gawk
+      gnused
+      nodejs
+      wget
+      config.nix.package
+    ];
     settings = {
       runner.labels = [
         "ubuntu-22.04:docker://ghcr.io/catthehacker/ubuntu:runner-22.04"
