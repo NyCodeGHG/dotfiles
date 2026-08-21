@@ -137,8 +137,14 @@
       });
       packages = forEachSystem nixpkgs (pkgs: self.overlays.packages pkgs pkgs);
       checks = forEachSystem nixpkgs (pkgs: {
-        agenix-keygen = pkgs.testers.runNixOSTest ./tests/agenix/keygen.nix;
-        agenix-provision = pkgs.testers.runNixOSTest ./tests/agenix/provision.nix;
+        agenix-keygen = pkgs.testers.runNixOSTest {
+          imports = [ ./tests/agenix/keygen.nix ];
+          defaults.imports = [ inputs.agenix.nixosModules.default ];
+        };
+        agenix-provision = pkgs.testers.runNixOSTest {
+          imports = [ ./tests/agenix/provision.nix ];
+          defaults.imports = [ inputs.agenix.nixosModules.default ];
+        };
       });
 
       overlays.default = (

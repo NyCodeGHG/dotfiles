@@ -4,58 +4,97 @@
   config,
   ...
 }:
+let
+  cfg = config.uwumarie.agenix;
+in
 {
-  options.uwumarie.agenix.enable = lib.mkEnableOption "agenix host key generation";
-  config = lib.mkIf config.uwumarie.agenix.enable {
-    systemd.tmpfiles.settings."10-agenix-provision" = {
-      "/var/lib/agenix/host_key.txt"."f^" = {
-        user = "root";
-        group = "root";
-        mode = "0600";
-        argument = "agenix.host_key";
-      };
-    };
-    systemd.services = {
-      systemd-tmpfiles-setup.serviceConfig.LoadCredential = [ "agenix.host_key" ];
-      systemd-tmpfiles-resetup.serviceConfig.LoadCredential = [ "agenix.host_key" ];
-
-      agenix-keygen = {
-        description = "Generate agenix host key";
-        wantedBy = [ "multi-user.target" ];
-        unitConfig = {
-          ConditionFileNotEmpty = "!%S/agenix/host_key.txt";
-          ConditionCredential = "!agenix.host_key";
-        };
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "${lib.getExe' pkgs.age "age-keygen"} -pq -o %S/agenix/host_key.txt";
-          WorkingDirectory = "%S/agenix";
-          StateDirectory = "agenix";
-
-          LockPersonality = true;
-          MemoryDenyWriteExecute = true;
-          NoNewPrivileges = true;
-          PrivateDevices = true;
-          PrivateNetwork = true;
-          PrivateTmp = true;
-          PrivateUsers = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          ProtectSystem = "strict";
-          ProtectHome = true;
-          ProtectProc = "invisible";
-          RestrictAddressFamilies = [ ];
-          ProtectClock = true;
-          ProtectControlGroups = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          SystemCallArchitectures = "native";
-          SystemCallFilter = "@system-service";
-          SocketBindDeny = "deny";
-        };
+  options.uwumarie.agenix = {
+    enable = lib.mkEnableOption "agenix host key generation";
+    provisioning = {
+      enable = lib.mkEnableOption "agenix host key provisioning";
+      credential = lib.mkOption {
+        description = "The systemd credential to use for provisioning.";
+        default = "agenix.host_key";
+        type = lib.types.nonEmptyStr;
       };
     };
   };
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      (lib.mkIf cfg.provisioning.enable {
+        assertions = [
+          {
+            assertion = config.services.userborn.enable;
+            message = "services.userborn.enable must be enabled for provisioning to work.";
+          }
+        ];
+
+        systemd.tmpfiles.settings."10-agenix-provision" = lib.mkIf cfg.provisioning.enable {
+          "/var/lib/agenix/host_key.txt"."f^" = {
+            user = "root";
+            group = "root";
+            mode = "0600";
+            argument = cfg.provisioning.credential;
+          };
+        };
+
+        systemd.services = {
+          systemd-tmpfiles-setup = {
+            enableDefaultPath = false;
+            serviceConfig.LoadCredential = [ cfg.provisioning.credential ];
+          };
+          systemd-tmpfiles-resetup = {
+            enableDefaultPath = false;
+            serviceConfig.LoadCredential = [ cfg.provisioning.credential ];
+          };
+          agenix-install-secrets = {
+            after = [ "systemd-tmpfiles-setup.service" ];
+            before = [ "sysinit.target" ];
+          };
+        };
+      })
+      {
+        age.identityPaths = [ "/var/lib/agenix/host_key.txt" ];
+
+        systemd.services.agenix-keygen = {
+          description = "Generate agenix host key";
+          wantedBy = [ "sysinit.target" ];
+          before = [ "agenix-install-secrets.service" ];
+          unitConfig = {
+            ConditionPathExists = "!%S/agenix/host_key.txt";
+            ConditionCredential = "!agenix.host_key";
+            DefaultDependencies = false;
+          };
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${lib.getExe' pkgs.age "age-keygen"} -pq -o %S/agenix/host_key.txt";
+            StateDirectory = "agenix";
+
+            LockPersonality = true;
+            MemoryDenyWriteExecute = true;
+            NoNewPrivileges = true;
+            PrivateDevices = true;
+            PrivateNetwork = true;
+            PrivateTmp = true;
+            PrivateUsers = true;
+            RestrictRealtime = true;
+            RestrictSUIDSGID = true;
+            ProtectSystem = "strict";
+            ProtectHome = true;
+            ProtectProc = "invisible";
+            RestrictAddressFamilies = [ ];
+            ProtectClock = true;
+            ProtectControlGroups = true;
+            ProtectHostname = true;
+            ProtectKernelLogs = true;
+            ProtectKernelModules = true;
+            ProtectKernelTunables = true;
+            SystemCallArchitectures = "native";
+            SystemCallFilter = "@system-service";
+            SocketBindDeny = "deny";
+          };
+        };
+      }
+    ]
+  );
 }

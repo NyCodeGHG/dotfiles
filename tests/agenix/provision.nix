@@ -6,21 +6,32 @@ let
   '';
 in
 {
-  name = "agenix-keygen";
+  name = "agenix-provision";
 
   containers.machine = {
     imports = [
       ../../config/nixos/system/agenix-keygen.nix
     ];
-    uwumarie.agenix.enable = true;
+    uwumarie.agenix = {
+      enable = true;
+      provisioning.enable = true;
+    };
+    services.userborn.enable = true;
     virtualisation.credentials."agenix.host_key".text = ageKey;
+
+    age.secrets.example.file = ./secret.age;
   };
 
   testScript = ''
-    machine.wait_for_file("/var/lib/agenix/host_key.txt", 10)
-    key = machine.succeed("cat /var/lib/agenix/host_key.txt")
-    assert "age1pq1" in key
-    assert "AGE-SECRET-KEY-PQ-" in key
-    assert """${ageKey}""" == key
+    import datetime
+
+    with subtest("host key has been provisioned"):
+      machine.wait_for_file("/var/lib/agenix/host_key.txt", datetime.timedelta(seconds=10))
+      key = machine.succeed("cat /var/lib/agenix/host_key.txt")
+      assert """${ageKey}""" == key
+
+    with subtest("example secret has been decrypted"):
+      machine.wait_for_file("/run/agenix/example", datetime.timedelta(seconds=10))
+      assert "meow" == machine.succeed("cat /run/agenix/example").strip()
   '';
 }
