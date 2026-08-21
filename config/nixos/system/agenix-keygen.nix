@@ -54,7 +54,15 @@ in
         };
       })
       {
-        age.identityPaths = [ "/var/lib/agenix/host_key.txt" ];
+        age.identityPaths = [
+          "/var/lib/agenix/host_key.txt"
+        ]
+        ++ lib.optionals config.services.openssh.enable (
+          lib.pipe config.services.openssh.hostKeys [
+            (map (e: e.path))
+            (lib.filter (e: e.type == "rsa" || e.type == "ed25519"))
+          ]
+        );
 
         systemd.services.agenix-keygen = {
           description = "Generate agenix host key";
