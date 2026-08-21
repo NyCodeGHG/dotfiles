@@ -30,7 +30,6 @@
   age.identityPaths = [
     "${config.home.homeDirectory}/.ssh/agenix.ed25519"
   ];
-  programs.switch-to-windows.enable = true;
 
   programs.atuin = {
     enable = true;
