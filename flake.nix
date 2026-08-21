@@ -136,6 +136,9 @@
         };
       });
       packages = forEachSystem nixpkgs (pkgs: self.overlays.packages pkgs pkgs);
+      checks = forEachSystem nixpkgs (pkgs: {
+        agenix-keygen = pkgs.testers.runNixOSTest ./tests/agenix-keygen.nix;
+      });
 
       overlays.default = (
         final: prev:
