@@ -82,7 +82,7 @@ in
             ProtectSystem = "strict";
             ProtectHome = true;
             ProtectProc = "invisible";
-            RestrictAddressFamilies = [ ];
+            RestrictAddressFamilies = "";
             ProtectClock = true;
             ProtectControlGroups = true;
             ProtectHostname = true;
@@ -91,7 +91,7 @@ in
             ProtectKernelTunables = true;
             SystemCallArchitectures = "native";
             SystemCallFilter = "@system-service";
-            SocketBindDeny = "deny";
+            SocketBindDeny = "any";
           };
         };
       }
