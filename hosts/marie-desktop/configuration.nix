@@ -21,7 +21,6 @@
     # ./krisp-patcher.nix
     ./peacock.nix
     ./networking.nix
-    ./kapsule.nix
   ];
 
   virtualisation.waydroid.enable = true;
