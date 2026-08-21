@@ -8,6 +8,7 @@
   ./applications/corsair.nix
   ./applications/apps.nix
   ./applications/ssh-agent.nix
+  ./system/agenix-keygen.nix
   ./system/base.nix
   ./system/dns.nix
   ./system/headless.nix
