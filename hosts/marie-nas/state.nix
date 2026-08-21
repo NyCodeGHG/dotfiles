@@ -29,6 +29,7 @@
             inInitrd = true;
           }
           "/var/lib/systemd"
+          "/var/lib/agenix"
           {
             directory = "/var/lib/tailscale";
             mode = "0700";

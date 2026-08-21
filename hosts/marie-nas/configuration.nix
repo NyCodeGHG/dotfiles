@@ -63,6 +63,8 @@
     nginx.enable = true;
   };
 
+  uwumarie.agenix.enable = true;
+
   services.iperf3 = {
     enable = true;
     openFirewall = true;
