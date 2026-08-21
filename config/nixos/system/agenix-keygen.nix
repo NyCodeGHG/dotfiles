@@ -41,11 +41,11 @@ in
         systemd.services = {
           systemd-tmpfiles-setup = {
             enableDefaultPath = false;
-            serviceConfig.LoadCredential = [ cfg.provisioning.credential ];
+            serviceConfig.ImportCredential = [ cfg.provisioning.credential ];
           };
           systemd-tmpfiles-resetup = {
             enableDefaultPath = false;
-            serviceConfig.LoadCredential = [ cfg.provisioning.credential ];
+            serviceConfig.ImportCredential = [ cfg.provisioning.credential ];
           };
           agenix-install-secrets = {
             after = [ "systemd-tmpfiles-setup.service" ];
