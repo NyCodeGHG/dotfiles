@@ -58,7 +58,7 @@
   };
 
   age.secrets.oauth2-proxy = {
-    file = ../secrets/oauth2-proxy.age;
+    file = ./secret.age;
     owner = "oauth2-proxy";
   };
 }

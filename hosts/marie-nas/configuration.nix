@@ -16,7 +16,7 @@
     ./samba.nix
     ./media.nix
     ./services/postgres.nix
-    ./services/oauth2-proxy.nix
+    ./services/oauth2-proxy
     ./services/minecraft.nix
     ./services/proxy.nix
     ./services/factorio.nix
