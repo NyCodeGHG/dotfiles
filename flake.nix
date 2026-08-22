@@ -132,6 +132,7 @@
             })
             nix-update
             grafana-alloy
+            age-plugin-keystore
           ];
         };
       });
