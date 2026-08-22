@@ -23,7 +23,7 @@
     ./services/dyndns.nix
     ./services/incus.nix
     ./services/immich.nix
-    ./services/principa-document-downloader.nix
+    ./services/principa-document-downloader
     ./monitoring.nix
 
     # Smart Home
