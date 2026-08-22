@@ -33,7 +33,7 @@
     ./services/smart-home/matter-server.nix
     ./services/smart-home/mosquitto.nix
     ./services/smart-home/openthread-border-router.nix
-    ./services/smart-home/zigbee2mqtt.nix
+    ./services/smart-home/zigbee2mqtt
 
     # Media
     ./services/media/bazarr.nix

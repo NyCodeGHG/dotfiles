@@ -48,7 +48,7 @@
   };
 
   age.secrets.zigbee2mqtt = {
-    file = ../../secrets/zigbee2mqtt.age;
+    file = ./secrets.age;
     owner = "zigbee2mqtt";
     group = "zigbee2mqtt";
     name = "zigbee2mqtt.yaml";
