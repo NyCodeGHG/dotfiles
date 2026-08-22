@@ -59,8 +59,8 @@ in
         ]
         ++ lib.optionals config.services.openssh.enable (
           lib.pipe config.services.openssh.hostKeys [
-            (map (e: e.path))
             (lib.filter (e: e.type == "rsa" || e.type == "ed25519"))
+            (map (e: e.path))
           ]
         );
 
