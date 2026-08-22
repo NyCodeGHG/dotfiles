@@ -12,7 +12,7 @@
       mdnsNetworkInterface = "br0";
     };
   };
-  age.secrets.matter-hub-token.file = ./matter-hub-token.age;
+  age.secrets.matter-hub-token.file = ./token.age;
 
   services.nginx.virtualHosts."matter-hub.home.marie.cologne" = {
     useACMEHost = "matter-hub.home.marie.cologne";
