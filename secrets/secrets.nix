@@ -58,7 +58,6 @@ in
   "../hosts/marie-nas/secrets/zigbee2mqtt.age".publicKeys = users ++ marie-nas;
   "../hosts/marie-nas/secrets/matter-hub-token.age".publicKeys = users ++ marie-nas;
   "../hosts/marie-nas/secrets/oauth2-proxy.age".publicKeys = users ++ marie-nas;
-  "../hosts/marie-nas/secrets/cloudflare-token.age".publicKeys = users ++ marie-nas;
   "../hosts/marie-nas/secrets/ntfy_url.age".publicKeys = users ++ marie-nas;
   "../hosts/marie-nas/secrets/paperless_base_url.age".publicKeys = users ++ marie-nas;
   "../hosts/marie-nas/secrets/paperless_token.age".publicKeys = users ++ marie-nas;
