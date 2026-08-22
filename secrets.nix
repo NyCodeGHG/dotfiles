@@ -2,7 +2,10 @@ let
   pkgs = import <nixpkgs> { };
   inherit (pkgs) lib;
   keys = import ./keys { inherit lib; };
-  hosts = [ "marie-nas" ];
+  hosts = [
+    "marie-nas"
+    "artemis"
+  ];
 
   flattenAttrs = lib.foldr lib.recursiveUpdate { };
   makeRelative = lib.removePrefix "${(toString ./.)}/";
