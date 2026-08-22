@@ -20,7 +20,7 @@
     ./services/minecraft.nix
     ./services/proxy.nix
     ./services/factorio.nix
-    ./services/dyndns.nix
+    ./services/cloudflare-dyndns
     ./services/incus.nix
     ./services/immich.nix
     ./services/principa-document-downloader

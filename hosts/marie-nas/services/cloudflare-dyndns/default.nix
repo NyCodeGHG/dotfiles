@@ -9,5 +9,5 @@
     name = "marie-nas-v6.marie.cologne";
     tokenFile = config.age.secrets.cloudflare-token.path;
   };
-  age.secrets.cloudflare-token.file = ../secrets/cloudflare-token.age;
+  age.secrets.cloudflare-token.file = ./cloudflare-token.age;
 }
