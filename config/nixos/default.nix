@@ -1,15 +1,9 @@
 {
-  inputs,
   lib,
   ...
 }:
 {
-  imports =
-    with inputs;
-    [
-      self.nixosModules.authentik
-    ]
-    ++ import ./module-list.nix;
+  imports = import ./module-list.nix;
 
   options = {
     uwumarie.profiles = {

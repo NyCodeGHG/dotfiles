@@ -20,7 +20,6 @@ let
 in
 {
   "cloudflare-api-key.age".publicKeys = users ++ allSystems;
-  "authentik-secrets.age".publicKeys = users ++ artemis;
   "miniflux-credentials.age".publicKeys = users ++ artemis;
   "grafana-oauth-client-secret.age".publicKeys = users ++ artemis;
   "synapse-sso-config.age".publicKeys = users ++ artemis;

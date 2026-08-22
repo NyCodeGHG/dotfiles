@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./authentik.nix
+    ./authentik
     ./coredns.nix
     ./forgejo
     ./miniflux.nix
