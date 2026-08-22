@@ -15,9 +15,6 @@ let
   marie-desktop-host = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPSpnu/du04AEB2LuwIHJU5CZwBFsMLWUhNgn0+9tlte root@marie-desktop"
   ];
-  traewelldroid-prod = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOl8O44rQ3UOAQ6zp0IenX25l9+dEJuYL+qqTxDoffLm"
-  ];
   allSystems = artemis ++ delphi ++ wsl ++ marie-nas;
   users = marie-desktop;
 in
@@ -29,33 +26,20 @@ in
   "synapse-sso-config.age".publicKeys = users ++ artemis;
   "artemis-wg-privatekey.age".publicKeys = users ++ artemis;
   "paperless-env.age".publicKeys = users ++ artemis;
-  "curseforge-api-key.age".publicKeys = users ++ delphi;
 
   "git-email.age".publicKeys = marie-desktop;
   "grafana-mcp-token.age".publicKeys = marie-desktop;
 
-  "../hosts/artemis/dn42/peers/emma/wg-private.age".publicKeys = users ++ artemis;
   "../hosts/artemis/dn42/peers/kioubit/wg-private.age".publicKeys = users ++ artemis;
   "../hosts/artemis/dn42/peers/maraun/wg-private.age".publicKeys = users ++ artemis;
 
   "../hosts/artemis/secrets/renovate-token.age".publicKeys = users ++ artemis;
   "../hosts/artemis/secrets/renovate-github-token.age".publicKeys = users ++ artemis;
-  "../hosts/artemis/secrets/pgbackrest.age".publicKeys = users ++ artemis;
   "../hosts/artemis/secrets/attic.age".publicKeys = users ++ artemis;
   "../hosts/artemis/secrets/restic.age".publicKeys = users ++ artemis;
-  "../hosts/artemis/secrets/r2-monitoring-token.age".publicKeys = users ++ artemis;
   "../hosts/artemis/secrets/garage-rpc-secret.age".publicKeys = users ++ artemis;
-  "../hosts/gitlabber/cachix-auth-token.age".publicKeys = users ++ gitlabber;
-  "../hosts/gitlabber/forgejo-runner.age".publicKeys = users ++ gitlabber;
   "../hosts/gitlabber/forgejo-runner-token.age".publicKeys = users ++ gitlabber;
-  "../hosts/artemis/applications/hedgedoc/env.age".publicKeys = users ++ artemis;
 
   "../hosts/marie-desktop/secrets/restic-password.age".publicKeys =
     marie-desktop ++ marie-desktop-host;
-
-  "../hosts/marie-nas/secrets/transmission.age".publicKeys = users ++ marie-nas;
-  "../hosts/marie-nas/secrets/vpn-wg.age".publicKeys = users ++ marie-nas;
-  "../hosts/marie-nas/secrets/oauth2-proxy.age".publicKeys = users ++ marie-nas;
-
-  "../hosts/traewelldroid-prod/secrets/fcm-credentials.age".publicKeys = users ++ traewelldroid-prod;
 }
