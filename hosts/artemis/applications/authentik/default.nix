@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   image = "ghcr.io/goauthentik/server:2026.8.0";
   volumes = [
@@ -94,12 +94,9 @@ in
     };
   };
 
-  services.nginx.commonHttpConfig = ''
-    proxy_cache_path /var/cache/nginx/ keys_zone=cache:10m;
-  '';
-
   services.nginx = {
     enable = true;
+    additionalModules = [ pkgs.nginxModules.njs ];
     upstreams.authentik = {
       servers = {
         "127.0.0.1:9000" = { };
@@ -108,8 +105,16 @@ in
         keepalive 10;
       '';
     };
+    commonHttpConfig = ''
+      proxy_cache_path /var/cache/nginx/ keys_zone=cache:10m;
+      js_import authentik from ${./authentik.js};
+    '';
     virtualHosts."sso.nycode.dev" = {
       locations."/" = {
+        proxyPass = "http://authentik";
+        proxyWebsockets = true;
+      };
+      locations."@authentik" = {
         proxyPass = "http://authentik";
         proxyWebsockets = true;
       };
@@ -121,6 +126,11 @@ in
           proxy_cache_valid 200 10m;
           add_header X-Cache-Status $upstream_cache_status;
           proxy_pass http://authentik;
+        '';
+      };
+      locations."/application/o/authorize/" = {
+        extraConfig = ''
+          js_content authentik.cleanLoginHint;
         '';
       };
       extraConfig = ''
