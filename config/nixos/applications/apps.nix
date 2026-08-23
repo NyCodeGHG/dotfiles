@@ -21,7 +21,7 @@
         ))
         mpv
         gimp3
-        libreoffice-qt6-fresh
+        libreoffice-qt-stable
         signal-desktop
         vscodium
         github-cli
