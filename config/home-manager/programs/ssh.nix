@@ -49,6 +49,10 @@
           User = "root";
           IdentitiesOnly = true;
         };
+        "opus opusshgw" = {
+          User = "root";
+          HostName = "opusshgw";
+        };
       };
     };
   };
