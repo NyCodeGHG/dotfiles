@@ -426,6 +426,26 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787144466,
+        "narHash": "sha256-HHfv2/HkNSKbbSyU9iD/g8lbP6r4tl33sSw1W4rXCk0=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "0471accf8d0a8210b31d947497d179ecc99e0021",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixos-wii-u": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -560,6 +580,7 @@
         "nix-index-database": "nix-index-database",
         "nix-locate-man": "nix-locate-man",
         "nix-output-monitor": "nix-output-monitor",
+        "nixos-hardware": "nixos-hardware",
         "nixos-wii-u": "nixos-wii-u",
         "nixpak": "nixpak",
         "nixpkgs": "nixpkgs_2",
