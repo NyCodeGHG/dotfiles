@@ -45,6 +45,10 @@
           HostName = "192.168.1.62";
           IdentitiesOnly = true;
         };
+        gitlabber = {
+          User = "root";
+          IdentitiesOnly = true;
+        };
       };
     };
   };
