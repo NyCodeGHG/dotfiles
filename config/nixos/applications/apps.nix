@@ -80,6 +80,10 @@
         docker-compose # for podman-compose
         systemd-impersonate
         nix-locate-man
+        (nix-update.override {
+          nix = config.nix.package;
+          inherit (lixPackageSets.latest) nixpkgs-review;
+        })
 
         # Networking
         wireguard-tools

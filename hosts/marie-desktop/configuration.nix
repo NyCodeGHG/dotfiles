@@ -147,10 +147,6 @@
   environment.systemPackages = with pkgs; [
     spotify
     nvtopPackages.amd
-    (nix-update.override {
-      nix = config.nix.package;
-      inherit (lixPackageSets.latest) nixpkgs-review;
-    })
     protontricks
     dysk
     qbittorrent
