@@ -67,7 +67,7 @@
       "matchPackageNames": [
         "https://github.com/TRaSH-Guides/Guides"
       ],
-      "schedule": "every weekend"
+      "schedule": "* 0-3 1 * *"
     },
     {
       "matchDatasources": [
