@@ -29,7 +29,10 @@
             inInitrd = true;
           }
           "/var/lib/systemd"
-          "/var/lib/agenix"
+          {
+            directory = "/var/lib/agenix";
+            inInitrd = true; # decryption happens in initrd
+          }
           {
             directory = "/var/lib/tailscale";
             mode = "0700";
