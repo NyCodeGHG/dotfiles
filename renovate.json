@@ -90,5 +90,8 @@
     "terraform",
     "github-actions",
     "ansible-galaxy"
-  ]
+  ],
+  "nix": {
+    "enabled": false
+  }
 }
