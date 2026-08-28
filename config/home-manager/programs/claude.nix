@@ -160,31 +160,8 @@
       nixos = {
         command = lib.getExe pkgs.mcp-nixos;
       };
-      github = {
-        url = "https://api.githubcopilot.com/mcp/";
-      };
       linux = {
         command = lib.getExe pkgs.linux-mcp-server;
-      };
-      victorialogs = {
-        command = lib.getExe pkgs.mcp-victorialogs;
-        env = {
-          VL_INSTANCE_ENTRYPOINT = "https://logs.artemis.marie.cologne";
-        };
-      };
-      grafana = {
-        command = lib.getExe pkgs.mcp-grafana;
-        env = {
-          GRAFANA_URL = "https://grafana.marie.cologne";
-          GRAFANA_SERVICE_ACCOUNT_TOKEN.file = "/run/user/1000/agenix/grafana-mcp-token";
-        };
-      };
-      home-assistant = {
-        url = "https://hass.marie.cologne/api/mcp";
-        oauth = {
-          clientId = "http://localhost:12345";
-          callbackPort = 12345;
-        };
       };
     };
   };
