@@ -21,6 +21,7 @@
     # ./krisp-patcher.nix
     ./peacock.nix
     ./networking.nix
+    ./nixbuildnet.nix
   ];
 
   virtualisation.waydroid.enable = true;
