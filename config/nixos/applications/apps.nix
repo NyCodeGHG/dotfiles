@@ -87,7 +87,6 @@
 
         # Networking
         wireguard-tools
-        sshfs
         iperf3
         magic-wormhole
         yt-dlp

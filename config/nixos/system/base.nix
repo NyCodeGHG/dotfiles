@@ -75,6 +75,7 @@
       lix-diff
       (lib.lowPrio neovim-unwrapped)
       cryptsetup
+      sshfs
     ];
 
     security.sudo-rs.enable = lib.mkDefault true;
