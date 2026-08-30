@@ -355,6 +355,17 @@
             nix.registry.nixpkgs.flake = nixpkgs;
             nixpkgs.buildPlatform = "x86_64-linux";
           };
+          enocean = {
+            imports = [
+              ./hosts/enocean/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.targetHost = "enocean";
+            deployment.buildOnTarget = false;
+            deployment.targetUser = null;
+            nix.registry.nixpkgs.flake = nixpkgs;
+            nixpkgs.hostPlatform = "aarch64-linux";
+          };
         };
     };
 }
