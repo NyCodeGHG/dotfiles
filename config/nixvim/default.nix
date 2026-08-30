@@ -176,6 +176,7 @@
         bigfile.enabled = true;
         picker.enabled = true;
         input.enabled = true;
+        win.enabled = false;
       };
     };
 
