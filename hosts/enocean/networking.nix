@@ -1,4 +1,8 @@
 {
+  imports = [
+    ../../config/nixos/applications/tailscale.nix
+  ];
+
   services.resolved.enable = true;
   networking.nftables.enable = true;
   time.timeZone = "UTC";

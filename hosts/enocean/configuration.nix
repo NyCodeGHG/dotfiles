@@ -9,6 +9,7 @@
   imports = [
     ./networking.nix
     ./volatile-journal.nix
+    ./monitoring.nix
     # oh god
     (
       { pkgs, lib, ... }@args:
