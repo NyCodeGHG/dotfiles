@@ -1,27 +1,19 @@
 { pkgs, ... }:
 {
-  systemd.sockets.enocean-forwarder = {
+  systemd.services.enocean-forwarder = {
     requires = [ "dev-ttyAMA0.device" ];
     after = [ "dev-ttyAMA0.device" ];
-    wantedBy = [ "sockets.target" ];
-    socketConfig = {
-      ListenStream = "/run/enocean.sock";
-      Accept = true;
-      MaxConnections = 1;
-      SocketGroup = "enocean";
-      SocketMode = "0660";
-    };
-  };
-
-  systemd.services."enocean-forwarder@" = {
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       DynamicUser = true;
       PrivateNetwork = true;
-      ExecStartPre = "${pkgs.coreutils}/bin/stty -F /dev/ttyAMA0 57600 cs8 -cstopb -parenb -crtscts clocal raw -echo";
-      ExecStart = "${pkgs.socat}/bin/socat - /dev/ttyAMA0";
-      StandardInput = "socket";
-      StandardError = "journal";
-      DeviceAllow = "/dev/ttyAMA0";
+      ExecStart = "${pkgs.socat}/bin/socat UNIX-LISTEN:%t/enocean/enocean.sock,fork,mode=660,group=enocean /dev/ttyAMA0,ispeed=57600,ospeed=57600,cfmakeraw,cs8,parenb=0,cstopb=0,crtscts=0,clocal=1";
+      DeviceAllow = "/dev/ttyAMA0 rw";
+      SupplementaryGroups = [
+        "dialout"
+        "enocean"
+      ];
+      RuntimeDirectory = "enocean";
     };
   };
 
