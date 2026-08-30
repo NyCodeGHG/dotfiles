@@ -36,6 +36,8 @@
       ];
     };
 
+    programs.fuse.enable = true;
+
     services = {
       openssh = {
         enable = true;
