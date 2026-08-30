@@ -251,6 +251,7 @@
             };
             nodeNixpkgs = {
               delphi = importNixpkgs { system = "aarch64-linux"; };
+              enocean = import inputs.nixpkgs { system = "aarch64-linux"; };
             };
           };
           artemis = {
@@ -363,7 +364,7 @@
             deployment.targetHost = "enocean";
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = nixpkgs;
+            nix.registry.nixpkgs.flake = inputs.nixpkgs;
             nixpkgs.hostPlatform = "aarch64-linux";
           };
         };
