@@ -18,6 +18,11 @@
     "conjure#mapping#doc_word" = false;
     "conjure#completion#omnifunc" = false;
     "conjure#highlight#enabled" = true;
+    "conjure#filetypes" = [
+      "clojure"
+      "fennel"
+      "lua"
+    ];
   };
   opts = {
     # Line Numbers
