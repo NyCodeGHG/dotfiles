@@ -78,6 +78,7 @@
       (lib.lowPrio neovim-unwrapped)
       cryptsetup
       sshfs
+      socat
     ];
 
     security.sudo-rs.enable = lib.mkDefault true;
