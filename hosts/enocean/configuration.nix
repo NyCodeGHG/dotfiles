@@ -10,6 +10,7 @@
     ./networking.nix
     ./volatile-journal.nix
     ./monitoring.nix
+    ./serial-bridge.nix
     # oh god
     (
       { pkgs, lib, ... }@args:
