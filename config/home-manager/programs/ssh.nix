@@ -24,6 +24,9 @@
       settings = {
         "*" = {
           AddKeysToAgent = true;
+          ControlMaster = "auto";
+          ControlPath = "~/.ssh/sockets/%r@%h-%p";
+          ControlPersist = "10m";
         };
         "github.com" = {
           HostName = "github.com";
