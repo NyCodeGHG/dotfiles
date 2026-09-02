@@ -130,6 +130,12 @@
             user = "principa-document-downloader";
             group = "principa-document-downloader";
           }
+          {
+            directory = "/var/lib/private/ncro";
+            mode = "0700";
+            user = "ncro";
+            group = "ncro";
+          }
         ];
         files = [
           {
