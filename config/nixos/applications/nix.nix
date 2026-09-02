@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  ncroEnabled = config.services ? ncro && config.services.ncro.enable;
+in
 {
   options.uwumarie.profiles.nix = lib.mkEnableOption (lib.mdDoc "nix config") // {
     default = true;
@@ -18,11 +21,11 @@
         options = "--delete-older-than 14d";
       };
       settings = {
-        substituters = [
+        substituters = lib.optionals (!ncroEnabled) [
           "https://cache.marie.cologne/marie"
           "https://uwumarie.cachix.org"
         ];
-        trusted-public-keys = [
+        trusted-public-keys = lib.optionals (!ncroEnabled) [
           "marie:+lOdb5mtdCgfeh1P+Wsk/7okVYuvlv9eOSyihL6rwPs="
           "uwumarie.cachix.org-1:H6nX8e82pu2GQ8CGU3j1qHTG7QMYzZ15oSBh26XhtVo="
         ];
