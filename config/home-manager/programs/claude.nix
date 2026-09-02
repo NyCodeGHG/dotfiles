@@ -103,67 +103,6 @@
         when required. Pass `--no-link` to avoid leaving result symlinks behind.
       - Use a shell.nix or devShell in flake.nix when available over quick nix-shell/nix shell invocations.
     '';
-
-    settings = {
-      permissions.allow = [
-        "WebSearch"
-        "WebFetch"
-        "Bash(nix build:*)"
-        "Bash(nix-build:*)"
-        "Bash(nix eval:*)"
-        "Bash(nix repl:*)"
-        "Bash(nix log:*)"
-        "Read(/nix/store/**)"
-      ]
-      # The MCP servers are surfaced to Claude Code as a plugin, and that plugin's name is not
-      # derivable from anything we configure here - it has already changed once
-      # (`claude-code-home-manager` -> `hm`), which silently invalidated these entries. Allow
-      # both spellings so a rename does not break the allowlist again.
-      #
-      # linux-mcp-server also ships a `run_script` tool that executes arbitrary scripts on the
-      # target host. It is not exposed while the server runs with its default `fixed` toolset,
-      # but a wildcard here would silently allow it if that ever changed, so the read-only
-      # tools are enumerated instead.
-      ++ lib.concatMap (plugin: [
-        "mcp__plugin_${plugin}_nixos__*"
-      ]
-      ++ map (tool: "mcp__plugin_${plugin}_linux__${tool}") [
-        "get_cpu_information"
-        "get_disk_usage"
-        "get_hardware_information"
-        "get_journal_logs"
-        "get_listening_ports"
-        "get_memory_information"
-        "get_network_connections"
-        "get_network_interfaces"
-        "get_process_info"
-        "get_service_logs"
-        "get_service_status"
-        "get_system_information"
-        "list_block_devices"
-        "list_directories"
-        "list_files"
-        "list_processes"
-        "list_services"
-        "read_file"
-        "read_log_file"
-      ]) [
-        "hm"
-        "claude-code-home-manager"
-      ];
-    };
-  };
-
-  programs.mcp = {
-    enable = true;
-    servers = {
-      nixos = {
-        command = lib.getExe pkgs.mcp-nixos;
-      };
-      linux = {
-        command = lib.getExe pkgs.linux-mcp-server;
-      };
-    };
   };
 
   age.secrets.grafana-mcp-token.file = ../../../secrets/grafana-mcp-token.age;
@@ -171,6 +110,5 @@
   programs.opencode = {
     enable = true;
     context = config.programs.claude-code.context;
-    enableMcpIntegration = true;
   };
 }
