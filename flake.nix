@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
+    nixpkgs-enocean.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
 
     home-manager = {
       url = "github:nix-community/home-manager";
