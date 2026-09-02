@@ -622,7 +622,24 @@
         "nixvim": "nixvim",
         "preservation": "preservation",
         "principa-document-downloader": "principa-document-downloader",
+        "rust-skills": "rust-skills",
         "systemd-impersonate": "systemd-impersonate"
+      }
+    },
+    "rust-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781477469,
+        "narHash": "sha256-B6E8JP78/wDdJYHp1l5cpEgxRuCzAhOhUtst4pueMw0=",
+        "owner": "leonardomso",
+        "repo": "rust-skills",
+        "rev": "fd2a861ab0406a4ac536a55274d14ea6fd1ca9c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "leonardomso",
+        "repo": "rust-skills",
+        "type": "github"
       }
     },
     "stable": {

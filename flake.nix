@@ -89,6 +89,11 @@
       url = "github:manic-systems/ncro";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    rust-skills = {
+      url = "github:leonardomso/rust-skills";
+      flake = false;
+    };
   };
 
   outputs =

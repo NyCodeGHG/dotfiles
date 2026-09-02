@@ -3,6 +3,7 @@
   lib,
   osConfig,
   config,
+  inputs,
   ...
 }:
 {
@@ -46,6 +47,9 @@
           ".go" = "go";
         };
       };
+    };
+    skills = {
+      rust-skills = toString inputs.rust-skills;
     };
     context = ''
       # General
