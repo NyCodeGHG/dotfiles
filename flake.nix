@@ -84,6 +84,11 @@
       url = "https://git.marie.cologne/marie/principa-document-downloader/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ncro = {
+      url = "github:manic-systems/ncro";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

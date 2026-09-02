@@ -323,6 +323,26 @@
         "type": "github"
       }
     },
+    "ncro": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788018155,
+        "narHash": "sha256-TB3Q6xpaV7APiC6qAM4ENV6MNuUjR4OgatQtj88PBWY=",
+        "owner": "manic-systems",
+        "repo": "ncro",
+        "rev": "a367692d67bed3225d64fed0fffefed141927fd3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "manic-systems",
+        "repo": "ncro",
+        "type": "github"
+      }
+    },
     "nix-github-actions": {
       "inputs": {
         "nixpkgs": [
@@ -590,6 +610,7 @@
         "ip-playground": "ip-playground",
         "iplookupd": "iplookupd",
         "jovian": "jovian",
+        "ncro": "ncro",
         "nix-index-database": "nix-index-database",
         "nix-locate-man": "nix-locate-man",
         "nix-output-monitor": "nix-output-monitor",
