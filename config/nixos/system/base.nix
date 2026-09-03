@@ -79,6 +79,7 @@
       cryptsetup
       sshfs
       socat
+      tinyxxd
     ];
 
     security.sudo-rs.enable = lib.mkDefault true;
