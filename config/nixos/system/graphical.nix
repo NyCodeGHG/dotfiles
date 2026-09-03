@@ -92,4 +92,29 @@
   };
 
   xdg.portal.xdgOpenUsePortal = true;
+
+  xdg.mime = {
+    addedAssociations = {
+      "text/*" = [
+        "org.kde.kate.desktop"
+        "nvim.desktop"
+        "codium.desktop"
+      ];
+    };
+    defaultApplications = {
+      "application/pdf" = "org.kde.okular.desktop";
+
+      "audio/*" = "vlc.desktop";
+      "video/*" = "vlc.desktop";
+      "image/*" = "org.kde.gwenview.desktop";
+
+      "application/json" = "org.kde.kate.desktop";
+      "text/*" = "org.kde.kate.desktop";
+
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/mailto" = "thunderbird.desktop";
+    };
+  };
 }
