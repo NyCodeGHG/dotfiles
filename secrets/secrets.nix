@@ -30,7 +30,6 @@ in
   "grafana-mcp-token.age".publicKeys = marie-desktop;
 
   "../hosts/artemis/dn42/peers/kioubit/wg-private.age".publicKeys = users ++ artemis;
-  "../hosts/artemis/dn42/peers/maraun/wg-private.age".publicKeys = users ++ artemis;
 
   "../hosts/artemis/secrets/renovate-token.age".publicKeys = users ++ artemis;
   "../hosts/artemis/secrets/renovate-github-token.age".publicKeys = users ++ artemis;

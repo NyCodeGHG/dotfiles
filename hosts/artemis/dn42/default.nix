@@ -9,7 +9,6 @@
     ./nginx.nix
     ./peers
     ./peers/kioubit
-    ./peers/maraun
   ];
   systemd.network = {
     enable = true;
