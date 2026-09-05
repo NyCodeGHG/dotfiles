@@ -186,6 +186,21 @@
             }
           );
 
+          vimPlugins = prev.vimPlugins // {
+            leap-nvim =
+              assert prev.lib.assertMsg (
+                prev.vimPlugins.leap-nvim.version == "0-unstable-2026-08-30"
+              ) "leap-nvim has been updated.";
+              prev.vimPlugins.leap-nvim.overrideAttrs {
+                src = final.fetchFromCodeberg {
+                  owner = "andyg";
+                  repo = "leap.nvim";
+                  rev = "38af0ab56c6eb8757ee6006dd13ab79c2bc11a49";
+                  hash = "sha256-d2YnINKSEPpMkZ+gUgdK4agvGBIFVN3MtXTHKfPapew=";
+                };
+              };
+          };
+
           nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
             module = import ./config/nixvim;
             pkgs = final;
