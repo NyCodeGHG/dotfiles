@@ -1,20 +1,25 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  inherit (config.uwumarie) vscode;
+  tui = !vscode;
+in
 {
   imports = [
+    ./options.nix
     ./dap.nix
   ];
-  colorschemes.oxocarbon.enable = true;
-  # colorschemes.melange.enable = true;
-  # colorschemes.kanagawa = {
-  #   enable = true;
-  #   settings = {
-  #     background.dark = "dragon";
-  #   };
-  # };
+  colorschemes.oxocarbon.enable = tui;
 
   globals = {
     mapleader = " ";
     maplocalleader = ",";
+  }
+  // lib.optionalAttrs tui {
     "conjure#mapping#doc_word" = false;
     "conjure#completion#omnifunc" = false;
     "conjure#highlight#enabled" = true;
@@ -44,22 +49,28 @@
     foldenable = false;
   };
 
-  extraPlugins = with pkgs.vimPlugins; [
-    zen-mode-nvim
-    guard-nvim
-    vim-nftables
-    vim-caddyfile
-    vim-glsl
-    vim-repeat
-    vim-jack-in
-    vim-dispatch
-    vim-dispatch-neovim
-    nvim-paredit
-    nvim-parinfer
-    wildfire-nvim
-    nvim-vtsls
-    jj-nvim
-  ];
+  extraPlugins =
+    (with pkgs.vimPlugins; [
+      vim-nftables
+      vim-caddyfile
+      vim-glsl
+      vim-repeat
+      nvim-paredit
+      wildfire-nvim
+    ])
+    ++ lib.optionals tui (
+      with pkgs.vimPlugins;
+      [
+        zen-mode-nvim
+        guard-nvim
+        vim-jack-in
+        vim-dispatch
+        vim-dispatch-neovim
+        nvim-parinfer
+        nvim-vtsls
+        jj-nvim
+      ]
+    );
   extraConfigLuaPre = ''
     require("nvim-paredit").setup()
     require("wildfire").setup({
@@ -69,6 +80,8 @@
         node_decremental = "<BS>";
       }
     })
+  ''
+  + lib.optionalString tui ''
 
     require("jj").setup({})
 
@@ -77,27 +90,31 @@
     end
   '';
 
-  extraConfigLua = ''
-    local autopairs = require('nvim-autopairs')
-    local Rule = require('nvim-autopairs.rule')
-    local cond = require('nvim-autopairs.conds')
+  extraConfigLua =
+    lib.optionalString tui ''
+      local autopairs = require('nvim-autopairs')
+      local Rule = require('nvim-autopairs.rule')
+      local cond = require('nvim-autopairs.conds')
 
-    for _, rule in ipairs(autopairs.get_rules("'")) do
-      rule.not_filetypes = rule.not_filetypes or {}
-      table.insert(rule.not_filetypes, "clojure")
-    end
+      for _, rule in ipairs(autopairs.get_rules("'")) do
+        rule.not_filetypes = rule.not_filetypes or {}
+        table.insert(rule.not_filetypes, "clojure")
+      end
 
-    autopairs.add_rules({
-      Rule('"', '"', "clojure")
-        :with_pair(cond.not_after_text('"')),
-    })
+      autopairs.add_rules({
+        Rule('"', '"', "clojure")
+          :with_pair(cond.not_after_text('"')),
+      })
 
-    dofile("${./keymaps.lua}")
-  '';
+    ''
+    + ''
+      dofile("${./keymaps.lua}")
+      dofile("${if vscode then ./keymaps-vscode.lua else ./keymaps-tui.lua}")
+    '';
 
   plugins = {
     # UI
-    neo-tree = {
+    neo-tree = lib.mkIf tui {
       enable = true;
       settings = {
         close_if_last_window = true;
@@ -112,11 +129,11 @@
         '';
       };
     };
-    which-key.enable = true;
-    illuminate.enable = true;
-    lualine.enable = true;
-    web-devicons.enable = true;
-    trouble = {
+    which-key.enable = tui;
+    illuminate.enable = tui;
+    lualine.enable = tui;
+    web-devicons.enable = tui;
+    trouble = lib.mkIf tui {
       enable = true;
       settings = {
         picker = {
@@ -124,8 +141,8 @@
         };
       };
     };
-    guess-indent.enable = true;
-    highlight-colors.enable = true;
+    guess-indent.enable = tui;
+    highlight-colors.enable = tui;
     # hmts.enable = true;
 
     mini-surround = {
@@ -143,7 +160,7 @@
       };
     };
 
-    nvim-autopairs = {
+    nvim-autopairs = lib.mkIf tui {
       enable = true;
       settings = {
         disable_filetype = [
@@ -161,9 +178,9 @@
       };
     };
 
-    lazydev.enable = true;
+    lazydev.enable = tui;
 
-    none-ls = {
+    none-ls = lib.mkIf tui {
       enable = true;
       sources = {
         formatting = {
@@ -175,7 +192,7 @@
         };
       };
     };
-    snacks = {
+    snacks = lib.mkIf tui {
       enable = true;
       settings = {
         bigfile.enabled = true;
@@ -185,9 +202,9 @@
       };
     };
 
-    codesettings.enable = true;
+    codesettings.enable = tui;
 
-    actions-preview = {
+    actions-preview = lib.mkIf tui {
       enable = true;
       settings = {
         backend = "snacks";
@@ -197,14 +214,14 @@
     # Treesitter
     treesitter = {
       enable = true;
-      folding.enable = true;
-      highlight.enable = true;
+      folding.enable = tui;
+      highlight.enable = tui;
       nixvimInjections = false;
     };
 
     # Languages
     nix.enable = true;
-    crates = {
+    crates = lib.mkIf tui {
       enable = true;
       settings = {
         lsp = {
@@ -222,7 +239,7 @@
     };
 
     # LSP
-    lsp = {
+    lsp = lib.mkIf tui {
       enable = true;
       servers = {
         hls = {
@@ -264,10 +281,10 @@
         qmlls.enable = true;
       };
     };
-    conjure.enable = true;
-    fidget.enable = true;
-    auto-save.enable = true;
-    blink-cmp = {
+    conjure.enable = tui;
+    fidget.enable = tui;
+    auto-save.enable = tui;
+    blink-cmp = lib.mkIf tui {
       enable = true;
       settings = {
         keymap.preset = "super-tab";
@@ -287,7 +304,7 @@
         };
       };
     };
-    luasnip = {
+    luasnip = lib.mkIf tui {
       enable = true;
       settings = {
         enable_autosnippets = true;
@@ -328,5 +345,7 @@
     }
   ];
 
-  autoGroups.clojure-filetype-indentexpr.clear = true;
+  autoGroups = {
+    clojure-filetype-indentexpr.clear = true;
+  };
 }

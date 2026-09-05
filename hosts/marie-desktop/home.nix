@@ -9,7 +9,12 @@
     ../../config/home-manager/programs/claude.nix
     inputs.nix-index-database.homeModules.nix-index
   ];
-  home.packages = [ pkgs.nixvim ];
+  home.packages = with pkgs; [
+    nixvim
+    (pkgs.writeShellScriptBin "nvim-vscode" ''
+      exec ${pkgs.nixvim-vscode}/bin/nvim "$@"
+    '')
+  ];
   news.display = "silent";
   uwumarie.profiles = {
     eza = true;

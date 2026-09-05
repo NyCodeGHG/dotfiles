@@ -200,11 +200,6 @@
                 };
               };
           };
-
-          nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
-            module = import ./config/nixvim;
-            pkgs = final;
-          };
         }
         // (self.overlays.packages final prev)
       );
@@ -224,6 +219,13 @@
         packages
         // {
           kiot = prev.kdePackages.callPackage ./pkgs/kiot { };
+
+          nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
+            module = import ./config/nixvim;
+            pkgs = final;
+          };
+
+          nixvim-vscode = final.nixvim.extend { uwumarie.vscode = true; };
         }
       );
 
