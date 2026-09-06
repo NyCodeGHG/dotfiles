@@ -8,6 +8,7 @@
   ./applications/corsair.nix
   ./applications/apps.nix
   ./applications/ssh-agent.nix
+  ./applications/harmonia-tailscale.nix
   ./system/agenix-keygen.nix
   ./system/base.nix
   ./system/dns.nix
