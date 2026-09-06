@@ -50,4 +50,13 @@ in
   };
 
   nix.settings.substituters = lib.mkForce [ "http://localhost:45976" ];
+
+  environment.etc = lib.mkIf config.services.alloy.enable {
+    "alloy/ncro.alloy".text = ''
+      scrape_local "ncro" {
+        name = "ncro"
+        port = 45976
+      }
+    '';
+  };
 }
