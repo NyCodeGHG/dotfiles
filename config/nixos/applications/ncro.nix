@@ -40,7 +40,7 @@ in
         (lib.mapAttrsToList (
           host: key: {
             url = "https://${host}.weasel-gentoo.ts.net:7777";
-            priority = 15;
+            priority = 5;
             public_key = key;
           }
         ))
