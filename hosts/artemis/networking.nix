@@ -5,8 +5,6 @@ in
 {
   environment.systemPackages = with pkgs; [ wireguard-tools ];
 
-  services.resolved.enable = false;
-
   networking = {
     hostName = "artemis";
     firewall = {
