@@ -31,6 +31,8 @@
     apps = true;
   };
 
+  uwumarie.agenix.enable = true;
+
   boot.binfmt.emulatedSystems = [
     "powerpc-linux"
     "aarch64-linux"
