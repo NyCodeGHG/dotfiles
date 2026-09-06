@@ -249,6 +249,7 @@
               { npr, ... }:
               {
                 nixpkgs = (lib.mapAttrsToList npr) (lib.importJSON ./patches/nixpkgs.json) ++ [
+                  ./patches/0001-nixos-systemd-confinement-fix-with-PrivateTmp-discon.patch
                 ];
               };
           };
