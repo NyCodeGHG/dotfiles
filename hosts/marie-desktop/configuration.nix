@@ -23,6 +23,7 @@
     ./peacock.nix
     ./networking.nix
     ./nixbuildnet.nix
+    ./harmonia
   ];
 
   virtualisation.waydroid.enable = true;
