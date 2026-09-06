@@ -1,4 +1,14 @@
-{ inputs, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
+let
+  hosts = {
+    "marie-desktop" = "marie-desktop.weasel-gentoo.ts.net:GBdd4S10c05l/EOmur5vitMPf7/CwwW7ssplsf/qnf4=";
+  };
+in
 {
   imports = [
     inputs.ncro.nixosModules.default
@@ -24,6 +34,16 @@
           priority = 30;
           public_key = "uwumarie.cachix.org-1:H6nX8e82pu2GQ8CGU3j1qHTG7QMYzZ15oSBh26XhtVo=";
         }
+      ]
+      ++ lib.pipe hosts [
+        (lib.filterAttrs (host: _: host != config.networking.hostName))
+        (lib.mapAttrsToList (
+          host: key: {
+            url = "https://${host}.weasel-gentoo.ts.net:7777";
+            priority = 15;
+            public_key = key;
+          }
+        ))
       ];
       logging.timestamps = false;
     };
