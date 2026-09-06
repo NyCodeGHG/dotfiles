@@ -23,6 +23,7 @@
       inherit (config.uwumarie.harmonia-tailscale) signKeyPaths;
       settings = {
         bind = "/run/harmonia/socket";
+        priority = 30;
       };
     };
 
