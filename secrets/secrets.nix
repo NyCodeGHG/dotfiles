@@ -12,9 +12,6 @@ let
   wsl = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpKCSJGPFfckgr1/X1Rv7jeOe9E8tYmP1iqogzSXF+u" ];
   gitlabber = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM891QqZPoML7r5MdzprykGqeK0eP33D24iaR4QaZdRN" ];
   marie-nas = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILwvQy3cK9gGwFEf5UGCxQ61j8Kv30JDAZ39FOtKkrCQ" ];
-  marie-desktop-host = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPSpnu/du04AEB2LuwIHJU5CZwBFsMLWUhNgn0+9tlte root@marie-desktop"
-  ];
   allSystems = artemis ++ delphi ++ wsl ++ marie-nas;
   users = marie-desktop;
 in
@@ -37,7 +34,4 @@ in
   "../hosts/artemis/secrets/restic.age".publicKeys = users ++ artemis;
   "../hosts/artemis/secrets/garage-rpc-secret.age".publicKeys = users ++ artemis;
   "../hosts/gitlabber/forgejo-runner-token.age".publicKeys = users ++ gitlabber;
-
-  "../hosts/marie-desktop/secrets/restic-password.age".publicKeys =
-    marie-desktop ++ marie-desktop-host;
 }
