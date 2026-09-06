@@ -52,6 +52,10 @@
           "/run/tailscale/tailscaled.sock"
         ];
         ProtectSystem = "strict";
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectProc = "invisible";
+        ProcSubset = "pid";
         PrivateTmp = "disconnected";
         PrivateDevices = true;
         PrivateMounts = true;
@@ -60,10 +64,27 @@
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
         LockPersonality = true;
+        NoNewPrivileges = true;
+        RestrictNamespaces = true;
         RestrictRealtime = true;
+        RestrictSUIDSGID = true;
         ProtectClock = true;
         MemoryDenyWriteExecute = true;
+        UMask = "0077";
         SystemCallArchitectures = "native";
+        SystemCallFilter = [
+          "~@clock"
+          "~@cpu-emulation"
+          "~@debug"
+          "~@module"
+          "~@mount"
+          "~@obsolete"
+          "~@privileged"
+          "~@raw-io"
+          "~@reboot"
+          "~@resources"
+          "~@swap"
+        ];
         RestrictAddressFamilies = [
           "AF_UNIX"
           "AF_INET"
