@@ -23,6 +23,7 @@
     ./services/incus.nix
     ./services/immich.nix
     ./services/principa-document-downloader
+    ./services/harmonia
     ./monitoring.nix
 
     # Smart Home

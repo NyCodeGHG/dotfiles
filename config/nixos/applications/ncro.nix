@@ -7,6 +7,7 @@
 let
   hosts = {
     "marie-desktop" = "marie-desktop.weasel-gentoo.ts.net:GBdd4S10c05l/EOmur5vitMPf7/CwwW7ssplsf/qnf4=";
+    "marie-nas" = "marie-nas.weasel-gentoo.ts.net:Of/aQ0SsMrrZeAdJWVSWBwg0YcKw5uJaUdM+gBRfMrQ=";
   };
 in
 {
