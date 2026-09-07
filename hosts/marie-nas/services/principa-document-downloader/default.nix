@@ -20,7 +20,7 @@ in
     inputs.principa-document-downloader.nixosModules.default
   ];
   services.principa-document-downloader = {
-    enable = true;
+    enable = false;
     secrets = lib.genAttrs (lib.attrNames secrets) (secret: config.age.secrets.${secret}.path);
     startAt = "Mon..Fri 9..17/2:00:00";
   };
