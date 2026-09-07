@@ -172,7 +172,6 @@
     obs-cmd
     kdiff3
     evcxr
-    jetbrains.idea
     incus.client
   ];
 
