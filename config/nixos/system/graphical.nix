@@ -83,6 +83,7 @@
     kzones
     pkgs.hyfetch
     kiot
+    pkgs.kpublicalerts
   ];
 
   hardware.graphics = {
