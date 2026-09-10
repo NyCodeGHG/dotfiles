@@ -135,34 +135,4 @@
       port = ${toString config.services.forgejo.settings.server.HTTP_PORT}
     } 
   '';
-
-  systemd.tmpfiles.rules =
-    let
-      cfg = config.services.forgejo;
-      gitgaySrc = pkgs.fetchFromGitea {
-        domain = "git.gay";
-        owner = "gitgay";
-        repo = "forgejo";
-        rev = "9f4d19af953588a0595f05d59982549475494121";
-        hash = "sha256-8wNoFmg2jyDJU3KTtdx/Ji4cHf6CXger1dTUb0AcCPk=";
-      };
-      gitgayAssets = pkgs.fetchFromGitea {
-        domain = "git.gay";
-        owner = "gitgay";
-        repo = "assets";
-        rev = "66519eb5cab2e072fd12a71c013826efb61928ba";
-        hash = "sha256-QMwprSD+k0qu3HMCYHlsOdqSA708BdMS2j0bcfoWWAU=";
-      };
-      customContent = pkgs.runCommand "forgejo-custom-content" { } ''
-        mkdir -p $out/{public/assets/css,templates/base}
-        cp ${gitgaySrc}/web_src/css/themes/theme-gitdotgay{,-light,-dark}.css $out/public/assets/css
-        cp ${./custom-content/head_style.tmpl} $out/templates/base/head_style.tmpl
-        cp ${gitgayAssets}/public/assets/font/DMSans/* $out/public/assets/css
-      '';
-    in
-    [
-      "d '${cfg.customDir}/public' 0750 ${cfg.user} ${cfg.group} - -"
-      "L+ '${cfg.customDir}/public/assets' - - - - ${customContent}/public/assets"
-      "L+ '${cfg.customDir}/templates' - - - - ${customContent}/templates"
-    ];
 }
