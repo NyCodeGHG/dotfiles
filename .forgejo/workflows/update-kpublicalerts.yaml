@@ -77,10 +77,13 @@ jobs:
               echo "**Build failed ❌**"
             fi
             echo
-            echo "<details><summary>Build log</summary>"
+            echo "Workflow run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo "Full build log: uploaded as the \`build-log\` workflow artifact."
+            echo
+            echo "<details><summary>Last lines of the build log</summary>"
             echo
             echo '```'
-            tail -c 60000 "$BUILD_LOG"
+            tail -c 4000 "$BUILD_LOG"
             echo '```'
             echo "</details>"
           } > "$PR_BODY"
