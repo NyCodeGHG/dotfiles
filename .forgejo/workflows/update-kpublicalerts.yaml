@@ -38,7 +38,6 @@ jobs:
           COMMIT_MESSAGE="$(mktemp -t "commit-message-XXXXXX.txt")"
           nix run --inputs-from . nixpkgs#lixPackageSets.latest.nix-update -- \
             --flake \
-            --format \
             --version branch=master \
             --write-commit-message "$COMMIT_MESSAGE" \
             kpublicalerts
