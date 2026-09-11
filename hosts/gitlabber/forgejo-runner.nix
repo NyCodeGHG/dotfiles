@@ -11,6 +11,7 @@
       nodejs
       wget
       config.nix.package
+      jq
     ];
     settings = {
       runner.labels = [
