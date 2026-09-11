@@ -36,7 +36,7 @@ jobs:
 
           echo "::group::Run nix-update"   
           COMMIT_MESSAGE="$(mktemp -t "commit-message-XXXXXX.txt")"
-          nix run --inputs-from . nixpkgs#nix-update -- \
+          nix run --inputs-from . nixpkgs#lixPackageSets.latest.nix-update -- \
             --flake \
             --format \
             --version branch=master \
