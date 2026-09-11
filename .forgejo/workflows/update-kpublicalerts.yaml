@@ -1,0 +1,86 @@
+name: Update KPublicAlerts
+on:
+  schedule:
+    - cron: "0 14 * * Fri"
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: nix-x86_64
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out the repository
+        uses: https://data.forgejo.org/actions/checkout@v6
+
+      - name: Update
+        shell: bash
+        run: |
+          set -eo pipefail
+
+          echo "::group::Run nix-update"   
+          COMMIT_MESSAGE="$(mktemp -t "commit-message-XXXXXX.txt")"
+          nix run --inputs-from . nixpkgs#nix-update -- \
+            --flake \
+            --format \
+            --version branch=master \
+            --write-commit-message "$COMMIT_MESSAGE" \
+            kpublicalerts
+          echo "::endgroup::"
+
+          echo "::group::Check for changes"   
+          if git diff --quiet; then
+            echo "No update"
+            echo "::endgroup::"
+            exit 0
+          fi
+          echo "::endgroup::"
+
+          echo "::group::Build"   
+          BUILD_LOG="$(mktemp -t "build-XXXXXX.log")"
+          if nix build .#kpublicalerts -L --no-link 2>&1 | tee "$BUILD_LOG"; then
+            BUILD_RESULT="success"
+          else
+            BUILD_RESULT="failed"
+          fi
+          echo "build_log=$BUILD_LOG" >> "$GITHUB_OUTPUT"
+          echo "::endgroup::"
+
+          echo "::group::Commit"
+          git config user.name "Forgejo Actions"
+          git config user.email "actions@git.marie.cologne"
+          git switch --detach
+          git commit -a --file "$COMMIT_MESSAGE"
+          echo "::endgroup::"
+
+          echo "::group::Create Pull Request"
+          PR_BODY="$(mktemp -t "pr-body-XXXXX.md")"
+          {
+            if [[ "$BUILD_RESULT" == "success" ]]; then
+              echo "**Build successful ✅**"
+            else
+              echo "**Build failed ❌**"
+            fi
+            echo
+            echo "<details><summary>Build log</summary>"
+            echo
+            echo '```'
+            tail -c 60000 "$BUILD_LOG"
+            echo '```'
+            echo "</details>"
+          } > "$PR_BODY"
+
+          git push origin HEAD:refs/for/main \
+            -o topic=actions/update-kpublicalerts \
+            -o title="$(head -n 1 "$COMMIT_MESSAGE")" \
+            -o description="{base64}$(base64 -w0 "$PR_BODY")" \
+            -o force-push=true
+          echo "::endgroup::"
+
+      - name: Upload build log
+        if: (success() || failure()) && steps.update.outputs.build_log != ''
+        uses: https://data.forgejo.org/forgejo/upload-artifact@v4
+        with:
+          name: build-log
+          path: ${{ steps.update.outputs.build_log }}
+          if-no-files-found: warn
