@@ -3,12 +3,31 @@ on:
   schedule:
     - cron: "0 14 * * Fri"
   workflow_dispatch:
+
+enable-openid-connect: true
+
 jobs:
   update:
     runs-on: nix-x86_64
     steps:
+      - name: fetch jwt
+        id: jwt
+        env:
+          AUD: u:1:d0de863e-2936-45ca-9cfc-927564b48134
+        run: |
+          jwt="$( \
+            curl --fail \
+            -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUD" \
+            | jq -r ".value" \
+          )"
+          echo "::add-mask::$jwt"
+          echo "jwt=$jwt" >> $FORGEJO_OUTPUT
+
       - name: Check out the repository
         uses: https://data.forgejo.org/actions/checkout@v5
+        with:
+          token: ${{ steps.jwt.outputs.jwt }}
 
       - name: Update
         shell: bash
