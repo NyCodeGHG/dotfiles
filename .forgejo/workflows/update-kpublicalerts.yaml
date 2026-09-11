@@ -6,9 +6,6 @@ on:
 jobs:
   update:
     runs-on: nix-x86_64
-    permissions:
-      contents: write
-      pull-requests: write
     steps:
       - name: Check out the repository
         uses: https://data.forgejo.org/actions/checkout@v5
