@@ -22,7 +22,12 @@ in
       "transmission.service"
       "netns@vpn.target"
     ];
+    bindsTo = [ "netns@vpn.target" ];
     partOf = [ "netns@vpn.target" ];
+    unitConfig = {
+      # A failed socket-activated start must not fail the socket with it.
+      StartLimitIntervalSec = 0;
+    };
     serviceConfig = {
       Type = "notify";
       NetworkNamespacePath = "/var/run/netns/vpn";

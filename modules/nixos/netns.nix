@@ -16,7 +16,7 @@
 
   systemd.targets."netns@" = {
     description = "%I network namespace target";
-    after = [ "netns@%I.service" ];
-    wants = [ "netns@%I.service" ];
+    after = [ "netns@%i.service" ];
+    wants = [ "netns@%i.service" ];
   };
 }
