@@ -25,7 +25,7 @@
   };
 
   systemd.services.bitmagnet-proxy = {
-    after = [ 
+    after = [
       "bitmagnet.service"
       "netns@vpn.target"
     ];
@@ -46,4 +46,6 @@
     proxyPass = "http://127.0.0.1:3333";
     proxyWebsockets = true;
   };
+
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 3333 ];
 }
