@@ -200,18 +200,26 @@
             (lib.filterAttrs (_: path: lib.pathExists path))
             (lib.mapAttrs (_: path: prev.callPackage path { }))
           ] ./pkgs;
-        in
-        packages
-        // {
-          kiot = prev.kdePackages.callPackage ./pkgs/kiot { };
+          overlay = packages // {
+            kiot = prev.kdePackages.callPackage ./pkgs/kiot { };
 
-          nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
-            module = import ./config/nixvim;
-            pkgs = final;
+            nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
+              module = import ./config/nixvim;
+              pkgs = final;
+            };
+
+            nixvim-vscode = final.nixvim.extend { uwumarie.vscode = true; };
           };
-
-          nixvim-vscode = final.nixvim.extend { uwumarie.vscode = true; };
-        }
+          addShadowWarnings = lib.mapAttrs (
+            name: value:
+            lib.warnIf (lib.hasAttr name prev)
+              "${name} is shadowed by the overlay. Overlay version: ${value.version}, Nixpkgs version: ${
+                prev.${name}.version or "unknown"
+              }"
+              value
+          );
+        in
+        addShadowWarnings overlay
       );
 
       nixosModules = {
