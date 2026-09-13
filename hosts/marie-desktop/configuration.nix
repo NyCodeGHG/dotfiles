@@ -34,17 +34,6 @@
 
   uwumarie.agenix.enable = true;
 
-  boot.binfmt.emulatedSystems = [
-    "powerpc-linux"
-    "aarch64-linux"
-  ];
-  boot.binfmt.preferStaticEmulators = true;
-
-  programs.nh = {
-    enable = true;
-    flake = "/home/marie/dotfiles";
-  };
-
   services.fwupd.enable = true;
 
   # for sidetone thingy
@@ -152,8 +141,6 @@
   environment.systemPackages = with pkgs; [
     spotify
     nvtopPackages.amd
-    protontricks
-    dysk
     qbittorrent
     p7zip
     unrar-wrapper
@@ -162,14 +149,12 @@
     scrcpy
     zfs # to view manpages
     attic-client
-    quickemu
     # anydesk
     ludusavi
     chatterino7
     unrar
     plezy
     distrobox
-    obs-cmd
     kdiff3
     evcxr
     incus.client
