@@ -185,6 +185,12 @@
               inherit (final) kiot;
             }
           );
+
+          proxyt = prev.proxyt.overrideAttrs (prev: {
+            patches = (prev.patches or [ ]) ++ [
+              ./patches/0001-don-t-error-on-missing-home-directory.patch
+            ];
+          });
         }
         // (self.overlays.packages final prev)
       );

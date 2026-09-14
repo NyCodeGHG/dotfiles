@@ -1,0 +1,31 @@
+From c7711c0aa60a7e384052a28bfdca21922b79083f Mon Sep 17 00:00:00 2001
+From: Marie Ramlow <me@nycode.dev>
+Date: Mon, 14 Sep 2026 20:33:49 +0200
+Subject: [PATCH] don't error on missing home directory
+
+A systemd service running with DynamicUser=true doesn't have a home
+directory, proxyt failed to start after upgrading to 0.0.7.
+---
+ cmd/root.go | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/cmd/root.go b/cmd/root.go
+index 9462782..cbbdb03 100644
+--- a/cmd/root.go
++++ b/cmd/root.go
+@@ -54,10 +54,9 @@ func loadConfiguration(settings *viper.Viper, configFile string, homeDir func()
+ 	explicit := configFile != ""
+ 	if !explicit {
+ 		home, err := homeDir()
+-		if err != nil {
+-			return fmt.Errorf("determine home directory: %w", err)
++		if err == nil {
++			configFile = filepath.Join(home, ".proxyt.yaml")
+ 		}
+-		configFile = filepath.Join(home, ".proxyt.yaml")
+ 	}
+ 
+ 	settings.SetConfigFile(configFile)
+-- 
+2.55.0
+
