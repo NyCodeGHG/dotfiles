@@ -16,6 +16,7 @@
       nerd-fonts.jetbrains-mono
       nerd-fonts.fira-mono
       nerd-fonts.symbols-only
+      maple-mono.NF
     ];
     enableDefaultPackages = true;
     fontconfig.defaultFonts = {
