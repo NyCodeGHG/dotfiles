@@ -138,37 +138,6 @@ in
         --keep-monthly 3
     '';
   };
-  systemd.services."restic-paperless" = mkResticService {
-    path = with pkgs; [
-      restic
-      hostname-debian
-    ];
-    serviceConfig = {
-      User = "paperless";
-      Group = "paperless";
-      CacheDirectory = "restic-paperless";
-    };
-    environment = {
-      RESTIC_CACHE_DIR = "%C/restic-paperless";
-    };
-    startAt = "03:00";
-    script = ''
-      set -euo pipefail
-      restic backup \
-        --retry-lock 30m \
-        --tag paperless \
-        /var/lib/paperless
-
-      restic forget \
-        --retry-lock 30m \
-        --tag paperless \
-        --host "$(hostname)" \
-        --group-by host,tags \
-        --keep-within 7d \
-        --keep-weekly 3 \
-        --keep-monthly 3
-    '';
-  };
   systemd.services."restic-synapse" = mkResticService {
     path = with pkgs; [
       restic

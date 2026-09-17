@@ -10,7 +10,6 @@
     ./nginx-meta.nix
     ./renovate.nix
     ./syncthing.nix
-    ./paperless.nix
     ./iperf3.nix
     ./atuin.nix
     ./attic.nix

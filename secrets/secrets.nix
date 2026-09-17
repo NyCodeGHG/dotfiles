@@ -21,7 +21,6 @@ in
   "grafana-oauth-client-secret.age".publicKeys = users ++ artemis;
   "synapse-sso-config.age".publicKeys = users ++ artemis;
   "artemis-wg-privatekey.age".publicKeys = users ++ artemis;
-  "paperless-env.age".publicKeys = users ++ artemis;
 
   "git-email.age".publicKeys = marie-desktop;
   "grafana-mcp-token.age".publicKeys = marie-desktop;
