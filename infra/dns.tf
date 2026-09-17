@@ -24,7 +24,7 @@ locals {
     "jellyfin", "immich", "bt", "bitmagnet",
     "prowlarr", "sonarr", "radarr", "bazarr", "hass", "mass",
     "mqtt.home", "esphome.home", "matter-hub.home", "matterjs.home",
-    "auth.marie-nas", "z2m.home", "sab",
+    "auth.marie-nas", "z2m.home", "sab", "paperless",
   ])
 
   delphi_cnames = toset([
@@ -35,7 +35,6 @@ locals {
 module "tailscale_records" {
   for_each = {
     "prometheus"        = "artemis"
-    "paperless"         = "artemis"
     "syncthing.artemis" = "artemis"
     "logs.artemis"      = "artemis"
     "metrics.artemis"   = "artemis"
