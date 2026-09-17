@@ -263,6 +263,7 @@
               { npr, ... }:
               {
                 nixpkgs = (lib.mapAttrsToList npr) (lib.importJSON ./patches/nixpkgs.json) ++ [
+                  ./patches/0001-openthread-border-router-2026.06.0-2026.09.0.patch
                 ];
               };
           };
