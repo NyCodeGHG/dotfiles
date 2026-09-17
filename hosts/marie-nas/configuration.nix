@@ -24,6 +24,7 @@
     ./services/immich.nix
     ./services/principa-document-downloader
     ./services/harmonia
+    ./services/paperless
     ./monitoring.nix
 
     # Smart Home

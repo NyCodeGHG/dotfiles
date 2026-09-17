@@ -136,6 +136,11 @@
             user = "ncro";
             group = "ncro";
           }
+          {
+            directory = "/var/lib/paperless";
+            user = "paperless";
+            group = "paperless";
+          }
         ];
         files = [
           {
