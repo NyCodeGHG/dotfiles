@@ -10,7 +10,6 @@
     home-manager.nixosModules.default
     agenix.nixosModules.default
     ../../config/nixos/system/graphical.nix
-    ../../config/nixos/applications/ncro.nix
     ../../config/nixos/applications/tailscale.nix
     ./hardware.nix
     ./gaming.nix
