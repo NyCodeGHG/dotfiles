@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  image = "ghcr.io/goauthentik/server:2026.8.0";
+  image = "ghcr.io/goauthentik/server:2026.8.3";
   volumes = [
     "/run/postgresql:/run/postgresql:ro"
     "/var/lib/authentik/media:/media"
