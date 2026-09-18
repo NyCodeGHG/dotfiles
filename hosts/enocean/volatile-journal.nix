@@ -1,6 +1,6 @@
 {
-  services.journald = {
-    storage = "volatile";
-    extraConfig = "SystemMaxUse=25M";
+  services.journald.settings.Journal = {
+    Storage = "volatile";
+    SystemMaxUse = "25M";
   };
 }
