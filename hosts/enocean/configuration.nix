@@ -11,6 +11,7 @@
     ./volatile-journal.nix
     ./monitoring.nix
     ./serial-bridge.nix
+    ./rtc.nix
     # oh god
     (
       { pkgs, lib, ... }@args:
