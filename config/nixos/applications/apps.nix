@@ -35,6 +35,7 @@
         kcolorchooser
         kcalc
         kleopatra
+        pim-sieve-editor
       ])
 
       ++ (with pkgs; [
