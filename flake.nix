@@ -329,6 +329,17 @@
             deployment.targetHost = null;
             nix.registry.nixpkgs.flake = nixpkgs;
           };
+          prom-archiver = {
+            imports = [
+              ./hosts/prom-archiver/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.targetHost = "prom-archiver";
+            deployment.buildOnTarget = false;
+            deployment.targetUser = null;
+            nix.registry.nixpkgs.flake = inputs.nixpkgs;
+            nixpkgs.hostPlatform = "x86_64-linux";
+          };
           wii-u = {
             imports = [
               ./hosts/wii-u/configuration.nix
