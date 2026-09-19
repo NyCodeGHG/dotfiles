@@ -90,7 +90,10 @@
 
     documentation.nixos.enable = lib.mkDefault false;
 
-    networking.nftables.enable = lib.mkDefault true;
+    networking.nftables = {
+      enable = lib.mkDefault true;
+      flushRuleset = false;
+    };
 
     virtualisation.containers.containersConf.settings = {
       network.firewall_driver = lib.mkIf config.networking.nftables.enable "nftables";
