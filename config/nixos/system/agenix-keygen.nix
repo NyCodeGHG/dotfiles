@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  options,
   ...
 }:
 let
@@ -53,56 +54,59 @@ in
           };
         };
       })
-      {
-        age.identityPaths = [
-          "/var/lib/agenix/host_key.txt"
-        ]
-        ++ lib.optionals config.services.openssh.enable (
-          lib.pipe config.services.openssh.hostKeys [
-            (lib.filter (e: e.type == "rsa" || e.type == "ed25519"))
-            (map (e: e.path))
+      (
+        lib.optionalAttrs (options ? age) {
+          age.identityPaths = [
+            "/var/lib/agenix/host_key.txt"
           ]
-        );
+          ++ lib.optionals config.services.openssh.enable (
+            lib.pipe config.services.openssh.hostKeys [
+              (lib.filter (e: e.type == "rsa" || e.type == "ed25519"))
+              (map (e: e.path))
+            ]
+          );
+        }
+        // {
+          systemd.services.agenix-keygen = {
+            description = "Generate agenix host key";
+            wantedBy = [ "sysinit.target" ];
+            before = [ "agenix-install-secrets.service" ];
+            unitConfig = {
+              ConditionPathExists = "!%S/agenix/host_key.txt";
+              ConditionCredential = "!agenix.host_key";
+              DefaultDependencies = false;
+            };
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = "${lib.getExe' pkgs.age "age-keygen"} -pq -o %S/agenix/host_key.txt";
+              StateDirectory = "agenix";
 
-        systemd.services.agenix-keygen = {
-          description = "Generate agenix host key";
-          wantedBy = [ "sysinit.target" ];
-          before = [ "agenix-install-secrets.service" ];
-          unitConfig = {
-            ConditionPathExists = "!%S/agenix/host_key.txt";
-            ConditionCredential = "!agenix.host_key";
-            DefaultDependencies = false;
+              LockPersonality = true;
+              MemoryDenyWriteExecute = true;
+              NoNewPrivileges = true;
+              PrivateDevices = true;
+              PrivateNetwork = true;
+              PrivateTmp = true;
+              PrivateUsers = true;
+              RestrictRealtime = true;
+              RestrictSUIDSGID = true;
+              ProtectSystem = "strict";
+              ProtectHome = true;
+              ProtectProc = "invisible";
+              RestrictAddressFamilies = "";
+              ProtectClock = true;
+              ProtectControlGroups = true;
+              ProtectHostname = true;
+              ProtectKernelLogs = true;
+              ProtectKernelModules = true;
+              ProtectKernelTunables = true;
+              SystemCallArchitectures = "native";
+              SystemCallFilter = "@system-service";
+              SocketBindDeny = "any";
+            };
           };
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "${lib.getExe' pkgs.age "age-keygen"} -pq -o %S/agenix/host_key.txt";
-            StateDirectory = "agenix";
-
-            LockPersonality = true;
-            MemoryDenyWriteExecute = true;
-            NoNewPrivileges = true;
-            PrivateDevices = true;
-            PrivateNetwork = true;
-            PrivateTmp = true;
-            PrivateUsers = true;
-            RestrictRealtime = true;
-            RestrictSUIDSGID = true;
-            ProtectSystem = "strict";
-            ProtectHome = true;
-            ProtectProc = "invisible";
-            RestrictAddressFamilies = "";
-            ProtectClock = true;
-            ProtectControlGroups = true;
-            ProtectHostname = true;
-            ProtectKernelLogs = true;
-            ProtectKernelModules = true;
-            ProtectKernelTunables = true;
-            SystemCallArchitectures = "native";
-            SystemCallFilter = "@system-service";
-            SocketBindDeny = "any";
-          };
-        };
-      }
+        }
+      )
     ]
   );
 }
