@@ -49,6 +49,7 @@ in
       before = [
         "shutdown.target"
         "initrd-switch-root.target"
+        "sshd.service"
       ];
       conflicts = [
         "shutdown.target"
