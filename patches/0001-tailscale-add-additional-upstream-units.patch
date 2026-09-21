@@ -1,0 +1,29 @@
+From 507784ea3accc8b61725a39aa36c702453a4e37e Mon Sep 17 00:00:00 2001
+From: Marie Ramlow <me@nycode.dev>
+Date: Mon, 21 Sep 2026 16:47:56 +0200
+Subject: [PATCH] tailscale: add additional upstream units
+
+Adds the following systemd units from upstream:
+- `tailscale-online.target`
+- `tailscale-wait-online.service`
+---
+ pkgs/by-name/ta/tailscale/package.nix | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/ta/tailscale/package.nix b/pkgs/by-name/ta/tailscale/package.nix
+index 7382d9803d14..647e5867c18d 100644
+--- a/pkgs/by-name/ta/tailscale/package.nix
++++ b/pkgs/by-name/ta/tailscale/package.nix
+@@ -234,7 +234,8 @@ buildGoModule (finalAttrs: {
+       } \
+       --suffix PATH : ${lib.makeBinPath [ procps ]}
+     sed -i -e "s#/usr/sbin#$out/bin#" -e "/^EnvironmentFile/d" ./cmd/tailscaled/tailscaled.service
+-    install -D -m0444 -t $out/lib/systemd/system ./cmd/tailscaled/tailscaled.service
++    substituteInPlace ./cmd/tailscaled/tailscale-wait-online.service --replace-fail "/usr/bin" "$out/bin"
++    install -D -m0444 -t $out/lib/systemd/system ./cmd/tailscaled/{tailscaled.service,tailscale-online.target,tailscale-wait-online.service}
+   ''
+   + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+     local INSTALL="$out/bin/tailscale"
+-- 
+2.55.0
+

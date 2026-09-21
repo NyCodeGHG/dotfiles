@@ -31,10 +31,12 @@
       after = [
         "harmonia.socket"
         "tailscaled.service"
+        "tailscale-online.target"
       ];
       wants = [
         "harmonia.socket"
         "tailscaled.service"
+        "tailscale-online.target"
       ];
       wantedBy = [ "multi-user.target" ];
       confinement.enable = true;
