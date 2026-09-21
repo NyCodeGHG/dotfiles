@@ -23,11 +23,7 @@
       enableGitEmail = true;
     };
     jujutsu = true;
-    ssh = {
-      enable = true;
-      githubKeyFile = "~/.ssh/id_ed25519";
-      defaultKeyFile = "~/.ssh/id_ed25519";
-    };
+    ssh.enable = true;
     fish = true;
   };
   age.identityPaths = [
