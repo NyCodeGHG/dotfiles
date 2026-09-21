@@ -1,4 +1,9 @@
-{ pkgs, inputs, lib, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [
     inputs.agenix.nixosModules.default
@@ -108,4 +113,12 @@
       "factorio-headless"
       "unrar"
     ]);
+
+  users.users.claude = {
+    isNormalUser = true;
+    extraGroups = [ "systemd-journal" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOomMZNhLUbB1ZRy3FaKXxwRr1xpTMmGln3FY8/Srei7"
+    ];
+  };
 }
