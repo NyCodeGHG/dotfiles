@@ -25,6 +25,7 @@
         };
         dhcpV4Config = {
           Hostname = "${config.networking.hostName}-initrd";
+          ClientIdentifier = "mac";
         };
       };
     };
