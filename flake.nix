@@ -290,6 +290,7 @@
             ];
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
+            deployment.tags = [ "online" ];
             nix.registry.nixpkgs.flake = nixpkgs;
           };
           delphi = {
@@ -299,6 +300,7 @@
             ];
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
+            deployment.tags = [ "online" ];
             # nix.registry.nixpkgs.flake = nixpkgs;
           };
           gitlabber = {
@@ -309,6 +311,7 @@
             deployment.targetHost = "root@gitlabber.weasel-gentoo.ts.net";
             deployment.buildOnTarget = true;
             deployment.targetUser = null;
+            deployment.tags = [ "online" ];
             nix.registry.nixpkgs.flake = nixpkgs;
           };
           marie-nas = {
@@ -319,6 +322,7 @@
             deployment.targetHost = "marie-nas";
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
+            deployment.tags = [ "online" ];
             nix.registry.nixpkgs.flake = nixpkgs;
           };
           marie-desktop = {
@@ -338,6 +342,7 @@
             deployment.targetHost = "prom-archiver";
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
+            deployment.tags = [ "online" ];
             nix.registry.nixpkgs.flake = inputs.nixpkgs;
             nixpkgs.hostPlatform = "x86_64-linux";
           };
