@@ -22,7 +22,7 @@
       "10-ethernet" = {
         matchConfig = {
           Type = [ "ether" ];
-          Kind = [ "!veth" ];
+          Kind = "!*";
         };
         networkConfig = {
           DHCP = "ipv4";

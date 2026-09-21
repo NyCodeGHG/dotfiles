@@ -19,7 +19,7 @@
       ethernet = {
         matchConfig = {
           Type = [ "ether" ];
-          Kind = [ "!veth bridge tap tun" ];
+          Kind = "!*";
         };
         networkConfig = {
           Bridge = "br0";
