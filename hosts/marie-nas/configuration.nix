@@ -4,6 +4,7 @@
     inputs.agenix.nixosModules.default
     ../../config/nixos/system/acme.nix
     ../../config/nixos/applications/tailscale.nix
+    ../../config/nixos/applications/ncro.nix
     ../../config/nixos/monitoring
     ../../modules/nixos/cloudflare-dyndns/cloudflare-dyndns.nix
     ./networking.nix
