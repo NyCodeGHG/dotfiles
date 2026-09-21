@@ -62,34 +62,13 @@
     openssh.authorizedKeys.keys = [
       # Warpgate public key
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICFPCqSH26mf3vHii7DUtHRZ33OhSVYpjUMmbTDReS+s"
-      # Marie desktop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILdNaJgKxA021pqrbkoMiP2a9buYZUXfG5q01y2h8YOa"
-    ];
+    ] ++ (import ../../keys/ssh);
   };
-
-  users.users.builder = {
-    isSystemUser = true;
-    openssh.authorizedKeys.keys = [
-      # Warpgate public key
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICFPCqSH26mf3vHii7DUtHRZ33OhSVYpjUMmbTDReS+s"
-      # Marie desktop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiS+tzh0R/nN5nqSwvLerCV4nBwI51zOKahFfiiINGp"
-      # root@marie-desktop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKl1gOAizi410fKbP0wP6+XJMAk+JDx+mLp2amPKKQPY"
-    ];
-    group = "builder";
-    shell = pkgs.bashInteractive;
-  };
-  users.groups.builder = { };
 
   services.openssh.settings.PermitRootLogin = "prohibit-password";
 
   nix = {
     settings = {
-      trusted-users = [
-        "@wheel"
-        "builder"
-      ];
       builders-use-substitutes = true;
       build-dir = "/var/tmp/nix";
       cores = 4;

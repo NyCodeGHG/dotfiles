@@ -15,14 +15,6 @@ lib.mkIf config.uwumarie.profiles.users.marie {
     ++ lib.optional config.virtualisation.podman.enable "podman"
     ++ lib.optional config.services.pipewire.enable "pipewire"
     ++ lib.optional config.programs.wireshark.enable "wireshark";
-    openssh.authorizedKeys.keys = lib.mkIf config.services.openssh.enable [
-      # Desktop old
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiS+tzh0R/nN5nqSwvLerCV4nBwI51zOKahFfiiINGp"
-      # Desktop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILdNaJgKxA021pqrbkoMiP2a9buYZUXfG5q01y2h8YOa"
-      # Laptop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIESHraJJ0INX/OAXOQUR4UuLEre/2N70Uh3H5YkFC5zz"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILCcImzZop8RaAlrAy9HBy6LZz3iOaq9V5tThwIB8Ar4"
-    ];
+    openssh.authorizedKeys.keys = lib.mkIf config.services.openssh.enable (import ../../../keys/ssh);
   };
 }

@@ -79,10 +79,6 @@
 
   services.fwupd.enable = true;
 
-  users.users.marie.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAs0W2PBnnSG7LvyE0TnfnFjzaC4tbRludscIZM+SWci"
-  ];
-
   environment.systemPackages = with pkgs; [
     fio
     efibootmgr
