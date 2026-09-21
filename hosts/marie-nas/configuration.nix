@@ -19,6 +19,7 @@
     ./powersave.nix
     ./filesystems.nix
     ./initrd-ssh.nix
+    ./initrd-tailscale.nix
     ./samba.nix
     ./media.nix
     ./services/postgres.nix
