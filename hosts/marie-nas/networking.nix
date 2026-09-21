@@ -41,22 +41,6 @@
         dhcpV6Config.UseDNS = false;
         ipv6AcceptRAConfig.UseDNS = false;
       };
-      "25-br1" = {
-        matchConfig = {
-          Name = "br1";
-        };
-        linkConfig = {
-          RequiredForOnline = false;
-        };
-        networkConfig = {
-          DHCP = "ipv4";
-          IPv6AcceptRA = true;
-          MulticastDNS = true;
-        };
-        dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
-        ipv6AcceptRAConfig.UseDNS = false;
-      };
     };
     links = {
       "50-wake-on-lan" = {
@@ -83,12 +67,6 @@
           Name = "br0";
           Kind = "bridge";
           MACAddress = "none";
-        };
-      };
-      "25-br1" = {
-        netdevConfig = {
-          Name = "br1";
-          Kind = "bridge";
         };
       };
     };
