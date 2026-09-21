@@ -82,6 +82,7 @@
       sshfs
       socat
       tinyxxd
+      tailcat
     ];
 
     security.sudo-rs.enable = lib.mkDefault true;
