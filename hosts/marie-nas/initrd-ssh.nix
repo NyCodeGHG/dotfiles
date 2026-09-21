@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   boot.initrd.network = {
     enable = true;
@@ -11,6 +11,11 @@
       ];
     };
   };
+
+  boot.initrd.systemd.contents = {
+    "/etc/terminfo/x/xterm-256color".source = "${pkgs.ncurses}/share/terminfo/x/xterm-256color";
+  };
+
   boot.initrd.systemd.network = {
     enable = true;
     networks = {
