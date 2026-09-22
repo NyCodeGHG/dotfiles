@@ -228,11 +228,7 @@
         addShadowWarnings overlay
       );
 
-      nixosModules = {
-        config = import ./config/nixos;
-        nspawnTarball = ./modules/nixos/nspawn-tarball.nix;
-        cachixUpload = ./modules/nixos/cachix-upload.nix;
-      };
+      nixosModules.config = import ./config/nixos;
       homeManagerModules.config = import ./config/home-manager;
 
       nixosConfigurations = self.colmenaHive.nodes;

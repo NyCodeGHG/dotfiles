@@ -23,11 +23,9 @@ in
       settings = {
         substituters = lib.optionals (!ncroEnabled) [
           "https://cache.marie.cologne/marie"
-          "https://uwumarie.cachix.org"
         ];
         trusted-public-keys = lib.optionals (!ncroEnabled) [
           "marie:+lOdb5mtdCgfeh1P+Wsk/7okVYuvlv9eOSyihL6rwPs="
-          "uwumarie.cachix.org-1:H6nX8e82pu2GQ8CGU3j1qHTG7QMYzZ15oSBh26XhtVo="
         ];
         experimental-features = [
           "nix-command"

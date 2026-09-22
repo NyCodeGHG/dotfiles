@@ -30,11 +30,6 @@ in
           priority = 20;
           public_key = "marie:+lOdb5mtdCgfeh1P+Wsk/7okVYuvlv9eOSyihL6rwPs=";
         }
-        {
-          url = "https://uwumarie.cachix.org";
-          priority = 30;
-          public_key = "uwumarie.cachix.org-1:H6nX8e82pu2GQ8CGU3j1qHTG7QMYzZ15oSBh26XhtVo=";
-        }
       ]
       ++ lib.pipe hosts [
         (lib.filterAttrs (host: _: host != config.networking.hostName))
