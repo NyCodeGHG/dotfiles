@@ -2,6 +2,8 @@
 {
   imports = [
     ../../config/nixos/system/lxc-image.nix
+    ../../config/nixos/monitoring
+    ../../config/nixos/applications/tailscale.nix
   ];
 
   services.victoriametrics = {
@@ -20,6 +22,13 @@
       }
     ];
   };
+
+  environment.etc."alloy/vm.alloy".text = ''
+    scrape_local "victoriametrics" {
+      name = "smartctl"
+      port = 8428
+    }
+  '';
 
   networking.hostName = "prom-archiver";
 
