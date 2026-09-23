@@ -13,6 +13,9 @@
     web.enable = true;
   };
 
+  # TODO: Remove after https://github.com/rust-netlink/netlink-packet-route/pull/338 shipped
+  virtualisation.podman.defaultNetwork.settings.options.mtu = "1500";
+
   systemd.services.otbr-agent = {
     startLimitIntervalSec = 0;
     serviceConfig = {
