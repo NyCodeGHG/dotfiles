@@ -20,4 +20,9 @@
       RestartMaxDelaySec = "5min";
     };
   };
+
+  networking.firewall.extraForwardRules = ''
+    iifname "wpan0" accept
+    oifname "wpan0" accept
+  '';
 }

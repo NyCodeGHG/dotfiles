@@ -18,4 +18,8 @@
       ]
     }
   '';
+
+  networking.firewall.extraForwardRules = ''
+    iifname "tailscale0" accept;
+  '';
 }

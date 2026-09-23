@@ -91,16 +91,16 @@
 
     documentation.nixos.enable = lib.mkDefault false;
 
-    networking.nftables = {
-      enable = lib.mkDefault true;
-      flushRuleset = false;
+    networking = {
+      nftables = {
+        enable = lib.mkDefault true;
+        flushRuleset = false;
+      };
+      firewall.filterForward = lib.mkDefault true;
     };
 
-    virtualisation.containers.containersConf.settings = {
-      network.firewall_driver = lib.mkIf config.networking.nftables.enable "nftables";
-      engine = {
-        compose_warning_logs = false;
-      };
+    virtualisation.containers.containersConf.settings.engine = {
+      compose_warning_logs = false;
     };
 
     users.mutableUsers = false;

@@ -4,14 +4,19 @@
     hostName = "marie-nas";
     useDHCP = false;
     nftables.enable = true;
-    firewall.allowedTCPPorts = [
-      80
-      443
-    ];
-    firewall.allowedUDPPorts = [
-      443
-      5353 # sd-resolved
-    ];
+    firewall = {
+      allowedTCPPorts = [
+        80
+        443
+      ];
+      allowedUDPPorts = [
+        443
+        5353 # sd-resolved
+      ];
+      extraForwardRules = ''
+        iifname "br0" oifname "br0" accept
+      '';
+    };
   };
   systemd.network = {
     enable = true;
