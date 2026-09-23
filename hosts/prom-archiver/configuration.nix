@@ -25,7 +25,7 @@
 
   environment.etc."alloy/vm.alloy".text = ''
     scrape_local "victoriametrics" {
-      name = "smartctl"
+      name = "victoriametrics"
       port = 8428
     }
   '';

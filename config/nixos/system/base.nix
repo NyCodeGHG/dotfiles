@@ -18,22 +18,6 @@
 
       # enable TCP BBR for hopefully better utilization
       kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";
-
-      extraModprobeConfig = ''
-        install esp4 ${pkgs.coreutils}/bin/false
-        install esp6 ${pkgs.coreutils}/bin/false
-        install rxrpc ${pkgs.coreutils}/bin/false
-        install ipcomp4 ${pkgs.coreutils}/bin/false
-        install ipcomp6 ${pkgs.coreutils}/bin/false
-      '';
-
-      blacklistedKernelModules = [
-        "esp4"
-        "esp6"
-        "rxrpc"
-        "ipcomp4"
-        "ipcomp6"
-      ];
     };
 
     programs.fuse.enable = true;
@@ -56,23 +40,19 @@
     };
 
     environment.systemPackages = with pkgs; [
-      htop
       btop
       pciutils
       file
       iputils
       dnsutils
       usbutils
-      wget2
       curl
       tcpdump
       git
       fd
       bat
       ripgrep
-      inxi
       pv
-      cyme
       jq
       b3sum
       bpftrace
@@ -83,6 +63,7 @@
       socat
       tinyxxd
       tailcat
+      conntrack-tools
     ];
 
     security.sudo-rs.enable = lib.mkDefault true;
