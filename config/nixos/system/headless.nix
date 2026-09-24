@@ -5,5 +5,6 @@
     environment.stub-ld.enable = false;
     networking.firewall.logRefusedConnections = false;
     powerManagement.enable = lib.mkDefault false;
+    boot.zswap.maxPoolPercent = 20;
   };
 }

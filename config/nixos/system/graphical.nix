@@ -64,6 +64,7 @@
     consoleLogLevel = 3;
     kernelParams = [ "quiet" ];
     kernel.sysctl."vm.swappiness" = 10;
+    zswap.maxPoolPercent = 25;
   };
 
   networking = {
