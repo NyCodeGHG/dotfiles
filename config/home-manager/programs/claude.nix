@@ -50,6 +50,7 @@
     };
     skills = {
       rust-skills = toString inputs.rust-skills;
+      nixos-vm = ./claude-skills/nixos-vm;
     };
     context = ''
       # General
