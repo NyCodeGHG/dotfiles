@@ -7,7 +7,7 @@
   services.home-assistant = {
     enable = true;
     package = pkgs.home-assistant.overrideAttrs (prev: {
-      patches = (prev.patches or []) ++ [
+      patches = (prev.patches or [ ]) ++ [
         ../../../../patches/hass-ipv6-prefix.patch
         ../../../../patches/hass-nixos-brand.patch
       ];
@@ -44,6 +44,8 @@
       "mcp_server"
       "openweathermap"
       "co2signal"
+      "bluetooth"
+      "oralb"
     ];
     config = {
       # Includes dependencies for a basic setup
@@ -97,4 +99,6 @@
       client_max_body_size 100M;
     '';
   };
+
+  hardware.bluetooth.enable = true;
 }
