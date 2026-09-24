@@ -12,12 +12,7 @@ lib.mkIf config.uwumarie.profiles.jujutsu {
         name = "Marie Ramlow";
         email = "me@nycode.dev";
       };
-      ui.diff-formatter = [
-        "${pkgs.difftastic}/bin/difft"
-        "--color=always"
-        "$left"
-        "$right"
-      ];
+      ui.diff-formatter = "difft";
       aliases = {
         gc = [
           "git"
