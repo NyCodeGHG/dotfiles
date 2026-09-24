@@ -39,26 +39,161 @@ jobs:
           echo "jwt=$jwt" >> "$FORGEJO_OUTPUT"
 
       - uses: https://data.forgejo.org/actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        id: checkout
         with:
           token: ${{ steps.jwt.outputs.jwt }}
           fetch-depth: 0
       - name: Merge branches
+        id: merge
         env:
           FROM: ${{ inputs.from }}
           INTO: ${{ inputs.into }}
         run: |
           git config user.name "Forgejo Actions"
           git config user.email "actions@git.marie.cologne"
+          git config merge.conflictStyle zdiff3
           git switch -C "$INTO" "origin/$INTO"
           git merge "origin/$FROM" --no-edit
           git push origin "$INTO"
-        
-      - name: Notification on failure
+
+      - name: Push
+        id: push
+        env:
+          INTO: ${{ inputs.into }}
+        run: git push origin "$INTO"
+
+      - name: Notify on failure
         if: ${{ failure() }}
         env:
-          BODY_TEXT: |
-            Periodic merge from `${{ inputs.from }}` into [`${{ inputs.into }}`](${{ github.server_url }}/${{ github.repository }}/src/branch/${{ inputs.into }}) has [failed](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+          FROM: ${{ inputs.from }}
+          INTO: ${{ inputs.into }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          FAILED_STEP: >-
+            ${{ steps.jwt.outcome == 'failure' && 'Fetch token'
+            || steps.checkout.outcome == 'failure' && 'Checkout'
+            || steps.merge.outcome == 'failure' && 'Merge'
+            || steps.push.outcome == 'failure' && 'Push'
+            || 'Unknown' }}
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
-          jq -n --arg content "$BODY_TEXT" '{username: "Forgejo Actions", content: $content}' \
-            | curl --fail -sS -H "Content-Type: application/json" -d @- "$WEBHOOK_URL"
+          RUN_URL="$REPO_URL/actions/runs/$RUN_ID"
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+
+          conflicts=()
+          if [[ $FAILED_STEP == Merge ]]; then
+            mapfile -t conflicts < <(
+              git diff --name-only --diff-filter=U
+            )
+          fi
+
+          : > "$tmp/into.log"
+          : > "$tmp/from.log"
+          if ((${#conflicts[@]})); then
+            git diff --diff-filter=U > "$tmp/conflicts.diff"
+            # commits on each side that touched the conflicting files
+            fmt='%h%x1f%H%x1f%s%x1f%an'
+            git log --merge --left-only --format="$fmt" \
+              > "$tmp/into.log"
+            git log --merge --right-only --format="$fmt" \
+              > "$tmp/from.log"
+          fi
+
+          cat > "$tmp/payload.jq" <<'EOF'
+          # join lines, cutting off the tail beyond $max characters
+          def fit($max):
+            . as $lines
+            | ($lines | length) as $total
+            | reduce $lines[] as $line ({out: "", n: 0, full: false};
+                if .full then . else
+                  (if .out == "" then $line
+                   else .out + "\n" + $line end) as $next
+                  | if ($next | length) > $max - 20
+                    then .full = true
+                    else .out = $next | .n += 1 end
+                end)
+            | .out
+              + (if .n < $total
+                 then "\n… and \($total - .n) more"
+                 else "" end);
+
+          def branch($b):
+            "[`\($b)`](\($repo_url)/src/branch/\($b | @uri))";
+
+          def commits:
+            split("\n")
+            | map(select(. != "") | split("\u001f"))
+            | map("[`\(.[0])`](\($repo_url)/commit/\(.[1])) "
+                  + "\(.[2]) — *\(.[3])*")
+            | if length == 0 then "—" else fit(1024) end;
+
+          def conflict_text:
+            $ARGS.positional as $conflicts
+            | "**\($conflicts | length)** file(s) conflict. "
+            + "The full diff is attached.\n\n"
+            + ($conflicts | map("• `\(.)`") | fit(1500))
+            + "\n\n**Resolve locally**\n```sh\n"
+            + "git fetch origin\n"
+            + "git switch \($into) && git merge origin/\($from)\n"
+            + "```";
+
+          def failure_text:
+            "Step **\($step)** failed. "
+            + "See the [run log](\($run_url)) for details.";
+
+          $ARGS.positional as $conflicts
+          | ($conflicts | length > 0) as $is_conflict
+          | {
+              username: "Forgejo Actions",
+              embeds: [{
+                title: (
+                  (if $is_conflict then "Merge conflict"
+                   else "Merge failed" end)
+                  + ": \($from) → \($into)"
+                ),
+                url: $run_url,
+                color: (if $is_conflict then 15105570
+                        else 15548997 end),
+                description: (if $is_conflict then conflict_text
+                              else failure_text end),
+                fields: (
+                  [
+                    {name: "From", value: branch($from), inline: true},
+                    {name: "Into", value: branch($into), inline: true}
+                  ]
+                  + if $is_conflict then [
+                      {name: "Conflicting commits on \($into)",
+                       value: ($into_log | commits)},
+                      {name: "Conflicting commits on \($from)",
+                       value: ($from_log | commits)}
+                    ] else [] end
+                ),
+                timestamp: (now | todate)
+              }]
+            }
+          EOF
+
+          jq -n \
+            --arg from "$FROM" \
+            --arg into "$INTO" \
+            --arg repo_url "$REPO_URL" \
+            --arg run_url "$RUN_URL" \
+            --arg step "$FAILED_STEP" \
+            --rawfile into_log "$tmp/into.log" \
+            --rawfile from_log "$tmp/from.log" \
+            -f "$tmp/payload.jq" \
+            --args "${conflicts[@]}" \
+            > "$tmp/payload.json"
+
+          attachment=()
+          if [[ -s $tmp/conflicts.diff ]]; then
+            attachment=(
+              -F "files[0]=@$tmp/conflicts.diff;filename=conflicts.diff"
+            )
+          fi
+
+          curl --fail-with-body -sS \
+            -F "payload_json=<$tmp/payload.json" \
+            "${attachment[@]}" \
+            "$WEBHOOK_URL"
