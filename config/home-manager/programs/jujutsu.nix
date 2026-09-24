@@ -10,7 +10,7 @@ lib.mkIf config.uwumarie.profiles.jujutsu {
     settings = {
       user = {
         name = "Marie Ramlow";
-        email = "me@nycode.dev";
+        email = "marie@marie.cologne";
       };
       ui.diff-formatter = "difft";
       aliases = {
