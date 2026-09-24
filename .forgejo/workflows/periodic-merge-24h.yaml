@@ -1,0 +1,20 @@
+name: "Periodic Merges (6h)"
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  periodic-merge:
+    uses: ./.forgejo/workflows/periodic-merge.yaml
+    with:
+      from: main
+      into: ${{ vars.TARGET_BRANCH }}
+    name: ${{ format('{0} → {1}', matrix.pairs.from, matrix.pairs.into) }}
+    secrets:
+      WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}

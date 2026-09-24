@@ -1,0 +1,64 @@
+name: "Merge"
+
+on:
+  workflow_call:
+    inputs:
+      from:
+        description: Branch to merge into target branch.
+        required: true
+        type: string
+      into:
+        description: Target branch to merge into.
+        required: true
+        type: string
+
+defaults:
+  run:
+    shell: bash
+
+enable-openid-connect: true
+
+concurrency: merge-${{ inputs.into }}
+
+jobs:
+  merge:
+    runs-on: nix-x86_64
+    steps:
+      - name: fetch jwt
+        id: jwt
+        env:
+          AUD: u:1:7901ba74-98be-4606-8639-cb045eaeac8f
+        run: |
+          jwt="$( \
+            curl --fail \
+            -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUD" \
+            | jq -er ".value" \
+          )"
+          echo "::add-mask::$jwt"
+          echo "jwt=$jwt" >> "$FORGEJO_OUTPUT"
+
+      - uses: https://data.forgejo.org/actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          token: ${{ steps.jwt.outputs.jwt }}
+          fetch-depth: 0
+      - name: Merge branches
+        env:
+          FROM: ${{ inputs.from }}
+          INTO: ${{ inputs.into }}
+        run: |
+          git config user.name "Forgejo Actions"
+          git config user.email "actions@git.marie.cologne"
+          git switch -C "$INTO" "origin/$INTO"
+          git merge "origin/$FROM" --no-edit
+          git push origin "$INTO"
+        
+      - name: Notification on failure
+        if: ${{ failure() }}
+        env:
+          BODY_TEXT: |
+            Periodic merge from `${{ inputs.from }}` into [`${{ inputs.into }}`](${{ github.server_url }}/${{ github.repository }}/src/branch/${{ inputs.into }}) has [failed](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          jq -n --arg content "$BODY_TEXT" '{username: "Forgejo Actions", content: $content}' \
+            | curl --fail -sS -H "Content-Type: application/json" -d @- "$WEBHOOK_URL"
