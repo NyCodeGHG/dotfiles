@@ -1,4 +1,4 @@
-name: "Periodic Merges (6h)"
+name: "Periodic Merges (24h)"
 
 on:
   schedule:
