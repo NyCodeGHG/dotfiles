@@ -38,6 +38,9 @@
           User = "root";
           IdentitiesOnly = true;
         };
+        marie-nas-initrd = {
+          User = "root";
+        };
         "opus opusshgw" = {
           User = "root";
           HostName = "opusshgw";
