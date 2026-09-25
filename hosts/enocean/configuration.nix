@@ -1,6 +1,5 @@
 {
   inputs,
-  pkgs,
   modulesPath,
   config,
   ...
@@ -66,10 +65,8 @@
 
   uwumarie.profiles = {
     ssh-agent = false;
-    base = false;
     dns = false;
     locale = false;
-    zram = false;
   };
 
   uwumarie.agenix.enable = true;
@@ -80,36 +77,10 @@
     initrd.systemd.emergencyAccess = true;
   };
 
-  services = {
-    openssh = {
-      enable = true;
-      openFirewall = true;
-      settings = {
-        PasswordAuthentication = false;
-      };
-    };
-    userborn.enable = true;
-  };
-
-  environment.systemPackages = [
-    pkgs.btop
-  ];
+  services.userborn.enable = true;
 
   security.sudo-rs = {
     enable = true;
     wheelNeedsPassword = false;
   };
-  programs.command-not-found.enable = false;
-  documentation.nixos.enable = false;
-  users.mutableUsers = false;
-
-  system.tools = {
-    nixos-build-vms.enable = false;
-    nixos-enter.enable = false;
-    nixos-generate-config.enable = false;
-    nixos-install.enable = false;
-    nixos-option.enable = false;
-  };
-
-  security.polkit.enable = true;
 }

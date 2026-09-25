@@ -208,20 +208,20 @@
         let
           inherit (inputs.nixpkgs) lib;
           patchInputs = import ./utils/patch-inputs.nix;
+          overlays = [
+            self.overlays.default
+            systemd-impersonate.overlays.default
+            corsair-hs80-pipewire-thing.overlays.default
+            nix-locate-man.overlays.default
+            nix-output-monitor.overlays.default
+            principa-document-downloader.overlays.default
+          ];
           importNixpkgs =
             {
               system ? "x86_64-linux",
             }:
             import nixpkgs {
-              inherit system;
-              overlays = [
-                self.overlays.default
-                systemd-impersonate.overlays.default
-                corsair-hs80-pipewire-thing.overlays.default
-                nix-locate-man.overlays.default
-                nix-output-monitor.overlays.default
-                principa-document-downloader.overlays.default
-              ];
+              inherit system overlays;
             };
           patchedInputs = patchInputs {
             inherit inputs;
@@ -247,7 +247,10 @@
             };
             nodeNixpkgs = {
               delphi = importNixpkgs { system = "aarch64-linux"; };
-              enocean = import inputs.nixpkgs { system = "aarch64-linux"; };
+              enocean = import inputs.nixpkgs {
+                system = "aarch64-linux";
+                inherit overlays;
+              };
             };
           };
           artemis = {

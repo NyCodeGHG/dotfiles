@@ -32,7 +32,7 @@
       };
 
       journald.settings.Journal = {
-        SystemMaxUse = "100M";
+        SystemMaxUse = lib.mkDefault "100M";
       };
 
       orca.enable = false;
