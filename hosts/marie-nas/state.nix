@@ -123,6 +123,7 @@
             group = "media";
           }
           "/var/lib/incus"
+          "/var/lib/containers"
           "/var/lib/esphome"
           {
             directory = "/var/lib/private/principa-document-downloader";
