@@ -132,6 +132,16 @@ in
     defaultNetwork.settings = {
       dns_enabled = true;
       ipv6_enabled = true;
+      subnets = [
+        {
+          subnet = "10.88.0.0/16";
+          gateway = "10.88.0.1";
+        }
+        {
+          subnet = "fd15:2b44:43ab::/64";
+          gateway = "fd15:2b44:43ab::1";
+        }
+      ];
     };
   };
 }
