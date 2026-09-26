@@ -34,7 +34,7 @@ in
         signing.format = null;
 
         settings = {
-          user.email = "me@nycode.dev";
+          user.email = "marie@marie.cologne";
           user.name = "Marie Ramlow";
           init.defaultBranch = "main";
           push.autoSetupRemote = true;
