@@ -160,3 +160,15 @@ resource "cloudflare_dns_record" "pronouns" {
   type    = "TXT"
   ttl     = 1
 }
+
+resource "cloudflare_dns_record" "fritzbox" {
+  zone_id = data.cloudflare_zone.marie_cologne.id
+  name    = "fritzbox.home"
+  for_each = tomap({
+    AAAA = "fd09:b9c7:c9b9:0:b2f2:8ff:fef8:d2c6",
+    A    = "192.168.1.1",
+  })
+  type    = each.key
+  content = each.value
+  ttl     = 1
+}
