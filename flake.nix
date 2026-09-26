@@ -94,6 +94,11 @@
       url = "github:leonardomso/rust-skills";
       flake = false;
     };
+
+    enocean2mqtt = {
+      url = "git+ssh://forgejo@git.marie.cologne/marie/enocean2mqtt.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -108,6 +113,7 @@
       nix-locate-man,
       nix-output-monitor,
       principa-document-downloader,
+      enocean2mqtt,
       ...
     }:
     let
@@ -130,6 +136,7 @@
                   nix-locate-man.overlays.default
                   nix-output-monitor.overlays.default
                   principa-document-downloader.overlays.default
+                  enocean2mqtt.overlays.default
                 ];
               }
             )
@@ -215,6 +222,7 @@
             nix-locate-man.overlays.default
             nix-output-monitor.overlays.default
             principa-document-downloader.overlays.default
+            enocean2mqtt.overlays.default
           ];
           importNixpkgs =
             {

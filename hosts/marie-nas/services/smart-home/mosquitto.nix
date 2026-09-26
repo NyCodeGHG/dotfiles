@@ -16,6 +16,13 @@ let
       ];
       hashedPassword = "$7$101$hW4MJmidGzRz5kXA$8SAPdONZper0ftdTLp+8cVv039aHZp2GG2/SgpzksujT7LKnTkM80CiAjSlY1G/UifM5uncdg3gtTK0YChgSig==";
     };
+    enocean2mqtt = {
+      acl = [
+        "readwrite enocean2mqtt/#"
+        "readwrite homeassistant/#"
+      ];
+      hashedPassword = "$7$1000$BpnapFvqPCuRU7wXbTdS1hf0GYnevmoMlMHzCgQVR3C7mS4U6L59ccqZFsYa0fz2gQ6P7EK6SOJKZt5HAYRHBQ==$U1tq11CKaw+cV+8CYugVmZspsLF78JmrQMC1K8LLEkE58ZKpU7ELXqZviZKrmCd7TwIce+ZOgNHAozb00bhJIA==";
+    };
     marie = {
       acl = [
         "readwrite homeassistant/#"

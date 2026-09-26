@@ -11,6 +11,7 @@
     ./monitoring.nix
     ./serial-bridge.nix
     ./rtc.nix
+    ./enocean2mqtt.nix
     # oh god
     (
       { pkgs, lib, ... }@args:

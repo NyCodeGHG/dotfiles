@@ -64,6 +64,26 @@
         "url": "https://codeberg.org/marie/corsair-hs80-pipewire-thing/archive/main.tar.gz"
       }
     },
+    "enocean2mqtt": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790504311,
+        "narHash": "sha256-RoAFlHc3USWk4mDQLcULE2D6yoRk12NqDIMFlrAlcmI=",
+        "ref": "refs/heads/main",
+        "rev": "c894779406cdf7ebf34545655178bbeb86a03293",
+        "revCount": 106,
+        "type": "git",
+        "url": "ssh://forgejo@git.marie.cologne/marie/enocean2mqtt.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://forgejo@git.marie.cologne/marie/enocean2mqtt.git"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -571,6 +591,7 @@
         "agenix": "agenix",
         "colmena": "colmena",
         "corsair-hs80-pipewire-thing": "corsair-hs80-pipewire-thing",
+        "enocean2mqtt": "enocean2mqtt",
         "home-manager": "home-manager_2",
         "ip-playground": "ip-playground",
         "iplookupd": "iplookupd",
