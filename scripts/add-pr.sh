@@ -23,8 +23,16 @@ BEFORE="$(cat patches/nixpkgs.json)"
 jq ". + { \"${PR}\": \"${HASH}\" }" ./patches/nixpkgs.json | sponge patches/nixpkgs.json
 jq "." ./patches/nixpkgs.json
 
+function pr_title() {
+  gh pr view "$PR" --repo NixOS/nixpkgs --json title --jq .title
+}
+
 if [[ "$(cat patches/nixpkgs.json)" != "$BEFORE" ]]; then
-  PR_TITLE="$(gh pr view "$PR" --repo NixOS/nixpkgs --json title --jq .title)"
-  jj commit -m "patches: add ${PR_TITLE} (#${PR})" patches/nixpkgs.json
+  PR_TITLE="$(pr_title)"
+  if [[ "$(jq --arg patch "$PR" '. | keys | contains([$patch])' <<< "$BEFORE")" == "true" ]]; then
+    jj commit -m "patches: update ${PR_TITLE} (#${PR})" patches/nixpkgs.json
+  else 
+    jj commit -m "patches: add ${PR_TITLE} (#${PR})" patches/nixpkgs.json
+  fi
 fi
 
