@@ -17,6 +17,7 @@
       "--user-agent"
       "iplookupd - me@nycode.dev"
     ];
+    log-level = "warn";
   };
 
   systemd.services.iplookupd.environment = {

@@ -274,11 +274,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786300183,
-        "narHash": "sha256-V4QfRvel5MK5MdT8Ap1nMEe22DMksIxcLbl0B1FZZx0=",
+        "lastModified": 1790544754,
+        "narHash": "sha256-TK8yRq5lkiVI4pgYSkvY9MYhG//wT5byncuVGIbR5eI=",
         "ref": "refs/heads/main",
-        "rev": "8b6f12aaf7d6061bc7fa1713266108b8660e6e14",
-        "revCount": 34,
+        "rev": "a757f69fe8d65ecf4b24f2d95fec42da23fde34a",
+        "revCount": 35,
         "type": "git",
         "url": "ssh://forgejo@git.marie.cologne/marie/iplookupd.git"
       },
