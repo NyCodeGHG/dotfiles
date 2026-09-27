@@ -11,8 +11,8 @@ let
     paperless_token = ./secrets/paperless/token.age;
     principa_base_url = ./secrets/principa/base_url.age;
     principa_context = ./secrets/principa/context.age;
-    principa_password = ./secrets/principa/context.age;
-    principa_user = ./secrets/principa/context.age;
+    principa_password = ./secrets/principa/password.age;
+    principa_user = ./secrets/principa/user.age;
   };
 in
 {
@@ -20,7 +20,7 @@ in
     inputs.principa-document-downloader.nixosModules.default
   ];
   services.principa-document-downloader = {
-    enable = false;
+    enable = true;
     secrets = lib.genAttrs (lib.attrNames secrets) (secret: config.age.secrets.${secret}.path);
     startAt = "Mon..Fri 9..17/2:00:00";
   };
