@@ -5,7 +5,7 @@
   ...
 }:
 let
-  useInsecure = true;
+  useInsecure = false;
   useStaging = false;
 in
 {
