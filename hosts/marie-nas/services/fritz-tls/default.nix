@@ -14,6 +14,11 @@ in
     documentation = [ "https://github.com/tisba/fritz-tls" ];
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
+    confinement = {
+      enable = true;
+      binSh = null;
+    };
+    environment.TZ = config.time.timeZone;
     serviceConfig = {
       Type = "oneshot";
       DynamicUser = true;
@@ -29,6 +34,43 @@ in
       );
       EnvironmentFile = config.age.secrets.cloudflare-api-key.path;
       LoadCredential = "fritz-password:${config.age.secrets.fritz-password.path}";
+
+      BindReadOnlyPaths = [
+        "${config.environment.etc."resolv.conf".source}:/etc/resolv.conf"
+        "${config.security.pki.caBundle}:/etc/ssl/certs/ca-certificates.crt"
+      ];
+      CapabilityBoundingSet = "";
+      InaccessiblePaths = [ "+/dev/shm" ];
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
+      PrivateIPC = true;
+      PrivateTmp = "disconnected";
+      ProcSubset = "pid";
+      ProtectClock = true;
+      ProtectControlGroups = "strict";
+      ProtectHome = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectProc = "invisible";
+      RestrictAddressFamilies = [
+        "AF_INET"
+        "AF_INET6"
+      ];
+      RestrictNamespaces = true;
+      RestrictNetworkInterfaces = [
+        "lo"
+        "br0"
+      ];
+      RestrictRealtime = true;
+      SystemCallArchitectures = "native";
+      SystemCallErrorNumber = "EPERM";
+      SystemCallFilter = [
+        "@system-service"
+        "~@privileged"
+        "~@resources"
+        "~memfd_create"
+      ];
+      UMask = "0077";
     };
     startAt = "daily";
   };
