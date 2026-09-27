@@ -1,0 +1,28 @@
+prometheus.exporter.blackbox "fritz_tls" {
+	config = `
+        modules:
+            http_2xx:
+                prober: http
+                timeout: 10s
+            `
+
+	target {
+		name    = "fritzbox"
+		address = "https://fritzbox.home.marie.cologne"
+		module  = "http_2xx"
+	}
+}
+
+discovery.relabel "fritz_tls" {
+	targets = prometheus.exporter.blackbox.fritz_tls.targets
+
+	rule {
+		source_labels = ["__param_target"]
+		target_label  = "instance"
+	}
+}
+
+scrape "blackbox_fritz_tls" {
+	name    = "blackbox_fritz_tls"
+	targets = discovery.relabel.fritz_tls.output
+}

@@ -34,4 +34,6 @@ in
   };
 
   age.secrets.fritz-password.file = ./fritz-password.age;
+
+  environment.etc."alloy/fritz-tls.alloy".source = ./fritz-tls.alloy;
 }
