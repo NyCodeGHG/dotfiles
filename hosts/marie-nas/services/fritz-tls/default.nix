@@ -6,7 +6,7 @@
 }:
 let
   useInsecure = true;
-  useStaging = true;
+  useStaging = false;
 in
 {
   systemd.services.fritz-tls = {
