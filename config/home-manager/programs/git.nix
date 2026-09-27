@@ -26,42 +26,66 @@ in
       description = "Configures git for email usage";
     };
   };
-  config =
-    lib.mkIf cfg.enable {
-      programs.git = {
-        enable = true;
+  config = lib.mkIf cfg.enable {
+    programs.git = {
+      enable = true;
 
-        signing.format = null;
+      signing.format = null;
 
-        settings = {
-          user.email = "marie@marie.cologne";
-          user.name = "Marie Ramlow";
-          init.defaultBranch = "main";
-          push.autoSetupRemote = true;
-          sendemail = {
-            confirm = "always";
-            suppressCc = "self";
-          };
+      settings = {
+        user.email = "marie@marie.cologne";
+        user.name = "Marie Ramlow";
+        init.defaultBranch = "main";
+        push.autoSetupRemote = true;
+        sendemail = {
+          confirm = "always";
+          suppressCc = "self";
         };
-
-        package = pkgs.gitFull;
-
-        includes = lib.mkIf cfg.enableGitEmail [
-          {
-            # hardcode path because git can't expand $XDG_RUNTIME_DIR
-            path = "/run/user/1000/agenix/git-email";
-          }
-        ];
-        lfs.enable = true;
-        ignores = [
-          "*~"
-          "*.swp"
-          "*.qcow2"
-        ];
+        blame.coloring = "highlightRecent";
+        pull.rebase = true;
+        merge = {
+          conflictstyle = "zdiff3";
+          keepbackup = false;
+        };
+        commit.verbose = true;
+        rerere.enabled = true;
+        transfer.fsckobjects = true;
+        fetch = {
+          fsckobjects = true;
+          prune = true;
+        };
+        receive.fsckObjects = true;
+        diff = {
+          tool = "difft";
+          colorMoved = "plain";
+          colorMovedWS = "allow-indentation-change";
+          context = 10;
+          algorithm = "histogram";
+          mnemonicPrefix = true;
+        };
+        log.date = "human";
+        column.ui = "auto";
+        branch.sort = "-committerdate";
       };
-      programs.gh.enable = cfg.enableGitHubCLI;
-      age.secrets.git-email = lib.mkIf cfg.enableGitEmail {
-        file = "${inputs.self}/secrets/git-email.age";
-      };
+
+      package = pkgs.gitFull;
+
+      includes = lib.mkIf cfg.enableGitEmail [
+        {
+          # hardcode path because git can't expand $XDG_RUNTIME_DIR
+          path = "/run/user/1000/agenix/git-email";
+        }
+      ];
+      lfs.enable = true;
+      ignores = [
+        "*~"
+        "*.swp"
+        "*.qcow2"
+      ];
     };
+    programs.gh.enable = cfg.enableGitHubCLI;
+    age.secrets.git-email = lib.mkIf cfg.enableGitEmail {
+      file = "${inputs.self}/secrets/git-email.age";
+    };
+  };
 }
