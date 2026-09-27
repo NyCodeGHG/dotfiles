@@ -38,7 +38,6 @@ in
         ];
         trusted-users = [ "@wheel" ];
         builders-use-substitutes = true;
-        build-dir = "/var/tmp/nix";
         auto-allocate-uids = true;
         extra-system-features = [ "uid-range" ];
         use-cgroups = true;
