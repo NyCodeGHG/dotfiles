@@ -39,7 +39,10 @@
         "tailscale-online.target"
       ];
       wantedBy = [ "multi-user.target" ];
-      confinement.enable = true;
+      confinement = {
+        enable = true;
+        binSh = null;
+      };
       serviceConfig = {
         ExecStart = utils.escapeSystemdExecArgs [
           (lib.getExe config.services.tailscale.package)
@@ -49,7 +52,7 @@
           "unix:/run/harmonia/socket"
         ];
 
-        BindPaths = [
+        BindReadOnlyPaths = [
           "/run/harmonia/socket"
           "/run/tailscale/tailscaled.sock"
         ];
@@ -58,13 +61,16 @@
         ProtectHostname = true;
         ProtectProc = "invisible";
         ProcSubset = "pid";
-        PrivateTmp = "disconnected";
+        PrivateTmp = false;
         PrivateDevices = true;
         PrivateMounts = true;
+        PrivateIPC = true;
+        PrivateNetwork = true;
+        InaccessiblePaths = [ "+/dev/shm" ];
         ProtectKernelTunables = true;
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
-        ProtectControlGroups = true;
+        ProtectControlGroups = "strict";
         LockPersonality = true;
         NoNewPrivileges = true;
         RestrictNamespaces = true;
@@ -74,28 +80,15 @@
         MemoryDenyWriteExecute = true;
         UMask = "0077";
         SystemCallArchitectures = "native";
+        SystemCallErrorNumber = "EPERM";
         SystemCallFilter = [
-          "~@clock"
-          "~@cpu-emulation"
-          "~@debug"
-          "~@module"
-          "~@mount"
-          "~@obsolete"
+          "@system-service"
           "~@privileged"
-          "~@raw-io"
-          "~@reboot"
           "~@resources"
-          "~@swap"
+          "~memfd_create"
         ];
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
-        SocketBindAllow = "7777";
-        SocketBindDeny = "any";
-        RestrictNetworkInterfaces = [ "tailscale0" ];
-        CapabilityBoundingSet = [ "@system-service" ];
+        RestrictAddressFamilies = [ "AF_UNIX" ];
+        CapabilityBoundingSet = "";
       };
     };
   };
