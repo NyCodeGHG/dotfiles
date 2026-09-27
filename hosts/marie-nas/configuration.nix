@@ -31,6 +31,7 @@
     ./services/principa-document-downloader
     ./services/harmonia
     ./services/paperless
+    ./services/fritz-tls
     ./monitoring.nix
 
     # Smart Home
