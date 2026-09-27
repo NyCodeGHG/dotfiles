@@ -28,6 +28,10 @@ buildGo127Module (finalAttrs: {
     "-X=main.date=1970-01-01T00:00:00Z"
   ];
 
+  env = {
+    CGO_ENABLED = "0";
+  };
+
   passthru.updateScript = nix-update-script { };
 
   meta = {
