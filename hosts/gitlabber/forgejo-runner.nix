@@ -12,6 +12,7 @@
       wget
       config.nix.package
       jq
+      openssh
     ];
     settings = {
       runner.labels = [
