@@ -3,6 +3,7 @@
   kdePackages,
   fetchFromGitLab,
   cmake,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -41,4 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     kirigami-addons
     kdbusaddons
   ];
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=master" ]; };
 })
