@@ -171,40 +171,41 @@
         };
       });
 
-      overlays.default = nixpkgs.lib.composeExtensions (import ./overlay.nix) self.overlays.packages;
+      overlays = {
+        default = nixpkgs.lib.composeExtensions (import ./overlay.nix) self.overlays.packages;
+        packages = (
+          final: prev:
+          let
+            inherit (prev) lib;
+            packages = lib.flip lib.pipe [
+              lib.readDir
+              (lib.filterAttrs (_: type: type == "directory"))
+              (lib.mapAttrs (name: _: ./pkgs/${name}/package.nix))
+              (lib.filterAttrs (_: path: lib.pathExists path))
+              (lib.mapAttrs (_: path: prev.callPackage path { }))
+            ] ./pkgs;
+            overlay = packages // {
+              kiot = prev.kdePackages.callPackage ./pkgs/kiot { };
 
-      overlays.packages = (
-        final: prev:
-        let
-          inherit (prev) lib;
-          packages = lib.flip lib.pipe [
-            lib.readDir
-            (lib.filterAttrs (_: type: type == "directory"))
-            (lib.mapAttrs (name: _: ./pkgs/${name}/package.nix))
-            (lib.filterAttrs (_: path: lib.pathExists path))
-            (lib.mapAttrs (_: path: prev.callPackage path { }))
-          ] ./pkgs;
-          overlay = packages // {
-            kiot = prev.kdePackages.callPackage ./pkgs/kiot { };
+              nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
+                module = import ./config/nixvim;
+                pkgs = final;
+              };
 
-            nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
-              module = import ./config/nixvim;
-              pkgs = final;
+              nixvim-vscode = final.nixvim.extend { uwumarie.vscode = true; };
             };
-
-            nixvim-vscode = final.nixvim.extend { uwumarie.vscode = true; };
-          };
-          addShadowWarnings = lib.mapAttrs (
-            name: value:
-            lib.warnIf (lib.hasAttr name prev)
-              "${name} is shadowed by the overlay. Overlay version: ${value.version}, Nixpkgs version: ${
-                prev.${name}.version or "unknown"
-              }"
-              value
-          );
-        in
-        addShadowWarnings overlay
-      );
+            addShadowWarnings = lib.mapAttrs (
+              name: value:
+              lib.warnIf (lib.hasAttr name prev && value != prev.${name})
+                "${name} is shadowed by the overlay. Overlay version: ${value.version}, Nixpkgs version: ${
+                  prev.${name}.version or "unknown"
+                }"
+                value
+            );
+          in
+          addShadowWarnings overlay
+        );
+      };
 
       nixosModules.config = import ./config/nixos;
       homeManagerModules.config = import ./config/home-manager;
