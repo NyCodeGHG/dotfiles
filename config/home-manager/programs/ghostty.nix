@@ -13,7 +13,7 @@
       font-size = "16";
       linux-cgroup = "always";
       gtk-wide-tabs = false;
-      mouse-scroll-multiplier = "discrete:0.375";
+      mouse-scroll-multiplier = "discrete:0.75";
       gtk-titlebar = false;
       gtk-custom-css = toString (
         pkgs.writeText "breeze-colors.css" ''
