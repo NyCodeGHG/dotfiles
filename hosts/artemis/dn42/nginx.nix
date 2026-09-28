@@ -16,5 +16,6 @@
     webroot = "/var/lib/acme/acme-challenge";
     server = "https://acme.burble.dn42/v1/dn42/acme/directory";
     validMinDays = 7;
+    profile = null;
   };
 }
