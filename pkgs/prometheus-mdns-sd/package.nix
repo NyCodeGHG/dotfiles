@@ -3,6 +3,7 @@
   rustPlatform,
   fetchFromForgejo,
   cacert,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -21,6 +22,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-hDyimuSPBuEyqgsdf9z1a5kAgW7nu2sHgtc+nXidsvI=";
 
   nativeCheckInputs = [ cacert ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version branch=main" ];
+  };
 
   meta = {
     description = "";
