@@ -71,6 +71,7 @@
         nixd
         nix-diff
         lix-diff
+        nix-init
         nix-tree
         lixPackageSets.latest.nixpkgs-review
         nix-output-monitor
