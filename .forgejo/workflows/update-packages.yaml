@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: ${{ fromJSON(needs.list.outputs.packages) }}
+        package: ${{ fromJSON(needs.list.outputs.packages) }}
     uses: ./.forgejo/workflows/update-package.yaml
     with:
       package: ${{ matrix.package }}
