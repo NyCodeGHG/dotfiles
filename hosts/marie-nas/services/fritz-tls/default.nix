@@ -72,7 +72,17 @@ in
       ];
       UMask = "0077";
     };
-    startAt = "daily";
+  };
+  systemd.timers.fritz-tls = {
+    description = "Renew Fritz!Box TLS Certificate";
+    wantedBy = [ "timers.target" ];
+    unitConfig."X-OnlyManualStart" = true;
+    timerConfig = {
+      OnCalendar = "daily";
+      FixedRandomDelay = true;
+      Persistent = true;
+      RandomizedDelaySec = "24h";
+    };
   };
 
   age.secrets.fritz-password.file = ./fritz-password.age;
