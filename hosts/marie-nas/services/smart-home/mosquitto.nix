@@ -40,6 +40,8 @@ in
   systemd.services.mosquitto = {
     serviceConfig = {
       SupplementaryGroups = "acme";
+      TemporaryFileSystem = "/var/lib/acme/";
+      BindReadOnlyPaths = "/var/lib/acme/mqtt.home.marie.cologne/";
     };
   };
 
