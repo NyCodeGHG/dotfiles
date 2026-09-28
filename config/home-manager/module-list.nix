@@ -5,4 +5,5 @@
   ./programs/jujutsu.nix
   ./programs/ssh.nix
   ./programs/bat.nix
+  ./programs/ghostty.nix
 ]
