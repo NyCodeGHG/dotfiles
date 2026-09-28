@@ -172,7 +172,20 @@
       });
 
       overlays = {
-        default = nixpkgs.lib.composeExtensions (import ./overlay.nix) self.overlays.packages;
+        default = nixpkgs.lib.composeManyExtensions [
+          (import ./overlay.nix)
+          self.overlays.packages
+          self.overlays.nixvim
+        ];
+        nixvim = (
+          final: prev: {
+            nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
+              module = import ./config/nixvim;
+              pkgs = final;
+            };
+            nixvim-vscode = final.nixvim.extend { uwumarie.vscode = true; };
+          }
+        );
         packages = (
           final: prev:
           let
@@ -186,13 +199,6 @@
             ] ./pkgs;
             overlay = packages // {
               kiot = prev.kdePackages.callPackage ./pkgs/kiot { };
-
-              nixvim = nixvim.legacyPackages.${prev.stdenv.hostPlatform.system}.makeNixvimWithModule {
-                module = import ./config/nixvim;
-                pkgs = final;
-              };
-
-              nixvim-vscode = final.nixvim.extend { uwumarie.vscode = true; };
             };
             addShadowWarnings = lib.mapAttrs (
               name: value:
