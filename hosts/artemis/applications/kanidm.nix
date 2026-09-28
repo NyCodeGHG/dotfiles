@@ -24,8 +24,8 @@ in
     };
   };
   security.acme.certs."${domain}" = {
-    postRun = "systemctl restart kanidm.service";
     group = "kanidm";
+    reloadServices = [ "kanidm.service" ];
   };
 
   services.nginx.virtualHosts."${domain}" = {
