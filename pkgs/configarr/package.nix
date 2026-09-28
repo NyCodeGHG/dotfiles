@@ -5,6 +5,7 @@
   nodejs,
   pnpm_10,
   makeBinaryWrapper,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -49,6 +50,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --add-flags "$out/share/bundle.cjs"
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Sync TRaSH Guides + custom configs with Sonarr/Radarr";
