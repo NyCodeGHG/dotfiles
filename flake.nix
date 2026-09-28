@@ -136,7 +136,6 @@
                   nix-locate-man.overlays.default
                   nix-output-monitor.overlays.default
                   principa-document-downloader.overlays.default
-                  enocean2mqtt.overlays.default
                 ];
               }
             )
@@ -229,7 +228,6 @@
             nix-locate-man.overlays.default
             nix-output-monitor.overlays.default
             principa-document-downloader.overlays.default
-            enocean2mqtt.overlays.default
           ];
           importNixpkgs =
             {
@@ -263,7 +261,7 @@
               delphi = importNixpkgs { system = "aarch64-linux"; };
               enocean = import inputs.nixpkgs {
                 system = "aarch64-linux";
-                inherit overlays;
+                overlays = overlays ++ [ enocean2mqtt.overlays.default ];
               };
             };
           };
