@@ -15,6 +15,7 @@
       dnsPropagationCheck = true;
       environmentFile = config.age.secrets.cloudflare-api-key.path;
       # server = "https://acme-staging-v02.api.letsencrypt.org/directory";
+      extraLegoFlags = [ "--dns.propagation.disable-rns" ];
     };
 
     security.acme.certs."marie.cologne" = {
