@@ -33,20 +33,21 @@ in
     # Line Numbers
     number = true;
     relativenumber = true;
-
     termguicolors = true;
-
     tabstop = 4;
     shiftwidth = 2;
     expandtab = true;
-
     laststatus = 3;
-
     hlsearch = false;
     incsearch = true;
-
     signcolumn = "yes";
     foldenable = false;
+    undofile = true;
+    scrolloff = 10;
+    sidescrolloff = 10;
+    inccommand = "split";
+    wrap = false;
+    cursorline = true;
   };
 
   extraPlugins =
