@@ -41,7 +41,6 @@
       ++ (with pkgs; [
         # Command line
         ffmpeg-full
-        openssl
         bashInteractive
         p7zip
         fend

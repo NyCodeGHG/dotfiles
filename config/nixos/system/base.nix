@@ -64,6 +64,7 @@
       tinyxxd
       tailcat
       conntrack-tools
+      openssl
     ];
 
     security.sudo-rs.enable = lib.mkDefault true;
