@@ -33,10 +33,11 @@ let
   };
 in
 {
-  security.acme.certs."mqtt.home.marie.cologne" = { };
+  security.acme.certs."mqtt.home.marie.cologne" = {
+    reloadServices = [ "mosquitto.service" ];
+  };
 
   systemd.services.mosquitto = {
-    after = [ "acme-mqtt.home.marie.cologne.service" ];
     serviceConfig = {
       SupplementaryGroups = "acme";
     };
