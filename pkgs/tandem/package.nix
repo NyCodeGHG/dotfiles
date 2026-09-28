@@ -34,7 +34,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-//WScGk0jvU10xw1kkbaPqgDb4UcFcdks9nJGv/Uk5Q=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version branch=main" ];
+  };
 
   meta = {
     description = "Workspaces over network";
