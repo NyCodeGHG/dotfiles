@@ -4,6 +4,7 @@
   fetchFromGitHub,
   bubblewrap,
   util-linux,
+  nix-update-script,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -30,6 +31,8 @@ python3Packages.buildPythonApplication rec {
   build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [ coloredlogs ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Command-line tool to run Windows apps with Wine and bwrap/bubblewrap isolation";
