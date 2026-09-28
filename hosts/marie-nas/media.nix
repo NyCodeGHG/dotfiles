@@ -12,7 +12,6 @@
   # thanks, jade
   systemd.tmpfiles.rules = [
     "d /var/lib/jellyfin/plugins 755 jellyfin media - -"
-    "C+ /var/lib/jellyfin/plugins/sso 755 jellyfin media - ${pkgs.jellyfin-plugin-sso}"
     "z /var/lib/jellyfin/plugins/sso/meta.json 644 jellyfin media - -"
   ];
 }
