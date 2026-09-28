@@ -1,0 +1,33 @@
+name: Update Packages
+on:
+  schedule:
+    - cron: "0 14 * * Fri"
+  workflow_dispatch:
+
+jobs:
+  list:
+    runs-on: nix-x86_64
+    outputs:
+      packages: ${{ steps.list.outputs.packages }}
+    steps:
+      - name: Check out the repository
+        uses: https://data.forgejo.org/actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: List packages using nix-update-script
+        id: list
+        run: |
+          packages="$(nix eval --json .#packages.x86_64-linux --apply builtins.attrNames)"
+          echo "$packages" | jq
+          echo "packages=$packages" >> "$FORGEJO_OUTPUT"
+
+  update:
+    needs: list
+    if: needs.list.outputs.packages != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.list.outputs.packages) }}
+    uses: ./.forgejo/workflows/update-package.yaml
+    with:
+      package: ${{ matrix.package }}
+      nix-update-args: "--use-update-script"

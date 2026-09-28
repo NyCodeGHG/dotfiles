@@ -1,8 +1,27 @@
-name: Update KPublicAlerts
+name: Update Nix Package
 on:
-  schedule:
-    - cron: "0 14 * * Fri"
+  workflow_call:
+    inputs:
+      package:
+        description: "Flake package attribute to update. Example: kpublicalerts"
+        required: true
+        type: string
+      nix-update-args:
+        description: "Additional arguments for nix-update. Example: --version branch=master"
+        required: false
+        type: string
+        default: ""
   workflow_dispatch:
+    inputs:
+      package:
+        description: "Flake package attribute to update. Example: kpublicalerts"
+        required: true
+        type: string
+      nix-update-args:
+        description: "Additional arguments for nix-update. Example: --version branch=master"
+        required: false
+        type: string
+        default: ""
 
 enable-openid-connect: true
 
@@ -19,31 +38,36 @@ jobs:
             curl --fail \
             -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
             "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUD" \
-            | jq -r ".value" \
+            | jq -er ".value" \
           )"
           echo "::add-mask::$jwt"
-          echo "jwt=$jwt" >> $FORGEJO_OUTPUT
+          echo "jwt=$jwt" >> "$FORGEJO_OUTPUT"
 
       - name: Check out the repository
         uses: https://data.forgejo.org/actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           token: ${{ steps.jwt.outputs.jwt }}
 
-      - name: Update
+      - name: Update ${{ inputs.package }}
+        id: update
         shell: bash
+        env:
+          PACKAGE: ${{ inputs.package }}
+          NIX_UPDATE_ARGS: ${{ inputs.nix-update-args }}
         run: |
           set -eo pipefail
 
-          echo "::group::Run nix-update"   
+          echo "::group::Run nix-update"
+          read -ra nix_update_args <<< "$NIX_UPDATE_ARGS"
           COMMIT_MESSAGE="$(mktemp -t "commit-message-XXXXXX.txt")"
           nix run --inputs-from . nixpkgs#lixPackageSets.latest.nix-update -- \
             --flake \
-            --version branch=master \
+            "${nix_update_args[@]}" \
             --write-commit-message "$COMMIT_MESSAGE" \
-            kpublicalerts
+            "$PACKAGE"
           echo "::endgroup::"
 
-          echo "::group::Check for changes"   
+          echo "::group::Check for changes"
           if git diff --quiet; then
             echo "No update"
             echo "::endgroup::"
@@ -51,14 +75,14 @@ jobs:
           fi
           echo "::endgroup::"
 
-          echo "::group::Build"   
+          echo "::group::Build"
           BUILD_LOG="$(mktemp -t "build-XXXXXX.log")"
-          if nix build .#kpublicalerts -L --no-link 2>&1 | tee "$BUILD_LOG"; then
+          if nix build ".#$PACKAGE" -L --no-link 2>&1 | tee "$BUILD_LOG"; then
             BUILD_RESULT="success"
           else
             BUILD_RESULT="failed"
           fi
-          echo "build_log=$BUILD_LOG" >> "$GITHUB_OUTPUT"
+          echo "build_log=$BUILD_LOG" >> "$FORGEJO_OUTPUT"
           echo "::endgroup::"
 
           echo "::group::Commit"
@@ -78,7 +102,7 @@ jobs:
             fi
             echo
             echo "Workflow run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-            echo "Full build log: uploaded as the \`build-log\` workflow artifact."
+            echo "Full build log: uploaded as the \`build-log-$PACKAGE\` workflow artifact."
             echo
             echo "<details><summary>Last lines of the build log</summary>"
             echo
@@ -89,7 +113,7 @@ jobs:
           } > "$PR_BODY"
 
           git push origin HEAD:refs/for/main \
-            -o topic=actions/update-kpublicalerts \
+            -o topic="actions/update-$PACKAGE" \
             -o title="$(head -n 1 "$COMMIT_MESSAGE")" \
             -o description="{base64}$(base64 -w0 "$PR_BODY")" \
             -o force-push=true
@@ -99,6 +123,6 @@ jobs:
         if: (success() || failure()) && steps.update.outputs.build_log != ''
         uses: https://data.forgejo.org/forgejo/upload-artifact@16871d9e8cfcf27ff31822cac382bbb5450f1e1e # v4
         with:
-          name: build-log
+          name: build-log-${{ inputs.package }}
           path: ${{ steps.update.outputs.build_log }}
           if-no-files-found: warn
