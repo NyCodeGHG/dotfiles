@@ -37,4 +37,8 @@
     };
   };
   networking.firewall.trustedInterfaces = [ "podman*" ];
+
+  programs.ssh.knownHosts = {
+    "git.marie.cologne".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFQjqgMtqrMy7AKCQN4aMZitASg9MWEP1u6lfVdA0v8 root@artemis";
+  };
 }
