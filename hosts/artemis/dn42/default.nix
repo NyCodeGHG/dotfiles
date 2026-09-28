@@ -31,6 +31,23 @@
     };
   };
 
+  services.resolved.dnsDelegates.dn42.Delegate = {
+    DNS = [
+      "fd42:d42:d42:54::1#a0.recursive-servers.dn42"
+      "fd42:d42:d42:53::1#a3.recursive-servers.dn42"
+    ];
+
+    Domains = [
+      "~dn42"
+      "~20.172.in-addr.arpa"
+      "~21.172.in-addr.arpa"
+      "~22.172.in-addr.arpa"
+      "~23.172.in-addr.arpa"
+      "~10.in-addr.arpa"
+      "~d.f.ip6.arpa"
+    ];
+  };
+
   services.bird = {
     enable = true;
     package = pkgs.bird2;
