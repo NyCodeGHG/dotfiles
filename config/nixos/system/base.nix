@@ -65,6 +65,7 @@
       tailcat
       conntrack-tools
       openssl
+      ghostty.terminfo
     ];
 
     security.sudo-rs.enable = lib.mkDefault true;
