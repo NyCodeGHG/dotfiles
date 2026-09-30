@@ -17,6 +17,7 @@
       # server = "https://acme-staging-v02.api.letsencrypt.org/directory";
       extraLegoFlags = [ "--dns.propagation.disable-rns" ];
       profile = "shortlived";
+      enableDebugLogs = false;
     };
 
     security.acme.certs."marie.cologne" = {
