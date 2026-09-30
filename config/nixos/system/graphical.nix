@@ -76,6 +76,10 @@
     wireless.iwd.settings.General.Country = "DE";
   };
 
+  environment.variables = {
+    GTK_IM_MODULE = "simple";
+  };
+
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa
     kwin-x11
