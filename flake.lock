@@ -551,11 +551,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790543870,
-        "narHash": "sha256-TJIFAzRPhNL9Cax1LJy1FEpqP6BUp2ozg/WMxBHvmw4=",
-        "rev": "89968c72c4fb6e1bab2a587ae325cdf27a0af7c2",
+        "lastModified": 1790846365,
+        "narHash": "sha256-wh7LZEHv8w5e70AsHsH4hy+FJ5hu3oVUoW35SEiZc7w=",
+        "rev": "f0709d94d2d1b83f2e7d838773a234986c09c7b1",
         "type": "tarball",
-        "url": "https://git.marie.cologne/api/v1/repos/marie/principa-document-downloader/archive/89968c72c4fb6e1bab2a587ae325cdf27a0af7c2.tar.gz?rev=89968c72c4fb6e1bab2a587ae325cdf27a0af7c2"
+        "url": "https://git.marie.cologne/api/v1/repos/marie/principa-document-downloader/archive/f0709d94d2d1b83f2e7d838773a234986c09c7b1.tar.gz?rev=f0709d94d2d1b83f2e7d838773a234986c09c7b1"
       },
       "original": {
         "type": "tarball",
