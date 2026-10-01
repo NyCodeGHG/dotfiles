@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kpublicalerts";
-  version = "0-unstable-2026-09-23";
+  version = "0-unstable-2026-10-01";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -17,8 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
     domain = "invent.kde.org";
     owner = "utilities";
     repo = "kpublicalerts";
-    rev = "2bc349fec84bea0e3fe831627d114edaf7e269ae";
-    hash = "sha256-5FXapw+d7PHY6+fCN8A1mEPnJBwILiDh9aKrA3j1IgI=";
+    rev = "2c877b5f368f4a9ef7660291db0f251e4243e456";
+    hash = "sha256-nQneWgwq6FW1p4azhEuh8Y4AiwnqGblDmfUKcc+8hBs=";
   };
 
   nativeBuildInputs = [
