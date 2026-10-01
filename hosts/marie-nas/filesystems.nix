@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   boot = {
     initrd.kernelModules = [
@@ -8,19 +9,19 @@
       root = {
         allowDiscards = true;
         device = "/dev/disk/by-partlabel/disk-boot-luks";
-        keyFile = "root.key:UUID=a92d7fc5-21a0-4e7a-b995-2fb84195c2f1";
+        keyFile = "/encryption-keys/root.key";
         keyFileTimeout = 30;
       };
       wd-red-plus-a = {
         allowDiscards = true;
         device = "/dev/disk/by-id/ata-WDC_WD120EFBX-68B0EN0_D7JPDSJN";
-        keyFile = "wd-red-plus-a.key:UUID=a92d7fc5-21a0-4e7a-b995-2fb84195c2f1";
+        keyFile = "/encryption-keys/wd-red-plus-a.key";
         keyFileTimeout = 30;
       };
       wd-red-plus-b = {
         allowDiscards = true;
         device = "/dev/disk/by-id/ata-WDC_WD120EFBX-68B0EN0_D7JLAHXN";
-        keyFile = "wd-red-plus-b.key:UUID=a92d7fc5-21a0-4e7a-b995-2fb84195c2f1";
+        keyFile = "/encryption-keys/wd-red-plus-b.key";
         keyFileTimeout = 30;
       };
     };
@@ -94,6 +95,10 @@
   boot.initrd.supportedFilesystems.ext4 = true;
   boot.initrd.systemd = {
     enable = true;
+    contents."/etc/fstab".text = ''
+      UUID=a92d7fc5-21a0-4e7a-b995-2fb84195c2f1 /encryption-keys ext4 ro,nofail,noexec,nosuid,nodev
+    '';
+
     services.zfs-import-zroot = {
       after = [ "cryptsetup.target" ];
       wants = [ "cryptsetup.target" ];
