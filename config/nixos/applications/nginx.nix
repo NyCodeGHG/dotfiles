@@ -22,6 +22,7 @@
   config = lib.mkIf config.uwumarie.profiles.nginx.enable {
     services.nginx = {
       enable = true;
+      validateConfigFile = false;
       virtualHosts."_" = {
         default = true;
         locations."/" = {
@@ -41,8 +42,18 @@
       recommendedBrotliSettings = true;
       recommendedProxySettings = true;
       enableQuicBPF = true;
-      appendHttpConfig = ''
+      commonHttpConfig = ''
         add_header alt-svc 'h3=":443"; ma=604800';
+
+        map $scheme $hsts_header {
+            https "max-age=31536000; includeSubdomains; preload";
+        }
+        add_header Strict-Transport-Security $hsts_header;
+
+        add_header X-Frame-Options DENY;
+        add_header X-Content-Type-Options nosniff;
+
+        add_header_inherit merge;
       '';
     };
   };
