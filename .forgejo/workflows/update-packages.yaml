@@ -18,8 +18,8 @@ jobs:
         run: |
           packages="$(nix eval --impure --json .#packages.x86_64-linux --apply \
             'let inherit (import <nixpkgs> { }) lib; in
-              lib.mapAttrsToList (package: value: {
-                inherit package;
+              lib.mapAttrsToList (name: value: {
+                inherit name;
                 nix-update-args = lib.concatStringsSep " " (value.passthru.nix-update-args or []);
               })'
           )"
@@ -31,9 +31,10 @@ jobs:
     if: needs.list.outputs.packages != '[]'
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.list.outputs.packages) }}
+      matrix:
+        package: ${{ fromJSON(needs.list.outputs.packages) }}
     uses: ./.forgejo/workflows/update-package.yaml
     with:
-      package: ${{ matrix.package }}
-      nix-update-args: ${{ matrix.nix-update-args }}
+      package: ${{ matrix.package.name }}
+      nix-update-args: ${{ matrix.package.nix-update-args }}
 
