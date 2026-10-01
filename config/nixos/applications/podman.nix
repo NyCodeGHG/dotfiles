@@ -6,4 +6,6 @@ lib.mkIf config.virtualisation.podman.enable {
   virtualisation.podman.defaultNetwork.settings = {
     dns_enabled = true;
   };
+
+  virtualisation.podman.autoPrune.enable = true;
 }
