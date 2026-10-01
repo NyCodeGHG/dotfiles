@@ -20,6 +20,7 @@
   qtdeclarative,
   qtmqtt,
   solid,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -65,6 +66,8 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
     pkg-config
   ];
+
+  passthru.nix-update-args = [ "--version=branch=master" ];
 
   meta = {
     description = "KDE Home Assistant integration via MQTT";

@@ -37,8 +37,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # Disable sqlite bundling
   buildNoDefaultFeatures = true;
 
-  passthru.updateScript = nix-update-script { };
-
   meta = {
     description = "Network monitoring application which discovers and tracks hosts on a network";
     homepage = "https://github.com/opnsense/hostwatch";

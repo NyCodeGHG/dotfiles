@@ -32,8 +32,6 @@ python3Packages.buildPythonApplication rec {
 
   dependencies = with python3Packages; [ coloredlogs ];
 
-  passthru.updateScript = nix-update-script { };
-
   meta = {
     description = "Command-line tool to run Windows apps with Wine and bwrap/bubblewrap isolation";
     homepage = "https://github.com/hartwork/sandwine";

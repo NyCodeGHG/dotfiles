@@ -51,8 +51,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
-
   meta = {
     description = "Sync TRaSH Guides + custom configs with Sonarr/Radarr";
     homepage = "https://github.com/raydak-labs/configarr";

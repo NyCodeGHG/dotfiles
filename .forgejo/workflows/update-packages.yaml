@@ -16,7 +16,13 @@ jobs:
       - name: List packages using nix-update-script
         id: list
         run: |
-          packages="$(nix eval --json .#packages.x86_64-linux --apply builtins.attrNames)"
+          packages="$(nix eval --impure --json .#packages.x86_64-linux --apply \
+            'let inherit (import <nixpkgs> { }) lib; in
+              lib.mapAttrsToList (package: value: {
+                inherit package;
+                nix-update-args = lib.concatStringsSep " " (value.passthru.nix-update-args or []);
+              })'
+          )"
           echo "$packages" | jq
           echo "packages=$packages" >> "$FORGEJO_OUTPUT"
 
@@ -25,9 +31,9 @@ jobs:
     if: needs.list.outputs.packages != '[]'
     strategy:
       fail-fast: false
-      matrix:
-        package: ${{ fromJSON(needs.list.outputs.packages) }}
+      matrix: ${{ fromJSON(needs.list.outputs.packages) }}
     uses: ./.forgejo/workflows/update-package.yaml
     with:
       package: ${{ matrix.package }}
-      nix-update-args: "--use-update-script"
+      nix-update-args: ${{ matrix.nix-update-args }}
+

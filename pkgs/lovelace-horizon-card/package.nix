@@ -40,8 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
-
   meta = {
     changelog = "https://github.com/rejuvenate/lovelace-horizon-card/releases/tag/v${finalAttrs.version}";
     description = "Sun Card successor: Visualize the position of the Sun over the horizon";

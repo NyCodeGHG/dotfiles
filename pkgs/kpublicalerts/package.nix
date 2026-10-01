@@ -43,5 +43,5 @@ stdenv.mkDerivation (finalAttrs: {
     kdbusaddons
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=master" ]; };
+  passthru.nix-update-args = [ "--version=branch=master" ];
 })

@@ -23,9 +23,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeCheckInputs = [ cacert ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version branch=main" ];
-  };
+  passthru.nix-update-args = [ "--version=branch=main" ];
 
   meta = {
     description = "";

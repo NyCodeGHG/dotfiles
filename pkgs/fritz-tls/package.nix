@@ -32,8 +32,6 @@ buildGo127Module (finalAttrs: {
     CGO_ENABLED = "0";
   };
 
-  passthru.updateScript = nix-update-script { };
-
   meta = {
     description = "Automate TLS certificate installation for AVM FRITZ!Box";
     homepage = "https://github.com/tisba/fritz-tls";
