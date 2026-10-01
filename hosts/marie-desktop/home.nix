@@ -6,7 +6,6 @@
 }:
 {
   imports = [
-    ../../config/home-manager/programs/claude.nix
     inputs.nix-index-database.homeModules.nix-index
   ];
   home.packages = with pkgs; [
