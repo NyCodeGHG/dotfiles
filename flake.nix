@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     nixpkgs-enocean.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
+    nixpkgs-iot-interceptor.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -349,6 +350,17 @@
             deployment.targetUser = null;
             nix.registry.nixpkgs.flake = nixpkgs;
             nixpkgs.buildPlatform = "x86_64-linux";
+          };
+          iot-interceptor = {
+            imports = [
+              ./hosts/iot-interceptor/configuration.nix
+              self.nixosModules.config
+            ];
+            deployment.targetHost = "iot-interceptor";
+            deployment.buildOnTarget = false;
+            deployment.targetUser = null;
+            nix.registry.nixpkgs.flake = inputs.nixpkgs-iot-interceptor;
+            nixpkgs.hostPlatform = "aarch64-linux";
           };
           enocean = {
             imports = [

@@ -1,0 +1,11 @@
+table inet mitm {
+    set ports {
+        typeof tcp dport
+        elements = { 2885 }
+    }
+
+    chain prerouting {
+        type nat hook prerouting priority dstnat;
+        iif wlan0 tcp dport @ports redirect to :8080;
+    }
+}
