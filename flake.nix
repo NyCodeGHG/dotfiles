@@ -358,7 +358,7 @@
             deployment.targetHost = "enocean";
             deployment.buildOnTarget = false;
             deployment.targetUser = null;
-            nix.registry.nixpkgs.flake = inputs.nixpkgs;
+            nix.registry.nixpkgs.flake = inputs.nixpkgs-enocean;
             nixpkgs.hostPlatform = "aarch64-linux";
           };
         };
