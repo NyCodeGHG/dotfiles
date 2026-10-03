@@ -6,6 +6,7 @@
   services.garage = {
     enable = true;
     package = pkgs.garage_2;
+    environmentFile = config.age.secrets.garage-env.path;
     settings = {
       db_engine = "sqlite";
       replication_factor = 1;
@@ -22,23 +23,12 @@
         api_bind_addr = "[::]:3903";
       };
     };
+    extraEnvironment = {
+      GARAGE_LOG_TO_JOURNALD = "true";
+    };
   };
 
-  systemd.services.garage = {
-    serviceConfig = {
-      LoadCredential = [
-        "rpc-secret:${config.age.secrets.garage-rpc-secret.path}"
-      ];
-      RuntimeDirectory = "garage";
-    };
-    environment = {
-      # Not enabled on 25.05
-      # GARAGE_LOG_TO_JOURNALD = "true";
-      GARAGE_RPC_SECRET_FILE = "%d/rpc-secret";
-      GARAGE_ALLOW_WORLD_READABLE_SECRETS = "true";
-    };
-  };
-  age.secrets.garage-rpc-secret.file = ../secrets/garage-rpc-secret.age;
+  age.secrets.garage-env.file = ./garage-env.age;
 
   services.nginx.virtualHosts."s3.marie.cologne" = {
     locations."/" = {

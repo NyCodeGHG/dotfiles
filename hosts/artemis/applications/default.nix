@@ -17,7 +17,7 @@
     ./anubis.nix
     ./iplookupd.nix
     # ./hydra.nix
-    ./garage.nix
+    ./garage
     ./thelounge.nix
     ./proxyt.nix
   ];
