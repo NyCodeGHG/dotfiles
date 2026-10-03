@@ -68,7 +68,12 @@
       ghostty.terminfo
     ];
 
-    security.sudo-rs.enable = lib.mkDefault true;
+    security = {
+      sudo-rs.enable = lib.mkDefault true;
+      polkit.enable = lib.mkDefault true;
+      account-utils.enable = lib.mkDefault true;
+      run0.enable = lib.mkDefault true;
+    };
 
     programs.command-not-found.enable = false;
 
@@ -121,8 +126,6 @@
       "nginx-config" =
         lib.mkIf config.services.nginx.enable "systemctl cat nginx | grep -oP '\\/nix\\/store\\/\\w+-nginx\\.conf' -m 1";
     };
-
-    security.polkit.enable = lib.mkDefault true;
 
     fonts.packages = [ pkgs.fira ];
 
