@@ -90,11 +90,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rust-skills = {
-      url = "github:leonardomso/rust-skills";
-      flake = false;
-    };
-
     enocean2mqtt = {
       url = "git+ssh://forgejo@git.marie.cologne/marie/enocean2mqtt.git";
       inputs.nixpkgs.follows = "nixpkgs";
