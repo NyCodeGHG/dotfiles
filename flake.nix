@@ -243,7 +243,6 @@
               { npr, ... }:
               {
                 nixpkgs = (lib.mapAttrsToList npr) (lib.importJSON ./patches/nixpkgs.json) ++ [
-                  ./patches/0001-tailscale-add-additional-upstream-units.patch
                 ];
               };
           };
