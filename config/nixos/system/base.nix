@@ -72,7 +72,14 @@
       sudo-rs.enable = lib.mkDefault true;
       polkit.enable = lib.mkDefault true;
       account-utils.enable = lib.mkDefault true;
-      run0.enable = lib.mkDefault true;
+      run0 = {
+        enable = lib.mkDefault true;
+        persistentAuth = {
+          enable = lib.mkDefault true;
+          enableRemote = lib.mkDefault true;
+        };
+        wheelNeedsPassword = config.security.sudo-rs.wheelNeedsPassword;
+      };
     };
 
     programs.command-not-found.enable = false;
