@@ -53,9 +53,11 @@
     resolved.enable = true;
   };
 
-  programs.kdeconnect.enable = true;
-
-  programs.ssh.enableAskPassword = true;
+  programs = {
+    kdeconnect.enable = true;
+    kde-pim.enable = false;
+    ssh.enableAskPassword = true;
+  };
 
   systemd.network.enable = lib.mkOverride 800 false;
 
