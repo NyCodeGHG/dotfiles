@@ -14,7 +14,7 @@ function is_pr_merged() {
   if [[ "$MERGE_COMMIT_SHA" != "null" ]]; then
     PR_STATUS="$(gh api "repos/$REPO/compare/$NIXPKGS_REV...$MERGE_COMMIT_SHA" --jq ".status")"
 
-    [[ "$PR_STATUS" != "ahead" ]]
+    [[ "$PR_STATUS" != "ahead" && "$PR_STATUS" != "diverged" ]]
     IS_MERGED=$?
   else
     IS_MERGED=1
