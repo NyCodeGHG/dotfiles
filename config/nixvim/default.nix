@@ -273,6 +273,7 @@ in
         clangd.enable = true;
         cssls.enable = true;
         clojure_lsp.enable = true;
+        ruby_lsp.enable = true;
 
         emmet_language_server.enable = true;
         biome = {
