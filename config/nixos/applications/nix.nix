@@ -14,13 +14,13 @@ in
   config = lib.mkIf config.uwumarie.profiles.nix {
     nix = {
       package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
+      nixPath = [ "nixpkgs=flake:nixpkgs" ];
       gc = {
         automatic = lib.mkDefault true;
         dates = "weekly";
         options = "--delete-older-than 14d";
       };
       settings = {
-        nix-path = [ "nixpkgs=flake:nixpkgs" ];
         substituters = lib.optionals (!ncroEnabled) [
           "https://cache.marie.cologne/marie"
         ];
