@@ -172,3 +172,44 @@ resource "cloudflare_dns_record" "fritzbox" {
   content = each.value
   ttl     = 1
 }
+
+locals {
+  caa_zones = [
+    {
+      name = data.cloudflare_zone.marie_cologne.name,
+      id   = data.cloudflare_zone.marie_cologne.zone_id,
+    },
+    {
+      name = data.cloudflare_zone.nycode_dev.name,
+      id   = data.cloudflare_zone.nycode_dev.zone_id,
+    }
+  ]
+  caa_entries = [{
+    flags = 0
+    tag   = "issue",
+    value = "letsencrypt.org"
+    },
+    {
+      flags = 0
+      tag   = "issuewild",
+      value = "letsencrypt.org"
+    }
+  ]
+  caa_records = {
+    for pair in setproduct(local.caa_zones, local.caa_entries) :
+    "${pair[0].name}/${pair[1].flags} ${pair[1].tag} ${pair[1].value}" => {
+      zone_id = pair[0].id
+      name    = pair[0].name
+      data    = pair[1]
+    }
+  }
+}
+
+resource "cloudflare_dns_record" "caa" {
+  for_each = local.caa_records
+  zone_id  = each.value.zone_id
+  name     = each.value.name
+  data     = each.value.data
+  type     = "CAA"
+  ttl      = 1
+}
