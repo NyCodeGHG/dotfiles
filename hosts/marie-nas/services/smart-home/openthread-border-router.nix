@@ -9,7 +9,7 @@
       baudRate = 460800;
       flowControl = true;
     };
-    rest.listenPort = 8083;
+    rest.listenPort = 8081;
     web.enable = true;
   };
 
