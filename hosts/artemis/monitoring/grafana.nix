@@ -12,6 +12,7 @@ in
     enable = true;
     declarativePlugins = with pkgs.grafanaPlugins; [
       victoriametrics-logs-datasource
+      prometheus
     ];
     settings = {
       server = {
