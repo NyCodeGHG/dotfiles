@@ -36,7 +36,7 @@
       availability.enabled = true;
       frontend = {
         enabled = true;
-        port = 8081;
+        port = 8084;
         url = "https://z2m.home.marie.cologne";
       };
     };
@@ -57,7 +57,7 @@
   services.nginx.virtualHosts."z2m.home.marie.cologne" = {
     useACMEHost = "z2m.home.marie.cologne";
     locations."/" = {
-      proxyPass = "http://127.0.0.1:8081";
+      proxyPass = "http://127.0.0.1:8084";
       proxyWebsockets = true;
     };
   };
