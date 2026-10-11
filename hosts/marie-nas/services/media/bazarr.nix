@@ -6,7 +6,7 @@
   };
   services.nginx.virtualHosts."bazarr.marie.cologne" = {
     locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString config.services.bazarr.listenPort}";
+      proxyPass = "http://127.0.0.1:${toString config.services.bazarr.settings.general.port}";
       proxyWebsockets = true;
     };
   };
