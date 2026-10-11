@@ -38,13 +38,24 @@
           RequiredForOnline = "routable";
         };
         networkConfig = {
-          DHCP = "ipv4";
+          DHCP = true;
           IPv6AcceptRA = true;
           MulticastDNS = true;
         };
-        dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
-        ipv6AcceptRAConfig.UseDNS = false;
+        dhcpV4Config = {
+          UseDNS = true;
+          UseNTP = true;
+          UseDomains = true;
+        };
+        dhcpV6Config = {
+          UseDNS = true;
+          UseNTP = true;
+          UseDomains = true;
+        };
+        ipv6AcceptRAConfig = {
+          UseDNS = true;
+          UseDomains = true;
+        };
       };
     };
     links = {
