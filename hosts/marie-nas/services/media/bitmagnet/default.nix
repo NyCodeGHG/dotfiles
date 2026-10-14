@@ -55,4 +55,11 @@
   networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 3333 ];
 
   age.secrets.tmdb-api-key.file = ./tmdb-api-key.age;
+
+  environment.etc."alloy/bitmagnet.alloy".text = ''
+    scrape_local "bitmagnet" {
+      name = "bitmagnet"
+      port = 3333
+    }
+  '';
 }
