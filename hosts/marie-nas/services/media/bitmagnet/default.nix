@@ -1,9 +1,9 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 {
   services.bitmagnet = {
     enable = true;
     settings = {
-      dht_crawler.scaling_factor = 4;
+      dht_crawler.scaling_factor = 3;
       classifier.flags.delete_content_types = [
         "xxx"
         "game"
@@ -21,6 +21,7 @@
       NetworkNamespacePath = "/var/run/netns/vpn";
       BindReadOnlyPaths = "${config.vpn.dns.resolvconf}:/etc/resolv.conf:norbind";
       InaccessiblePaths = "/run/nscd/socket";
+      EnvironmentFile = config.age.secrets.tmdb-api-key.path;
     };
   };
 
@@ -52,4 +53,6 @@
   };
 
   networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 3333 ];
+
+  age.secrets.tmdb-api-key.file = ./tmdb-api-key.age;
 }

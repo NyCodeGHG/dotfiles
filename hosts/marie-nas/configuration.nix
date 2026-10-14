@@ -45,7 +45,7 @@
 
     # Media
     ./services/media/bazarr.nix
-    ./services/media/bitmagnet.nix
+    ./services/media/bitmagnet
     ./services/media/prowlarr.nix
     ./services/media/radarr.nix
     ./services/media/sonarr.nix
