@@ -238,6 +238,7 @@
               { npr, ... }:
               {
                 nixpkgs = (lib.mapAttrsToList npr) (lib.importJSON ./patches/nixpkgs.json) ++ [
+                  ./patches/podman-6.patch
                 ];
               };
           };

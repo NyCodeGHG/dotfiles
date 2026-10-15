@@ -1,0 +1,632 @@
+diff --git a/nixos/doc/manual/release-notes/rl-2611.section.md b/nixos/doc/manual/release-notes/rl-2611.section.md
+index ba0ca25248..454487e1de 100644
+--- a/nixos/doc/manual/release-notes/rl-2611.section.md
++++ b/nixos/doc/manual/release-notes/rl-2611.section.md
+@@ -229,6 +229,49 @@ ## Backward Incompatibilities {#sec-release-26.11-incompatibilities}
+   Deployments running the server and worker in the same network namespace must also set at least the worker
+   `AUTHENTIK_LISTEN__HTTP` address so that the server and worker do not bind to the same address.
+ 
++- `podman` has been updated to Podman 6.
++  - BoltDB support was dropped. Podman has been automatically migrating to SQLite since 5.8.0 on system reboots.
++  - `iptables` support was dropped, Podman now unconditionally uses its `nftables` backend.
++    This has the side effect that dns in custom networks no longer work without a corresponding firewall rule.
++    This has been the case before when `networking.nftables.enable` was used.
++    Tools like `podman-compose` are also affected by this.
++
++    To mitigate this, add the following code to your NixOS configuration:
++    ```nix
++    {
++      # Do this for every custom network you created.
++      # Replace "podman1" with the interface name.
++      networking.firewall.interfaces."podman1" = {
++        allowedUDPPorts = [ 53 ];
++        allowedTCPPorts = [ 53 ];
++      };
++    }
++    ```
++    Alternatively a wildcard could also be used instead:
++    ```nix
++    {
++      # iptables firewall needs "podman+", nftables needs "podman*"
++      networking.firewall.interfaces."podman${if config.networking.nftables.enable then "*" else "+"}" = {
++        allowedUDPPorts = [ 53 ];
++        allowedTCPPorts = [ 53 ];
++      };
++    }
++    ```
++  - `netavark` is now the only supported networking backend.
++  - `slirp4netns` is no longer supported for rootless networking, `pasta` is now the default and only available option.
++    Existing containers using `slirp4netns` must be migrated using `podman system migrate`.
++  - Configuration was rewritten and now follows the [UAPI.6 Configuration Files Specification](https://uapi-group.org/specifications/specs/configuration_files_specification/).
++
++    See https://github.com/podman-container-tools/podman/blob/v6.0.0/contrib/design-docs/config-file-parsing.md.
++
++    Configuration files are now split into common, rootful and rootless versions.
++    `virtualisation.containers` was updated to support the new configuration format.
++
++    Configurations which set `graphroot` or `runroot` must move these from the common configuration to the rootful config
++    because rootless podman reads this configuration now as well.
++  - Upgrading with `nixos-rebuild boot` and rebooting is recommended, to complete the BoltDB migration and drop stale iptables rules.
++  - See upstream release notes: https://github.com/podman-container-tools/podman/blob/v6.1.2/RELEASE_NOTES.md#600
++
+ - `qt.platformTheme` no longer supports the `gtk2` option as GTK 2 had reached end-of-life and will be removed in Nixpkgs.
+ 
+ - `services.paperless` has been updated to paperless-ngx 3.0, a major release; review the [upstream v3 migration guide](https://docs.paperless-ngx.com/migration-v3/) before upgrading.
+diff --git a/nixos/modules/virtualisation/containers.nix b/nixos/modules/virtualisation/containers.nix
+index 4b0c59846d..41d609b638 100644
+--- a/nixos/modules/virtualisation/containers.nix
++++ b/nixos/modules/virtualisation/containers.nix
+@@ -9,21 +9,65 @@
+ 
+   inherit (lib) literalExpression mkOption types;
+ 
+-  oldRegistriesOptionsUsed = lib.any (x: x != [ ]) (
+-    with cfg.registries;
+-    [
+-      search
+-      insecure
+-      block
+-    ]
+-  );
+-
+   toml = pkgs.formats.toml { };
++  json = pkgs.formats.json { };
++  mkOptions = file: {
++    rootless.settings = mkOption {
++      type = toml.type;
++      default = { };
++      description = "rootless ${file} configuration";
++    };
++    rootful.settings = mkOption {
++      type = toml.type;
++      default = { };
++      description = "rootful ${file} configuration";
++    };
++    settings = mkOption {
++      type = toml.type;
++      default = { };
++      description = "base ${file} configuration";
++    };
++  };
+ in
+ {
+   meta = {
+     teams = [ lib.teams.podman ];
+   };
++  imports = [
++    (lib.mkRemovedOptionModule [
++      "virtualisation"
++      "containers"
++      "containersConf"
++      "cniPlugins"
++    ] "Podman 6.0 removed support for CNI networking.")
++    (lib.mkRemovedOptionModule
++      [
++        "virtualisation"
++        "containers"
++        "registries"
++        "search"
++      ]
++      "Podman 6.0 dropped support for the deprecated V1 registry.conf format. Migrate to virtualisation.containers.registries.settings."
++    )
++    (lib.mkRemovedOptionModule
++      [
++        "virtualisation"
++        "containers"
++        "registries"
++        "insecure"
++      ]
++      "Podman 6.0 dropped support for the deprecated V1 registry.conf format. Migrate to virtualisation.containers.registries.settings."
++    )
++    (lib.mkRemovedOptionModule
++      [
++        "virtualisation"
++        "containers"
++        "registries"
++        "block"
++      ]
++      "Podman 6.0 dropped support for the deprecated V1 registry.conf format. Migrate to virtualisation.containers.registries.settings."
++    )
++  ];
+ 
+   options.virtualisation.containers = {
+ 
+@@ -41,90 +85,33 @@
+       description = "Enable the OCI seccomp BPF hook";
+     };
+ 
+-    containersConf.settings = mkOption {
++    shortnames.enable = mkOption {
++      type = types.bool;
++      default = true;
++      description = ''
++        Enable the usage of a collection of common aliases for fully qualified images.
++        See https://github.com/containers/shortnames.
++      '';
++    };
++
++    containersConf = mkOptions "containers.conf";
++    storage = mkOptions "storage.conf";
++
++    registries.settings = mkOption {
+       type = toml.type;
+       default = { };
+-      description = "containers.conf configuration";
+-    };
+-
+-    containersConf.cniPlugins = mkOption {
+-      type = types.listOf types.package;
+-      defaultText = literalExpression ''
+-        [
+-          pkgs.cni-plugins
+-        ]
+-      '';
+-      example = literalExpression ''
+-        [
+-          pkgs.cniPlugins.dnsname
+-        ]
+-      '';
+       description = ''
+-        CNI plugins to install on the system.
++        registries.conf configuration.
++
++        Examine [containers-registries.conf(5)] for more information about the format.
++
++          [containers-registries.conf(5)]: https://github.com/containers/image/blob/main/docs/containers-registries.conf.5.md
+       '';
+     };
+ 
+-    storage.settings = mkOption {
+-      type = toml.type;
+-      description = "storage.conf configuration";
+-    };
+-
+-    registries = {
+-      # TODO: remove those options in 26.11
+-      search = mkOption {
+-        visible = false;
+-        type = types.listOf types.str;
+-        default = [ ];
+-        description = ''
+-          List of repositories to search.
+-
+-          Deprecated, examine {option}`virtualisation.containers.registries.settings` instead.
+-        '';
+-      };
+-
+-      insecure = mkOption {
+-        default = [ ];
+-        visible = false;
+-        type = types.listOf types.str;
+-        description = ''
+-          List of insecure repositories.
+-
+-          Deprecated, examine {option}`virtualisation.containers.registries.settings` instead.
+-        '';
+-      };
+-
+-      block = mkOption {
+-        default = [ ];
+-        visible = false;
+-        type = types.listOf types.str;
+-        description = ''
+-          List of blocked repositories.
+-
+-          Deprecated, examine {option}`virtualisation.containers.registries.settings` instead.
+-        '';
+-      };
+-
+-      settings = mkOption {
+-        type = toml.type;
+-        default = {
+-          registry = [
+-            { location = "docker.io"; }
+-            { location = "quay.io"; }
+-          ];
+-        };
+-        description = ''
+-          repositories.conf configuration.
+-
+-          Examine [containers-registries.conf(5)] for more information about the format.
+-
+-            [containers-registries.conf(5)]: https://github.com/containers/image/blob/main/docs/containers-registries.conf.5.md
+-        '';
+-      };
+-    };
+-
+     policy = mkOption {
+       default = { };
+-      type = types.attrs;
++      type = json.type;
+       example = literalExpression ''
+         {
+           default = [ { type = "insecureAcceptAnything"; } ];
+@@ -144,49 +131,83 @@
+ 
+   };
+ 
+-  config = lib.mkIf cfg.enable {
+-    warnings = lib.optional oldRegistriesOptionsUsed "the options virtualisation.containers.registries.search / insecure / block are deprecated. See virtualisation.containers.registries.settings instead.";
+-
+-    virtualisation.containers.registries.settings = lib.mkIf oldRegistriesOptionsUsed {
+-      registries = {
+-        block.registries = cfg.registries.block;
+-        insecure.registries = cfg.registries.insecure;
+-        search.registries = cfg.registries.search;
+-      };
+-    };
+-
+-    virtualisation.containers.containersConf.cniPlugins = [ pkgs.cni-plugins ];
+-
+-    virtualisation.containers.containersConf.settings = {
+-      network.cni_plugin_dirs = map (p: "${lib.getBin p}/bin") cfg.containersConf.cniPlugins;
+-      engine = {
+-        init_path = "${pkgs.catatonit}/bin/catatonit";
+-      }
+-      // lib.optionalAttrs cfg.ociSeccompBpfHook.enable {
+-        hooks_dir = [ config.boot.kernelPackages.oci-seccomp-bpf-hook ];
+-      };
+-    };
+-
+-    virtualisation.containers.storage.settings.storage = {
+-      driver = lib.mkDefault "overlay";
+-      graphroot = lib.mkDefault "/var/lib/containers/storage";
+-      runroot = lib.mkDefault "/run/containers/storage";
+-    };
+-
+-    environment.etc = {
+-      "containers/containers.conf".source = toml.generate "containers.conf" cfg.containersConf.settings;
+-
+-      "containers/storage.conf".source = toml.generate "storage.conf" cfg.storage.settings;
+-
+-      "containers/registries.conf".source = toml.generate "registries.conf" cfg.registries.settings;
+-
+-      "containers/policy.json".source =
+-        if cfg.policy != { } then
+-          pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
+-        else
+-          "${pkgs.skopeo.policy}/default-policy.json";
+-    };
+-
+-  };
+-
++  config =
++    let
++      dropIn =
++        name: scope: settings:
++        let
++          path = "${name}${lib.optionalString (scope != "") ".${scope}"}.conf";
++          filename = if scope == "" then "00-nixos.conf" else "10-nixos-${scope}.conf";
++        in
++        lib.optionalAttrs (settings != { }) {
++          "containers/${path}.d/${filename}".source = toml.generate path settings;
++        };
++    in
++    lib.mkIf cfg.enable {
++      assertions =
++        let
++          attr = name: default: lib.attrByPath [ "network" name ] default cfg.containersConf.settings;
++        in
++        [
++          {
++            assertion = (attr "default_rootless_network_cmd" "pasta") == "pasta";
++            message = "Podman 6.0 only supports pasta for rootless networking.";
++          }
++          {
++            assertion = (attr "firewall_driver" "nftables") != "iptables";
++            message = "Podman 6.0 no longer supports iptables as a firewall driver. Use nftables instead.";
++          }
++          {
++            assertion = (attr "network_backend" "netavark") == "netavark";
++            message = "Podman 6.0 no longer supports network backends other than netavark.";
++          }
++        ];
++
++      warnings =
++        lib.optional (lib.hasAttrByPath [ "storage" "graphroot" ] cfg.storage.settings) ''
++          virtualisation.containers.storage.settings.storage.graphroot now applies to both rootful and rootless podman and will likely not work as intended.
++          Use virtualisation.containers.storage.{rootful,rootless}.settings.storage.graphroot instead.
++        ''
++        ++ lib.optional (lib.hasAttrByPath [ "storage" "runroot" ] cfg.storage.settings) ''
++          virtualisation.containers.storage.settings.storage.runroot now applies to both rootful and rootless podman and will likely not work as intended.
++          Use virtualisation.containers.storage.{rootful,rootless}.settings.storage.runroot instead.
++        '';
++
++      virtualisation.containers = {
++        containersConf.settings = {
++          engine = lib.mkIf cfg.ociSeccompBpfHook.enable {
++            hooks_dir = [ config.boot.kernelPackages.oci-seccomp-bpf-hook ];
++          };
++          containers = {
++            default_sysctls = lib.mkDefault [ "net.ipv4.ping_group_range=0 0" ];
++          };
++        };
++        storage = {
++          settings.storage = {
++            driver = lib.mkDefault "overlay";
++            options.overlay.mountopt = lib.mkDefault "nodev";
++          };
++        };
++      };
++
++      environment.etc = lib.mkMerge [
++        (dropIn "containers" "" cfg.containersConf.settings)
++        (dropIn "containers" "rootful" cfg.containersConf.rootful.settings)
++        (dropIn "containers" "rootless" cfg.containersConf.rootless.settings)
++        (dropIn "storage" "" cfg.storage.settings)
++        (dropIn "storage" "rootful" cfg.storage.rootful.settings)
++        (dropIn "storage" "rootless" cfg.storage.rootless.settings)
++        (dropIn "registries" "" cfg.registries.settings)
++        {
++          "containers/policy.json".source =
++            if cfg.policy != { } then
++              json.generate "policy.json" cfg.policy
++            else
++              "${pkgs.skopeo.policy}/default-policy.json";
++        }
++        (lib.mkIf cfg.shortnames.enable {
++          "containers/registries.conf.d/000-shortnames.conf".source = pkgs.containers-shortnames.shortnames;
++        })
++      ];
++    };
+ }
+diff --git a/nixos/modules/virtualisation/podman/default.nix b/nixos/modules/virtualisation/podman/default.nix
+index 248d89af41..fc8e825a6a 100644
+--- a/nixos/modules/virtualisation/podman/default.nix
++++ b/nixos/modules/virtualisation/podman/default.nix
+@@ -183,20 +183,7 @@
+                 config.systemd.package # To allow systemd-based container healthchecks
+               ]
+               ++ lib.optional (config.boot.supportedFilesystems.zfs or false) config.boot.zfs.package;
+-            extraRuntimes =
+-              cfg.extraRuntimes
+-              ++
+-                lib.optionals
+-                  (
+-                    config.virtualisation.containers.containersConf.settings.network.default_rootless_network_cmd or ""
+-                    == "slirp4netns"
+-                  )
+-                  (
+-                    with pkgs;
+-                    [
+-                      slirp4netns
+-                    ]
+-                  );
++            inherit (cfg) extraRuntimes;
+           };
+       };
+ 
+@@ -252,19 +239,14 @@
+ 
+       # containers cannot reach aardvark-dns otherwise
+       networking.firewall = lib.mkIf (config.networking.firewall.backend != "firewalld") {
+-        interfaces.${network_interface}.allowedUDPPorts = lib.mkIf dns_enabled [ 53 ];
+-      };
+-
+-      virtualisation.containers = {
+-        enable = true; # Enable common /etc/containers configuration
+-        containersConf.settings = {
+-          network = {
+-            network_backend = "netavark";
+-            firewall_driver = lib.mkIf config.networking.nftables.enable "nftables";
+-          };
++        interfaces.${network_interface} = {
++          allowedUDPPorts = lib.mkIf dns_enabled [ 53 ];
++          allowedTCPPorts = lib.mkIf dns_enabled [ 53 ];
+         };
+       };
+ 
++      virtualisation.containers.enable = true;
++
+       systemd.packages = [ cfg.package ];
+ 
+       systemd.services.podman-prune = {
+diff --git a/nixos/tests/podman/default.nix b/nixos/tests/podman/default.nix
+index 64ca81833a..7862851a65 100644
+--- a/nixos/tests/podman/default.nix
++++ b/nixos/tests/podman/default.nix
+@@ -74,6 +74,14 @@
+             isNormalUser = true;
+           };
+         };
++      docker_compat =
++        { pkgs, ... }:
++        {
++          virtualisation.podman = {
++            enable = true;
++            dockerCompat = true;
++          };
++        };
+     };
+ 
+     testScript = ''
+@@ -90,6 +98,7 @@
+       rootless.wait_for_unit("sockets.target")
+       dns.wait_for_unit("sockets.target")
+       docker.wait_for_unit("sockets.target")
++      docker_compat.wait_for_unit("sockets.target")
+       start_all()
+ 
+       with subtest("Run container as root with runc"):
+@@ -251,6 +260,15 @@
+           rootless.wait_until_succeeds(su_cmd("podman ps | grep quadlet"), timeout=20)
+           rootless.systemctl("stop quadlet", "alice")
+ 
++      with subtest("Docker compat works"):
++          docker_compat.succeed("tar cv --files-from /dev/null | docker import - scratchimg")
++          docker_compat.succeed(
++            "docker run -d --name=sleeping -v /nix/store:/nix/store -v /run/current-system/sw/bin:/bin localhost/scratchimg /bin/sleep 10"
++          )
++          docker_compat.succeed("docker ps | grep sleeping")
++          docker_compat.succeed("podman ps | grep sleeping")
++          docker_compat.succeed("docker stop sleeping")
++          docker_compat.succeed("docker rm sleeping")
+       # TODO: add docker-compose test
+ 
+     '';
+diff --git a/pkgs/by-name/bu/buildah/package.nix b/pkgs/by-name/bu/buildah/package.nix
+index a26c2e1563..c7d22caaad 100644
+--- a/pkgs/by-name/bu/buildah/package.nix
++++ b/pkgs/by-name/bu/buildah/package.nix
+@@ -9,10 +9,9 @@
+   runc, # Default container runtime
+   crun, # Container runtime (default with cgroups v2 for podman/buildah)
+   conmon, # Container runtime monitor
+-  slirp4netns, # User-mode networking for unprivileged namespaces
+   fuse-overlayfs, # CoW for images, much faster than default vfs
+   util-linuxMinimal, # nsenter
+-  iptables,
++  nftables,
+   aardvark-dns,
+   netavark,
+   passt,
+@@ -26,10 +25,9 @@
+       runc
+       crun
+       conmon
+-      slirp4netns
+       fuse-overlayfs
+       util-linuxMinimal
+-      iptables
++      nftables
+     ]
+     ++ extraPackages
+   );
+diff --git a/pkgs/by-name/co/containers-shortnames/package.nix b/pkgs/by-name/co/containers-shortnames/package.nix
+new file mode 100644
+index 0000000000..fb878af94f
+--- /dev/null
++++ b/pkgs/by-name/co/containers-shortnames/package.nix
+@@ -0,0 +1,42 @@
++{
++  lib,
++  stdenvNoCC,
++  fetchFromGitHub,
++  nix-update-script,
++}:
++
++stdenvNoCC.mkDerivation (finalAttrs: {
++  pname = "containers-shortnames";
++  version = "2025.03.19";
++
++  __structuredAttrs = true;
++  strictDeps = true;
++
++  src = fetchFromGitHub {
++    owner = "containers";
++    repo = "shortnames";
++    tag = "v${finalAttrs.version}";
++    hash = "sha256-Rq1mMZFo8Eyqxcp+SBa/zrE7OZfbjblfAGPBumjuikk=";
++  };
++
++  installPhase = ''
++    runHook preInstall
++
++    install -Dm644 shortnames.conf $out/share/containers/registries.conf.d/000-shortnames.conf
++
++    runHook postInstall
++  '';
++
++  passthru = {
++    updateScript = nix-update-script { };
++    shortnames = "${finalAttrs.finalPackage}/share/containers/registries.conf.d/000-shortnames.conf";
++  };
++
++  meta = {
++    description = "Registry alias names for shortnames to fully specified container image names";
++    homepage = "https://github.com/containers/shortnames";
++    license = lib.licenses.asl20;
++    teams = [ lib.teams.podman ];
++    maintainers = [ lib.maintainers.marie ];
++  };
++})
+diff --git a/pkgs/by-name/ne/netavark/package.nix b/pkgs/by-name/ne/netavark/package.nix
+index cdccae3398..faae559366 100644
+--- a/pkgs/by-name/ne/netavark/package.nix
++++ b/pkgs/by-name/ne/netavark/package.nix
+@@ -11,16 +11,16 @@
+ 
+ rustPlatform.buildRustPackage (finalAttrs: {
+   pname = "netavark";
+-  version = "1.17.2";
++  version = "2.1.0";
+ 
+   src = fetchFromGitHub {
+     owner = "containers";
+     repo = "netavark";
+     rev = "v${finalAttrs.version}";
+-    hash = "sha256-FdJNcHYK6Jc1dNqcUr5Ne8dv1dzlHRhcjoldiihrov8=";
++    hash = "sha256-nTmbPKTIne4iIrX5KPWTkFc+SD1Th9/sOciAzThin9M=";
+   };
+ 
+-  cargoHash = "sha256-wp/1lWc3OfNQt74m8DtpuFO/Mf07+M7numq2FMEkeGo=";
++  cargoHash = "sha256-6ZYVQVLm9b71s5FPgTSzDmscEVLE9ZxKCg+4R+0hkUk=";
+ 
+   nativeBuildInputs = [
+     installShellFiles
+diff --git a/pkgs/by-name/po/podman/package.nix b/pkgs/by-name/po/podman/package.nix
+index 2cc4690a53..985dd2ab9b 100644
+--- a/pkgs/by-name/po/podman/package.nix
++++ b/pkgs/by-name/po/podman/package.nix
+@@ -26,7 +26,6 @@
+   fuse-overlayfs,
+   util-linuxMinimal,
+   nftables,
+-  iptables,
+   iproute2,
+   catatonit,
+   gvproxy,
+@@ -38,19 +37,20 @@
+   writableTmpDirAsHomeHook,
+   coreutils,
+   runtimeShell,
++  fetchpatch,
+ }:
+ let
+   systemdLibs' = systemdLibs.override { withCompression = true; };
+ in
+ buildGoModule (finalAttrs: {
+   pname = "podman";
+-  version = "5.8.8";
++  version = "6.1.4";
+ 
+   src = fetchFromGitHub {
+     owner = "podman-container-tools";
+     repo = "podman";
+     tag = "v${finalAttrs.version}";
+-    hash = "sha256-fl2/HyUh2EBbSw6O50H04Bltu2ZNF1Fay9XNNzKVpSE=";
++    hash = "sha256-RTPxNoKRqFGDFEYHUwPbsNAAZqNfBXbetfphxrwn6eM=";
+   };
+ 
+   patches = [
+@@ -60,6 +60,13 @@
+ 
+     # we intentionally don't build and install the helper so we shouldn't display messages to users about it
+     ./rm-podman-mac-helper-msg.patch
++    # Fix `podman completion` in the build sandbox
++    # https://github.com/podman-container-tools/podman/pull/29832
++    (fetchpatch {
++      name = "fix-podman-completion.patch";
++      url = "https://github.com/podman-container-tools/podman/commit/7cef788844bdaae01ca672a55698d40428644eb4.patch";
++      hash = "sha256-CAECXYRFyOF4aIc9qIZQceiz5vE/gFGyitjPI48IhYU=";
++    })
+   ];
+ 
+   vendorHash = null;
+@@ -165,7 +172,6 @@
+       lib.optionals stdenv.hostPlatform.isLinux [
+         fuse-overlayfs
+         util-linuxMinimal
+-        iptables
+         iproute2
+         nftables
+       ]
+@@ -184,7 +190,7 @@
+         ]
+         ++ lib.optionals stdenv.hostPlatform.isLinux [
+           aardvark-dns # dns
+-          catatonit # added here for the pause image and also set in `containersConf` for `init_path`
++          catatonit # added here for the pause image
+           netavark # networking
+           passt # rootless networking
+           conmon # runtime monitor
