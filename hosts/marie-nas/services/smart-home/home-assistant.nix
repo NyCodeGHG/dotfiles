@@ -73,6 +73,29 @@
         detect_non_ha_changes = true;
       };
       mqtt = { };
+      rest = [
+        {
+          resource = "https://metrics.artemis.marie.cologne/api/v1/query";
+          scan_interval = 30;
+          params.query = ''
+            last_over_time(fritz_wan_ipv6_prefix_info{hostname="marie-nas",instance="marie-nas",job="fritz_exporter"}[5m])
+          '';
+          sensor = [
+            {
+              name = "WAN IPv6 Prefix";
+              unique_id = "wan_ipv6_prefix";
+              value_template = ''
+                {% set r = value_json.data.result %}
+                {% if r | length > 0 %}
+                  {{ r[0].metric.prefix }}/{{ r[0].metric.prefix_length }}
+                {% else %}
+                  unknown
+                {% endif %}
+              '';
+            }
+          ];
+        }
+      ];
     };
     customComponents = with pkgs.home-assistant-custom-components; [
       adaptive_lighting
