@@ -107,6 +107,18 @@ in
           :with_pair(cond.not_after_text('"')),
       })
 
+      local function after_binding_eq(opts)
+        local before = opts.line:sub(1, opts.col - 1)
+        return before:match("=%s*$") ~= nil
+            or before:match("=%s*rec%s*$") ~= nil
+      end
+
+      autopairs.add_rules({
+        Rule("{", "};", "nix"):with_pair(after_binding_eq),
+        Rule("{", "}", "nix"):with_pair(function(opts)
+          return not after_binding_eq(opts)
+        end),
+      })
     ''
     + ''
       dofile("${./keymaps.lua}")
