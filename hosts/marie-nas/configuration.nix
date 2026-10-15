@@ -31,6 +31,7 @@
     ./services/harmonia
     ./services/paperless
     ./services/fritz-tls
+    ./services/fritz-exporter
     ./monitoring.nix
 
     # Smart Home
