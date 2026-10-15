@@ -12,7 +12,13 @@ lib.mkIf config.uwumarie.profiles.jujutsu {
         name = "Marie Ramlow";
         email = "marie@marie.cologne";
       };
-      ui.diff-formatter = "difft";
+      ui = {
+        diff-formatter = "difft";
+        editor = [
+          "nvim"
+          "+$line"
+        ];
+      };
       aliases = {
         /*nixfmt:disable*/
         gc = [ "git" "clone" "--colocate" ];
