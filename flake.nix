@@ -196,7 +196,12 @@
             };
             addShadowWarnings = lib.mapAttrs (
               name: value:
-              lib.warnIf (lib.hasAttr name prev && value != prev.${name})
+              lib.warnIf
+                (
+                  lib.hasAttr name prev
+                  && value != prev.${name}
+                  && lib.versionOlder value.version prev.${name}.version
+                )
                 "${name} is shadowed by the overlay. Overlay version: ${value.version}, Nixpkgs version: ${
                   prev.${name}.version or "unknown"
                 }"
