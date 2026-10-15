@@ -1,17 +1,10 @@
 {
   pkgs,
-  lib,
   ...
 }:
 {
   services.home-assistant = {
     enable = true;
-    package = pkgs.home-assistant.overrideAttrs (prev: {
-      patches = (prev.patches or [ ]) ++ [
-        ../../../../patches/hass-ipv6-prefix.patch
-        ../../../../patches/hass-nixos-brand.patch
-      ];
-    });
     extraComponents = [
       # Components required to complete the onboarding
       "analytics"
