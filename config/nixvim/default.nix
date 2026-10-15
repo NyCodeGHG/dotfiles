@@ -217,7 +217,7 @@ in
       enable = true;
       folding.enable = tui;
       highlight.enable = tui;
-      nixvimInjections = false;
+      nixvimInjections = true;
     };
 
     # Languages
