@@ -298,6 +298,7 @@ in
     conjure.enable = tui;
     fidget.enable = tui;
     auto-save.enable = tui;
+    lspkind.enable = tui;
     blink-cmp = lib.mkIf tui {
       enable = true;
       settings = {
