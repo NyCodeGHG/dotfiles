@@ -13,7 +13,7 @@ in
     ./options.nix
     ./dap.nix
   ];
-  colorschemes.oxocarbon.enable = tui;
+  colorschemes.kanagawa.enable = true;
 
   globals = {
     mapleader = " ";
